@@ -8,13 +8,14 @@
       "hash": "c5101c07762251edc82caad9e8a39d51b1229c31"
     },
     "com.microsoft.mixedreality.openxr": {
-      "version": "file:MixedReality/com.microsoft.mixedreality.openxr-1.5.1.tgz",
+      "version": "file:MixedReality/com.microsoft.mixedreality.openxr-1.9.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
         "com.unity.xr.arfoundation": "4.1.7",
         "com.unity.xr.management": "4.2.0",
-        "com.unity.xr.openxr": "1.4.2"
+        "com.unity.xr.openxr": "1.7.0",
+        "com.unity.xr.core-utils": "2.1.0"
       }
     },
     "com.microsoft.mixedreality.toolkit.examples": {
@@ -42,6 +43,12 @@
         "com.microsoft.mixedreality.toolkit.standardassets": "2.8.3"
       }
     },
+    "com.microsoft.mixedreality.toolkit.gpustats": {
+      "version": "file:MixedReality/com.microsoft.mixedreality.toolkit.gpustats-1.0.3.tgz",
+      "depth": 0,
+      "source": "local-tarball",
+      "dependencies": {}
+    },
     "com.microsoft.mixedreality.toolkit.micstream": {
       "version": "file:MixedReality/com.microsoft.mixedreality.toolkit.micstream-1.0.0.tgz",
       "depth": 0,
@@ -62,12 +69,20 @@
         "com.unity.textmeshpro": "2.1.4"
       }
     },
-    "com.microsoft.mixedreality.toolkit.tools": {
-      "version": "file:MixedReality/com.microsoft.mixedreality.toolkit.tools-2.8.2.tgz",
+    "com.microsoft.mixedreality.toolkit.testutilities": {
+      "version": "file:MixedReality/com.microsoft.mixedreality.toolkit.testutilities-2.8.3.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
-        "com.microsoft.mixedreality.toolkit.foundation": "2.8.2"
+        "com.microsoft.mixedreality.toolkit.foundation": "2.8.3"
+      }
+    },
+    "com.microsoft.mixedreality.toolkit.tools": {
+      "version": "file:MixedReality/com.microsoft.mixedreality.toolkit.tools-2.8.3.tgz",
+      "depth": 0,
+      "source": "local-tarball",
+      "dependencies": {
+        "com.microsoft.mixedreality.toolkit.foundation": "2.8.3"
       }
     },
     "com.microsoft.spatialaudio.spatializer.unity": {
@@ -145,8 +160,8 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.inputsystem": {
-      "version": "1.4.1",
-      "depth": 1,
+      "version": "1.4.4",
+      "depth": 2,
       "source": "registry",
       "dependencies": {
         "com.unity.modules.uielements": "1.0.0"
@@ -295,6 +310,15 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.unity.xr.core-utils": {
+      "version": "2.1.0",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.xr": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.xr.legacyinputhelpers": {
       "version": "2.1.9",
       "depth": 1,
@@ -319,13 +343,13 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.xr.openxr": {
-      "version": "1.5.1",
-      "depth": 0,
+      "version": "1.7.0",
+      "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.xr.management": "4.0.1",
         "com.unity.xr.legacyinputhelpers": "2.1.2",
-        "com.unity.inputsystem": "1.4.1"
+        "com.unity.inputsystem": "1.4.4"
       },
       "url": "https://packages.unity.com"
     },
