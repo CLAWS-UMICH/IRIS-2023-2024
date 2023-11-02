@@ -3,15 +3,34 @@ using UnityEngine;
 
 public class AstronautInstance : MonoBehaviour
 {
+    public static AstronautInstance instance { get; private set; }
+    [SerializeField] private Astronaut _user;
 
-    public Astronaut astronautInstance;
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        astronautInstance = new Astronaut();
-        astronautInstance.currently_navigating = false;
-        astronautInstance.inDanger = false;
-        astronautInstance.color = "Blue";
+        if (instance == null)
+        {
+            instance = this;
+        }
+            
     }
 
+    // STATIC INTERFACE
+    public static Astronaut User
+    {
+        get
+        {
+            return instance._user;
+        }
+        set
+        {
+            instance._user = value;
+        }
+    }
+
+    void Start()
+    {
+        _user.currently_navigating = false;
+        _user.inDanger = false;
+    }
 }

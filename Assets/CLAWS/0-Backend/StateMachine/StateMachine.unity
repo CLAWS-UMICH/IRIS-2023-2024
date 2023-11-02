@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 6770043}
   - component: {fileID: 6770046}
   m_Layer: 5
-  m_Name: RedButton
+  m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -366,7 +366,7 @@ GameObject:
   - component: {fileID: 870933341}
   - component: {fileID: 870933344}
   m_Layer: 5
-  m_Name: BlueButton
+  m_Name: CreatingWaypoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -718,7 +718,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cfc35c825cca7746be0648b6dbee7f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrScreen: 1
+  CurrScreen: 0
 --- !u!1 &2005587198
 GameObject:
   m_ObjectHideFlags: 0
@@ -800,7 +800,7 @@ GameObject:
   - component: {fileID: 2138931712}
   - component: {fileID: 2138931715}
   m_Layer: 5
-  m_Name: GreenButton
+  m_Name: Vitals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

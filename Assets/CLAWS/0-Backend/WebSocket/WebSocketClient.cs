@@ -32,14 +32,6 @@ public class WebSocketClient : MonoBehaviour
         ws.Connect();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SendMessage("Location", astroInstance.astronautInstance.location);
-        }
-    }
-
     private void OnDestroy()
     {
         if (ws != null && ws.IsAlive)
@@ -235,6 +227,6 @@ public class MultiplayerData
     public int id;
     public string type;
     public string use;
-    public FellowAstronauts data;
+    public FellowAstronaut data;
     public List<string> dataToChange;
 }

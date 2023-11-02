@@ -6,15 +6,19 @@ using UnityEngine;
 [System.Serializable]
 public enum Screens
 {
-    Red,
-    Blue,
-    Green,
+    Menu,
+    CreatingWaypoint,
+    Vitals,
+    Map_3D,
+    Map_2D,
+    Navigation,
+    Tasklist,
 }
 
 public class StateMachine : MonoBehaviour
 {
 
-    public Screens CurrScreen = Screens.Blue;
+    public Screens CurrScreen = Screens.Menu;
     private Subscription<ScreenChangedEvent> screenChangedSubscription; // Store the subscription
 
     private void Start()
@@ -46,8 +50,13 @@ public class StateMachine : MonoBehaviour
     [ContextMenu("CloseAll")]
     public void CloseAll()
     {
-        EventBus.Publish(new CloseEvent(Screens.Red));
-        EventBus.Publish(new CloseEvent(Screens.Green));
+        EventBus.Publish(new CloseEvent(Screens.CreatingWaypoint));
+        EventBus.Publish(new CloseEvent(Screens.Vitals));
+        EventBus.Publish(new CloseEvent(Screens.Map_3D));
+        EventBus.Publish(new CloseEvent(Screens.Map_2D));
+        EventBus.Publish(new CloseEvent(Screens.Navigation));
+        EventBus.Publish(new CloseEvent(Screens.Tasklist));
+        CurrScreen = Screens.Menu;
     }
 }
 

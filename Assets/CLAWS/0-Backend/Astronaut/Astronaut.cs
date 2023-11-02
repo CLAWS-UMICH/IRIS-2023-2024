@@ -17,5 +17,5 @@ public class Astronaut
     public bool inDanger;
     public string color;
 
-    public FellowAstronauts FellowAstronautsData;
+    public FellowAstronaut FellowAstronautsData;
 }

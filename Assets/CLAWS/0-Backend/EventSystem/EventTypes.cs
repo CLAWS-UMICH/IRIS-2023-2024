@@ -211,14 +211,44 @@ public class TasksDeletedEvent
 }
 
 // Mulitplayer
-public class FellowAstronautDataChangeEvent
+public class FellowAstronautLocationDataChangeEvent
 {
     public FellowAstronaut AstronautToChange { get; private set; }
-    public List<string> ChangedParameters { get; private set; }
 
-    public FellowAstronautDataChangeEvent(FellowAstronaut astronautToChange, List<string> changedParameters)
+    public FellowAstronautLocationDataChangeEvent(FellowAstronaut astronautToChange)
     {
         AstronautToChange = astronautToChange;
-        ChangedParameters = changedParameters;
     }
 }
+
+public class FellowAstronautVitalsDataChangeEvent
+{
+    public FellowAstronaut AstronautToChange { get; private set; }
+
+    public FellowAstronautVitalsDataChangeEvent(FellowAstronaut astronautToChange)
+    {
+        AstronautToChange = astronautToChange;
+    }
+}
+
+public class FellowAstronautBreadcrumbsDataChangeEvent
+{
+    public FellowAstronaut AstronautToChange { get; private set; }
+
+    public FellowAstronautBreadcrumbsDataChangeEvent(FellowAstronaut astronautToChange)
+    {
+        AstronautToChange = astronautToChange;
+    }
+}
+
+public class FellowAstronautNavigatingDataChangeEvent
+{
+    public FellowAstronaut AstronautToChange { get; private set; }
+
+    public FellowAstronautNavigatingDataChangeEvent(FellowAstronaut astronautToChange)
+    {
+        AstronautToChange = astronautToChange;
+    }
+}
+
+

@@ -36,12 +36,34 @@ public class Message
 [System.Serializable]
 public class Vitals
 {
-    public int heart_rate;
-    public float oxygen;
-    public float suit_temp;
-    public float blood_pressure;
-    // ...
-
+    public int room_id;
+    public bool is_running;
+    public bool is_paused;
+    public float time;
+    public string timer;              // hh:mm:ss
+    public string started_at;         // hh:mm:ss
+    public float primary_oxygen;
+    public float secondary_oxygen;
+    public float suit_pressure;
+    public float sub_pressure;
+    public float o2_pressure;
+    public float o2_rate;
+    public float h2o_gas_pressure;
+    public float h2o_liquid_pressure;
+    public float sop_pressure;
+    public float sop_rate;
+    public float heart_rate;
+    public float fan_tachometer;
+    public float battery_capacity;
+    public float temperature;
+    public string battery_time_left;   // hh:mm:ss
+    public string o2_time_left;        // hh:mm:ss
+    public string h2o_time_left;       // hh:mm:ss
+    public float battery_percentage;
+    public float battery_outputput;
+    public float oxygen_primary_time;
+    public float oxygen_secondary_time;
+    public float water_capacity;
 }
 
 // Geosamples
@@ -105,7 +127,8 @@ public class Waypoint
 {
     public int id;
     public Location location;
-    public int type; // 0 = regular, 1 = danger, 2 = geo
+    public int type; // 0 = station, 1 = nav, 2 = geo, 3 = danger
+    public string description;
     public int author;
 
     public override bool Equals(object obj)
@@ -119,6 +142,7 @@ public class Waypoint
         return id == otherWay.id &&
                location.Equals(otherWay.location) &&
                type == otherWay.type &&
+               description == otherWay.description &&
                author == otherWay.author;
     }
 }
@@ -138,6 +162,7 @@ public class TaskObj
     public string title;
     public string description;
     public int shared_with;
+    public int parentTask; // Used for subtasks. If it is a parent class, this equals -1, otherwise, parentTask = TaskObj's id of its parent Task
 
     public override bool Equals(object obj)
     {
@@ -151,7 +176,8 @@ public class TaskObj
                title == otherTask.title &&
                description == otherTask.description &&
                status == otherTask.status &&
-               shared_with == otherTask.shared_with;
+               shared_with == otherTask.shared_with &&
+               parentTask == otherTask.parentTask;
     }
 }
 
@@ -247,15 +273,15 @@ public class Location
                latitude == otherLoc.latitude &&
                longitude == otherLoc.longitude;
     }
+
+    public Vector3 GetCoordinatesAsVector3()
+    {
+        // Assuming Z-axis is zero in this context
+        return new Vector3((float)latitude, 0f, (float)longitude);
+    }
 }
 
 // Data of other Fellow Astronauts
-[System.Serializable]
-public class FellowAstronauts
-{
-    public List<FellowAstronaut> AllFellowAstronauts = new List<FellowAstronaut>();
-}
-
 [System.Serializable]
 public class FellowAstronaut
 {
