@@ -1,0 +1,163 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3580227640093714687
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1524970573626379297}
+  - component: {fileID: 8664392983499788715}
+  - component: {fileID: 7805779906025989976}
+  - component: {fileID: 3883599765637248887}
+  m_Layer: 0
+  m_Name: Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1524970573626379297
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3580227640093714687}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8664392983499788715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3580227640093714687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9138a69987212743ba7ff3a7785ccf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _user:
+    id: 0
+    MessagingData:
+      AllMessages: []
+    VitalsData:
+      room_id: 0
+      is_running: 0
+      is_paused: 0
+      time: 0
+      timer: 
+      started_at: 
+      primary_oxygen: 0
+      secondary_oxygen: 0
+      suit_pressure: 0
+      sub_pressure: 0
+      o2_pressure: 0
+      o2_rate: 0
+      h2o_gas_pressure: 0
+      h2o_liquid_pressure: 0
+      sop_pressure: 0
+      sop_rate: 0
+      heart_rate: 0
+      fan_tachometer: 0
+      battery_capacity: 0
+      temperature: 0
+      battery_time_left: 
+      o2_time_left: 
+      h2o_time_left: 
+      battery_percentage: 0
+      battery_outputput: 0
+      oxygen_primary_time: 0
+      oxygen_secondary_time: 0
+      water_capacity: 0
+    GeosampleData:
+      AllGeosamples: []
+    WaypointData:
+      AllWaypoints: []
+    TasklistData:
+      AllTasks: []
+    AlertData:
+      AllAlerts: []
+    BreadCrumbData:
+      AllCrumbs: []
+    location:
+      latitude: 0
+      longitude: 0
+      id: 0
+    currently_navigating: 0
+    inDanger: 0
+    color: 
+    FellowAstronautsData:
+      id: 0
+      location:
+        latitude: 0
+        longitude: 0
+        id: 0
+      color: 
+      vitals:
+        room_id: 0
+        is_running: 0
+        is_paused: 0
+        time: 0
+        timer: 
+        started_at: 
+        primary_oxygen: 0
+        secondary_oxygen: 0
+        suit_pressure: 0
+        sub_pressure: 0
+        o2_pressure: 0
+        o2_rate: 0
+        h2o_gas_pressure: 0
+        h2o_liquid_pressure: 0
+        sop_pressure: 0
+        sop_rate: 0
+        heart_rate: 0
+        fan_tachometer: 0
+        battery_capacity: 0
+        temperature: 0
+        battery_time_left: 
+        o2_time_left: 
+        h2o_time_left: 
+        battery_percentage: 0
+        battery_outputput: 0
+        oxygen_primary_time: 0
+        oxygen_secondary_time: 0
+        water_capacity: 0
+      navigating: 0
+      bread_crumbs:
+        AllCrumbs: []
+--- !u!114 &7805779906025989976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3580227640093714687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31baa6b9013bb1e4cab85ddf7fd57335, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  webSocketUrl: ws://localhost:8080
+--- !u!114 &3883599765637248887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3580227640093714687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6770c09489017c749beaf85dccf00796, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debugMode: 1
