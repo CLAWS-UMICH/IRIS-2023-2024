@@ -4,11 +4,15 @@ using UnityEngine;
 using System;
 public class FakeTSSMessageSender : MonoBehaviour
 {
-    public Location fakeGPS = new Location(0, 0);
-    private float timer; 
+    [SerializeField] float secondsToUpdate = 3f;
+    public Location fakeGPS = new Location();
+    private float timer;
+    private GameObject mainCamera;
 
     private void Start()
     {
+        GameObject mainCameraHolder = GameObject.Find("MixedRealityPlayspace");
+        mainCamera = mainCameraHolder.transform.Find("Main Camera").gameObject;
         Fake_SetGPS();
         Fake_Vitals();
     }
@@ -17,6 +21,19 @@ public class FakeTSSMessageSender : MonoBehaviour
     {
         AstronautInstance.User.location = fakeGPS;
         EventBus.Publish<UpdatedGPSEvent>(new UpdatedGPSEvent());
+        StartCoroutine(UpdateLocation());
+    }
+
+    IEnumerator UpdateLocation()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(secondsToUpdate); // Wait for 3 seconds
+
+            // Update Location
+            AstronautInstance.User.location = GPSUtils.AppPositionToGPSCoords(mainCamera.transform.position);
+
+        }
     }
 
     public void Fake_Vitals()
@@ -29,7 +46,7 @@ public class FakeTSSMessageSender : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(3f); // Wait for 3 seconds
+            yield return new WaitForSeconds(secondsToUpdate); // Wait for 3 seconds
 
             // Update vitals with random values
             AstronautInstance.User.VitalsData.primary_oxygen = UnityEngine.Random.Range(90f, 100f);

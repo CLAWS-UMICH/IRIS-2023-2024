@@ -279,6 +279,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 148298143307955794, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
+      propertyPath: secondsToUpdate
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 148298143307955794, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
+      propertyPath: fakeGPS.latitude
+      value: 29.56464768525302
+      objectReference: {fileID: 0}
+    - target: {fileID: 148298143307955794, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
+      propertyPath: fakeGPS.longitude
+      value: -95.08130835176654
+      objectReference: {fileID: 0}
     - target: {fileID: 1524970573626379297, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
       propertyPath: m_RootOrder
       value: 6
