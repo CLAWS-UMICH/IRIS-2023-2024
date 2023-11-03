@@ -261,6 +261,14 @@ public class Location
     public double longitude;
     public int id;
 
+    public Location() { }
+
+    public Location(double lat, double lon)
+    {
+        latitude = lat;
+        longitude = lon;
+    }
+
     public override bool Equals(object obj)
     {
         if (obj == null || GetType() != obj.GetType())
