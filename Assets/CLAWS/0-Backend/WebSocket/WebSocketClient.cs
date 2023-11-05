@@ -145,6 +145,7 @@ public class JsonMessage
 public class InitialData
 {
     public int id;
+    public string color; // Hex values as a string. Ex: #223344
     public string type;
     public string data;
 }

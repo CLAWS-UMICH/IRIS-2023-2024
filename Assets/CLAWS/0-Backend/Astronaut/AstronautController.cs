@@ -12,10 +12,10 @@ public class Messaging
 [System.Serializable]
 public class Message
 {
-    public int id;
-    public int sent_to;
+    public int message_id; // starting from 0 and going up 1
+    public int sent_to; // Astronaut ID it was sent to
     public string message;
-    public int from;
+    public int from; // Astronaut ID it who sent the message
 
     public override bool Equals(object obj)
     {
@@ -25,7 +25,7 @@ public class Message
         }
 
         Message otherMessage = (Message)obj;
-        return id == otherMessage.id &&
+        return message_id == otherMessage.message_id &&
                sent_to == otherMessage.sent_to &&
                message == otherMessage.message &&
                from == otherMessage.from;
@@ -76,7 +76,7 @@ public class Geosamples
 [System.Serializable]
 public class Geosample
 {
-    public int id;
+    public int geosample_id;
     public SpecData spec_data;
     public string time;
     public Location location;
@@ -90,7 +90,7 @@ public class Geosample
         }
 
         Geosample otherGeo = (Geosample)obj;
-        return id == otherGeo.id &&
+        return geosample_id == otherGeo.geosample_id &&
                spec_data.Equals(otherGeo.spec_data) &&
                time == otherGeo.time &&
                location.Equals(otherGeo.location) &&
@@ -125,7 +125,7 @@ public class Waypoints
 [System.Serializable]
 public class Waypoint
 {
-    public int id;
+    public int waypoint_id; // starting from 0 and going up 1
     public Location location;
     public int type; // 0 = station, 1 = nav, 2 = geo, 3 = danger
     public string description;
@@ -139,7 +139,7 @@ public class Waypoint
         }
 
         Waypoint otherWay = (Waypoint)obj;
-        return id == otherWay.id &&
+        return waypoint_id == otherWay.waypoint_id &&
                location.Equals(otherWay.location) &&
                type == otherWay.type &&
                description == otherWay.description &&
@@ -157,12 +157,11 @@ public class TaskList
 [System.Serializable]
 public class TaskObj
 {
-    public int id;
+    public int task_id; // starting from 0 and going up 1
     public int status; // 0 = InProgress, 1 = Completed
     public string title;
-    public string description;
-    public int shared_with;
-    public int parentTask; // Used for subtasks. If it is a parent class, this equals -1, otherwise, parentTask = TaskObj's id of its parent Task
+    public List<SingleAstronaut> astronauts; // All astronauts involved (including self)
+    public List<Subtask> subtasks;
 
     public override bool Equals(object obj)
     {
@@ -172,12 +171,53 @@ public class TaskObj
         }
 
         TaskObj otherTask = (TaskObj)obj;
-        return id == otherTask.id &&
+        return task_id == otherTask.task_id &&
                title == otherTask.title &&
-               description == otherTask.description &&
+               astronauts.Equals(otherTask.astronauts) &&
+               subtasks.Equals(otherTask.subtasks) &&
+               status == otherTask.status;
+    }
+}
+
+[System.Serializable]
+public class SingleAstronaut
+{
+    public int astronaut_id;
+    public bool ready;
+
+    public override bool Equals(object obj)
+    {
+        if (obj == null || GetType() != obj.GetType())
+        {
+            return false;
+        }
+
+        SingleAstronaut otherTask = (SingleAstronaut)obj;
+        return astronaut_id == otherTask.astronaut_id &&
+               ready == otherTask.ready;
+    }
+}
+
+[System.Serializable]
+public class Subtask
+{
+    public int subtask_id; // starting from 0 and going up 1
+    public int status; // 0 = InProgress, 1 = Completed
+    public string title;
+    public string description;
+
+    public override bool Equals(object obj)
+    {
+        if (obj == null || GetType() != obj.GetType())
+        {
+            return false;
+        }
+
+        Subtask otherTask = (Subtask)obj;
+        return subtask_id == otherTask.subtask_id &&
+               title == otherTask.title &&
                status == otherTask.status &&
-               shared_with == otherTask.shared_with &&
-               parentTask == otherTask.parentTask;
+               description == otherTask.description;
     }
 }
 
@@ -191,10 +231,10 @@ public class Alerts
 [System.Serializable]
 public class AlertObj
 {
-    public int id;
-    public int id_in_danger;
-    public string vital;
-    public float vital_val;
+    public int alert_id; // starting from 0 and going up 1 
+    public int astronaut_in_danger; // ID who is in danger
+    public string vital; // vital that is in danger
+    public float vital_val; // that vital's value
 
     public override bool Equals(object obj)
     {
@@ -204,8 +244,8 @@ public class AlertObj
         }
 
         AlertObj otherAlert = (AlertObj)obj;
-        return id == otherAlert.id &&
-               id_in_danger == otherAlert.id_in_danger &&
+        return alert_id == otherAlert.alert_id &&
+               astronaut_in_danger == otherAlert.astronaut_in_danger &&
                vital == otherAlert.vital &&
                vital_val == otherAlert.vital_val;
     }
@@ -235,7 +275,7 @@ public class AllBreadCrumbs
 [System.Serializable]
 public class Breadcrumb
 {
-    public int id;
+    public int crumb_id;
     public Location location;
     public int type; // 0: backtracking and 1: navigation
 
@@ -247,7 +287,7 @@ public class Breadcrumb
         }
 
         Breadcrumb otherBread = (Breadcrumb)obj;
-        return id == otherBread.id &&
+        return crumb_id == otherBread.crumb_id &&
                location.Equals(otherBread.location) &&
                type == otherBread.type;
     }
@@ -259,7 +299,6 @@ public class Location
 {
     public double latitude;
     public double longitude;
-    public int id;
 
     public Location() { }
 
@@ -277,15 +316,8 @@ public class Location
         }
 
         Location otherLoc = (Location)obj;
-        return id == otherLoc.id &&
-               latitude == otherLoc.latitude &&
+        return latitude == otherLoc.latitude &&
                longitude == otherLoc.longitude;
-    }
-
-    public Vector3 GetCoordinatesAsVector3()
-    {
-        // Assuming Z-axis is zero in this context
-        return new Vector3((float)latitude, 0f, (float)longitude);
     }
 }
 
@@ -293,7 +325,7 @@ public class Location
 [System.Serializable]
 public class FellowAstronaut
 {
-    public int id;
+    public int astronaut_id;
     public Location location;
     public string color;
     public Vitals vitals;
@@ -308,7 +340,7 @@ public class FellowAstronaut
         }
 
         FellowAstronaut otherA = (FellowAstronaut)obj;
-        return id == otherA.id &&
+        return astronaut_id == otherA.astronaut_id &&
                location.Equals(otherA.location) &&
                color == otherA.color &&
                vitals.Equals(otherA.vitals) &&
