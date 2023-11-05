@@ -5,7 +5,7 @@
     "data": {
         "AllTasks": [
             {
-                "id": 2, 
+                "task_id": 2, 
                 "status": 1,  // 0 for InProgress, 1 for Completed
                 "title": "Task Name",
                 "astronauts": [ // list of ALL astronauts involved (including self)
@@ -24,19 +24,19 @@
                 ], 
                 "subtasks": [
                     {
-                        "id": 1, // subtask id's are local to each task 
+                        "subtask_id": 1, // subtask id's are local to each task 
                         "status": 1,  
                         "title": "Subtask Name",
                         "description": "This is a subtask"
                     }, 
                     {
-                        "id": 3, 
+                        "subtask_id": 3, 
                         "status": 0,  
                         "title": "Subtask Name",
                         "description": "This is a subtask"
                     }, 
                     {
-                        "id": 2, 
+                        "subtask_id": 2, 
                         "status": 0,  
                         "title": "Subtask Name",
                         "description": "This is a subtask"
@@ -44,7 +44,7 @@
                 ]
             }, 
             {
-                "id": 3, 
+                "task_id": 3, 
                 "status": 1,
                 "title": "Task Name",
                 "astronauts": [
@@ -55,7 +55,7 @@
                 ], 
                 "subtasks": [
                     {
-                        "id": 1, 
+                        "subtask_id": 1, 
                         "status": 1,  
                         "title": "Subtask Name",
                         "description": "This is a subtask"
@@ -63,7 +63,7 @@
                 ]
             }, 
             {
-                "id": 1, 
+                "task_id": 1, 
                 "status": 1,
                 "title": "Task Name",
                 "astronauts": [
@@ -74,7 +74,7 @@
                 ], 
                 "subtasks": [
                     {
-                        "id": 1, 
+                        "subtask_id": 1, 
                         "status": 1,  
                         "title": "Subtask Name",
                         "description": "This is a subtask"
