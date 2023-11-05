@@ -55,10 +55,10 @@ public class TaskListControllerExample : MonoBehaviour
         List<TaskObj> deletedTasks = e.DeletedTasks; // Which waypoints were deleted (Look at their id's)
         foreach (TaskObj task in deletedTasks)
         {
-            if (idToButton.ContainsKey(task.id))
+            if (idToButton.ContainsKey(task.task_id))
             {
-                sh.GetComponent<ScrollHandler>().HandleButtonDeletion(idToButton[task.id]);
-                idToButton.Remove(task.id);
+                sh.GetComponent<ScrollHandler>().HandleButtonDeletion(idToButton[task.task_id]);
+                idToButton.Remove(task.task_id);
             }
         }
 
@@ -71,10 +71,10 @@ public class TaskListControllerExample : MonoBehaviour
 
         foreach (TaskObj task in editTasks)
         {
-            if (idToButton.ContainsKey(task.id))
+            if (idToButton.ContainsKey(task.task_id))
             {
-                GameObject buttonToEdit = idToButton[task.id];
-                buttonToEdit.transform.Find("ID").gameObject.GetComponent<TextMeshPro>().text = "ID: " + task.id.ToString();
+                GameObject buttonToEdit = idToButton[task.task_id];
+                buttonToEdit.transform.Find("ID").gameObject.GetComponent<TextMeshPro>().text = "ID: " + task.task_id.ToString();
                 if (task.status == 0)
                 {
                     buttonToEdit.transform.Find("Status").gameObject.GetComponent<TextMeshPro>().text = "Status: In Progress";
@@ -84,8 +84,6 @@ public class TaskListControllerExample : MonoBehaviour
                     buttonToEdit.transform.Find("Status").gameObject.GetComponent<TextMeshPro>().text = "Status: Completed";
                 }
                 buttonToEdit.transform.Find("Title").gameObject.GetComponent<TextMeshPro>().text = "Title: " + task.title.ToString();
-                buttonToEdit.transform.Find("Description").gameObject.GetComponent<TextMeshPro>().text = "Description: " + task.description.ToString();
-                buttonToEdit.transform.Find("SharedWith").gameObject.GetComponent<TextMeshPro>().text = "Shared With: " + task.shared_with.ToString();
             }
         }
 
@@ -98,7 +96,7 @@ public class TaskListControllerExample : MonoBehaviour
 
         foreach (TaskObj task in newTasks)
         {
-            id.text = "ID: " + task.id.ToString();
+            id.text = "ID: " + task.task_id.ToString();
             if (task.status == 0)
             {
                 status.text = "Status: In Progress";
@@ -107,10 +105,8 @@ public class TaskListControllerExample : MonoBehaviour
                 status.text = "Status: Completed";
             }
             title.text = "Title: " + task.title.ToString();
-            description.text = "Description: " + task.description.ToString();
-            shared_with.text = "Shared With: " + task.shared_with.ToString();
             GameObject newButton = sh.GetComponent<ScrollHandler>().HandleAddingButton(taskListButtonPrefab);
-            idToButton.Add(task.id, newButton);
+            idToButton.Add(task.task_id, newButton);
         }
     }
 }

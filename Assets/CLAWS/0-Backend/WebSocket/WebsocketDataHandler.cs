@@ -100,7 +100,7 @@ public class WebsocketDataHandler : MonoBehaviour
 
                 foreach (Message newMessage in newMessages)
                 {
-                    if (currentMessage.id == newMessage.id)
+                    if (currentMessage.message_id == newMessage.message_id)
                     {
                         messageFound = true;
                         if (!currentMessage.Equals(newMessage))
@@ -123,7 +123,7 @@ public class WebsocketDataHandler : MonoBehaviour
 
                 foreach (Message currentMessage in currentMessages)
                 {
-                    if (currentMessage.id == newMessage.id)
+                    if (currentMessage.message_id == newMessage.message_id)
                     {
                         isNew = false;
                         break;
@@ -234,7 +234,7 @@ public class WebsocketDataHandler : MonoBehaviour
 
                 foreach (Geosample newSample in newGeosamples)
                 {
-                    if (currentSample.id == newSample.id)
+                    if (currentSample.geosample_id == newSample.geosample_id)
                     {
                         sampleFound = true;
                         if (!currentSample.Equals(newSample))
@@ -257,7 +257,7 @@ public class WebsocketDataHandler : MonoBehaviour
 
                 foreach (Geosample currentSample in currentGeosamples)
                 {
-                    if (currentSample.id == newSample.id)
+                    if (currentSample.geosample_id == newSample.geosample_id)
                     {
                         isNew = false;
                         break;
@@ -334,7 +334,7 @@ public class WebsocketDataHandler : MonoBehaviour
 
                 foreach (Waypoint newWaypoint in newWaypoints)
                 {
-                    if (currentWaypoint.id == newWaypoint.id)
+                    if (currentWaypoint.waypoint_id == newWaypoint.waypoint_id)
                     {
                         waypointFound = true;
                         if (!currentWaypoint.Equals(newWaypoint))
@@ -357,7 +357,7 @@ public class WebsocketDataHandler : MonoBehaviour
 
                 foreach (Waypoint currentWaypoint in currentWaypoints)
                 {
-                    if (currentWaypoint.id == newWaypoint.id)
+                    if (currentWaypoint.waypoint_id == newWaypoint.waypoint_id)
                     {
                         isNew = false;
                         break;
@@ -434,7 +434,7 @@ public class WebsocketDataHandler : MonoBehaviour
 
                 foreach (TaskObj newTask in newTasks)
                 {
-                    if (currentTask.id == newTask.id)
+                    if (currentTask.task_id == newTask.task_id)
                     {
                         taskFound = true;
                         if (!currentTask.Equals(newTask))
@@ -457,7 +457,7 @@ public class WebsocketDataHandler : MonoBehaviour
 
                 foreach (TaskObj currentTask in currentTasks)
                 {
-                    if (currentTask.id == newTask.id)
+                    if (currentTask.task_id == newTask.task_id)
                     {
                         isNew = false;
                         break;
