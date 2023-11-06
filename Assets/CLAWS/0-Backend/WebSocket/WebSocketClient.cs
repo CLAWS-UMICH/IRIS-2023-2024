@@ -32,6 +32,18 @@ public class WebSocketClient : MonoBehaviour
         ws.Connect();
     }
 
+    public void ReConnect(string connectionString)
+    {
+        if (ws != null && ws.IsAlive)
+        {
+            ws.Close();
+        }
+        webSocketUrl = connectionString;
+        ws = new WebSocket(webSocketUrl);
+        ws.OnMessage += OnWebSocketMessage;
+        ws.Connect();
+    }
+
     private void OnDestroy()
     {
         if (ws != null && ws.IsAlive)

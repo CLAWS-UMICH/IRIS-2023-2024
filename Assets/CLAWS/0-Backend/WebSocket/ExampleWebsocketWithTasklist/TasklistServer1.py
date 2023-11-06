@@ -111,7 +111,7 @@ async def handle_client(websocket, path):
     except websockets.exceptions.ConnectionClosed:
         send_task.cancel()
 
-start_server = websockets.serve(handle_client, "localhost", 8080)
+start_server = websockets.serve(handle_client, "localhost", 1000)
 
 asyncio.get_event_loop().run_until_complete(start_server)
 asyncio.get_event_loop().run_forever()
