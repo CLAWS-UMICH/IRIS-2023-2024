@@ -16,9 +16,9 @@ public class WebSocketClient : MonoBehaviour
     {
         astroInstance = GetComponent<AstronautInstance>();
         dataHandler = GetComponent<WebsocketDataHandler>();
-        //ws = new WebSocket(webSocketUrl);
-        //ws.OnMessage += OnWebSocketMessage;
-        //ws.Connect();
+        ws = new WebSocket(webSocketUrl);
+        ws.OnMessage += OnWebSocketMessage;
+        ws.Connect();
     }
 
     public void ReConnect()
