@@ -15,6 +15,8 @@ public class TaskListFakeSender : MonoBehaviour
     [ContextMenu("AddTask")]
     private void AddTask()
     {
+        AstronautInstance.User.TasklistData.AllTasks.Add(TaskToAdd);
+
         List<TaskObj> TasksToAdd = new()
         {
             TaskToAdd
@@ -27,6 +29,8 @@ public class TaskListFakeSender : MonoBehaviour
     [ContextMenu("EditTask")]
     private void EditTask()
     {
+        // TODO update astronaut instance
+
         List<TaskObj> TasksToEdit = new()
         {
             TaskToEdit
@@ -39,6 +43,8 @@ public class TaskListFakeSender : MonoBehaviour
     [ContextMenu("DeleteTask")]
     private void DeleteTask()
     {
+        // TODO update astronaut instance
+
         List<TaskObj> TasksToDelete = new()
         {
             TaskToEdit
