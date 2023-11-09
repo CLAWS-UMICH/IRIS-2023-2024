@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 /*  Phase 1 - Task List Team 
  *  Patrick, Alex, John
@@ -8,14 +9,14 @@ using UnityEngine;
 
 public class TaskListFullScreen : MonoBehaviour
 {
-
+    public TextMeshPro tmp;
     private Subscription<TasksDeletedEvent> tasksDeletedEvent;
     private Subscription<TasksEditedEvent> tasksEditedEvent;
     private Subscription<TasksAddedEvent> tasksAddedEvent;
 
     void Start()
     {
-        tasksDeletedEvent = EventBus.Subscribe<TasksDeletedEvent>(Temp<TasksDeletedEvent>);
+        tasksDeletedEvent = EventBus.Subscribe<TasksDeletedEvent>(OnTaskDeleted);
         tasksEditedEvent = EventBus.Subscribe<TasksEditedEvent>(Temp<TasksEditedEvent>);
         tasksAddedEvent = EventBus.Subscribe<TasksAddedEvent>(Temp<TasksAddedEvent>);
     }
@@ -37,6 +38,11 @@ public class TaskListFullScreen : MonoBehaviour
         }
     }
 
+    void OnTaskDeleted(TasksDeletedEvent e)
+    {
+        // TODO popup message
+        tmp.text = JsonUtility.ToJson(e);
+    }
     
     void Temp<T>(T e)
     {
