@@ -87,6 +87,13 @@ public class WebSocketClient : MonoBehaviour
         // Determine the type of data
         string messageType = jsonMessage.type;
         string messageUse = jsonMessage.use;
+        int messageID = jsonMessage.id;
+
+        // Ignore connection that is not initial or does not match astronaut's ID or not -1
+        if (messageType != "INITIAL" && messageID != AstronautInstance.User.id && messageID != -1)
+        {
+            return;
+        }
 
         switch (messageType)
         {
@@ -151,6 +158,7 @@ public class JsonMessage
 {
     public string type;
     public string use;
+    public int id;
 }
 
 [Serializable]
