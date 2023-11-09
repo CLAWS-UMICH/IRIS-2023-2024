@@ -47,7 +47,7 @@ public class TaskListFullScreen : MonoBehaviour
     void OnTaskEdited(TasksEditedEvent e)
     {
         // TODO popup message
-        tmp.text = JsonUtility.ToJson(e);
+        tmp.text = JsonUtility.ToJson(AstronautInstance.User.TasklistData);
     }
     
     void Temp<T>(T e)
