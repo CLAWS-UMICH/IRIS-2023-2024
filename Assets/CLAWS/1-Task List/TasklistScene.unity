@@ -457,7 +457,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 249741036}
+  - {fileID: 1572480836}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -693,6 +693,92 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
+--- !u!1 &1572480835
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1572480836}
+  - component: {fileID: 1572480838}
+  - component: {fileID: 1572480837}
+  m_Layer: 0
+  m_Name: TaskList
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1572480836
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1572480835}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 249741036}
+  m_Father: {fileID: 835664603}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1572480837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1572480835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0fd32bb8e1b2c74e9e0e9943e4bc1cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TaskToAdd:
+    task_id: 1
+    status: 0
+    title: Random Task
+    astronauts:
+    - astronaut_id: 0
+      ready: 0
+    subtasks:
+    - subtask_id: 1
+      status: 0
+      title: Subtask 1
+      description: This is a subtaks
+    - subtask_id: 2
+      status: 0
+      title: Subtask 2
+      description: This is another subtask
+  TaskToEdit:
+    task_id: 0
+    status: 0
+    title: 
+    astronauts: []
+    subtasks: []
+  TaskToDelete:
+    task_id: 0
+    status: 0
+    title: 
+    astronauts: []
+    subtasks: []
+--- !u!114 &1572480838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1572480835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cbd19feaca096a43bd407d608aaf8f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1426094035821012924
 Transform:
   m_ObjectHideFlags: 0
@@ -721,11 +807,11 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 835664603}
+    m_TransformParent: {fileID: 1572480836}
     m_Modifications:
     - target: {fileID: 3504226454605750576, guid: 491090cf1b1f28442b4569623659157a, type: 3}
       propertyPath: m_Name
-      value: TaskList
+      value: Screen
       objectReference: {fileID: 0}
     - target: {fileID: 3504226454605750583, guid: 491090cf1b1f28442b4569623659157a, type: 3}
       propertyPath: m_RootOrder
