@@ -17,7 +17,7 @@ public class TaskListFullScreen : MonoBehaviour
     void Start()
     {
         tasksDeletedEvent = EventBus.Subscribe<TasksDeletedEvent>(OnTaskDeleted);
-        tasksEditedEvent = EventBus.Subscribe<TasksEditedEvent>(Temp<TasksEditedEvent>);
+        tasksEditedEvent = EventBus.Subscribe<TasksEditedEvent>(OnTaskEdited);
         tasksAddedEvent = EventBus.Subscribe<TasksAddedEvent>(Temp<TasksAddedEvent>);
     }
 
@@ -42,6 +42,12 @@ public class TaskListFullScreen : MonoBehaviour
     {
         // TODO popup message
         tmp.text = JsonUtility.ToJson(AstronautInstance.User.TasklistData);
+    }
+
+    void OnTaskEdited(TasksEditedEvent e)
+    {
+        // TODO popup message
+        tmp.text = JsonUtility.ToJson(e);
     }
     
     void Temp<T>(T e)
