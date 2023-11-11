@@ -15,7 +15,7 @@ public class TaskListFakeSender : MonoBehaviour
     [ContextMenu("Func AddTask")]
     private void AddTask()
     {
-        AstronautInstance.User.TasklistData.AllTasks.Add(TaskToAdd);
+        AstronautInstance.User.TasklistData.AllTasks.Add(new TaskObj(TaskToAdd));
 
         List<TaskObj> TasksToAdd = new()
         {
@@ -29,13 +29,11 @@ public class TaskListFakeSender : MonoBehaviour
     [ContextMenu("Func EditTask")]
     private void EditTask()
     {
-        // TODO update astronaut instance
-
         for(int i = 0; i < AstronautInstance.User.TasklistData.AllTasks.Count; ++i)
         {
             if(AstronautInstance.User.TasklistData.AllTasks[i].task_id == TaskToEdit.task_id)
             {
-                AstronautInstance.User.TasklistData.AllTasks[i] = TaskToEdit;
+                AstronautInstance.User.TasklistData.AllTasks[i] = new TaskObj(TaskToEdit);
             }
         }
 

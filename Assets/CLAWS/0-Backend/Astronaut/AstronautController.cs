@@ -177,6 +177,18 @@ public class TaskObj
                subtasks.Equals(otherTask.subtasks) &&
                status == otherTask.status;
     }
+
+    public TaskObj(TaskObj other)
+    {
+        task_id = other.task_id;
+        status = other.status;
+        title = other.title;
+        astronauts = new List<SingleAstronaut>(other.astronauts);
+        subtasks = new List<Subtask>(other.subtasks);
+    }
+
+    public TaskObj() { }
+
 }
 
 [System.Serializable]
