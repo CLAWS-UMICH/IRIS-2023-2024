@@ -12,7 +12,7 @@ public class TaskListFakeSender : MonoBehaviour
     [SerializeField] TaskObj TaskToEdit;
     [SerializeField] TaskObj TaskToDelete;
 
-    [ContextMenu("AddTask")]
+    [ContextMenu("Func AddTask")]
     private void AddTask()
     {
         AstronautInstance.User.TasklistData.AllTasks.Add(TaskToAdd);
@@ -26,7 +26,7 @@ public class TaskListFakeSender : MonoBehaviour
         EventBus.Publish<TasksAddedEvent>(new TasksAddedEvent(TasksToAdd));
     }
 
-    [ContextMenu("EditTask")]
+    [ContextMenu("Func EditTask")]
     private void EditTask()
     {
         // TODO update astronaut instance
@@ -40,17 +40,18 @@ public class TaskListFakeSender : MonoBehaviour
         EventBus.Publish<TasksEditedEvent>(new TasksEditedEvent(TasksToEdit));
     }
 
-    [ContextMenu("DeleteTask")]
+    [ContextMenu("Func DeleteTask")]
     private void DeleteTask()
     {
-        // TODO update astronaut instance
+        TaskToDelete = AstronautInstance.User.TasklistData.AllTasks.Find((taskobj) => taskobj.task_id == TaskToDelete.task_id);
+        AstronautInstance.User.TasklistData.AllTasks.Remove(TaskToDelete);
 
         List<TaskObj> TasksToDelete = new()
         {
-            TaskToEdit
+            TaskToDelete
         };
 
-        Debug.Log(string.Format("Adding fake task: {0}", JsonUtility.ToJson(TaskToDelete)));
+        Debug.Log(string.Format("Deleting fake task: {0}", JsonUtility.ToJson(TaskToDelete)));
         EventBus.Publish<TasksDeletedEvent>(new TasksDeletedEvent(TasksToDelete));
     }
 }
