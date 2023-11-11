@@ -31,10 +31,19 @@ public class TaskListFakeSender : MonoBehaviour
     {
         // TODO update astronaut instance
 
+        for(int i = 0; i < AstronautInstance.User.TasklistData.AllTasks.Count; ++i)
+        {
+            if(AstronautInstance.User.TasklistData.AllTasks[i].task_id == TaskToEdit.task_id)
+            {
+                AstronautInstance.User.TasklistData.AllTasks[i] = TaskToEdit;
+            }
+        }
+
         List<TaskObj> TasksToEdit = new()
         {
             TaskToEdit
         };
+
 
         Debug.Log(string.Format("Editing fake task: {0}", JsonUtility.ToJson(TaskToEdit)));
         EventBus.Publish<TasksEditedEvent>(new TasksEditedEvent(TasksToEdit));
