@@ -8,7 +8,7 @@ public class ThreeDMapController : MonoBehaviour
     private GameObject bigMap;
     private GameObject mainCamera;
     private GameObject map;
-    public float scaleRatio; // Scale ratio of the mini map
+    private float scaleRatio; // Scale ratio of the mini map
 
     private GameObject waypointsParent;
     private GameObject playersParent;
@@ -19,6 +19,7 @@ public class ThreeDMapController : MonoBehaviour
     [SerializeField] GameObject pathPrefab;
 
     public GameObject end;
+    private Quaternion placeCameraRotation = Quaternion.identity;
 
 
 
@@ -34,7 +35,7 @@ public class ThreeDMapController : MonoBehaviour
         playersParent = map.transform.Find("Players").gameObject;
         pathParent = map.transform.Find("Path").gameObject;
 
-        scaleRatio = map.transform.localScale.x;
+        scaleRatio = map.transform.localScale.x / 40f;
         map.SetActive(false);
     }
 
@@ -44,14 +45,18 @@ public class ThreeDMapController : MonoBehaviour
         float forwardOffset = 1f; // You can adjust this value
         float downOffset = 0.4f;   // You can adjust this value
 
-        // Get the main camera's position
+        // Get the main camera's position and rotation
         Vector3 cameraPosition = mainCamera.transform.position;
+        //placeCameraRotation = Quaternion.Euler(0f, mainCamera.transform.rotation.eulerAngles.y, 0f); ;
 
         // Calculate the new position by adding the offset values
         Vector3 newPosition = cameraPosition + mainCamera.transform.forward * forwardOffset +
                               Vector3.down * downOffset;
 
+        // Set the map's position and rotation
         map.transform.position = newPosition;
+        //map.transform.rotation = placeCameraRotation;
+
         map.SetActive(true);
     }
 
@@ -69,14 +74,15 @@ public class ThreeDMapController : MonoBehaviour
 
     private Vector3 realToSmall(Vector3 realLocation)
     {
-        return (realLocation * scaleRatio / 40) + (bigMap.transform.position * 0.0389f);
+        return ((realLocation * scaleRatio) + map.transform.position) - (bigMap.transform.position * scaleRatio);
     }
 
     private void SpawnObjectOnSmallMap(Vector3 smallMapPosition)
     {
         // Instantiate the object on the smaller map at the adjusted position
-        GameObject spawnedObject = Instantiate(playerPrefab, smallMapPosition, Quaternion.identity);
-        spawnedObject.transform.localScale *= (scaleRatio / 40);
+        Debug.Log(placeCameraRotation);
+        GameObject spawnedObject = Instantiate(playerPrefab, smallMapPosition, placeCameraRotation);
+        spawnedObject.transform.localScale *= (scaleRatio);
         spawnedObject.transform.parent = playersParent.transform;
     }
 }
