@@ -18,13 +18,14 @@ public class vitalsController : MonoBehaviour
         fellowVitalsUpdateEvent = EventBus.Subscribe<FellowAstronautVitalsDataChangeEvent>(onFellowVitalsUpdate);
         heartRate = parent.transform.Find("HeartRate").gameObject.GetComponent<TextMeshPro>();
         H2O = parent.transform.Find("H2O").gameObject.GetComponent<TextMeshPro>();
+        O2 = parent.transform.Find("O2").gameObject.GetComponent<TextMeshPro>();
     }
 
     private void onVitalsUpdate(VitalsUpdatedEvent e)
     {
         heartRate.text = "HeartRate: " + e.vitals.heart_rate.ToString();
         H2O.text = "H2O: " + e.vitals.h2o_gas_pressure.ToString();
-        O2.text = e.vitals.primary_oxygen.ToString();
+        O2.text = "O2: " + e.vitals.primary_oxygen.ToString();
     }
 
     private void onFellowVitalsUpdate(FellowAstronautVitalsDataChangeEvent e) {
