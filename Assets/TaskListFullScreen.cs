@@ -46,12 +46,30 @@ public class TaskListFullScreen : MonoBehaviour
 
     void OnTaskEdited(TasksEditedEvent e)
     {
+        int emergency_count = 0;
+        foreach (TaskObj task in e.EditedTasks)
+        {
+            if(task.isEmergency)
+            {
+                emergency_count += 1;
+            }
+        }
+        Debug.Log("This many emergency tasks were added: " + emergency_count);
         // TODO popup message
         tmp.text = JsonUtility.ToJson(AstronautInstance.User.TasklistData);
     }
 
     void OnTaskAdded(TasksAddedEvent e)
     {
+        int emergency_count = 0;
+        foreach (TaskObj task in e.NewAddedTasks)
+        {
+            if (task.isEmergency)
+            {
+                emergency_count += 1;
+            }
+        }
+        Debug.Log("This many new emergency tasks were added: " + emergency_count);
         // TODO popup message
         tmp.text = JsonUtility.ToJson(AstronautInstance.User.TasklistData);
     }
