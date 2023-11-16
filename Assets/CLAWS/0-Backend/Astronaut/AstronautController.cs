@@ -185,6 +185,7 @@ public class TaskObj
         task_id = other.task_id;
         status = other.status;
         title = other.title;
+        isEmergency = other.isEmergency;
         astronauts = new List<SingleAstronaut>(other.astronauts);
         subtasks = new List<Subtask>(other.subtasks);
     }
