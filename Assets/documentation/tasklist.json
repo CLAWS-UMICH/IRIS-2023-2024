@@ -51,6 +51,7 @@
                 "task_id": 3,
                 "status": 1,
                 "title": "Task Name",
+                "isEmergency": 1,
                 "astronauts": [
                     {
                         "astronaut_id": 1,
@@ -66,25 +67,26 @@
                         "subtask_astronauts": [ 1 ]
                     }
                 ]
-            }, 
+            },
             {
-                "task_id": 1, 
+                "task_id": 1,
                 "status": 1,
                 "title": "Task Name",
+                "isEmergency": 0,
                 "astronauts": [
                     {
                         "astronaut_id": 1,
                         "ready": true
                     }
-                ], 
+                ],
                 "subtasks": [
-                  {
-                      "subtask_id": 1,
-                      "status": 1,
-                      "title": "Subtask Name",
-                      "description": "This is a subtask",
-                      "subtask_astronauts": [ 1 ]
-                  }
+                    {
+                        "subtask_id": 1,
+                        "status": 1,
+                        "title": "Subtask Name",
+                        "description": "This is a subtask",
+                        "subtask_astronauts": [ 1 ]
+                    }
                 ]
             }
         ]
