@@ -10,7 +10,7 @@ public class vitalsController : MonoBehaviour
     private Subscription<FellowAstronautVitalsDataChangeEvent> fellowVitalsUpdateEvent;
     public GameObject parent;
     public GameObject parentFellow;
-    TextMeshPro heartRate, H2O, O2, O2timeLeft, O2rate, H2OtimeLeft, heartRate1, H2O1, O21;
+    TextMeshPro heartRate, H2O, O2, O2timeLeft, O2rate, H2OtimeLeft, heartRate1, H2O1, O21, batteryText;
 
     void Start()
     {
