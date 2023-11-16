@@ -160,6 +160,7 @@ public class TaskObj
     public int task_id; // starting from 0 and going up 1
     public int status; // 0 = InProgress, 1 = Completed
     public string title;
+    public bool isEmergency; //0 for not Emergency, 1 for Emergency
     public List<SingleAstronaut> astronauts; // All astronauts involved (including self)
     public List<Subtask> subtasks;
 
@@ -175,7 +176,8 @@ public class TaskObj
                title == otherTask.title &&
                astronauts.Equals(otherTask.astronauts) &&
                subtasks.Equals(otherTask.subtasks) &&
-               status == otherTask.status;
+               status == otherTask.status &&
+               isEmergency == otherTask.isEmergency;
     }
 
     public TaskObj(TaskObj other)
@@ -217,6 +219,7 @@ public class Subtask
     public int status; // 0 = InProgress, 1 = Completed
     public string title;
     public string description;
+    public List<int> astronautIDs;
 
     public override bool Equals(object obj)
     {
@@ -229,7 +232,8 @@ public class Subtask
         return subtask_id == otherTask.subtask_id &&
                title == otherTask.title &&
                status == otherTask.status &&
-               description == otherTask.description;
+               description == otherTask.description &&
+               astronautIDs.Equals(otherTask.astronautIDs);
     }
 }
 

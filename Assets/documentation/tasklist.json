@@ -8,6 +8,7 @@
                 "task_id": 2, 
                 "status": 1,  // 0 for InProgress, 1 for Completed
                 "title": "Task Name",
+                "isEmergency":  0, //0 for not Emergency, 1 for Emergency
                 "astronauts": [ // list of ALL astronauts involved (including self)
                     {
                         "astronaut_id": 1,
@@ -45,9 +46,9 @@
                         "subtask_astronauts": [ 1, 3 ]
                     }
                 ]
-            }, 
+            },
             {
-                "task_id": 3, 
+                "task_id": 3,
                 "status": 1,
                 "title": "Task Name",
                 "astronauts": [
@@ -55,15 +56,15 @@
                         "astronaut_id": 1,
                         "ready": true
                     }
-                ], 
+                ],
                 "subtasks": [
-                  {
-                      "subtask_id": 1,
-                      "status": 1,
-                      "title": "Subtask Name",
-                      "description": "This is a subtask",
-                      "subtask_astronauts": [ 1 ]
-                  }
+                    {
+                        "subtask_id": 1,
+                        "status": 1,
+                        "title": "Subtask Name",
+                        "description": "This is a subtask",
+                        "subtask_astronauts": [ 1 ]
+                    }
                 ]
             }, 
             {
