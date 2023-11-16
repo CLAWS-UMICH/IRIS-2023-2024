@@ -251,4 +251,16 @@ public class FellowAstronautNavigatingDataChangeEvent
     }
 }
 
+public class PopupEvent
+{
+    public string popupType;
+    public string popupText;
+
+    public PopupEvent(string in_popupType, string in_popupText)
+    {
+        popupType = in_popupType;
+        popupText = in_popupText;
+    }
+}
+
 
