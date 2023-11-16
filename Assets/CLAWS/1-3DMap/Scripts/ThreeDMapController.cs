@@ -21,6 +21,10 @@ public class ThreeDMapController : MonoBehaviour
     public GameObject end;
     private Quaternion placeCameraRotation = Quaternion.identity;
 
+    public float minScale = 1f;
+    public float maxScale = 3f;
+    public float zoomSpeed = 0.1f;
+
 
 
     // Start is called before the first frame update
@@ -80,9 +84,37 @@ public class ThreeDMapController : MonoBehaviour
     private void SpawnObjectOnSmallMap(Vector3 smallMapPosition)
     {
         // Instantiate the object on the smaller map at the adjusted position
-        Debug.Log(placeCameraRotation);
         GameObject spawnedObject = Instantiate(playerPrefab, smallMapPosition, placeCameraRotation);
         spawnedObject.transform.localScale *= (scaleRatio);
         spawnedObject.transform.parent = playersParent.transform;
+    }
+
+    public void ZoomIn()
+    {
+        AdjustZoom(-1); // Zoom in
+    }
+
+    public void ZoomOut()
+    {
+        AdjustZoom(1); // Zoom out
+    }
+
+    private void AdjustZoom(int direction)
+    {
+        // Calculate the distance between player and target
+        float distance = Vector3.Distance(mainCamera.transform.position, map.transform.position);
+
+        // Map the distance to a scale range
+        float targetScale = Mathf.Clamp(distance * zoomSpeed * direction, minScale, maxScale);
+
+        // Calculate the original scale of the target object
+        Vector3 originalScale = map.transform.localScale;
+
+        // Calculate the new scale while maintaining the same overall size
+        float scaleMultiplier = targetScale / originalScale.x;
+        Vector3 newScale = originalScale * scaleMultiplier;
+
+        // Apply the new scale to the target object
+        map.transform.localScale = newScale;
     }
 }
