@@ -271,6 +271,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1861007198348186239}
   - component: {fileID: 2336109662021874525}
+  - component: {fileID: 8689906485329726871}
   m_Layer: 0
   m_Name: Popup
   m_TagString: Untagged
@@ -310,6 +311,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   popupType_tmp: {fileID: 1894543584597133528}
   popupText_tmp: {fileID: 1894543583670309783}
+--- !u!65 &8689906485329726871
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1861007198348186236}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1, y: 0.03, z: 0.001}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1861007197320998190
 PrefabInstance:
   m_ObjectHideFlags: 0
