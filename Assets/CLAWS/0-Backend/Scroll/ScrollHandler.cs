@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Microsoft.MixedReality.Toolkit.Utilities;
 
 public enum LayoutType
 {
@@ -13,6 +14,8 @@ public class ScrollHandler : MonoBehaviour
     [SerializeField] private float spacing = 0.1f; // Distance between gameobjects
     [SerializeField] private int buttonsEnabledCount = 3; // Number of gameobjects to scroll per button press
     [SerializeField] private LayoutType layoutType; // Type of layout
+    [SerializeField] private bool useClipping = false;
+    [SerializeField] private ClippingBox clipping;
 
     private List<Transform> allButtons = new List<Transform>(); // List to store all buttons
 
@@ -21,8 +24,23 @@ public class ScrollHandler : MonoBehaviour
 
     private void Start()
     {
+        if (useClipping)
+        {
+            SetRenderers();
+        }
         CollectAllButtons();
         Fix();
+    }
+
+    private void SetRenderers()
+    {
+        MeshRenderer[] renderers = GetComponentsInChildren<MeshRenderer>();
+        clipping.ClearRenderers();
+
+        foreach (MeshRenderer r in renderers)
+        {
+            clipping.AddRenderer(r);
+        }
     }
 
     // Initializes the top and down indexes
