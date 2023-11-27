@@ -24,20 +24,20 @@ public class ScrollHandler : MonoBehaviour
 
     private void Start()
     {
+        CollectAllButtons();
+        Fix();
         if (useClipping)
         {
             SetRenderers();
         }
-        CollectAllButtons();
-        Fix();
     }
 
     private void SetRenderers()
     {
-        MeshRenderer[] renderers = GetComponentsInChildren<MeshRenderer>();
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
         clipping.ClearRenderers();
 
-        foreach (MeshRenderer r in renderers)
+        foreach (Renderer r in renderers)
         {
             clipping.AddRenderer(r);
         }
