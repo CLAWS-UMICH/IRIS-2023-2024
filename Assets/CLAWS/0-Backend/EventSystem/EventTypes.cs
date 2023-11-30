@@ -210,6 +210,36 @@ public class TasksDeletedEvent
     }
 }
 
+public class TaskStartedEvent
+{
+    public TaskObj StartedTask { get; private set; }
+    public TaskStartedEvent(TaskObj started_task)
+    {
+        Debug.Log("Task Started");
+        StartedTask = started_task;
+    }
+
+    public override string ToString()
+    {
+        return "Task" + StartedTask.title + "Started";
+    }
+}
+
+public class TaskFinishedEvent
+{
+    public TaskObj FinishedTask { get; private set; }
+    public TaskFinishedEvent(TaskObj finished_task)
+    {
+        Debug.Log("Task Finished");
+        FinishedTask = finished_task;
+    }
+
+    public override string ToString()
+    {
+        return "Task" + FinishedTask.title + "Finished";
+    }
+}
+
 // Mulitplayer
 public class FellowAstronautLocationDataChangeEvent
 {
