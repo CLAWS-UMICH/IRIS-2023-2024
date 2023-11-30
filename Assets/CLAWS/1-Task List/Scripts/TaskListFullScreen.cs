@@ -9,7 +9,6 @@ using TMPro;
 
 public class TaskListFullScreen : MonoBehaviour
 {
-    public TextMeshPro tmp;
     private Subscription<TasksDeletedEvent> tasksDeletedEvent;
     private Subscription<TasksEditedEvent> tasksEditedEvent;
     private Subscription<TasksAddedEvent> tasksAddedEvent;
@@ -39,39 +38,18 @@ public class TaskListFullScreen : MonoBehaviour
     }
 
     void OnTaskDeleted(TasksDeletedEvent e)
-    {
-        // TODO popup message
-        tmp.text = JsonUtility.ToJson(AstronautInstance.User.TasklistData);
+    { 
+
     }
 
     void OnTaskEdited(TasksEditedEvent e)
     {
-        int emergency_count = 0;
-        foreach (TaskObj task in e.EditedTasks)
-        {
-            if(task.isEmergency)
-            {
-                emergency_count += 1;
-            }
-        }
-        Debug.Log("This many emergency tasks were added: " + emergency_count);
-        // TODO popup message
-        tmp.text = JsonUtility.ToJson(AstronautInstance.User.TasklistData);
+        
     }
 
     void OnTaskAdded(TasksAddedEvent e)
     {
-        int emergency_count = 0;
-        foreach (TaskObj task in e.NewAddedTasks)
-        {
-            if (task.isEmergency)
-            {
-                emergency_count += 1;
-            }
-        }
-        Debug.Log("This many new emergency tasks were added: " + emergency_count);
-        // TODO popup message
-        tmp.text = JsonUtility.ToJson(AstronautInstance.User.TasklistData);
+        
     }
 
 }
