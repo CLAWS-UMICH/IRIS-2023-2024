@@ -3603,6 +3603,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -0.129
       objectReference: {fileID: 0}
+    - target: {fileID: 3504226453205848142, guid: 491090cf1b1f28442b4569623659157a, type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3504226453205848142, guid: 491090cf1b1f28442b4569623659157a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7a4ab7405e637466d849364ad42d82b1, type: 2}
     - target: {fileID: 3504226454605750576, guid: 491090cf1b1f28442b4569623659157a, type: 3}
       propertyPath: m_Name
       value: ScreenPrefab
