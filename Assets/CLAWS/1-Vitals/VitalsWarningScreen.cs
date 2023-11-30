@@ -3,6 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/*
+ Something is happening here
+ */
+
+/* 
+ * Things to do
+ * If there are multiple warinings have something similar to the Task lisk Controller?
+ * How will make warnings disappear
+ */
+
 public class VitalsWarningScreen : MonoBehaviour
 {
     private Subscription<VitalsUpdatedEvent> vitalsUpdateEvent;
@@ -16,8 +26,12 @@ public class VitalsWarningScreen : MonoBehaviour
     {
         parent.SetActive(false);
         //parentFellow.SetActive(false);
+
+        // Subscribe to the Events
         vitalsUpdateEvent = EventBus.Subscribe<VitalsUpdatedEvent>(checkVitalsWarning);
         fellowVitalsUpdateEvent = EventBus.Subscribe<FellowAstronautVitalsDataChangeEvent>(checkFellowVitalsWarning);
+
+        //
         heartRate = parent.transform.Find("HeartRate").gameObject.GetComponent<TextMeshPro>();
         warningText = parent.transform.Find("WarningText").gameObject.GetComponent<TextMeshPro>();
     }
@@ -27,13 +41,16 @@ public class VitalsWarningScreen : MonoBehaviour
         //int.TryParse(heartRate.text, out int heartRateResult);
         //int.Parse(heartRate.text);
         //parent.SetActive(true);
+        Debug.Log("heartRate = " + e.vitals.heart_rate);
         Debug.Log("heartRate text = " + heartRate.text);
-        Debug.Log("int:" + int.Parse(heartRate.text));
-        if (int.Parse(heartRate.text) > 20){
+        //Debug.Log("int:" + int.Parse(heartRate.text));
+        if (e.vitals.heart_rate < 50){
             parent.SetActive(true);
-            heartRate.text = e.vitals.heart_rate.ToString();
-            warningText.text = "WARNING HERE";
+            heartRate.text = "Heart Rate:" + e.vitals.heart_rate.ToString();
+            warningText.text = "TEST WARNING HERE";
         }
+
+
     }
 
     private void checkFellowVitalsWarning(FellowAstronautVitalsDataChangeEvent e)
