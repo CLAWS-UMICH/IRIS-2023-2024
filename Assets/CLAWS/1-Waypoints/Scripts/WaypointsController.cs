@@ -77,7 +77,7 @@ public class WaypointsController : MonoBehaviour
         waypointsEditedEvent = EventBus.Subscribe<WaypointsEditedEvent>(onWaypointsEdited);
     }
 
-    private void onWaypointsAdded(WaypointsAddedEvent e)
+    public void onWaypointsAdded(WaypointsAddedEvent e)
     {
         List<Waypoint> addedWaypoints = e.NewAddedWaypoints;
         foreach(Waypoint waypoint in addedWaypoints)
@@ -88,7 +88,7 @@ public class WaypointsController : MonoBehaviour
         wd.SendWaypointData();
     }
 
-    private void onWaypointsDeleted(WaypointsDeletedEvent e)
+    public void onWaypointsDeleted(WaypointsDeletedEvent e)
     {
         List<Waypoint> deletedWaypoints = e.DeletedWaypoints;
         foreach(Waypoint waypoint in deletedWaypoints)
@@ -101,7 +101,7 @@ public class WaypointsController : MonoBehaviour
         wd.SendWaypointData();
     }
 
-    private void onWaypointsEdited(WaypointsEditedEvent e)
+    public void onWaypointsEdited(WaypointsEditedEvent e)
     {
         List<Waypoint> editedWaypoints = e.EditedWaypoints;
         foreach(Waypoint waypoint in editedWaypoints)
@@ -152,5 +152,29 @@ public class WaypointsController : MonoBehaviour
             Vector3 position = GPSUtils.GPSCoordsToAppPosition(waypoint.location);
             Instantiate(waypointPrefab, position, Quaternion.identity);
         }
+    }
+
+    public void SpawnWaypoints(int one)
+    {
+        foreach (Waypoint waypoint in waypoints)
+        {
+            Vector3 position = GPSUtils.GPSCoordsToAppPosition(waypoint.location);
+            Instantiate(waypointPrefab, position, Quaternion.identity);
+        }
+    }
+
+    public void CreateNew()
+    {
+        AstronautInstance.User.WaypointData.currentIndex += 1;
+        Waypoint way = new Waypoint
+        {
+            waypoint_id = AstronautInstance.User.WaypointData.currentIndex,
+            location = new Location(53, 24),
+            type = 0,
+            description = "help",
+            author = 0
+        };
+
+        wd.SendWaypointData();
     }
 }
