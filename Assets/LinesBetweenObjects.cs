@@ -1,16 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class LinesBetweenObjects : MonoBehaviour
 {
     [SerializeField] public List<GameObject> Objects; // objects must be in order and have boxcollider 2d
-    [SerializeField] private GameObject linePrefab; 
+    [SerializeField] private GameObject linePrefab;
+    [SerializeField] private Collider ClippingBounds;
+
+    private void Start()
+    {
+        StartCoroutine(UpdateLines());
+    }
 
     [ContextMenu("func DrawLines")]
     public void DrawLines()
     {
         ClearLines();
+
+        float max = ClippingBounds.bounds.max.y;
+        float min = ClippingBounds.bounds.min.y;
 
         // draw lines
         for (int i = 1; i < Objects.Count; i++)
@@ -21,6 +31,15 @@ public class LinesBetweenObjects : MonoBehaviour
             float y_end = Objects[i].transform.position.y
                             + (Objects[i].GetComponent<BoxCollider2D>().size.y / 2
                             * Objects[i].transform.localScale.y) + 0.001f;
+            
+            // clipping
+            y_start = Math.Min(max, y_start);
+            y_end = Math.Max(min, y_end);
+            if (y_start <= y_end)
+            {
+                continue;
+            }
+
             Vector3[] positions = {
                 new Vector3(Objects[i - 1].transform.position.x, y_start, Objects[i - 1].transform.position.z),
                 new Vector3(Objects[i].transform.position.x, y_end, Objects[i].transform.position.z)
@@ -53,4 +72,14 @@ public class LinesBetweenObjects : MonoBehaviour
             }
         }
     }
+
+    IEnumerator UpdateLines()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(0.05f);
+            DrawLines();
+        }
+    }
+
 }
