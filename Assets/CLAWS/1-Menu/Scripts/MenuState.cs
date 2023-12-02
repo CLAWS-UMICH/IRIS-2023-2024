@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MenuState : MonoBehaviour
 {
@@ -100,6 +101,13 @@ public class MenuState : MonoBehaviour
         else if (currState == State.Modes)
         {
             IRISMenu.SetActive(true);
+
+            // Changes the backplate transparency
+            TasksButton.transform.GetChild(3).GetChild(0).GetComponent<MeshRenderer>().material.color = new Color(1, 1, 1, 0);
+            // Changes the text transparency
+            TasksButton.transform.GetChild(4).GetChild(0).GetComponent<Text>().color = new Color(1, 1, 1, 0);
+            // Changes the icon transparency
+            TasksButton.transform.GetChild(4).GetChild(1).GetComponent<MeshRenderer>().material.color = new Color(1, 1, 1, 0);
         }
     }
 }
