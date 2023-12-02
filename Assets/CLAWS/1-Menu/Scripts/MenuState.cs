@@ -16,6 +16,13 @@ public class MenuState : MonoBehaviour
     }
 
     [SerializeField] private State currState = State.None;
+    [SerializeField] private GameObject TasksButton;
+    [SerializeField] private GameObject NavigationButton;
+    [SerializeField] private GameObject MessagesButton;
+    [SerializeField] private GameObject SamplesButton;
+    [SerializeField] private GameObject VitalsButton;
+    [SerializeField] private GameObject ModesButton;
+    [SerializeField] private GameObject IRISMenu;
 
     public void ClickTasks()
     {
@@ -92,6 +99,7 @@ public class MenuState : MonoBehaviour
         }
         else if (currState == State.Modes)
         {
+            IRISMenu.SetActive(true);
 
         }
     }
