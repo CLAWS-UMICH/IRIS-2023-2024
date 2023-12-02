@@ -100,7 +100,6 @@ public class MenuState : MonoBehaviour
         else if (currState == State.Modes)
         {
             IRISMenu.SetActive(true);
-
         }
     }
 }
