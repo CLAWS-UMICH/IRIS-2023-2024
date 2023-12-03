@@ -427,6 +427,7 @@ public class WebsocketDataHandler : MonoBehaviour
             List<TaskObj> deletedTasks = new List<TaskObj>();
             List<TaskObj> editedTasks = new List<TaskObj>();
             List<TaskObj> newAddedTasks = new List<TaskObj>();
+            List<TaskObj> taskFinished = new List<TaskObj>();
 
             foreach (TaskObj currentTask in currentTasks)
             {
