@@ -10,7 +10,7 @@ using TMPro;
 /* 
  * Things to do
  * If there are multiple warinings have something similar to the Task lisk Controller?
- * How will make warnings disappear
+ * How will make warnings disappear (after vitals return to normal disappear after x seconds)
  */
 
 public class VitalsWarningScreen : MonoBehaviour
@@ -20,6 +20,7 @@ public class VitalsWarningScreen : MonoBehaviour
     public GameObject parent;
     //public GameObject parentFellow;
     TextMeshPro heartRate, warningText;
+    //private warningTime;
 
     // Start is called before the first frame update
     void Start()
@@ -31,24 +32,30 @@ public class VitalsWarningScreen : MonoBehaviour
         vitalsUpdateEvent = EventBus.Subscribe<VitalsUpdatedEvent>(checkVitalsWarning);
         fellowVitalsUpdateEvent = EventBus.Subscribe<FellowAstronautVitalsDataChangeEvent>(checkFellowVitalsWarning);
 
-        //
-        heartRate = parent.transform.Find("HeartRate").gameObject.GetComponent<TextMeshPro>();
+
+        // Making the Objects
+        //heartRate = parent.transform.Find("HeartRate").gameObject.GetComponent<TextMeshPro>();
         warningText = parent.transform.Find("WarningText").gameObject.GetComponent<TextMeshPro>();
     }
 
     private void checkVitalsWarning(VitalsUpdatedEvent e)
     {
+        // DEBUGGING
         //int.TryParse(heartRate.text, out int heartRateResult);
         //int.Parse(heartRate.text);
         //parent.SetActive(true);
-        Debug.Log("heartRate = " + e.vitals.heart_rate);
-        Debug.Log("heartRate text = " + heartRate.text);
+        //Debug.Log("heartRate = " + e.vitals.heart_rate);
+        //Debug.Log("heartRate text = " + heartRate.text);
         //Debug.Log("int:" + int.Parse(heartRate.text));
+
+        // Heart Rate
         if (e.vitals.heart_rate < 50){
             parent.SetActive(true);
-            heartRate.text = "Heart Rate:" + e.vitals.heart_rate.ToString();
-            warningText.text = "TEST WARNING HERE";
+            warningText.text = "Heart Rate:" + e.vitals.heart_rate.ToString();
+            //warningText.text = "TEST WARNING HERE";
         }
+
+        // O2
 
 
     }
