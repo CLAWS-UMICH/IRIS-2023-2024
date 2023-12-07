@@ -1,3 +1,5 @@
+// Derek Yang
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,18 +7,9 @@ using UnityEngine.UI;
 
 public class MenuState : MonoBehaviour
 {
-    enum State
-    {
-        None,
-        Tasks,
-        Navigation,
-        Messages,
-        Samples,
-        Vitals,
-        Modes
-    }
 
-    [SerializeField] private State currState = State.None;
+    [SerializeField] private bool isIRIS;
+    [SerializeField] private GameObject MainMenu;
     [SerializeField] private GameObject TasksButton;
     [SerializeField] private GameObject NavigationButton;
     [SerializeField] private GameObject MessagesButton;
@@ -24,90 +17,110 @@ public class MenuState : MonoBehaviour
     [SerializeField] private GameObject VitalsButton;
     [SerializeField] private GameObject ModesButton;
     [SerializeField] private GameObject IRISMenu;
+    [SerializeField] private GameObject IRISSamplingButton;
+    [SerializeField] private GameObject IRISNavigationButton;
+    [SerializeField] private GameObject IRISRouteButton;
+    [SerializeField] private GameObject IRISEgressButton;
+    [SerializeField] private GameObject IRISAirlockButton;
+    [SerializeField] private GameObject IRISCloseButton;
+    [SerializeField] private Material regularModes;
+    [SerializeField] private Material highlightedModes;
 
     public void ClickTasks()
     {
-        if (currState != State.Tasks)
-        {
-            currState = State.Tasks;
-            UpdateMap();
-        }
+        
     }
 
     public void ClickNavigation()
     {
-        if (currState != State.Navigation)
-        {
-            currState = State.Navigation;
-            UpdateMap();
-        }
+        
     }
     public void ClickMessages()
     {
-        if (currState != State.Messages)
-        {
-            currState = State.Messages;
-            UpdateMap();
-        }
+        
     }
     public void ClickSamples()
     {
-        if (currState != State.Samples)
-        {
-            currState = State.Samples;
-            UpdateMap();
-        }
+        
     }
     public void ClickVitals()
     {
-        if (currState != State.Vitals)
-        {
-            currState = State.Vitals;
-            UpdateMap();
-        }
+        
     }
 
     public void ClickModes()
     {
-        if (currState != State.Modes)
-        {
-            currState = State.Modes;
-            UpdateMap();
-        }
+
+        // Make IRIS Menu visible
+        IRISMenu.SetActive(true);
+        isIRIS = true;
+
+        // Change modes button icon to highlighted
+        ModesButton.transform.GetChild(3).GetChild(0).GetComponent<MeshRenderer>().material = highlightedModes;
+
+        // Change the backplate transparency of top menu icons
+        TasksButton.transform.GetChild(3).GetChild(0).GetComponent<MeshRenderer>().material.color = new Color(1, 1, 1, .5f);
+        NavigationButton.transform.GetChild(3).GetChild(0).GetComponent<MeshRenderer>().material.color = new Color(1, 1, 1, .5f);
+        MessagesButton.transform.GetChild(3).GetChild(0).GetComponent<MeshRenderer>().material.color = new Color(1, 1, 1, .5f);
+        SamplesButton.transform.GetChild(3).GetChild(0).GetComponent<MeshRenderer>().material.color = new Color(1, 1, 1, .5f);
+        VitalsButton.transform.GetChild(3).GetChild(0).GetComponent<MeshRenderer>().material.color = new Color(1, 1, 1, .5f);
     }
 
-    private void UpdateMap()
+    public void ClickIRISSampling()
     {
-        if (currState == State.Tasks)
-        {
+        ClickHideMenu();
+    }
 
-        }
-        else if (currState == State.Navigation)
-        {
+    public void ClickIRISNavigation()
+    {
+        ClickHideMenu();
+    }
 
-        }
-        else if (currState == State.Messages)
-        {
+    public void ClickIRISRoute()
+    {
+        ClickHideMenu();
+    }
 
-        }
-        else if (currState == State.Samples)
-        {
+    public void ClickIRISEgress()
+    {
+        ClickHideMenu();
+    }
 
-        }
-        else if (currState == State.Vitals)
-        {
+    public void ClickIRISAirlock()
+    {
+        ClickHideMenu();
+    }
 
-        }
-        else if (currState == State.Modes)
+    public void ClickIRISClose()
+    {
+        // Make IRIS Menu invisible
+        IRISMenu.SetActive(false);
+        isIRIS = false;
+
+        // Change modes button icon to regular
+        ModesButton.transform.GetChild(3).GetChild(0).GetComponent<MeshRenderer>().material = regularModes;
+
+        // Change the backplate transparency of top menu icons back to full opacity
+        TasksButton.transform.GetChild(3).GetChild(0).GetComponent<MeshRenderer>().material.color = new Color(1, 1, 1, 1);
+        NavigationButton.transform.GetChild(3).GetChild(0).GetComponent<MeshRenderer>().material.color = new Color(1, 1, 1, 1);
+        MessagesButton.transform.GetChild(3).GetChild(0).GetComponent<MeshRenderer>().material.color = new Color(1, 1, 1, 1);
+        SamplesButton.transform.GetChild(3).GetChild(0).GetComponent<MeshRenderer>().material.color = new Color(1, 1, 1, 1);
+        VitalsButton.transform.GetChild(3).GetChild(0).GetComponent<MeshRenderer>().material.color = new Color(1, 1, 1, 1);
+    }
+
+    public void ClickHideMenu()
+    {
+        MainMenu.SetActive(false);
+        IRISMenu.SetActive(false);
+    }
+
+    public void ClickShowMenu()
+    {
+        MainMenu.SetActive(true);
+        if (isIRIS)
         {
             IRISMenu.SetActive(true);
-
-            // Changes the backplate transparency
-            TasksButton.transform.GetChild(3).GetChild(0).GetComponent<MeshRenderer>().material.color = new Color(1, 1, 1, 0);
-            // Changes the text transparency
-            TasksButton.transform.GetChild(4).GetChild(0).GetComponent<Text>().color = new Color(1, 1, 1, 0);
-            // Changes the icon transparency
-            TasksButton.transform.GetChild(4).GetChild(1).GetComponent<MeshRenderer>().material.color = new Color(1, 1, 1, 0);
         }
     }
+
 }
