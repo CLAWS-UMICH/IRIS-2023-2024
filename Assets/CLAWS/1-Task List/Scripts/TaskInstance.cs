@@ -13,8 +13,8 @@ public class TaskInstance : MonoBehaviour
     [SerializeField] TaskObj Task;
     [SerializeField] SubtaskObj Subtask;
     [SerializeField] TaskType Type;
+    [SerializeField] TaskListIcon Icon;
 
-    [SerializeField] GameObject IconPrefab;
     [SerializeField] GameObject DetailedViewPrefab;
 
     public void InitTask(TaskObj task_f)
@@ -43,13 +43,7 @@ public class TaskInstance : MonoBehaviour
     {
         if (Type == TaskType.Main)
         {
-            // TODO create icons
-        }
-        else // Subtask
-        {
-            // TODO create icons ifff
-            // actually I think subtask icons will be housed within the subtask prefab
-            // pressing it will publish an event to mark as complete from this script
+            Icon.SetIcon(TaskListIconEnum.UpcomingTask);
         }
     }
 
@@ -57,16 +51,24 @@ public class TaskInstance : MonoBehaviour
     {
         if (e.StartedTask == Task)
         {
-            // TODO update icon (just do it for every task under all circumstances)
+            Icon.SetIcon(TaskListIconEnum.CurrentTask);
+        }
+    }
+    private void UpdateIcon(TaskFinishedEvent e)
+    {
+        if (e.FinishedTask == Task)
+        {
+            Icon.SetIcon(TaskListIconEnum.CurrentTask);
         }
     }
 
-
     private Subscription<TaskStartedEvent> taskStartedEvent;
+    private Subscription<TaskFinishedEvent> taskFinishedEvent;
 
     private void Start()
     {
         taskStartedEvent = EventBus.Subscribe<TaskStartedEvent>(UpdateIcon);
+        taskFinishedEvent = EventBus.Subscribe<TaskFinishedEvent>(UpdateIcon);
     }
     void OnDestroy()
     {

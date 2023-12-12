@@ -11,6 +11,7 @@ public class TaskListFullScreen : MonoBehaviour
 {
     [SerializeField] List<GameObject> TaskList_List;
     [SerializeField] GameObject TaskPrefab;
+    [SerializeField] GameObject SubtaskPrefab;
     [SerializeField] ScrollHandler TaskList_ScrollHandler;
 
     [ContextMenu("func RenderTaskList")]
@@ -30,8 +31,17 @@ public class TaskListFullScreen : MonoBehaviour
     {
         GameObject g = Instantiate(TaskPrefab, TaskList_ScrollHandler.transform);
         // TODO update g with the correct stuff
-        TaskList_ScrollHandler.Fix();
         TaskList_List.Add(g);
+
+        // add subtasks
+        foreach (SubtaskObj subtaskobj in taskobj_f.subtasks)
+        {
+            GameObject s = Instantiate(SubtaskPrefab, TaskList_ScrollHandler.transform);
+            // TODO update s with subtaskobj
+            TaskList_List.Add(s);
+        }
+
+        TaskList_ScrollHandler.Fix();
     }
 
     [ContextMenu("func AddTask")]
