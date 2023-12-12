@@ -108,7 +108,7 @@ public class ScrollHandler : MonoBehaviour
             {
                 if (i == 0)
                 {
-                    yOffset = (i - top) * -spacing; // Adjust y-offset for vertical layout
+                    yOffset = 0; // = (i - top) * -spacing; // Adjust y-offset for vertical layout
                     // this is just 0
                 }
                 else

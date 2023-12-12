@@ -296,8 +296,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 278120386}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0192, y: -0.0705, z: 0}
-  m_LocalScale: {x: 0.14199886, y: 0.18047048, z: 0.04}
+  m_LocalPosition: {x: -0.015, y: -0.0705, z: 0}
+  m_LocalScale: {x: 0.15837818, y: 0.18047048, z: 0.04}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1073856755}
@@ -1001,6 +1001,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1073856755}
   - component: {fileID: 1073856756}
+  - component: {fileID: 1073856757}
   m_Layer: 0
   m_Name: Full Task List
   m_TagString: Untagged
@@ -1038,15 +1039,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cbd19feaca096a43bd407d608aaf8f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TaskList_List:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  TaskList_List: []
   TaskPrefab: {fileID: 3429808277942548668, guid: 1d1df85481a9840b8a8cc5896b8aadea, type: 3}
   SubtaskPrefab: {fileID: 2902848830363428539, guid: de21a930252bc4cb58d06f78823e8d08, type: 3}
   TaskList_ScrollHandler: {fileID: 2044110194}
   LineDrawer: {fileID: 1481744594}
   Clipping: {fileID: 278120392}
+--- !u!114 &1073856757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1073856754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0fd32bb8e1b2c74e9e0e9943e4bc1cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TaskToAdd:
+    task_id: 0
+    status: 0
+    title: 
+    description: 
+    isEmergency: 0
+    astronauts: []
+    subtasks: []
+  TaskToEdit:
+    task_id: 0
+    status: 0
+    title: 
+    description: 
+    isEmergency: 0
+    astronauts: []
+    subtasks: []
+  TaskToDelete:
+    task_id: 0
+    status: 0
+    title: 
+    description: 
+    isEmergency: 0
+    astronauts: []
+    subtasks: []
 --- !u!1 &1203092812
 GameObject:
   m_ObjectHideFlags: 0

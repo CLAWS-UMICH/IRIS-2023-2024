@@ -17,17 +17,23 @@ public class TaskListFullScreen : MonoBehaviour
     [SerializeField] ClippingManager Clipping;
 
     [ContextMenu("func RenderTaskList")]
-    void RenderTaskList()
+    public void RenderTaskList()
     {
         ClearTaskList();
         Clipping.objectsToClip.Clear();
 
-        foreach (TaskObj taskobj in AstronautInstance.User.TasklistData.AllTasks)
+        IEnumerator _Render()
         {
-            AddTask(taskobj);
+            yield return new WaitForSeconds(0.1f);
+            foreach (TaskObj taskobj in AstronautInstance.User.TasklistData.AllTasks)
+            {
+                AddTask(taskobj);
+            }
+            TaskList_ScrollHandler.Fix();
+            Clipping.SetRenderers();
         }
 
-        Clipping.SetRenderers();
+        StartCoroutine(_Render());
     }
 
     /* Add a task to the tasklist display
@@ -49,8 +55,6 @@ public class TaskListFullScreen : MonoBehaviour
             TaskList_List.Add(s);
             Clipping.objectsToClip.Add(s);
         }
-
-        TaskList_ScrollHandler.Fix();
     }
 
     [ContextMenu("func AddTask")]
@@ -78,6 +82,7 @@ public class TaskListFullScreen : MonoBehaviour
                 Destroy(g);
             }
         }
+        TaskList_List.Clear();
     }
 
 
