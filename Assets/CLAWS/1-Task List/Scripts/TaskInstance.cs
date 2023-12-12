@@ -43,7 +43,7 @@ public class TaskInstance : MonoBehaviour
     {
         if (Type == TaskType.Main)
         {
-            IconPrefab.GetComponent
+            // TODO create icons
         }
         else // Subtask
         {

@@ -119,6 +119,7 @@ public class SpecData
 [System.Serializable]
 public class Waypoints
 {
+    public int currentIndex;
     public List<Waypoint> AllWaypoints = new List<Waypoint>();
 }
 
@@ -160,9 +161,10 @@ public class TaskObj
     public int task_id; // starting from 0 and going up 1
     public int status; // 0 = InProgress, 1 = Completed
     public string title;
+    public string description; //Detailed description of task
     public bool isEmergency; //0 for not Emergency, 1 for Emergency
     public List<SingleAstronaut> astronauts; // All astronauts involved (including self)
-    public List<Subtask> subtasks;
+    public List<SubtaskObj> subtasks;
 
     public override bool Equals(object obj)
     {
@@ -187,7 +189,7 @@ public class TaskObj
         title = other.title;
         isEmergency = other.isEmergency;
         astronauts = new List<SingleAstronaut>(other.astronauts);
-        subtasks = new List<Subtask>(other.subtasks);
+        subtasks = new List<SubtaskObj>(other.subtasks);
     }
 
     public TaskObj() { }
@@ -214,7 +216,7 @@ public class SingleAstronaut
 }
 
 [System.Serializable]
-public class Subtask
+public class SubtaskObj
 {
     public int subtask_id; // starting from 0 and going up 1
     public int status; // 0 = InProgress, 1 = Completed
@@ -229,7 +231,7 @@ public class Subtask
             return false;
         }
 
-        Subtask otherTask = (Subtask)obj;
+        SubtaskObj otherTask = (SubtaskObj)obj;
         return subtask_id == otherTask.subtask_id &&
                title == otherTask.title &&
                status == otherTask.status &&

@@ -115,7 +115,6 @@ public class ScrollHandler : MonoBehaviour
                         - (allButtons[i].GetComponent<BoxCollider>().size.y / 2
                             * allButtons[i].transform.localScale.y)
                         - spacing;
-                    Debug.Log(yOffset);
                 }
             }
 
