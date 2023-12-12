@@ -53,6 +53,16 @@ public class LinesBetweenObjects : MonoBehaviour
     {
         List<GameObject> children = new();
 
+        // delete any null obj in Objects
+        for (int i = Objects.Count - 1; i >= 0; i--)
+        {
+            if (Objects[i] == null)
+            {
+                Objects.RemoveAt(i);
+            }
+        }
+
+        // remove lines
         foreach (Transform child in transform)
         {
             children.Add(child.gameObject);

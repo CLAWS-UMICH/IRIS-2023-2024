@@ -13,16 +13,21 @@ public class TaskListFullScreen : MonoBehaviour
     [SerializeField] GameObject TaskPrefab;
     [SerializeField] GameObject SubtaskPrefab;
     [SerializeField] ScrollHandler TaskList_ScrollHandler;
+    [SerializeField] LinesBetweenObjects LineDrawer;
+    [SerializeField] ClippingManager Clipping;
 
     [ContextMenu("func RenderTaskList")]
     void RenderTaskList()
     {
         ClearTaskList();
+        Clipping.objectsToClip.Clear();
 
         foreach (TaskObj taskobj in AstronautInstance.User.TasklistData.AllTasks)
         {
             AddTask(taskobj);
         }
+
+        Clipping.SetRenderers();
     }
 
     /* Add a task to the tasklist display
@@ -30,15 +35,19 @@ public class TaskListFullScreen : MonoBehaviour
     void AddTask(TaskObj taskobj_f)
     {
         GameObject g = Instantiate(TaskPrefab, TaskList_ScrollHandler.transform);
-        // TODO update g with the correct stuff
+        TaskInstance task_instance = g.GetComponent<TaskInstance>();
+        task_instance.InitTask(taskobj_f);
+        LineDrawer.Objects.Add(task_instance.GetIcon());
         TaskList_List.Add(g);
+        Clipping.objectsToClip.Add(g);
 
         // add subtasks
         foreach (SubtaskObj subtaskobj in taskobj_f.subtasks)
         {
             GameObject s = Instantiate(SubtaskPrefab, TaskList_ScrollHandler.transform);
-            // TODO update s with subtaskobj
+            g.GetComponent<TaskInstance>().InitTask(subtaskobj);
             TaskList_List.Add(s);
+            Clipping.objectsToClip.Add(s);
         }
 
         TaskList_ScrollHandler.Fix();
@@ -84,6 +93,7 @@ public class TaskListFullScreen : MonoBehaviour
         tasksDeletedEvent = EventBus.Subscribe<TasksDeletedEvent>(OnTaskDeleted);
         tasksEditedEvent = EventBus.Subscribe<TasksEditedEvent>(OnTaskEdited);
         tasksAddedEvent = EventBus.Subscribe<TasksAddedEvent>(OnTaskAdded);
+        RenderTaskList();
     }
 
     void OnDestroy()

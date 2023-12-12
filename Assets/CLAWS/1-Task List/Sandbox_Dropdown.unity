@@ -1038,10 +1038,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cbd19feaca096a43bd407d608aaf8f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TaskList_List: []
+  TaskList_List:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   TaskPrefab: {fileID: 3429808277942548668, guid: 1d1df85481a9840b8a8cc5896b8aadea, type: 3}
   SubtaskPrefab: {fileID: 2902848830363428539, guid: de21a930252bc4cb58d06f78823e8d08, type: 3}
   TaskList_ScrollHandler: {fileID: 2044110194}
+  LineDrawer: {fileID: 1481744594}
+  Clipping: {fileID: 278120392}
 --- !u!1 &1203092812
 GameObject:
   m_ObjectHideFlags: 0
@@ -1230,10 +1235,54 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
       propertyPath: _user.TasklistData.AllTasks.Array.size
-      value: 2
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
+      propertyPath: _user.TasklistData.AllTasks.Array.data[0].title
+      value: Example Task
+      objectReference: {fileID: 0}
+    - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
+      propertyPath: _user.TasklistData.AllTasks.Array.data[1].title
+      value: Hi
+      objectReference: {fileID: 0}
+    - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
+      propertyPath: _user.TasklistData.AllTasks.Array.data[2].title
+      value: Hi
+      objectReference: {fileID: 0}
+    - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
+      propertyPath: _user.TasklistData.AllTasks.Array.data[0].task_id
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
+      propertyPath: _user.TasklistData.AllTasks.Array.data[1].task_id
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
+      propertyPath: _user.TasklistData.AllTasks.Array.data[2].task_id
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
+      propertyPath: _user.TasklistData.AllTasks.Array.data[0].description
+      value: This is a task
+      objectReference: {fileID: 0}
+    - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
+      propertyPath: _user.TasklistData.AllTasks.Array.data[1].description
+      value: This is a task
+      objectReference: {fileID: 0}
+    - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
+      propertyPath: _user.TasklistData.AllTasks.Array.data[2].description
+      value: This is a task
+      objectReference: {fileID: 0}
+    - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
+      propertyPath: _user.TasklistData.AllTasks.Array.data[0].subtasks.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
       propertyPath: _user.TasklistData.AllTasks.Array.data[1].subtasks.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
+      propertyPath: _user.TasklistData.AllTasks.Array.data[2].subtasks.Array.size
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1282,7 +1331,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5812446b0222574eb5b0c66872ea9fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Objects: []
+  Objects:
+  - {fileID: 0}
+  - {fileID: 0}
   linePrefab: {fileID: 3399970632769174494, guid: f554a41aa61e50a46888e952380c2df2, type: 3}
   ClippingBounds: {fileID: 278120388}
 --- !u!1 &2044110192

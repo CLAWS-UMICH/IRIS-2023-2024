@@ -22,6 +22,7 @@ public class TaskInstance : MonoBehaviour
         Task = task_f;
         Subtask = null;
         Type = TaskType.Main;
+        Icon.SetIcon(TaskListIconEnum.UpcomingTask);
     }
 
     public void InitTask(SubtaskObj subtask_f)
@@ -29,6 +30,11 @@ public class TaskInstance : MonoBehaviour
         Task = null;
         Subtask = subtask_f;
         Type = TaskType.Subtask;
+    }
+
+    public GameObject GetIcon()
+    {
+        return Icon.gameObject;
     }
 
     // TODO instantiate info based on task or subtask
@@ -39,13 +45,6 @@ public class TaskInstance : MonoBehaviour
         DetailedTaskView.InitDetailedView(Task.title, Task.description, "boop");
     }
 
-    private void CreateIcon()
-    {
-        if (Type == TaskType.Main)
-        {
-            Icon.SetIcon(TaskListIconEnum.UpcomingTask);
-        }
-    }
 
     private void UpdateIcon(TaskStartedEvent e)
     {
@@ -58,7 +57,7 @@ public class TaskInstance : MonoBehaviour
     {
         if (e.FinishedTask == Task)
         {
-            Icon.SetIcon(TaskListIconEnum.CurrentTask);
+            Icon.SetIcon(TaskListIconEnum.CompletedTask);
         }
     }
 

@@ -99,6 +99,10 @@ public class ScrollHandler : MonoBehaviour
             if (layoutType == LayoutType.Horizontal)
             {
                 xOffset = (i - top) * spacing; // Adjust x-offset for horizontal layout
+            
+                // Vector3 newPosition = parentTransform.position + new Vector3(xOffset, yOffset, 0f);
+                Vector3 newPosition = new Vector3(xOffset, yOffset, allButtons[i].transform.position.z);
+                allButtons[i].transform.position = newPosition; // Move each button to the new position
             }
             else
             {
@@ -116,11 +120,13 @@ public class ScrollHandler : MonoBehaviour
                             * allButtons[i].transform.localScale.y)
                         - spacing;
                 }
+
+                // Vector3 newPosition = parentTransform.position + new Vector3(xOffset, yOffset, 0f);
+                Vector3 newPosition = new Vector3(allButtons[i].transform.position.x, yOffset, allButtons[i].transform.position.z);
+                allButtons[i].transform.position = newPosition; // Move each button to the new position
             }
 
-            // Vector3 newPosition = parentTransform.position + new Vector3(xOffset, yOffset, 0f);
-            Vector3 newPosition = new Vector3(xOffset, yOffset, allButtons[i].transform.position.z);
-            allButtons[i].transform.position = newPosition; // Move each button to the new position
+            
         }
     }
 
