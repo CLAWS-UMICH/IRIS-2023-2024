@@ -6,31 +6,82 @@ public class TaskListBackend : MonoBehaviour
 {
 
     private Subscription<TaskFinishedEvent> taskFinishedEvent;
-    private List<TaskObj> currentTasks = AstronautInstance.User.TasklistData.AllTasks;
-    // Start is called before the first frame update
+    private Subscription<TasksDeletedEvent> tasksDeletedEvent;
+    private Subscription<TasksEditedEvent> tasksEditedEvent;
+    private Subscription<TasksAddedEvent> tasksAddedEvent;
+
     void Start()
     {
         taskFinishedEvent = EventBus.Subscribe<TaskFinishedEvent>(OnTaskFinished);
+        tasksDeletedEvent = EventBus.Subscribe<TasksDeletedEvent>(SetCurrentTask);
+        tasksEditedEvent = EventBus.Subscribe<TasksEditedEvent>(SetCurrentTask);
+        tasksAddedEvent = EventBus.Subscribe<TasksAddedEvent>(SetCurrentTask);
+
+        SetCurrentTask<bool>(true);
     }
 
-    // Update is called once per frame
-    void Update()
+    void SetCurrentTask<T>(T e)
     {
+        IEnumerator _SetCurrentTask()
+        {
+            yield return new WaitForSeconds(0);
 
+            bool current_task_set = false;
+            foreach (TaskObj t in AstronautInstance.User.TasklistData.AllTasks)
+            {
+                if (t.status == 1)
+                {
+                    // the current task has already been set
+                    current_task_set = true;
+                    break;
+                }
+                else if (t.status == 0)
+                {
+                    // set the first encountered upcoming task as the current task
+                    t.status = 1;
+                    GameObject.Find("Controller").GetComponent<WebsocketDataHandler>().SendTasklistData();
+                    EventBus.Publish(new TaskStartedEvent(t));
+                    current_task_set = true;
+                    break;
+                }
+            }
+        }
+
+        StartCoroutine(_SetCurrentTask());
+        // // ALL TASKS COMPLETED
+        // if (!current_task_set)
+        // {
+        //     GameObject.Find("Controller").GetComponent<WebsocketDataHandler>().SendTasklistData();
+        //     EventBus.Publish(new AllTasks); // force reload of tasklist
+        // }
     }
 
     void OnTaskFinished(TaskFinishedEvent e)
     {
-        e.FinishedTask.status = 3;
-        for (int i = 0; i < currentTasks.Count; ++i)
+        Debug.Log("setting task finished");
+        Debug.Log(JsonUtility.ToJson(e.FinishedTask));
+        e.FinishedTask.status = 2;
+        SetCurrentTask<TaskFinishedEvent>(e);
+    }
+
+    void OnDestroy()
+    {
+        // Unsubscribe when the script is destroyed
+        if (tasksDeletedEvent != null)
         {
-            if (i != currentTasks.Count && currentTasks[i].status == 3)
-            {
-                currentTasks[i + 1].status = 2;
-                GameObject.Find("Controller").GetComponent<WebsocketDataHandler>().SendTasklistData();
-                EventBus.Publish(new TaskStartedEvent(currentTasks[i + 1]));
-                break;
-            }
+            EventBus.Unsubscribe(tasksDeletedEvent);
+        }
+        if (tasksEditedEvent != null)
+        {
+            EventBus.Unsubscribe(tasksEditedEvent);
+        }
+        if (tasksAddedEvent != null)
+        {
+            EventBus.Unsubscribe(tasksAddedEvent);
+        }
+        if (taskFinishedEvent != null)
+        {
+            EventBus.Unsubscribe(taskFinishedEvent);
         }
     }
 }

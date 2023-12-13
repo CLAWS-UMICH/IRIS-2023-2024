@@ -1002,6 +1002,7 @@ GameObject:
   - component: {fileID: 1073856755}
   - component: {fileID: 1073856756}
   - component: {fileID: 1073856757}
+  - component: {fileID: 1073856758}
   m_Layer: 0
   m_Name: Full Task List
   m_TagString: Untagged
@@ -1040,7 +1041,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TaskList_List: []
-  TaskPrefab: {fileID: 3429808277942548668, guid: 1d1df85481a9840b8a8cc5896b8aadea, type: 3}
+  TaskPrefab: {fileID: 1649503798361910425, guid: 69e20ae0db6f32242850d24e01d67620, type: 3}
+  TaskExpandedPrefab: {fileID: 3429808277942548668, guid: 1d1df85481a9840b8a8cc5896b8aadea, type: 3}
   SubtaskPrefab: {fileID: 2902848830363428539, guid: de21a930252bc4cb58d06f78823e8d08, type: 3}
   TaskList_ScrollHandler: {fileID: 2044110194}
   LineDrawer: {fileID: 1481744594}
@@ -1073,14 +1075,20 @@ MonoBehaviour:
     isEmergency: 0
     astronauts: []
     subtasks: []
-  TaskToDelete:
-    task_id: 0
-    status: 0
-    title: 
-    description: 
-    isEmergency: 0
-    astronauts: []
-    subtasks: []
+  TaskToDelete: 0
+  TaskToFinish: 0
+--- !u!114 &1073856758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1073856754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c2390390239cfd48a58e63b729983d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1203092812
 GameObject:
   m_ObjectHideFlags: 0
@@ -1293,7 +1301,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
       propertyPath: _user.TasklistData.AllTasks.Array.data[2].task_id
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
       propertyPath: _user.TasklistData.AllTasks.Array.data[0].description
@@ -1309,7 +1317,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
       propertyPath: _user.TasklistData.AllTasks.Array.data[0].subtasks.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
       propertyPath: _user.TasklistData.AllTasks.Array.data[1].subtasks.Array.size
