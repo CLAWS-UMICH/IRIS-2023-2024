@@ -48,7 +48,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.10309498, y: 0.02541237, z: 0.005}
+  m_Size: {x: 0.10309498, y: 0.02541237, z: 0.001}
   m_Center: {x: 0.00043642335, y: -0.000068040565, z: 0}
 --- !u!114 &1497229289042797977
 MonoBehaviour:
@@ -223,7 +223,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5638391587990961130}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0251, y: -0.00050200307, z: 0.00030490756}
+  m_LocalPosition: {x: -0.0251, y: -0.0049, z: 0.00030490756}
   m_LocalScale: {x: 0.2664817, y: 0.26648173, z: 0.12524639}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1796,7 +1796,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ec72a3a105768f746b556a8dfdae61a8, type: 2}
+  - {fileID: 2100000, guid: 04c3342f71ed3f54cbb345c96e346074, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2313,8 +2313,8 @@ MonoBehaviour:
   debounceThreshold: 0.01
   localForward: {x: 0, y: 0, z: -1}
   localUp: {x: 0, y: 1, z: 0}
-  localCenter: {x: 0, y: 0, z: -0.008}
-  bounds: {x: 0.096, y: 0.032}
+  localCenter: {x: 0.00081204646, y: 0.00032091123, z: -0.008}
+  bounds: {x: 0.070338726, y: 0.015751814}
   touchableCollider: {fileID: 7754335415329277677}
 --- !u!114 &7754335415329277675
 MonoBehaviour:
@@ -2357,7 +2357,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6882540822271711260, guid: fbf58a6f5971b0b4f8a552eccf2bfbc6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.0699
+      value: -0.065
       objectReference: {fileID: 0}
     - target: {fileID: 6882540822271711260, guid: fbf58a6f5971b0b4f8a552eccf2bfbc6, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2430,14 +2430,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 259350009368641209, guid: a8f517f7be1d69f4ead74499adf2fdff, type: 3}
       propertyPath: m_fontSize
-      value: 0.35
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 259350009368641209, guid: a8f517f7be1d69f4ead74499adf2fdff, type: 3}
+      propertyPath: m_fontStyle
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 259350009368641209, guid: a8f517f7be1d69f4ead74499adf2fdff, type: 3}
       propertyPath: m_fontSizeMin
       value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 259350009368641209, guid: a8f517f7be1d69f4ead74499adf2fdff, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 259350009368641209, guid: a8f517f7be1d69f4ead74499adf2fdff, type: 3}
       propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 259350009368641209, guid: a8f517f7be1d69f4ead74499adf2fdff, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 259350009368641209, guid: a8f517f7be1d69f4ead74499adf2fdff, type: 3}
+      propertyPath: m_HorizontalAlignment
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2392647766582955634, guid: a8f517f7be1d69f4ead74499adf2fdff, type: 3}
@@ -2474,7 +2490,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2392647766582955634, guid: a8f517f7be1d69f4ead74499adf2fdff, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0.04778
+      value: 0.05419
       objectReference: {fileID: 0}
     - target: {fileID: 2392647766582955634, guid: a8f517f7be1d69f4ead74499adf2fdff, type: 3}
       propertyPath: m_LocalScale.x
@@ -2522,7 +2538,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2392647766582955634, guid: a8f517f7be1d69f4ead74499adf2fdff, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.00321
+      value: 0.00247
       objectReference: {fileID: 0}
     - target: {fileID: 2392647766582955634, guid: a8f517f7be1d69f4ead74499adf2fdff, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

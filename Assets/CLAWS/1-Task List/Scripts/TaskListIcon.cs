@@ -29,18 +29,21 @@ public class TaskListIcon : MonoBehaviour
                 GetComponent<MeshRenderer>().material = CompletedSubtask_Material;
                 break;
             case TaskListIconEnum.CompletedTask:
+                transform.localScale = Vector3.one * 0.2f;
                 GetComponent<MeshRenderer>().material = CompletedTask_Material;
                 break;
             case TaskListIconEnum.CurrentSubtask:
                 GetComponent<MeshRenderer>().material = CurrentSubtask_Material;
                 break;
             case TaskListIconEnum.CurrentTask:
+                transform.localScale = Vector3.one * 0.3f;
                 GetComponent<MeshRenderer>().material = CurrentTask_Material;
                 break;
             case TaskListIconEnum.UpcomingSubtask:
                 GetComponent<MeshRenderer>().material = UpcomingSubtask_Material;
                 break;
             case TaskListIconEnum.UpcomingTask:
+                transform.localScale = Vector3.one * 0.2f;
                 GetComponent<MeshRenderer>().material = UpcomingTask_Material;
                 break;
             default:
