@@ -9,18 +9,26 @@ using TMPro;
 
 public class TaskListFullScreen : MonoBehaviour
 {
-    [SerializeField] List<GameObject> TaskList_List;
+    List<GameObject> TaskList_List;
+    List<GameObject> IconsForLines_List;
+    List<GameObject> Lines_List;
+
     [SerializeField] GameObject TaskPrefab;
     [SerializeField] GameObject TaskExpandedPrefab;
     [SerializeField] GameObject SubtaskPrefab;
+    [SerializeField] GameObject LinePrefab;
+
     [SerializeField] ScrollHandler TaskList_ScrollHandler;
-    [SerializeField] LinesBetweenObjects LineDrawer;
     [SerializeField] ClippingManager Clipping;
+    [SerializeField] GameObject LinesParent;
 
     [ContextMenu("func RenderTaskList")]
     public void RenderTaskList()
     {
-        ClearTaskList();
+        ClearList(TaskList_List);
+        ClearList(Lines_List);
+
+        IconsForLines_List.Clear();
         Clipping.objectsToClip.Clear();
 
         // render
@@ -39,10 +47,43 @@ public class TaskListFullScreen : MonoBehaviour
                 }
             }
             TaskList_ScrollHandler.Fix();
+
+            DrawLines();
             Clipping.SetRenderers();
         }
 
         StartCoroutine(_Render());
+    }
+
+    void DrawLines()
+    {
+        for (int i = 1; i < IconsForLines_List.Count; i++)
+        {
+            float y_start = IconsForLines_List[i - 1].transform.position.y
+                            - (IconsForLines_List[i - 1].GetComponent<BoxCollider2D>().size.y / 2
+                            * IconsForLines_List[i - 1].transform.localScale.y) - 0.003f;
+            float y_end = IconsForLines_List[i].transform.position.y
+                            + (IconsForLines_List[i].GetComponent<BoxCollider2D>().size.y / 2
+                            * IconsForLines_List[i].transform.localScale.y) + 0.003f;
+
+            MakeLine(
+                new Vector3(IconsForLines_List[i - 1].transform.position.x, y_start, IconsForLines_List[i - 1].transform.position.z),
+                new Vector3(IconsForLines_List[i].transform.position.x, y_end, IconsForLines_List[i].transform.position.z)
+            );
+        }
+    }
+
+    void MakeLine(Vector3 start_f, Vector3 end_f)
+    {
+        Vector3 midpoint = (start_f + end_f) / 2;
+        float scale = start_f.y - end_f.y;
+
+        GameObject line = Instantiate(LinePrefab, LinesParent.transform);
+        line.transform.position = midpoint;
+        line.transform.localScale = new Vector3(line.transform.localScale.x, scale, line.transform.localScale.z);
+
+        Lines_List.Add(line);
+        Clipping.objectsToClip.Add(line);
     }
 
     /* Add a task to the tasklist display
@@ -54,7 +95,7 @@ public class TaskListFullScreen : MonoBehaviour
             GameObject g = Instantiate(TaskExpandedPrefab, TaskList_ScrollHandler.transform);
             TaskInstance task_instance = g.GetComponent<TaskInstance>();
             task_instance.InitTask(taskobj_f, true);
-            LineDrawer.Objects.Add(task_instance.GetIcon());
+            IconsForLines_List.Add(task_instance.GetIcon());
             TaskList_List.Add(g);
             Clipping.objectsToClip.Add(g);
 
@@ -72,7 +113,7 @@ public class TaskListFullScreen : MonoBehaviour
             GameObject g = Instantiate(TaskPrefab, TaskList_ScrollHandler.transform);
             TaskInstance task_instance = g.GetComponent<TaskInstance>();
             task_instance.InitTask(taskobj_f, false);
-            LineDrawer.Objects.Add(task_instance.GetIcon());
+            IconsForLines_List.Add(task_instance.GetIcon());
             TaskList_List.Add(g);
             Clipping.objectsToClip.Add(g);
         }
@@ -88,10 +129,9 @@ public class TaskListFullScreen : MonoBehaviour
         AddTask(t, false);
     }
 
-    /* Note: This only clears the tasklist display, not the actual list in the backend */
-    void ClearTaskList()
+    void ClearList(List<GameObject> ToDelete)
     {
-        foreach (GameObject g in TaskList_List)
+        foreach (GameObject g in ToDelete)
         {
 #if UNITY_EDITOR
             if (!Application.isPlaying)
@@ -104,7 +144,7 @@ public class TaskListFullScreen : MonoBehaviour
                 Destroy(g);
             }
         }
-        TaskList_List.Clear();
+        ToDelete.Clear();
     }
 
 
@@ -120,6 +160,9 @@ public class TaskListFullScreen : MonoBehaviour
     void Start()
     {
         TaskList_List = new();
+        IconsForLines_List = new();
+        Lines_List = new();
+
         tasksDeletedEvent = EventBus.Subscribe<TasksDeletedEvent>(OnEvent_RenderTaskList);
         tasksEditedEvent = EventBus.Subscribe<TasksEditedEvent>(OnEvent_RenderTaskList);
         tasksAddedEvent = EventBus.Subscribe<TasksAddedEvent>(OnEvent_RenderTaskList);

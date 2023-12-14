@@ -26,8 +26,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2703093676260853961}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00275, y: 0, z: 0}
-  m_LocalScale: {x: 0.015138113, y: 0.015954113, z: 0.0266412}
+  m_LocalPosition: {x: -0.002917, y: 0, z: 0}
+  m_LocalScale: {x: 0.015471423, y: 0.015954113, z: 0.0266412}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5327277407438301270}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 3439040867669458314}
   - component: {fileID: 7394444164452125255}
   m_Layer: 0
-  m_Name: Sub Task Prefab
+  m_Name: Prefab_Subtask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -493,8 +493,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.04573396, y: 0.009715709, z: 0.016}
-  m_Center: {x: -0.008348736, y: 0.00014284751, z: 0}
+  m_Size: {x: 0.046591043, y: 0.010144252, z: 0.016}
+  m_Center: {x: -0.008777281, y: -0.000071424525, z: 0}
 --- !u!114 &5327277407609683057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -933,8 +933,8 @@ MonoBehaviour:
   debounceThreshold: 0.01
   localForward: {x: 0, y: 0, z: -1}
   localUp: {x: 0, y: 1, z: 0}
-  localCenter: {x: 0, y: 0, z: -0.008}
-  bounds: {x: 0.096, y: 0.032}
+  localCenter: {x: -0.008777281, y: -0.000071424525, z: -0.008}
+  bounds: {x: 0.046591043, y: 0.010144252}
   touchableCollider: {fileID: 5327277407609683056}
 --- !u!114 &5327277407609683062
 MonoBehaviour:
@@ -1500,8 +1500,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5327277408604246758}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.01015, y: -0.0019, z: -0.008}
-  m_LocalScale: {x: 0.053079516, y: 0.02221469, z: 0.01303008}
+  m_LocalPosition: {x: -0.01058, y: -0.0019, z: -0.008}
+  m_LocalScale: {x: 0.05603222, y: 0.02221469, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5327277407747208966}
@@ -1536,7 +1536,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 38a587e9218b3284485088c9925af61f, type: 2}
+  - {fileID: 2100000, guid: 9713a006ab074f548a9695b95e0609f7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1639,7 +1639,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2392647766582955634, guid: a8f517f7be1d69f4ead74499adf2fdff, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0.15585
+      value: 0.14157
       objectReference: {fileID: 0}
     - target: {fileID: 2392647766582955634, guid: a8f517f7be1d69f4ead74499adf2fdff, type: 3}
       propertyPath: m_SizeDelta.y
@@ -1687,7 +1687,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2392647766582955634, guid: a8f517f7be1d69f4ead74499adf2fdff, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.00182
+      value: 0.00253
       objectReference: {fileID: 0}
     - target: {fileID: 2392647766582955634, guid: a8f517f7be1d69f4ead74499adf2fdff, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1781,7 +1781,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2392647766582955634, guid: a8f517f7be1d69f4ead74499adf2fdff, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0.21918
+      value: 0.22632
       objectReference: {fileID: 0}
     - target: {fileID: 2392647766582955634, guid: a8f517f7be1d69f4ead74499adf2fdff, type: 3}
       propertyPath: m_SizeDelta.y
@@ -1829,7 +1829,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2392647766582955634, guid: a8f517f7be1d69f4ead74499adf2fdff, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.01637
+      value: -0.01673
       objectReference: {fileID: 0}
     - target: {fileID: 2392647766582955634, guid: a8f517f7be1d69f4ead74499adf2fdff, type: 3}
       propertyPath: m_AnchoredPosition.y

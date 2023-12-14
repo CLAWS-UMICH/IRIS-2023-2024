@@ -85,6 +85,7 @@ public class LinesBetweenObjects : MonoBehaviour
 
     IEnumerator UpdateLines()
     {
+        // TODO we will need to figure out a more efficient way besides line renderer
         while (true)
         {
             yield return new WaitForSeconds(0.05f);
