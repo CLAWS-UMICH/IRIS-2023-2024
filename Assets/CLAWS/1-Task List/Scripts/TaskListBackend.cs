@@ -48,12 +48,6 @@ public class TaskListBackend : MonoBehaviour
         }
 
         StartCoroutine(_SetCurrentTask());
-        // // ALL TASKS COMPLETED
-        // if (!current_task_set)
-        // {
-        //     GameObject.Find("Controller").GetComponent<WebsocketDataHandler>().SendTasklistData();
-        //     EventBus.Publish(new AllTasks); // force reload of tasklist
-        // }
     }
 
     void OnTaskFinished(TaskFinishedEvent e)

@@ -69,4 +69,17 @@ public class TaskInstance : MonoBehaviour
         DetailedTask DetailedTaskView = DetailedView.GetComponent<DetailedTask>();
         DetailedTaskView.InitDetailedView(Task.title, Task.description, "boop");
     }
+
+    [ContextMenu("func FinishTask")]
+    public void FinishTask()
+    {
+        if (Type == TaskType.Main)
+        {
+            EventBus.Publish<TaskFinishedEvent>(new TaskFinishedEvent(Task));
+        }
+        else
+        {
+            EventBus.Publish<SubtaskFinishedEvent>(new SubtaskFinishedEvent(Subtask));
+        }
+    }
 }
