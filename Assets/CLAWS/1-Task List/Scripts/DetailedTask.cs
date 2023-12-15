@@ -6,9 +6,9 @@ using TMPro;
 
 public class DetailedTask : MonoBehaviour
 {
-    TextMeshPro TaskName;
-    TextMeshPro TaskData;
-    TextMeshPro TaskMetaData;
+    [SerializeField] TextMeshPro TaskName;
+    [SerializeField] TextMeshPro TaskData;
+    [SerializeField] TextMeshPro TaskMetaData;
 
     // Start is called before the first frame update
     void Start()
