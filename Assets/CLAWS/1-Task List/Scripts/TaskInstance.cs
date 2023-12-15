@@ -7,11 +7,6 @@ public class TaskInstance : MonoBehaviour
     private TaskObj Task;
     [SerializeField] GameObject DetailedViewPrefab;
 
-    void Start()
-    {
-        
-    }
-
     public void ViewDetails()
     {
         GameObject DetailedView = Instantiate(DetailedViewPrefab, transform);
