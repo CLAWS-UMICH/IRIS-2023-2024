@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class FixScrollZ : MonoBehaviour
 {
+    [SerializeField] float z;
+
     void Update()
     {
-        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0);
+        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, z);
     }
 }
