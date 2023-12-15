@@ -103,7 +103,7 @@ public class TaskListFullScreen : MonoBehaviour
             foreach (SubtaskObj subtaskobj in taskobj_f.subtasks)
             {
                 GameObject s = Instantiate(SubtaskPrefab, TaskList_ScrollHandler.transform);
-                g.GetComponent<TaskInstance>().InitTask(subtaskobj);
+                s.GetComponent<TaskInstance>().InitTask(subtaskobj);
                 TaskList_List.Add(s);
                 Clipping.objectsToClip.Add(s);
             }
