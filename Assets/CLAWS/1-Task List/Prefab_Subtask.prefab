@@ -161,7 +161,7 @@ MonoBehaviour:
   Icon: {fileID: 0}
   Title: {fileID: 5251540698040543854}
   Status: {fileID: 0}
-  DetailedViewPrefab: {fileID: 0}
+  DetailedViewPrefab: {fileID: 1900387565814396994, guid: d1761dd6cb7204f42bb8e6e9c82f282a, type: 3}
 --- !u!1 &5327277406748862712
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,9 +654,9 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Increment
+      - m_Target: {fileID: 7394444164452125255}
+        m_TargetAssemblyTypeName: TaskInstance, Assembly-CSharp
+        m_MethodName: ViewDetails
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
