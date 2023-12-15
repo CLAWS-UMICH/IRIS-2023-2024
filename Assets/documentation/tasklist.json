@@ -6,7 +6,7 @@
         "AllTasks": [
             {
                 "task_id": 2, 
-                "status": 1,  // 0 for InProgress, 1 for Completed
+                "status": 1,  // 0 for Upcoming, 1 for InProgress, 2 for Completed
                 "title": "Task Name",
                 "isEmergency":  0, //0 for not Emergency, 1 for Emergency
                 "astronauts": [ // list of ALL astronauts involved (including self)

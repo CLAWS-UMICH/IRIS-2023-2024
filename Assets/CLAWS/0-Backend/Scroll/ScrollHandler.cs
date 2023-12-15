@@ -99,29 +99,34 @@ public class ScrollHandler : MonoBehaviour
             if (layoutType == LayoutType.Horizontal)
             {
                 xOffset = (i - top) * spacing; // Adjust x-offset for horizontal layout
+            
+                // Vector3 newPosition = parentTransform.position + new Vector3(xOffset, yOffset, 0f);
+                Vector3 newPosition = new Vector3(xOffset, yOffset, allButtons[i].transform.position.z);
+                allButtons[i].transform.position = newPosition; // Move each button to the new position
             }
             else
             {
                 if (i == 0)
                 {
-                    yOffset = (i - top) * -spacing; // Adjust y-offset for vertical layout
+                    yOffset = 0;// transform.localPosition.y; // = (i - top) * -spacing; // Adjust y-offset for vertical layout
                     // this is just 0
                 }
                 else
                 {
-                    yOffset = allButtons[i - 1].transform.position.y
+                    yOffset = allButtons[i - 1].transform.localPosition.y
                         - (allButtons[i - 1].GetComponent<BoxCollider>().size.y / 2
                             * allButtons[i - 1].transform.localScale.y)
                         - (allButtons[i].GetComponent<BoxCollider>().size.y / 2
                             * allButtons[i].transform.localScale.y)
                         - spacing;
-                    Debug.Log(yOffset);
                 }
+
+                // Vector3 newPosition = parentTransform.position + new Vector3(xOffset, yOffset, 0f);
+                Vector3 newPosition = new Vector3(allButtons[i].transform.localPosition.x, yOffset, allButtons[i].transform.localPosition.z);
+                allButtons[i].transform.localPosition = newPosition; // Move each button to the new position
             }
 
-            // Vector3 newPosition = parentTransform.position + new Vector3(xOffset, yOffset, 0f);
-            Vector3 newPosition = new Vector3(xOffset, yOffset, allButtons[i].transform.position.z);
-            allButtons[i].transform.position = newPosition; // Move each button to the new position
+            
         }
     }
 

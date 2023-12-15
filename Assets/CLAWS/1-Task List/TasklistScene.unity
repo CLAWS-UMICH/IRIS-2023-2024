@@ -414,17 +414,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &698558010 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4000482608019902054, guid: 491090cf1b1f28442b4569623659157a, type: 3}
-  m_PrefabInstance: {fileID: 3504226454377324507}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &835664601
 GameObject:
   m_ObjectHideFlags: 0
@@ -467,8 +456,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1572480836}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -729,14 +717,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1572480835}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 249741036}
-  m_Father: {fileID: 835664603}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1572480837
 MonoBehaviour:
@@ -754,6 +742,7 @@ MonoBehaviour:
     task_id: 1
     status: 0
     title: Random Task
+    description: 
     isEmergency: 0
     astronauts:
     - astronaut_id: 0
@@ -773,6 +762,7 @@ MonoBehaviour:
     task_id: 0
     status: 0
     title: 
+    description: 
     isEmergency: 0
     astronauts: []
     subtasks: []
@@ -780,6 +770,7 @@ MonoBehaviour:
     task_id: 0
     status: 0
     title: 
+    description: 
     isEmergency: 0
     astronauts: []
     subtasks: []
@@ -795,7 +786,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cbd19feaca096a43bd407d608aaf8f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tmp: {fileID: 698558010}
+  TaskList_List: []
+  TaskPrefab: {fileID: 0}
+  TaskList_ScrollHandler: {fileID: 0}
 --- !u!4 &159626194504043168
 Transform:
   m_ObjectHideFlags: 0
