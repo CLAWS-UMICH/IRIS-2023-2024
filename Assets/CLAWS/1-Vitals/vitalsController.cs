@@ -11,6 +11,8 @@ public class vitalsController : MonoBehaviour
     public GameObject parent;
     public GameObject bodyObject;
     public GameObject suitObject;
+    public GameObject bodyObjectFellow;
+    public GameObject suitObjectFellow;
     public GameObject parentFellow;
     //1st astronaut
     TextMeshPro heartRate, PO2, SO2, roomID, is_running, is_paused, time,
@@ -65,30 +67,35 @@ public class vitalsController : MonoBehaviour
         h2O_cap = parent.transform.Find("H2O_cap").gameObject.GetComponent<TextMeshPro>();
 
         //2nd astronaut
-        heartRate1 = parent.transform.Find("HeartRate1").gameObject.GetComponent<TextMeshPro>();
-        PO21 = parent.transform.Find("PO21").gameObject.GetComponent<TextMeshPro>();
+
+        //body board
+        heartRate1 = bodyObjectFellow.transform.Find("HeartRate").gameObject.GetComponent<TextMeshPro>();
+        temp1 = bodyObjectFellow.transform.Find("Temperature").gameObject.GetComponent<TextMeshPro>();
+
+        //suit board
+        O2rate1 = suitObjectFellow.transform.Find("O2Rate").gameObject.GetComponent<TextMeshPro>();
+        btry_perc1 = suitObjectFellow.transform.Find("Btry_perc").gameObject.GetComponent<TextMeshPro>();
+        suit_p1 = suitObjectFellow.transform.Find("Suit_p").gameObject.GetComponent<TextMeshPro>();
+        O2_p1 = suitObjectFellow.transform.Find("O2_p").gameObject.GetComponent<TextMeshPro>();
+        PO21 = suitObjectFellow.transform.Find("PO2").gameObject.GetComponent<TextMeshPro>();
+
         SO21 = parent.transform.Find("SO21").gameObject.GetComponent<TextMeshPro>();
         O2timeLeft1 = parent.transform.Find("O2TimeLeft1").gameObject.GetComponent<TextMeshPro>();
         H2OtimeLeft1 = parent.transform.Find("H2OTimeLeft1").gameObject.GetComponent<TextMeshPro>();
-        O2rate1 = parent.transform.Find("O2Rate1").gameObject.GetComponent<TextMeshPro>();
         roomID1 = parent.transform.Find("roomID1").gameObject.GetComponent<TextMeshPro>();
         is_running1 = parent.transform.Find("Running1").gameObject.GetComponent<TextMeshPro>();
         is_paused1 = parent.transform.Find("Paused1").gameObject.GetComponent<TextMeshPro>();
         time1 = parent.transform.Find("Time1").gameObject.GetComponent<TextMeshPro>();
         timer1 = parent.transform.Find("Timer1").gameObject.GetComponent<TextMeshPro>();
         started_at1 = parent.transform.Find("Started1").gameObject.GetComponent<TextMeshPro>();
-        suit_p1 = parent.transform.Find("Suit_p1").gameObject.GetComponent<TextMeshPro>();
         sub_p1 = parent.transform.Find("Sub_p1").gameObject.GetComponent<TextMeshPro>();
-        O2_p1 = parent.transform.Find("O2_p1").gameObject.GetComponent<TextMeshPro>();
         h2O_gas_p1 = parent.transform.Find("H2O_gas_p1").gameObject.GetComponent<TextMeshPro>();
         h2O_liq_p1 = parent.transform.Find("H2O_liq_p1").gameObject.GetComponent<TextMeshPro>();
         sop_p1 = parent.transform.Find("Sop_p1").gameObject.GetComponent<TextMeshPro>();
         sop_rate1 = parent.transform.Find("Sop_rate1").gameObject.GetComponent<TextMeshPro>();
         fan_tach1 = parent.transform.Find("Fan_tach1").gameObject.GetComponent<TextMeshPro>();
         btry_cap1 = parent.transform.Find("Btry_cap1").gameObject.GetComponent<TextMeshPro>();
-        temp1 = parent.transform.Find("Temperature1").gameObject.GetComponent<TextMeshPro>();
         btry_timeLeft1 = parent.transform.Find("Btry_timeLeft1").gameObject.GetComponent<TextMeshPro>();
-        btry_perc1 = parent.transform.Find("Btry_perc1").gameObject.GetComponent<TextMeshPro>();
         btry_out1 = parent.transform.Find("Btry_out1").gameObject.GetComponent<TextMeshPro>();
         O2_primeTime1 = parent.transform.Find("O2_primeTime1").gameObject.GetComponent<TextMeshPro>();
         O2_secTime1 = parent.transform.Find("O2_secTime1").gameObject.GetComponent<TextMeshPro>();
