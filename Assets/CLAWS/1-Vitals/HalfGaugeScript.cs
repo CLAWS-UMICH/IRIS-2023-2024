@@ -12,7 +12,11 @@ public class HalfGaugeScript : MonoBehaviour
     TextMeshPro gaugeTitle;
     TextMeshPro gaugeValue;
     TextMeshPro gaugeUnit;
-    float gaugeMaxValue = 100.0f;
+
+    //Placeholder values for the gauge current value and max value. Will need to be fetched for prod
+    public float gaugeMaxValue = 100.0f;
+    public float value = 0.0f;
+
     private IEnumerator testCoroutine;
     // Start is called before the first frame update
     void Start()
@@ -22,42 +26,46 @@ public class HalfGaugeScript : MonoBehaviour
         gaugeValue = halfGauge.transform.Find("HalfGaugeValue").gameObject.GetComponent<TextMeshPro>();
         gaugeUnit = halfGauge.transform.Find("HalfGaugeUnit").gameObject.GetComponent<TextMeshPro>();
 
-        // This ring filler is toggled on when the gauge value is 0-50%
+        // This ring filler is toggled on when the gauge value is between 0-50%
         halfRingPartialFiller = halfRing.transform.Find("HalfRingPartialFiller").gameObject;
 
         //This ring filler is toggled on when the gauge value is >= 50%
         halfRingFullFiller = halfRing.transform.Find("HalfRingFullFiller").gameObject;
 
-        gaugeValue.text = "0.0";
         testCoroutine = _UpdateGauge();
         StartCoroutine(testCoroutine);
     }
 
     IEnumerator _UpdateGauge()
     {
-        float value = 1.0f;
         while (true)
         {
+            //Comment the line below before testing values in the inspector
             value = value + 1.0f;
+
             yield return new WaitForSeconds(1.0f);
             gaugeValue.text = value.ToString();
-
             float percentValue = calculatePercentage(value);
+            float degreeRotation = calculateRotation(percentValue);
             if (percentValue <= 50)
             {
+                //Fetch current Z rotational value of the filler and subtract that before update
+                float currentRotationZ = halfRingPartialFiller.transform.rotation.eulerAngles.z - 90;
+
                 //Show partial ring filler, hide full ring filler
-                float degreeRotation = calculatePartialRingRotation(percentValue);
                 halfRingFullFiller.SetActive(false);
                 halfRingPartialFiller.SetActive(true);
-                halfRingPartialFiller.transform.Rotate(0.0f, 0.0f, degreeRotation, Space.Self);
+                halfRingPartialFiller.transform.Rotate(0.0f, 0.0f, degreeRotation-currentRotationZ, Space.Self);
             }
             else
             {
+                //Fetch current Z rotational value of the filler and subtract that before update
+                float currentRotationZ = halfRingFullFiller.transform.rotation.eulerAngles.z - 180;
+
                 //Hide partial ring filler, show full ring filler
-                float degreeRotation = calculateFullRingRotation(percentValue);
                 halfRingFullFiller.SetActive(true);
                 halfRingPartialFiller.SetActive(false);
-                halfRingFullFiller.transform.Rotate(0.0f, 0.0f, degreeRotation, Space.Self);
+                halfRingFullFiller.transform.Rotate(0.0f, 0.0f, degreeRotation-currentRotationZ, Space.Self);
 
             }
         }
@@ -67,17 +75,10 @@ public class HalfGaugeScript : MonoBehaviour
     {
         return (gaugeValue / gaugeMaxValue) * 100;
     }
-    float calculatePartialRingRotation(float percentage)
+    float calculateRotation(float percentage)
     {
         return -(percentage / 100) * 180;
     }
-    float calculateFullRingRotation(float percentage)
-    {
-        return (percentage / 100) * 180;
-    }
 
-    /*    void toggleGauge(float gaugeValue)
-        {
 
-        }*/
 }
