@@ -111,9 +111,9 @@ public class vitalsController : MonoBehaviour
         temp.text = e.vitals.temperature.ToString();
 
         //suit
-        O2rate.text = e.vitals.o2_rate.ToString();
-        suit_p.text = e.vitals.suit_pressure.ToString();
-        O2_p.text = e.vitals.o2_pressure.ToString();
+        O2rate.text = e.vitals.o2_rate.ToString("F0");
+        suit_p.text = e.vitals.suit_pressure.ToString("F1");
+        O2_p.text = e.vitals.o2_pressure.ToString("F1");
         PO2.text = e.vitals.primary_oxygen.ToString();
         btry_perc.text = e.vitals.battery_percentage.ToString();
 

@@ -51,10 +51,10 @@ public class FakeTSSMessageSender : MonoBehaviour
             // Update vitals with random values
             AstronautInstance.User.VitalsData.primary_oxygen = UnityEngine.Random.Range(90f, 100f);
             AstronautInstance.User.VitalsData.secondary_oxygen = UnityEngine.Random.Range(90f, 100f);
-            AstronautInstance.User.VitalsData.suit_pressure = UnityEngine.Random.Range(10f, 20f);
+            AstronautInstance.User.VitalsData.suit_pressure = UnityEngine.Random.Range(0.8f, 5.2f);
             AstronautInstance.User.VitalsData.sub_pressure = UnityEngine.Random.Range(15f, 25f);
-            AstronautInstance.User.VitalsData.o2_pressure = UnityEngine.Random.Range(5f, 10f);
-            AstronautInstance.User.VitalsData.o2_rate = UnityEngine.Random.Range(2f, 5f);
+            AstronautInstance.User.VitalsData.o2_pressure = UnityEngine.Random.Range(0.8f, 5.2f);
+            AstronautInstance.User.VitalsData.o2_rate = UnityEngine.Random.Range(50f, 90f);
             AstronautInstance.User.VitalsData.h2o_gas_pressure = UnityEngine.Random.Range(8f, 15f);
             AstronautInstance.User.VitalsData.h2o_liquid_pressure = UnityEngine.Random.Range(18f, 25f);
             AstronautInstance.User.VitalsData.sop_pressure = UnityEngine.Random.Range(6f, 12f);
