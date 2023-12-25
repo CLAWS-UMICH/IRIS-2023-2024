@@ -62,12 +62,20 @@ public class TaskInstance : MonoBehaviour
         return Icon.gameObject;
     }
 
-    // TODO instantiate info based on task or subtask
     public void ViewDetails()
     {
         GameObject DetailedView = Instantiate(DetailedViewPrefab, transform);
         DetailedTask DetailedTaskView = DetailedView.GetComponent<DetailedTask>();
-        DetailedTaskView.InitDetailedView(Task.title, Task.description, "boop");
+
+        if (Type == TaskType.Main)
+        {
+            DetailedTaskView.InitDetailedView(Task.title, Task.description, "boop");
+        }
+        else
+        {
+            DetailedTaskView.InitDetailedView(Subtask.title, Subtask.description, "boop");
+        }
+        
     }
 
     [ContextMenu("func FinishTask")]

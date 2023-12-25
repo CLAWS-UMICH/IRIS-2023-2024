@@ -22,37 +22,62 @@ public class TaskListFullScreen : MonoBehaviour
     [SerializeField] ClippingManager Clipping;
     [SerializeField] GameObject LinesParent;
 
+    Queue<string> FunctionQueue;
+
     [ContextMenu("func RenderTaskList")]
     public void RenderTaskList()
+    {
+        FunctionQueue.Enqueue("ClearAll");
+        FunctionQueue.Enqueue("Render");
+    }
+
+    void ClearAll()
     {
         ClearList(TaskList_List);
         ClearList(Lines_List);
 
         IconsForLines_List.Clear();
         Clipping.objectsToClip.Clear();
+    }
 
-        // render
-        IEnumerator _Render()
+    void Render()
+    {
+        foreach (TaskObj taskobj in AstronautInstance.User.TasklistData.AllTasks)
         {
-            yield return new WaitForSeconds(0);
-            foreach (TaskObj taskobj in AstronautInstance.User.TasklistData.AllTasks)
+            if (taskobj.status == 1)
             {
-                if (taskobj.status == 1)
-                {
-                    AddTask(taskobj, true);
-                }
-                else
-                {
-                    AddTask(taskobj, false);
-                }
+                AddTask(taskobj, true);
             }
-            TaskList_ScrollHandler.Fix();
-
-            DrawLines();
-            Clipping.SetRenderers();
+            else
+            {
+                AddTask(taskobj, false);
+            }
         }
+        TaskList_ScrollHandler.Fix();
 
-        StartCoroutine(_Render());
+        DrawLines();
+        Clipping.SetRenderers();
+    }
+
+    private void Update()
+    {
+        if (FunctionQueue.Count > 0)
+        {
+            string operation = FunctionQueue.Dequeue();
+
+            switch (operation)
+            {
+                case "ClearAll":
+                    ClearAll();
+                    break;
+                case "Render":
+                    Render();
+                    break;
+                default:
+                    Debug.LogError("Nothing in function queue");
+                    break;
+            }
+        }
     }
 
     void DrawLines()
@@ -162,6 +187,7 @@ public class TaskListFullScreen : MonoBehaviour
         TaskList_List = new();
         IconsForLines_List = new();
         Lines_List = new();
+        FunctionQueue = new();
 
         tasksDeletedEvent = EventBus.Subscribe<TasksDeletedEvent>(OnEvent_RenderTaskList);
         tasksEditedEvent = EventBus.Subscribe<TasksEditedEvent>(OnEvent_RenderTaskList);
