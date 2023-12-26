@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,13 +9,15 @@ public class HalfGaugeScript : MonoBehaviour
     GameObject halfGauge;
     GameObject halfRingPartialFiller;
     GameObject halfRingFullFiller;
+    SpriteRenderer halfRingPartialFillerSprite;
+    SpriteRenderer halfRingFullFillerSprite;
     GameObject halfRing;
     TextMeshPro gaugeTitle;
     TextMeshPro gaugeValue;
     TextMeshPro gaugeUnit;
 
-    //Placeholder values for the gauge current value and max value. Will need to be fetched for prod
-    public float gaugeMaxValue = 100.0f;
+    // Placeholder values for the gauge current value and max value. Currently for pressure (psi) from 0.0-7.0
+    public float gaugeMaxValue = 6.0f;
     public float value = 0.0f;
 
     private IEnumerator testCoroutine;
@@ -28,9 +31,11 @@ public class HalfGaugeScript : MonoBehaviour
 
         // This ring filler is toggled on when the gauge value is between 0-50%
         halfRingPartialFiller = halfRing.transform.Find("HalfRingPartialFiller").gameObject;
+        halfRingPartialFillerSprite = halfRingPartialFiller.GetComponent<SpriteRenderer>(); 
 
         //This ring filler is toggled on when the gauge value is >= 50%
         halfRingFullFiller = halfRing.transform.Find("HalfRingFullFiller").gameObject;
+        halfRingFullFillerSprite = halfRingFullFiller.GetComponent<SpriteRenderer>();
 
         testCoroutine = _UpdateGauge();
         StartCoroutine(testCoroutine);
@@ -41,10 +46,13 @@ public class HalfGaugeScript : MonoBehaviour
         while (true)
         {
             //Comment the line below before testing values in the inspector
-            value = value + 1.0f;
+            value = value + 0.1f;
+            setGaugeColor(value);
 
             yield return new WaitForSeconds(1.0f);
-            gaugeValue.text = value.ToString();
+            gaugeValue.text = Math.Round(value,1).ToString();
+
+
             float percentValue = calculatePercentage(value);
             float degreeRotation = calculateRotation(percentValue);
             if (percentValue <= 50)
@@ -73,12 +81,33 @@ public class HalfGaugeScript : MonoBehaviour
 
     float calculatePercentage(float gaugeValue)
     {
-        return (gaugeValue / gaugeMaxValue) * 100;
+        return (float)Math.Min((gaugeValue / gaugeMaxValue) * 100, 100);
     }
     float calculateRotation(float percentage)
     {
         return -(percentage / 100) * 180;
     }
 
+    void setGaugeColor(float gaugeValue)
+    {
+        Color warningColor = new Color(1.0f, 0.4f, 0f, 1.0f);  // Color values are normalized (0 to 1)
+        Color dangerColor = new Color(1.0f, 0f, 0f, 1.0f);
+        Color regularColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
 
+        if (gaugeValue <= 1 || gaugeValue >= 5.0)
+        {
+            halfRingPartialFillerSprite.color = dangerColor;
+            halfRingFullFillerSprite.color = dangerColor;
+        }
+        else if ((gaugeValue > 1 && gaugeValue <= 1.9) || (gaugeValue >= 4.1 && gaugeValue < 5.0))
+        {
+            halfRingPartialFillerSprite.color = warningColor;
+            halfRingFullFillerSprite.color = warningColor;
+        }
+        else
+        {
+            halfRingPartialFillerSprite.color = regularColor;
+            halfRingFullFillerSprite.color = regularColor;
+        }
+    }
 }
