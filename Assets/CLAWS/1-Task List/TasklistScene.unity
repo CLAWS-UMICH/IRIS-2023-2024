@@ -318,6 +318,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 352633495570442242, guid: f9852d3613b584fd195c0644d11b92b9, type: 3}
+      propertyPath: EmergencyTaskPrefab
+      value: 
+      objectReference: {fileID: 3429808277942548668, guid: 0c6b9cfbce90d62439ebfbfa7ff14a83, type: 3}
     - target: {fileID: 6532724680916043976, guid: f9852d3613b584fd195c0644d11b92b9, type: 3}
       propertyPath: m_Name
       value: Prefab_FullTaskList
@@ -744,7 +748,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
       propertyPath: _user.TasklistData.AllTasks.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
       propertyPath: _user.TasklistData.AllTasks.Array.data[0].title
@@ -759,6 +763,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
+      propertyPath: _user.TasklistData.AllTasks.Array.data[3].title
+      value: Super urgent emergency task
+      objectReference: {fileID: 0}
+    - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
       propertyPath: _user.TasklistData.AllTasks.Array.data[0].task_id
       value: 0
       objectReference: {fileID: 0}
@@ -771,12 +779,24 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
+      propertyPath: _user.TasklistData.AllTasks.Array.data[3].task_id
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
       propertyPath: _user.TasklistData.AllTasks.Array.data[0].description
       value: Do some stuff
       objectReference: {fileID: 0}
     - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
       propertyPath: _user.TasklistData.AllTasks.Array.data[2].description
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
+      propertyPath: _user.TasklistData.AllTasks.Array.data[3].description
+      value: Attention agent 007... This is an urgent incoming message!
+      objectReference: {fileID: 0}
+    - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
+      propertyPath: _user.TasklistData.AllTasks.Array.data[3].isEmergency
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
       propertyPath: _user.TasklistData.AllTasks.Array.data[0].subtasks.Array.size
@@ -789,6 +809,10 @@ PrefabInstance:
     - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
       propertyPath: _user.TasklistData.AllTasks.Array.data[2].subtasks.Array.size
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
+      propertyPath: _user.TasklistData.AllTasks.Array.data[3].subtasks.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
       propertyPath: _user.TasklistData.AllTasks.Array.data[0].subtasks.Array.data[0].title
@@ -811,6 +835,14 @@ PrefabInstance:
       value: blah2
       objectReference: {fileID: 0}
     - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
+      propertyPath: _user.TasklistData.AllTasks.Array.data[3].subtasks.Array.data[0].title
+      value: blah
+      objectReference: {fileID: 0}
+    - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
+      propertyPath: _user.TasklistData.AllTasks.Array.data[3].subtasks.Array.data[1].title
+      value: blah2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
       propertyPath: _user.TasklistData.AllTasks.Array.data[1].subtasks.Array.data[0].status
       value: 0
       objectReference: {fileID: 0}
@@ -824,6 +856,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
       propertyPath: _user.TasklistData.AllTasks.Array.data[2].subtasks.Array.data[1].subtask_id
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
+      propertyPath: _user.TasklistData.AllTasks.Array.data[3].subtasks.Array.data[1].subtask_id
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
@@ -844,6 +880,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
       propertyPath: _user.TasklistData.AllTasks.Array.data[2].subtasks.Array.data[1].description
+      value: blah2 blah2 blah2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
+      propertyPath: _user.TasklistData.AllTasks.Array.data[3].subtasks.Array.data[0].description
+      value: blah blah blah
+      objectReference: {fileID: 0}
+    - target: {fileID: 8664392983499788715, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
+      propertyPath: _user.TasklistData.AllTasks.Array.data[3].subtasks.Array.data[1].description
       value: blah2 blah2 blah2
       objectReference: {fileID: 0}
     m_RemovedComponents: []

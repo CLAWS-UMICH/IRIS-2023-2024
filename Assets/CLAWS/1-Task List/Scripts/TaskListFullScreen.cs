@@ -16,6 +16,7 @@ public class TaskListFullScreen : MonoBehaviour
     [SerializeField] GameObject TaskPrefab;
     [SerializeField] GameObject TaskExpandedPrefab;
     [SerializeField] GameObject SubtaskPrefab;
+    [SerializeField] GameObject EmergencyTaskPrefab;
     [SerializeField] GameObject LinePrefab;
 
     [SerializeField] ScrollHandler TaskList_ScrollHandler;
@@ -42,15 +43,28 @@ public class TaskListFullScreen : MonoBehaviour
 
     void Render()
     {
+        // Render emergency tasks first
         foreach (TaskObj taskobj in AstronautInstance.User.TasklistData.AllTasks)
         {
-            if (taskobj.status == 1)
+            if (taskobj.isEmergency)
             {
-                AddTask(taskobj, true);
+                AddEmergencyTask(taskobj);
             }
-            else
+        }
+
+        // Render non-emergency tasks
+        foreach (TaskObj taskobj in AstronautInstance.User.TasklistData.AllTasks)
+        {
+            if (!taskobj.isEmergency)
             {
-                AddTask(taskobj, false);
+                if (taskobj.status == 1)
+                {
+                    AddTask(taskobj, true);
+                }
+                else
+                {
+                    AddTask(taskobj, false);
+                }
             }
         }
         TaskList_ScrollHandler.Fix();
@@ -111,8 +125,15 @@ public class TaskListFullScreen : MonoBehaviour
         Clipping.objectsToClip.Add(line);
     }
 
-    /* Add a task to the tasklist display
-     * Note: This only adds to the tasklist display, not the actual backend */
+    void AddEmergencyTask(TaskObj taskobj_f)
+    {
+        GameObject g = Instantiate(EmergencyTaskPrefab, TaskList_ScrollHandler.transform);
+        TaskInstance task_instance = g.GetComponent<TaskInstance>();
+        task_instance.InitEmergencyTask(taskobj_f);
+        TaskList_List.Add(g);
+        Clipping.objectsToClip.Add(g);
+    }
+
     void AddTask(TaskObj taskobj_f, bool is_current_task)
     {
         if (is_current_task)

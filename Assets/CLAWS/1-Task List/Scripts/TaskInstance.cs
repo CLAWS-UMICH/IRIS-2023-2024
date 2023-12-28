@@ -6,7 +6,8 @@ using TMPro;
 public enum TaskType
 {
     Subtask, 
-    Main
+    Main, 
+    Emergency
 }
 
 public class TaskInstance : MonoBehaviour
@@ -57,6 +58,15 @@ public class TaskInstance : MonoBehaviour
         Type = TaskType.Subtask;
     }
 
+    public void InitEmergencyTask(TaskObj task_f)
+    {
+        Task = task_f;
+        Subtask = null;
+        Type = TaskType.Emergency;
+        Title.text = Task.title;
+        Status.text = Task.description;
+    }
+
     public GameObject GetIcon()
     {
         return Icon.gameObject;
@@ -67,7 +77,7 @@ public class TaskInstance : MonoBehaviour
         GameObject DetailedView = Instantiate(DetailedViewPrefab, transform);
         DetailedTask DetailedTaskView = DetailedView.GetComponent<DetailedTask>();
 
-        if (Type == TaskType.Main)
+        if (Type == TaskType.Main || Type == TaskType.Emergency)
         {
             DetailedTaskView.InitDetailedView(Task.title, Task.description, "boop");
         }
@@ -81,7 +91,7 @@ public class TaskInstance : MonoBehaviour
     [ContextMenu("func FinishTask")]
     public void FinishTask()
     {
-        if (Type == TaskType.Main)
+        if (Type == TaskType.Main || Type == TaskType.Emergency)
         {
             EventBus.Publish<TaskFinishedEvent>(new TaskFinishedEvent(Task));
         }
