@@ -10,11 +10,69 @@ public class TaskListScrollHandler : MonoBehaviour
     [SerializeField] private BoxCollider Bounds;
     [SerializeField] private Transform Content;
 
-    private List<Transform> allButtons = new List<Transform>(); // List to store all buttons
+    private List<Transform> Objects = new List<Transform>(); // List to store all buttons
 
     private Vector3 startBounds;
     private Vector3 endBounds;
     private float colliderOffset;
+    private Vector3 scrollTarget;
+    private bool isScrolling;
+
+    /// <summary>
+    /// Returns the index of the first visible element (visible by more than 1/2 showing).
+    /// </summary>
+    int GetScrollIndex()
+    {
+        float min_distance = float.MaxValue;
+        int min_index = 0;
+
+        int index = 0;
+        foreach (Transform t in Objects) {
+            float distance = Mathf.Abs(Content.position.y - spacing + t.localPosition.y);
+            if (distance < min_distance)
+            {
+                min_distance = distance;
+                min_index = index;
+            }
+            index++;
+        }
+
+        return min_index;
+    }
+
+    [ContextMenu("Func ScrollUp")]
+    public void ScrollUp()
+    {
+        int index = GetScrollIndex() - 1;
+
+        if (index < 0)
+        {
+            index = 0;
+        }
+
+        ScrollTo(index);
+    }
+
+    [ContextMenu("Func ScrollDown")]
+    public void ScrollDown()
+    {
+        int index = GetScrollIndex() + 1;
+
+        if (index > Objects.Count - 1)
+        {
+            index = Objects.Count - 1;
+        }
+
+        ScrollTo(index);
+    }
+
+    void ScrollTo(int index_f)
+    {
+        isScrolling = true;
+        scrollTarget = new Vector3(startBounds.x,
+                -Objects[index_f].transform.localPosition.y,
+                startBounds.z);
+    }
 
     private void Start()
     {
@@ -22,6 +80,8 @@ public class TaskListScrollHandler : MonoBehaviour
 
         startBounds = transform.localPosition;
         endBounds = startBounds;
+        scrollTarget = startBounds;
+        isScrolling = false;
 
         FixLocations();
     }
@@ -30,6 +90,16 @@ public class TaskListScrollHandler : MonoBehaviour
     {
         // update the box collider to be scrollable
         Bounds.center = new Vector3(Bounds.center.x, colliderOffset - Bounds.transform.localPosition.y, Bounds.center.z);
+
+
+        if (isScrolling)
+        {
+            Content.localPosition = Vector3.Lerp(Content.localPosition, scrollTarget, lerp);
+            if (Mathf.Abs(Content.localPosition.y - scrollTarget.y) < 0.001f)
+            {
+                isScrolling = false;
+            }
+        }
 
         if (Content.localPosition.y < 0)
         {
@@ -47,11 +117,11 @@ public class TaskListScrollHandler : MonoBehaviour
     void CollectAllButtons()
     {
         Transform parentTransform = transform;
-        allButtons.Clear();
+        Objects.Clear();
 
         foreach (Transform child in parentTransform)
         {
-            allButtons.Add(child);
+            Objects.Add(child);
         }
     }
 
@@ -63,7 +133,7 @@ public class TaskListScrollHandler : MonoBehaviour
     {
         CollectAllButtons();
 
-        for (int i = 0; i < allButtons.Count; i++)
+        for (int i = 0; i < Objects.Count; i++)
         {
             float yOffset;
 
@@ -73,25 +143,25 @@ public class TaskListScrollHandler : MonoBehaviour
             }
             else
             {
-                yOffset = allButtons[i - 1].transform.localPosition.y
-                    - (allButtons[i - 1].GetComponent<BoxCollider>().size.y / 2
-                        * allButtons[i - 1].transform.localScale.y)
-                    - (allButtons[i].GetComponent<BoxCollider>().size.y / 2
-                        * allButtons[i].transform.localScale.y)
+                yOffset = Objects[i - 1].transform.localPosition.y
+                    - (Objects[i - 1].GetComponent<BoxCollider>().size.y / 2
+                        * Objects[i - 1].transform.localScale.y)
+                    - (Objects[i].GetComponent<BoxCollider>().size.y / 2
+                        * Objects[i].transform.localScale.y)
                     - spacing;
             }
 
             // Vector3 newPosition = parentTransform.position + new Vector3(xOffset, yOffset, 0f);
-            Vector3 newPosition = new Vector3(allButtons[i].transform.localPosition.x, yOffset, allButtons[i].transform.localPosition.z);
-            allButtons[i].transform.localPosition = newPosition; // Move each button to the new position
+            Vector3 newPosition = new Vector3(Objects[i].transform.localPosition.x, yOffset, Objects[i].transform.localPosition.z);
+            Objects[i].transform.localPosition = newPosition; // Move each button to the new position
         }
 
-        if (allButtons.Count > 0)
+        if (Objects.Count > 0)
         {
             endBounds = new Vector3(endBounds.x,
-                -allButtons[allButtons.Count - 1].transform.localPosition.y
-                + (allButtons[allButtons.Count - 1].GetComponent<BoxCollider>().size.y / 2
-                            * allButtons[allButtons.Count - 1].transform.localScale.y),
+                -Objects[Objects.Count - 1].transform.localPosition.y
+                + (Objects[Objects.Count - 1].GetComponent<BoxCollider>().size.y / 2
+                            * Objects[Objects.Count - 1].transform.localScale.y),
                 endBounds.z);
         }
     }
