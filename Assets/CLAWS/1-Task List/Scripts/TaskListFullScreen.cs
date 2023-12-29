@@ -19,7 +19,7 @@ public class TaskListFullScreen : MonoBehaviour
     [SerializeField] GameObject EmergencyTaskPrefab;
     [SerializeField] GameObject LinePrefab;
 
-    [SerializeField] ScrollHandler TaskList_ScrollHandler;
+    [SerializeField] TaskListScrollHandler TaskList_ScrollHandler;
     [SerializeField] ClippingManager Clipping;
     [SerializeField] GameObject LinesParent;
 
@@ -67,7 +67,7 @@ public class TaskListFullScreen : MonoBehaviour
                 }
             }
         }
-        TaskList_ScrollHandler.Fix();
+        TaskList_ScrollHandler.FixLocations();
 
         DrawLines();
         Clipping.SetRenderers();
