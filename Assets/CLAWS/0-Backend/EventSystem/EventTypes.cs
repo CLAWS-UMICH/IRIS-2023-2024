@@ -324,4 +324,14 @@ public class PopupEvent
     }
 }
 
+// Pathfinding
+public class StartPathfinding
+{
+    public Location location { get; private set; }
+
+    public StartPathfinding(Location l)
+    {
+        location = l;
+    }
+}
 

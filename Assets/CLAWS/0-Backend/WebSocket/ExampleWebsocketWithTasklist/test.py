@@ -22,45 +22,16 @@ async def first_send(websocket):
 
 async def send_data_1(websocket):
     data = {
-        "id" : "2",
-        "type": "TaskList",
-        "use": "PUT",
-        "data": {
-            "AllTasks": []
+    "id": "1",
+    "type": "Navigation",
+    "use": "PUT",
+    "data": {
+        "Location": {
+            "latitude": 30.5647012,
+            "longitude": -94.081375
         }
     }
-
-    # Convert the data to a JSON string
-    message = json.dumps(data)
-
-    # Send the JSON message to the connected client (Unity)
-    await websocket.send(message)
-
-async def send_data_2(websocket):
-    data = {
-        "id" : "1",
-        "type": "TaskList",
-        "use": "PUT",
-        "data": {
-            "AllTasks": []
-        }
-    }
-
-    # Convert the data to a JSON string
-    message = json.dumps(data)
-
-    # Send the JSON message to the connected client (Unity)
-    await websocket.send(message)
-
-async def send_data_3(websocket):
-    data = {
-        "id" : "-1",
-        "type": "TaskList",
-        "use": "PUT",
-        "data": {
-            "AllTasks": []
-        }
-    }
+}
 
     # Convert the data to a JSON string
     message = json.dumps(data)

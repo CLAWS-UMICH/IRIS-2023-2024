@@ -620,6 +620,21 @@ public class WebsocketDataHandler : MonoBehaviour
         }
     }
 
+    public void HandleNavData(Location location, string use)
+    {
+        if (use == "PUT")
+        {
+            if (debugMode) Debug.Log("(PUT) WebsocketDataHandler.cs: Updating NAVIGATION data");
+
+            EventBus.Publish(new StartPathfinding(location));
+
+        }
+        else
+        {
+            Debug.Log("Invalid use case from server");
+        }
+    }
+
     // Public functions for to call to send data
     public void SendMessageData()
     {

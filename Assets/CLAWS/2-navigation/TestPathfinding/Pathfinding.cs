@@ -25,6 +25,14 @@ public class Pathfinding : MonoBehaviour {
         FindNewPath();
     }
 
+    public void startPathFinding(Transform start, Location end)
+    {
+        StartPosition = start;
+        TargetPosition.position = GPSUtils.GPSCoordsToAppPosition(end);
+
+        FindNewPath();
+    }
+
     // Button on screen will find the path everytime when pressed to not have it run every frame
     // Could maybe be changed to have it clicked once and always running, but for now, this will suffice
     public void FindNewPath()
