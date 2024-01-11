@@ -335,3 +335,13 @@ public class StartPathfinding
     }
 }
 
+public class BreadCrumbCollisionEvent
+{
+    public int index { get; private set; }
+
+    public BreadCrumbCollisionEvent(int i)
+    {
+        index = i;
+    }
+}
+

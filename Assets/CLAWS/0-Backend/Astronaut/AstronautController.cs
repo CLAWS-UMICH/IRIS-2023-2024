@@ -298,6 +298,13 @@ public class Breadcrumb
     public Location location;
     public int type; // 0: backtracking and 1: navigation
 
+    public Breadcrumb(int crumbId, Location location, int type)
+    {
+        this.crumb_id = crumbId;
+        this.location = location;
+        this.type = type;
+    }
+
     public override bool Equals(object obj)
     {
         if (obj == null || GetType() != obj.GetType())

@@ -10,11 +10,19 @@ public class Pathfinding : MonoBehaviour {
     public GameObject prefabToInstantiate;
     public GameObject empty;
     [SerializeField] float distance = 5f;
+    public Dictionary<int, GameObject> indexToBreadCrumb = new Dictionary<int, GameObject>();
+
+    private Subscription<BreadCrumbCollisionEvent> collisionEvent;
 
 
     private void Awake()//When the program starts
     {
         GridReference = GetComponent<Grid>();//Get a reference to the game manager
+    }
+
+    private void Start()
+    {
+        collisionEvent = EventBus.Subscribe<BreadCrumbCollisionEvent>(OnBreadCollision);
     }
 
     public void startPathFinding(Transform start, Transform end)
@@ -104,10 +112,22 @@ public class Pathfinding : MonoBehaviour {
         }
     }
 
-
+    public void destroyCurrentBreadCrumbs()
+    {
+        // Iterate through each child of the parent
+        for (int i = empty.transform.childCount - 1; i >= 0; i--)
+        {
+            // Destroy the child object
+            Destroy(empty.transform.GetChild(i).gameObject);
+        }
+        AstronautInstance.User.BreadCrumbData.AllCrumbs.Clear();
+        indexToBreadCrumb.Clear();
+        // TODO: Should we send the breadcrumb data to web here?
+    }
 
     void GetFinalPath(Node a_StartingNode, Node a_EndNode)
     {
+        destroyCurrentBreadCrumbs(); // Destroys all current breadcrumbs
         List<Node> FinalPath = new List<Node>();//List to hold the path sequentially 
         Node CurrentNode = a_EndNode;//Node to store the current node being checked
 
@@ -121,11 +141,14 @@ public class Pathfinding : MonoBehaviour {
         FinalPath.Reverse();//Reverse the path to get the correct order
 
         GridReference.FinalPath = FinalPath;//Set the final path
-
+        int index = 0;
         // Instantiate objects along the final path
         for (int i = 0; i < FinalPath.Count; i++)
         {
-            FinalPath[i].vPosition.y -= .1f;
+            if (i % 2 == 1)
+            {
+                continue;
+            }
             GameObject instantiatedObject = Instantiate(prefabToInstantiate, FinalPath[i].vPosition, Quaternion.identity);
             if (i != FinalPath.Count - 1)
             {
@@ -144,8 +167,37 @@ public class Pathfinding : MonoBehaviour {
                 instantiatedObject.transform.LookAt(FinalPath[i].vPosition);
             }
             instantiatedObject.SetActive(true);
-            //isClose(instantiatedObject);
+            Breadcrumb b = new Breadcrumb(index, GPSUtils.AppPositionToGPSCoords(instantiatedObject.transform.position), 1);
+            AstronautInstance.User.BreadCrumbData.AllCrumbs.Add(b);
+            indexToBreadCrumb[index] = instantiatedObject;
+            instantiatedObject.GetComponent<BreadCrumbController>().UpdateInfo(index);
+            // TODO: Should we send the breadcrumb data to web here?
             instantiatedObject.transform.SetParent(empty.transform);
+            index++;
+        }
+    }
+
+    private void OnBreadCollision(BreadCrumbCollisionEvent e)
+    {
+        Debug.Log(e.index);
+        // Remove objects from AllCrumbs list
+        AstronautInstance.User.BreadCrumbData.AllCrumbs.RemoveAll(crumb => crumb.crumb_id <= e.index);
+
+        // Remove objects from indexToBreadCrumb dictionary
+        List<int> keysToRemove = new List<int>();
+        foreach (var entry in indexToBreadCrumb)
+        {
+            if (entry.Key <= e.index)
+            {
+                keysToRemove.Add(entry.Key);
+                Destroy(entry.Value);
+            }
+        }
+
+        // Remove items from the dictionary based on the keysToRemove list
+        foreach (int key in keysToRemove)
+        {
+            indexToBreadCrumb.Remove(key);
         }
     }
 
