@@ -14,7 +14,6 @@ public class BreadCrumbController : MonoBehaviour
     {
         if (other.gameObject.tag == "MainCamera" || other.gameObject.tag == "crumb")
         {
-            Debug.Log("collided");
             EventBus.Publish(new BreadCrumbCollisionEvent(index));
         }
     }

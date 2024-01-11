@@ -9,10 +9,15 @@ public class Pathfinding : MonoBehaviour {
     public Transform TargetPosition;//Starting position to pathfind to
     public GameObject prefabToInstantiate;
     public GameObject empty;
-    [SerializeField] float distance = 5f;
+
+    [SerializeField] int crumbsToShow = 3;
+    [SerializeField] float crumbYChange = 0f;
     public Dictionary<int, GameObject> indexToBreadCrumb = new Dictionary<int, GameObject>();
 
     private Subscription<BreadCrumbCollisionEvent> collisionEvent;
+
+    GameObject playspace;
+    GameObject player;
 
 
     private void Awake()//When the program starts
@@ -23,6 +28,8 @@ public class Pathfinding : MonoBehaviour {
     private void Start()
     {
         collisionEvent = EventBus.Subscribe<BreadCrumbCollisionEvent>(OnBreadCollision);
+        playspace = GameObject.Find("MixedRealityPlayspace");
+        player = playspace.transform.Find("Main Camera").gameObject;
     }
 
     public void startPathFinding(Transform start, Transform end)
@@ -166,7 +173,7 @@ public class Pathfinding : MonoBehaviour {
             {
                 instantiatedObject.transform.LookAt(FinalPath[i].vPosition);
             }
-            instantiatedObject.SetActive(true);
+            instantiatedObject.SetActive(false);
             Breadcrumb b = new Breadcrumb(index, GPSUtils.AppPositionToGPSCoords(instantiatedObject.transform.position), 1);
             AstronautInstance.User.BreadCrumbData.AllCrumbs.Add(b);
             indexToBreadCrumb[index] = instantiatedObject;
@@ -175,11 +182,26 @@ public class Pathfinding : MonoBehaviour {
             instantiatedObject.transform.SetParent(empty.transform);
             index++;
         }
+
+        showCrumbs();
+    }
+
+    private void showCrumbs()
+    {
+        int number = Mathf.Min(crumbsToShow, AstronautInstance.User.BreadCrumbData.AllCrumbs.Count);
+
+        for (int i = 0; i < number; i++)
+        {
+            GameObject gm = indexToBreadCrumb[AstronautInstance.User.BreadCrumbData.AllCrumbs[i].crumb_id];
+            Vector3 newPosition = gm.transform.position;
+            newPosition.y = player.transform.position.y - crumbYChange;
+            gm.transform.position = newPosition;
+            gm.SetActive(true);
+        }
     }
 
     private void OnBreadCollision(BreadCrumbCollisionEvent e)
     {
-        Debug.Log(e.index);
         // Remove objects from AllCrumbs list
         AstronautInstance.User.BreadCrumbData.AllCrumbs.RemoveAll(crumb => crumb.crumb_id <= e.index);
 
@@ -199,23 +221,8 @@ public class Pathfinding : MonoBehaviour {
         {
             indexToBreadCrumb.Remove(key);
         }
-    }
 
-    void isClose(GameObject objectIn)
-    {
-        float x = Vector3.Distance(StartPosition.position, objectIn.transform.position);
-        if (distance > x)
-        {
-            objectIn.SetActive(true);
-        }
-    }
-
-    int GetManhattenDistance(Node a_nodeA, Node a_nodeB)
-    {
-        int ix = Mathf.Abs(a_nodeA.iGridX - a_nodeB.iGridX);//x1-x2
-        int iy = Mathf.Abs(a_nodeA.iGridY - a_nodeB.iGridY);//y1-y2
-
-        return ix + iy;//Return the sum
+        showCrumbs();
     }
 
     int GetEuclideanDistance(Node nodeA, Node nodeB)
