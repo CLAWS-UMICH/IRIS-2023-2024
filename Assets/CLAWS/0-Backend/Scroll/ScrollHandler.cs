@@ -83,7 +83,7 @@ public class ScrollHandler : MonoBehaviour
     }
 
     // Move the top -> bottom indexed buttons to their correct locations based on the offset
-    private void CorrectLocations()
+    public void CorrectLocations()
     {
         Transform parentTransform = transform;
         if (allButtons.Count == 0)

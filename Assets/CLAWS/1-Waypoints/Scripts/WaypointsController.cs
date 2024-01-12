@@ -13,10 +13,12 @@ public class WaypointsController : MonoBehaviour
 
     private Dictionary<int, Waypoint> waypointDict = new Dictionary<int, Waypoint>();
     private Dictionary<int, GameObject> waypointObjDic = new Dictionary<int, GameObject>();
+    private Dictionary<int, GameObject> waypointButtonDic = new Dictionary<int, GameObject>();
 
-    private TextMeshPro _id, _lat, _lon, _type, _desc, _author;
+    private TextMeshPro _id, _letter, _lat, _lon, _type, _desc, _author;
 
     private WebsocketDataHandler wd;
+    private WaypointScreenHandler screenHandler;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +26,7 @@ public class WaypointsController : MonoBehaviour
         wd = GameObject.Find("Controller").GetComponent<WebsocketDataHandler>();
 
         _id = waypointPrefab.transform.Find("ID").gameObject.GetComponent<TextMeshPro>();
+        _letter = waypointPrefab.transform.Find("Letter").gameObject.GetComponent<TextMeshPro>();
         _lat = waypointPrefab.transform.Find("Location").gameObject.transform.Find("Lat").gameObject.GetComponent<TextMeshPro>();
         _lon = waypointPrefab.transform.Find("Location").gameObject.transform.Find("Long").gameObject.GetComponent<TextMeshPro>();
         _type = waypointPrefab.transform.Find("Type").gameObject.GetComponent<TextMeshPro>();
@@ -33,6 +36,8 @@ public class WaypointsController : MonoBehaviour
         waypointsAddedEvent = EventBus.Subscribe<WaypointsAddedEvent>(onWaypointsAdded);
         waypointsDeletedEvent = EventBus.Subscribe<WaypointsDeletedEvent>(onWaypointsDeleted);
         waypointsEditedEvent = EventBus.Subscribe<WaypointsEditedEvent>(onWaypointsEdited);
+
+        screenHandler = gameObject.GetComponent<WaypointScreenHandler>();
     }
 
     public void onWaypointsAdded(WaypointsAddedEvent e)
@@ -44,13 +49,14 @@ public class WaypointsController : MonoBehaviour
             AstronautInstance.User.WaypointData.AllWaypoints.Add(waypoint);
             SpawnWaypoint(waypoint);
 
-            // TODO: add it to the button scroll
-
+            GameObject button = screenHandler.AddButton(waypoint);
+            waypointButtonDic[waypoint.waypoint_id] = button;
         }
     }
 
     public void onWaypointsDeleted(WaypointsDeletedEvent e)
     {
+        Debug.Log("deleted");
         List<Waypoint> deletedWaypoints = e.DeletedWaypoints;
         foreach(Waypoint waypoint in deletedWaypoints)
         {
@@ -59,7 +65,9 @@ public class WaypointsController : MonoBehaviour
                 waypointDict.Remove(waypoint.waypoint_id);
                 GameObject gm = waypointObjDic[waypoint.waypoint_id];
                 waypointObjDic.Remove(waypoint.waypoint_id);
-                // TODO: Delete from scroll
+
+                screenHandler.DeleteButton(waypointButtonDic[waypoint.waypoint_id], waypoint.type);
+                waypointButtonDic.Remove(waypoint.waypoint_id);
                 Destroy(gm);
             }
 
@@ -69,6 +77,7 @@ public class WaypointsController : MonoBehaviour
 
     public void onWaypointsEdited(WaypointsEditedEvent e)
     {
+        Debug.Log("edited");
         List<Waypoint> editedWaypoints = e.EditedWaypoints;
         foreach(Waypoint waypoint in editedWaypoints)
         {
@@ -95,7 +104,7 @@ public class WaypointsController : MonoBehaviour
                 waypointObjDic[waypoint.waypoint_id].transform.Find("Type").gameObject.GetComponent<TextMeshPro>().text = "Type: " + waypoint.type.ToString();
                 waypointObjDic[waypoint.waypoint_id].transform.Find("Description").gameObject.GetComponent<TextMeshPro>().text = "Desc: " + waypoint.description;
 
-                // TODO: Update button
+                waypointButtonDic[waypoint.waypoint_id].transform.Find("IconAndText").gameObject.transform.Find("Description").gameObject.GetComponent<TextMeshPro>().text = waypoint.description;
             }
         }
     }
@@ -120,6 +129,7 @@ public class WaypointsController : MonoBehaviour
     public void SpawnWaypoint(Waypoint waypoint)
     {
         _id.text = "ID: " + waypoint.waypoint_id.ToString();
+        _letter.text = "ID: " + waypoint.waypoint_letter.ToString();
         _lat.text = "Lat: " + waypoint.location.latitude.ToString();
         _lon.text = "Lon: " + waypoint.location.longitude.ToString();
         _type.text = "Type: " + waypoint.type.ToString();
@@ -136,18 +146,42 @@ public class WaypointsController : MonoBehaviour
 
     public void CreateNew()
     {
-        AstronautInstance.User.WaypointData.currentIndex += 1;
         Waypoint way = new Waypoint
         {
             waypoint_id = AstronautInstance.User.WaypointData.currentIndex,
+            waypoint_letter = getLetter(AstronautInstance.User.WaypointData.currentIndex),
             location = new Location(29.5647012, -95.081375),
             type = 0,
             description = "help",
             author = AstronautInstance.User.id
         };
 
+        AstronautInstance.User.WaypointData.AllWaypoints.Add(way);
         SpawnWaypoint(way);
 
+        GameObject button = screenHandler.AddButton(way);
+        waypointButtonDic[way.waypoint_id] = button;
+
+        AstronautInstance.User.WaypointData.currentIndex += 1;
+
         wd.SendWaypointData();
+    }
+
+    private string getLetter(int num)
+    {
+        string result = "";
+
+        while (num >= 0)
+        {
+            result = (char)('A' + num % 26) + result;
+            num = (num / 26) - 1;
+
+            if (num < 0)
+            {
+                break;
+            }
+        }
+
+        return result;
     }
 }

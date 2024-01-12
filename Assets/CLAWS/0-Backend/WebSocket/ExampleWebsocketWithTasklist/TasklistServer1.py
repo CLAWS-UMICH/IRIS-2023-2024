@@ -22,32 +22,45 @@ async def first_send(websocket):
 
 async def send_data_initial(websocket):
     data = {
-        "id" : "1",
-        "type": "TaskList",
+        "id": 1,
+        "type": "Waypoints",
         "use": "PUT",
         "data": {
-            "AllTasks": [
-            {
-                "id": 1,
-                "status": 1,  # 0 for InProgress, 1 for Completed
-                "title": "Example Task 1",
-                "description": "This is a sample task 1",
-                "shared_with": 1
-            },
-            {
-                "id": 2,
-                "status": 0,  # 0 for InProgress, 1 for Completed
-                "title": "Example Task 2",
-                "description": "This is a sample task 2",
-                "shared_with": 2
-            },
-            {
-                "id": 3,
-                "status": 0,  # 0 for InProgress, 1 for Completed
-                "title": "Example Task 3",
-                "description": "This is a sample task 3",
-                "shared_with": 1
-            }
+            "currentIndex": 2,
+            "AllWaypoints": [
+                {
+                    "waypoint_id": 0,
+                    "waypoint_letter": "A",
+                    "location": {
+                        "latitude": 34.0522,
+                        "longitude": -118.2437
+                    },
+                    "type": 0,
+                    "description": "Station 1",
+                    "author": 123
+                },
+                {
+                    "waypoint_id": 1,
+                    "waypoint_letter": "B",
+                    "location": {
+                        "latitude": 34.0522,
+                        "longitude": -118.2437
+                    },
+                    "type": 1,
+                    "description": "Navigation Point 1",
+                    "author": 456
+                },
+                {
+                    "waypoint_id": 2,
+                    "waypoint_letter": "C",
+                    "location": {
+                        "latitude": 34.0522,
+                        "longitude": -118.2437
+                    },
+                    "type": 2,
+                    "description": "Geological Point 1",
+                    "author": 789
+                },
             ]
         }
     }
@@ -58,28 +71,48 @@ async def send_data_initial(websocket):
     # Send the JSON message to the connected client (Unity)
     await websocket.send(message)
 
-
-async def send_data_deleted(websocket):
+async def send_data_new(websocket):
     data = {
-        "id" : "1",
-        "type": "TaskList",
+        "id": 1,
+        "type": "Waypoints",
         "use": "PUT",
         "data": {
-            "AllTasks": [
-            {
-                "id": 1,
-                "status": 1,  # 0 for InProgress, 1 for Completed
-                "title": "Example Task 1",
-                "description": "Edit Task 1 Description",
-                "shared_with": 1
-            },
-            {
-                "id": 3,
-                "status": 0,  # 0 for InProgress, 1 for Completed
-                "title": "Task 3 Edited Title",
-                "description": "This is a sample task 3",
-                "shared_with": 1
-            }
+            "currentIndex": 3,
+            "AllWaypoints": [
+                
+                {
+                    "waypoint_id": 1,
+                    "waypoint_letter": "B",
+                    "location": {
+                        "latitude": 34.0522,
+                        "longitude": -118.2437
+                    },
+                    "type": 1,
+                    "description": "Navigation Point 1",
+                    "author": 456
+                },
+                {
+                    "waypoint_id": 2,
+                    "waypoint_letter": "C",
+                    "location": {
+                        "latitude": 34.0522,
+                        "longitude": -118.2437
+                    },
+                    "type": 2,
+                    "description": "Geological Point 1",
+                    "author": 789
+                },
+                {
+                    "waypoint_id": 3,
+                    "waypoint_letter": "D",
+                    "location": {
+                        "latitude": 34.0522,
+                        "longitude": -118.2437
+                    },
+                    "type": 0,
+                    "description": "Station Point 3",
+                    "author": 789
+                },
             ]
         }
     }
@@ -89,13 +122,14 @@ async def send_data_deleted(websocket):
 
     # Send the JSON message to the connected client (Unity)
     await websocket.send(message)
+
 
 async def send_data_periodically(websocket):
     while True:
         await send_data_initial(websocket)
-        await asyncio.sleep(5)
-        await send_data_deleted(websocket)
-        await asyncio.sleep(5)
+        await asyncio.sleep(7)
+        await send_data_new(websocket)
+        await asyncio.sleep(7)
 
 async def handle_client(websocket, path):
     try:
@@ -111,7 +145,7 @@ async def handle_client(websocket, path):
     except websockets.exceptions.ConnectionClosed:
         send_task.cancel()
 
-start_server = websockets.serve(handle_client, "localhost", 1000)
+start_server = websockets.serve(handle_client, "localhost", 8080)
 
 asyncio.get_event_loop().run_until_complete(start_server)
 asyncio.get_event_loop().run_forever()

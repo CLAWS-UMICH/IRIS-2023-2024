@@ -119,7 +119,7 @@ public class SpecData
 [System.Serializable]
 public class Waypoints
 {
-    public int currentIndex = 0;
+    public int currentIndex = 26;
     public List<Waypoint> AllWaypoints = new List<Waypoint>();
 }
 
@@ -127,6 +127,7 @@ public class Waypoints
 public class Waypoint
 {
     public int waypoint_id; // starting from 0 and going up 1
+    public string waypoint_letter;
     public Location location;
     public int type; // 0 = station, 1 = nav, 2 = geo, 3 = danger
     public string description;
@@ -141,6 +142,7 @@ public class Waypoint
 
         Waypoint otherWay = (Waypoint)obj;
         return waypoint_id == otherWay.waypoint_id &&
+               waypoint_letter == otherWay.waypoint_letter &&
                location.Equals(otherWay.location) &&
                type == otherWay.type &&
                description == otherWay.description &&
