@@ -119,7 +119,7 @@ public class SpecData
 [System.Serializable]
 public class Waypoints
 {
-    public int currentIndex;
+    public int currentIndex = 0;
     public List<Waypoint> AllWaypoints = new List<Waypoint>();
 }
 
