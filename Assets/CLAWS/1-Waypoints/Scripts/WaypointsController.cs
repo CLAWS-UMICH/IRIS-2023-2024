@@ -14,8 +14,9 @@ public class WaypointsController : MonoBehaviour
 
     private Subscription<WaypointsAddedEvent> waypointsAddedEvent;
     private Subscription<WaypointsDeletedEvent> waypointsDeletedEvent;
-    private Subscription<WaypointsEditedEvent> waypointsEditedEvent;
+    private Subscription<WaypointsEditedEvent> waypointsEditedEvent; 
     private Subscription<WaypointToDelete> waypointToDeleteEvent;
+    private Subscription<WaypointToAdd> waypointToAdd;
 
     private Dictionary<int, Waypoint> waypointDict = new Dictionary<int, Waypoint>();
     private Dictionary<int, GameObject> waypointObjDic = new Dictionary<int, GameObject>();
@@ -24,7 +25,7 @@ public class WaypointsController : MonoBehaviour
     private TextMeshPro _danger_title, _danger_letter, _geo_title, _geo_letter, _nav_title, _nav_letter, _station_title, _station_letter;
 
     private WebsocketDataHandler wd;
-    private WaypointScreenHandler screenHandler;
+    private NavScreenHandler screenHandler;
 
     // Start is called before the first frame update
     void Start()
@@ -47,8 +48,9 @@ public class WaypointsController : MonoBehaviour
         waypointsDeletedEvent = EventBus.Subscribe<WaypointsDeletedEvent>(onWaypointsDeleted);
         waypointsEditedEvent = EventBus.Subscribe<WaypointsEditedEvent>(onWaypointsEdited);
         waypointToDeleteEvent = EventBus.Subscribe<WaypointToDelete>(onWaypointToDelete);
+        waypointToAdd = EventBus.Subscribe<WaypointToAdd>(onWaypointToAdd);
 
-        screenHandler = gameObject.GetComponent<WaypointScreenHandler>();
+        screenHandler = transform.parent.Find("NavController").gameObject.GetComponent<NavScreenHandler>();
     }
 
     public void onWaypointsAdded(WaypointsAddedEvent e)
@@ -63,6 +65,10 @@ public class WaypointsController : MonoBehaviour
             GameObject button = screenHandler.AddButton(waypoint);
             waypointButtonDic[waypoint.waypoint_id] = button;
         }
+    }
+    public void onWaypointToAdd(WaypointToAdd e)
+    {
+        CreateNew(e.location, e.type, e.description);
     }
 
     public void onWaypointsDeleted(WaypointsDeletedEvent e)
@@ -170,6 +176,7 @@ public class WaypointsController : MonoBehaviour
                 _station_letter.text = waypoint.waypoint_letter.ToString();
                 _station_title.text = waypoint.description.ToString();
                 instantiatedObject = Instantiate(stationPrefab, GPSUtils.GPSCoordsToAppPosition(waypoint.location), Quaternion.identity);
+                Debug.Log(GPSUtils.GPSCoordsToAppPosition(waypoint.location));
                 instantiatedObject.transform.parent = this.gameObject.transform;
                 waypointObjDic[waypoint.waypoint_id] = instantiatedObject;
                 break;
@@ -207,18 +214,19 @@ public class WaypointsController : MonoBehaviour
     }
 
 
-    public void CreateNew()
+    public void CreateNew(Location loc, int type, string desc)
     {
         Waypoint way = new Waypoint
         {
             waypoint_id = AstronautInstance.User.WaypointData.currentIndex,
             waypoint_letter = getLetter(AstronautInstance.User.WaypointData.currentIndex),
-            location = new Location(29.5647012, -95.081375),
-            type = 0,
-            description = "help",
+            location = loc,
+            type = type,
+            description = desc,
             author = AstronautInstance.User.id
         };
 
+        waypointDict[way.waypoint_id] = way;
         AstronautInstance.User.WaypointData.AllWaypoints.Add(way);
         SpawnWaypoint(way);
 
@@ -246,5 +254,30 @@ public class WaypointsController : MonoBehaviour
         }
 
         return result;
+    }
+
+    public Location getLocationOfButton(string letter)
+    {
+        int index = getNumGivenString(letter);
+        if (waypointDict.ContainsKey(index))
+        {
+            return waypointDict[index].location;
+        }
+
+        return new Location();
+    }
+
+    private int getNumGivenString(string letter)
+    {
+        int result = 0;
+        int length = letter.Length;
+
+        for (int i = 0; i < length; i++)
+        {
+            char c = letter[i];
+            result = result * 26 + (c - 'A' + 1);
+        }
+
+        return result - 1;
     }
 }

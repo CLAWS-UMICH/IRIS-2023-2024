@@ -43,6 +43,13 @@ public class Pathfinding : MonoBehaviour {
     public void startPathFinding(Transform start, Location end)
     {
         StartPosition = start;
+
+        // Ensure TargetPosition is properly initialized
+        if (TargetPosition == null)
+        {
+            TargetPosition = new GameObject("TargetPosition").transform;
+        }
+
         TargetPosition.position = GPSUtils.GPSCoordsToAppPosition(end);
 
         FindNewPath();

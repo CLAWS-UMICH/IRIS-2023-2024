@@ -227,12 +227,14 @@ public class ScrollHandler : MonoBehaviour
     // Scrolls up/left
     public void ScrollUpOrLeft()
     {
+        Debug.Log("Up");
         Scroll(1);
     }
 
     // Scrolls up/right
     public void ScrollDownOrRight()
     {
+        Debug.Log("Down");
         Scroll(-1);
     }
 

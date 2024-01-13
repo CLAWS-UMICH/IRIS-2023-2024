@@ -189,6 +189,20 @@ public class WaypointToDelete
     }
 }
 
+public class WaypointToAdd
+{
+    public Location location { get; private set; }
+    public int type { get; private set; }
+    public string description { get; private set; }
+
+    public WaypointToAdd(Location loc, int t, string desc)
+    {
+        location = loc;
+        type = t;
+        description = desc;
+    }
+}
+
 // Tasklist
 public class TasksEditedEvent
 {
@@ -342,6 +356,16 @@ public class StartPathfinding
     public StartPathfinding(Location l)
     {
         location = l;
+    }
+}
+
+public class SelectButton
+{
+    public string letter { get; private set; }
+
+    public SelectButton(string l)
+    {
+        letter = l;
     }
 }
 

@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using System.Collections;
+
 public class AstronautInstance : MonoBehaviour
 {
     public static AstronautInstance instance { get; private set; }
@@ -32,5 +34,12 @@ public class AstronautInstance : MonoBehaviour
     {
         _user.currently_navigating = false;
         _user.inDanger = false;
+        StartCoroutine(UpdateLocation());
+    }
+
+    IEnumerator UpdateLocation()
+    {
+        AstronautInstance.User.location = GPSUtils.AppPositionToGPSCoords(GameObject.Find("Main Camera").transform.position);
+        yield return new WaitForSeconds(0.5f);
     }
 }

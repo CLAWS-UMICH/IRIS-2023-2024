@@ -8,8 +8,6 @@ public class NavController : MonoBehaviour
     GameObject player;
     Pathfinding pf;
 
-    [SerializeField] GameObject target;
-
     private Subscription<StartPathfinding> pathfinding;
 
     // Start is called before the first frame update
@@ -21,11 +19,6 @@ public class NavController : MonoBehaviour
 
         // Subscribe to the events
         pathfinding = EventBus.Subscribe<StartPathfinding>(OnPathfinding);
-    }
-
-    public void testNav()
-    {
-        pf.startPathFinding(player.transform, target.transform);
     }
 
     private void OnPathfinding(StartPathfinding e)
