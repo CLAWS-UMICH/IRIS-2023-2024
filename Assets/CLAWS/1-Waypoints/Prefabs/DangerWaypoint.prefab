@@ -847,6 +847,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5894739748390572657}
+  - component: {fileID: 915194790}
+  - component: {fileID: 1435077146628248500}
   m_Layer: 0
   m_Name: DangerWaypoint
   m_TagString: Untagged
@@ -872,6 +874,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &915194790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5894739748390572656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edccfea75a691974696d4f410d9deb0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minScale: 1
+  distanceAway: 5
+  coneAngle: 130
+  distanceForTitle: 2.5
+  distanceToSetYLvl: 2.5
+  distanceForButton: 1.25
+--- !u!114 &1435077146628248500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5894739748390572656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e56b809142fd3934da005cf643a29884, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5894739748577228600
 GameObject:
   m_ObjectHideFlags: 0
@@ -1185,9 +1217,9 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: WaypointScreenHandler, Assembly-CSharp
-        m_MethodName: OpenStation
+      - m_Target: {fileID: 1435077146628248500}
+        m_TargetAssemblyTypeName: WaypointController, Assembly-CSharp
+        m_MethodName: onDelete
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

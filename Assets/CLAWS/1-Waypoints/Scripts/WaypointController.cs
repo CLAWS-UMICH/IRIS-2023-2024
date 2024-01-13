@@ -15,7 +15,7 @@ public class WaypointController : MonoBehaviour
 
     public void onDelete()
     {
-
+        EventBus.Publish(new WaypointToDelete(index));
     }
 
     private int getNumGivenString(string letter)

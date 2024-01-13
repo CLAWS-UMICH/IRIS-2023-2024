@@ -179,6 +179,16 @@ public class WaypointsAddedEvent
     }
 }
 
+public class WaypointToDelete
+{
+    public int waypointIndexToDelete { get; private set; }
+
+    public WaypointToDelete(int index)
+    {
+        waypointIndexToDelete = index;
+    }
+}
+
 // Tasklist
 public class TasksEditedEvent
 {
