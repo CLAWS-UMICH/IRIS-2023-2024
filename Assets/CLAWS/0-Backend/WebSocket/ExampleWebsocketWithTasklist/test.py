@@ -22,66 +22,13 @@ async def first_send(websocket):
 
 async def send_data_1(websocket):
     data = {
-        "id": 1,
-        "type": "Waypoints",
-        "use": "PUT",
-        "data": {
-            "currentIndex": 26,
-            "AllWaypoints": [
-                {
-                    "waypoint_id": 0,
-                    "waypoint_letter": "A",
-                    "location": {
-                        "latitude": 34.0522,
-                        "longitude": -118.2437
-                    },
-                    "type": 0,
-                    "description": "Station 1",
-                    "author": 123
-                },
-                {
-                    "waypoint_id": 1,
-                    "waypoint_letter": "B",
-                    "location": {
-                        "latitude": 34.0522,
-                        "longitude": -118.2437
-                    },
-                    "type": 1,
-                    "description": "Navigation Point 1",
-                    "author": 456
-                },
-                {
-                    "waypoint_id": 2,
-                    "waypoint_letter": "C",
-                    "location": {
-                        "latitude": 34.0522,
-                        "longitude": -118.2437
-                    },
-                    "type": 2,
-                    "description": "Geological Point 1",
-                    "author": 789
-                },
-                {
-                    "waypoint_id": 3,
-                    "waypoint_letter": "D",
-                    "location": {
-                        "latitude": 34.0522,
-                        "longitude": -118.2437
-                    },
-                    "type": 3,
-                    "description": "Dangerous Area 1",
-                    "author": 101
-                }
-            ]
-        }
-    }
+
 
     # Convert the data to a JSON string
     message = json.dumps(data)
 
     # Send the JSON message to the connected client (Unity)
     await websocket.send(message)
-
 
 
 async def send_data_periodically(websocket):

@@ -137,6 +137,10 @@ public class WebSocketClient : MonoBehaviour
                 MultiplayerData multiData = JsonUtility.FromJson<MultiplayerData>(jsonData);
                 dataHandler.HandleMultiplayerData(multiData.data, messageUse, multiData.id, multiData.dataToChange);
                 break;
+            case "Navigation":
+                NavigationData navData = JsonUtility.FromJson<NavigationData>(jsonData);
+                dataHandler.HandleNavData(navData.location, navData.use);
+                break;
             // Handle other message types similarly
             default:
                 Debug.LogWarning("Unknown message type: " + messageType);
@@ -250,4 +254,13 @@ public class MultiplayerData
     public string use;
     public FellowAstronaut data;
     public List<string> dataToChange;
+}
+
+[Serializable]
+public class NavigationData
+{
+    public int id;
+    public string type;
+    public string use;
+    public Location location;
 }

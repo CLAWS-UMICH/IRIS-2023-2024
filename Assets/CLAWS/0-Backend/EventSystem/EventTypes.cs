@@ -324,4 +324,24 @@ public class PopupEvent
     }
 }
 
+// Pathfinding
+public class StartPathfinding
+{
+    public Location location { get; private set; }
+
+    public StartPathfinding(Location l)
+    {
+        location = l;
+    }
+}
+
+public class BreadCrumbCollisionEvent
+{
+    public int index { get; private set; }
+
+    public BreadCrumbCollisionEvent(int i)
+    {
+        index = i;
+    }
+}
 
