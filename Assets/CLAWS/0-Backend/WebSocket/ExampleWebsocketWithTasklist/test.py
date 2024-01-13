@@ -10,7 +10,7 @@ import json
 
 async def first_send(websocket):
     data = {
-        "id" : "1",
+        "id" : 1,
         "type": "INITIAL",
     }
 
@@ -22,16 +22,7 @@ async def first_send(websocket):
 
 async def send_data_1(websocket):
     data = {
-    "id": "1",
-    "type": "Navigation",
-    "use": "PUT",
-    "data": {
-        "Location": {
-            "latitude": 30.5647012,
-            "longitude": -94.081375
-        }
-    }
-}
+
 
     # Convert the data to a JSON string
     message = json.dumps(data)
@@ -41,13 +32,7 @@ async def send_data_1(websocket):
 
 
 async def send_data_periodically(websocket):
-    while True:
-        await send_data_1(websocket)
-        await asyncio.sleep(5)
-        await send_data_2(websocket)
-        await asyncio.sleep(5)
-        await send_data_3(websocket)
-        await asyncio.sleep(5)
+    await send_data_1(websocket)
 
 async def handle_client(websocket, path):
     try:

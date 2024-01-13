@@ -7,6 +7,9 @@ using UnityEngine;
 public enum Screens
 {
     Menu,
+    SelectStationWaypoint,
+    SelectNavWaypoint,
+    SelectGeoWaypoint,
     CreatingWaypoint,
     Vitals,
     Map_3D,
