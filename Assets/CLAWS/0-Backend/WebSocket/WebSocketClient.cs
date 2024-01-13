@@ -141,6 +141,10 @@ public class WebSocketClient : MonoBehaviour
                 NavigationData navData = JsonUtility.FromJson<NavigationData>(jsonData);
                 dataHandler.HandleNavData(navData.location, navData.use);
                 break;
+            case "Picture":
+                PictureData picData = JsonUtility.FromJson<PictureData>(jsonData);
+                dataHandler.HandlePicData(picData.pic, picData.use);
+                break;
             // Handle other message types similarly
             default:
                 Debug.LogWarning("Unknown message type: " + messageType);
@@ -263,4 +267,13 @@ public class NavigationData
     public string type;
     public string use;
     public Location location;
+}
+
+[Serializable]
+public class PictureData
+{
+    public int id;
+    public string type;
+    public string use;
+    public string pic;
 }

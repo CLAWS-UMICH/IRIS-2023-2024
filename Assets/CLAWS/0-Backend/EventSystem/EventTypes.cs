@@ -355,3 +355,13 @@ public class BreadCrumbCollisionEvent
     }
 }
 
+// Pictures from Web
+public class NewPicEvent
+{
+    public string image { get; private set; }
+
+    public NewPicEvent(string pic)
+    {
+        image = pic;
+    }
+}

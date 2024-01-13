@@ -635,6 +635,21 @@ public class WebsocketDataHandler : MonoBehaviour
         }
     }
 
+    public void HandlePicData(string pic, string use)
+    {
+        if (use == "PUT")
+        {
+            if (debugMode) Debug.Log("(PUT) WebsocketDataHandler.cs: Updating PICTURE data");
+
+            EventBus.Publish(new NewPicEvent(pic));
+
+        }
+        else
+        {
+            Debug.Log("Invalid use case from server");
+        }
+    }
+
     // Public functions for to call to send data
     public void SendMessageData()
     {
