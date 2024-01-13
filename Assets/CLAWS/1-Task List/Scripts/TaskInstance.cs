@@ -20,7 +20,6 @@ public class TaskInstance : MonoBehaviour
     [SerializeField] TextMeshPro Title;
     [SerializeField] TextMeshPro Status;
     [SerializeField] GameObject DetailedViewPrefab;
-    
 
     public void InitTask(TaskObj task_f, bool is_current_task_f)
     {
@@ -74,7 +73,8 @@ public class TaskInstance : MonoBehaviour
 
     public void ViewDetails()
     {
-        GameObject DetailedView = Instantiate(DetailedViewPrefab, transform);
+        Vector3 spawnPosition = transform.position - transform.right * 0.2f + transform.up * 0.1f;
+        GameObject DetailedView = Instantiate(DetailedViewPrefab, spawnPosition, Quaternion.identity, transform);
         DetailedTask DetailedTaskView = DetailedView.GetComponent<DetailedTask>();
 
         if (Type == TaskType.Main || Type == TaskType.Emergency)

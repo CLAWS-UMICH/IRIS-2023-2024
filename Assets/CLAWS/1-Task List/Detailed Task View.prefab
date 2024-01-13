@@ -772,6 +772,7 @@ GameObject:
   - component: {fileID: 1900387565814396996}
   - component: {fileID: 1900387565814396997}
   - component: {fileID: 8132424450943621811}
+  - component: {fileID: 1625575391277308276}
   m_Layer: 0
   m_Name: Detailed Task View
   m_TagString: Untagged
@@ -1042,6 +1043,18 @@ MonoBehaviour:
   TaskName: {fileID: 1900387565332520164}
   TaskData: {fileID: 1900387565299957978}
   TaskMetaData: {fileID: 1900387566741498178}
+--- !u!114 &1625575391277308276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1900387565814396994}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a3502d521cf8474490f581bb89df058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1900387566197941541
 GameObject:
   m_ObjectHideFlags: 0
