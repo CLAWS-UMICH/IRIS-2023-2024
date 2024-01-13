@@ -80,6 +80,8 @@ public class ScrollHandler : MonoBehaviour
         {
             allButtons.Add(child);
         }
+
+
     }
 
     // Move the top -> bottom indexed buttons to their correct locations based on the offset
@@ -99,34 +101,14 @@ public class ScrollHandler : MonoBehaviour
             if (layoutType == LayoutType.Horizontal)
             {
                 xOffset = (i - top) * spacing; // Adjust x-offset for horizontal layout
-            
-                // Vector3 newPosition = parentTransform.position + new Vector3(xOffset, yOffset, 0f);
-                Vector3 newPosition = new Vector3(xOffset, yOffset, allButtons[i].transform.position.z);
-                allButtons[i].transform.position = newPosition; // Move each button to the new position
             }
             else
             {
-                if (i == 0)
-                {
-                    yOffset = 0;// transform.localPosition.y; // = (i - top) * -spacing; // Adjust y-offset for vertical layout
-                    // this is just 0
-                }
-                else
-                {
-                    yOffset = allButtons[i - 1].transform.localPosition.y
-                        - (allButtons[i - 1].GetComponent<BoxCollider>().size.y / 2
-                            * allButtons[i - 1].transform.localScale.y)
-                        - (allButtons[i].GetComponent<BoxCollider>().size.y / 2
-                            * allButtons[i].transform.localScale.y)
-                        - spacing;
-                }
-
-                // Vector3 newPosition = parentTransform.position + new Vector3(xOffset, yOffset, 0f);
-                Vector3 newPosition = new Vector3(allButtons[i].transform.localPosition.x, yOffset, allButtons[i].transform.localPosition.z);
-                allButtons[i].transform.localPosition = newPosition; // Move each button to the new position
+                yOffset = (i - top) * -spacing; // Adjust y-offset for vertical layout
             }
 
-            
+            Vector3 newPosition = parentTransform.position + new Vector3(xOffset, yOffset, 0f);
+            allButtons[i].transform.position = newPosition; // Move each button to the new position
         }
     }
 
@@ -162,6 +144,7 @@ public class ScrollHandler : MonoBehaviour
     // Function to handle button deletion based on GameObject
     public void HandleButtonDeletion(GameObject deletedButton)
     {
+        CollectAllButtons();
         // Find the index of the deleted button
         int deletedIndex = allButtons.FindIndex(button => button.gameObject == deletedButton);
 

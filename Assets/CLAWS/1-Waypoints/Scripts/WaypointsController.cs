@@ -56,28 +56,29 @@ public class WaypointsController : MonoBehaviour
 
     public void onWaypointsDeleted(WaypointsDeletedEvent e)
     {
-        Debug.Log("deleted");
         List<Waypoint> deletedWaypoints = e.DeletedWaypoints;
         foreach(Waypoint waypoint in deletedWaypoints)
         {
             if (waypointDict.ContainsKey(waypoint.waypoint_id))
             {
                 waypointDict.Remove(waypoint.waypoint_id);
+
                 GameObject gm = waypointObjDic[waypoint.waypoint_id];
                 waypointObjDic.Remove(waypoint.waypoint_id);
 
-                screenHandler.DeleteButton(waypointButtonDic[waypoint.waypoint_id], waypoint.type);
+                GameObject gmButton = waypointButtonDic[waypoint.waypoint_id];
+                screenHandler.DeleteButton(gmButton, waypoint.type);
                 waypointButtonDic.Remove(waypoint.waypoint_id);
+
                 Destroy(gm);
             }
-
+            
             AstronautInstance.User.WaypointData.AllWaypoints.Remove(waypoint);
         }
     }
 
     public void onWaypointsEdited(WaypointsEditedEvent e)
     {
-        Debug.Log("edited");
         List<Waypoint> editedWaypoints = e.EditedWaypoints;
         foreach(Waypoint waypoint in editedWaypoints)
         {

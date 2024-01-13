@@ -42,6 +42,7 @@ public class WaypointScreenHandler : MonoBehaviour
 
     public void OpenWaypointScreen()
     {
+        EventBus.Publish(new ScreenChangedEvent(Screens.SelectStationWaypoint));
         currentScreen = ScreenType.Station;
         stationScreen.SetActive(true);
         navScreen.SetActive(false);
@@ -51,6 +52,7 @@ public class WaypointScreenHandler : MonoBehaviour
 
     public void CloseWaypointScreen()
     {
+        EventBus.Publish(new ScreenChangedEvent(Screens.Menu));
         currentScreen = ScreenType.Station;
         parentScreen.SetActive(false);
         stationScreen.SetActive(true);
@@ -60,6 +62,7 @@ public class WaypointScreenHandler : MonoBehaviour
 
     public void OpenStation()
     {
+        EventBus.Publish(new ScreenChangedEvent(Screens.SelectStationWaypoint));
         currentScreen = ScreenType.Station;
         stationScreen.SetActive(true);
         navScreen.SetActive(false);
@@ -68,6 +71,7 @@ public class WaypointScreenHandler : MonoBehaviour
 
     public void OpenNav()
     {
+        EventBus.Publish(new ScreenChangedEvent(Screens.SelectNavWaypoint));
         currentScreen = ScreenType.Navigation;
         navScreen.SetActive(true);
         stationScreen.SetActive(false);
@@ -76,6 +80,7 @@ public class WaypointScreenHandler : MonoBehaviour
 
     public void OpenGeo()
     {
+        EventBus.Publish(new ScreenChangedEvent(Screens.SelectGeoWaypoint));
         currentScreen = ScreenType.GeoSample;
         geoScreen.SetActive(true);
         stationScreen.SetActive(false);
