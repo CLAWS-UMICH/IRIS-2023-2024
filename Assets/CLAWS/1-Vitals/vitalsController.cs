@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,6 @@ using TMPro;
 
 public class vitalsController : MonoBehaviour
 {
-
     private Subscription<VitalsUpdatedEvent> vitalsUpdateEvent;
     private Subscription<FellowAstronautVitalsDataChangeEvent> fellowVitalsUpdateEvent;
     public GameObject parent;
@@ -14,6 +14,20 @@ public class vitalsController : MonoBehaviour
     public GameObject bodyObjectFellow;
     public GameObject suitObjectFellow;
     public GameObject parentFellow;
+
+    //For half gauge
+    GameObject halfRingPartialFiller;
+    GameObject halfRingFullFiller;
+    SpriteRenderer halfRingPartialFillerSprite;
+    SpriteRenderer halfRingFullFillerSprite;
+    GameObject halfRing;
+    TextMeshPro gaugeTitle;
+    TextMeshPro gaugeValue;
+    TextMeshPro gaugeUnit;
+
+    // Placeholder values for the gauge current value and max value. Currently for pressure (psi) from 0.0-7.0
+    public float gaugeMaxValue = 7.0f;
+
     //1st astronaut
     TextMeshPro heartRate, PO2, SO2, roomID, is_running, is_paused, time,
                 timer, started_at, suit_p, sub_p, O2_p, h2O_gas_p, h2O_liq_p, sop_p,
@@ -39,8 +53,11 @@ public class vitalsController : MonoBehaviour
         //suit board
         O2rate = suitObject.transform.Find("O2Rate").gameObject.GetComponent<TextMeshPro>();
         btry_perc = suitObject.transform.Find("Btry_perc").gameObject.GetComponent<TextMeshPro>();
+
         suit_p = suitObject.transform.Find("Suit_p").gameObject.GetComponent<TextMeshPro>();
+
         O2_p = suitObject.transform.Find("O2_p").gameObject.GetComponent<TextMeshPro>();
+
         PO2 = suitObject.transform.Find("PO2").gameObject.GetComponent<TextMeshPro>();
         //connects to game object
         //1st astronaut
@@ -112,11 +129,17 @@ public class vitalsController : MonoBehaviour
 
         //suit
         O2rate.text = e.vitals.o2_rate.ToString("F0");
+
+        
         suit_p.text = e.vitals.suit_pressure.ToString("F1");
+        setGaugeObject(suit_p);
+        updateGaugeValue(e.vitals.suit_pressure);
         O2_p.text = e.vitals.o2_pressure.ToString("F1");
+        setGaugeObject(O2_p);
+        updateGaugeValue(e.vitals.o2_pressure);
+
         PO2.text = e.vitals.primary_oxygen.ToString();
         btry_perc.text = e.vitals.battery_percentage.ToString();
-
         h2O_gas_p.text = "H2O: " + e.vitals.h2o_gas_pressure.ToString();
         O2timeLeft.text = "O2 time remaining: " + e.vitals.o2_time_left.ToString();
         H2OtimeLeft.text = "H2O time remaining: " + e.vitals.h2o_time_left.ToString();
@@ -157,9 +180,16 @@ public class vitalsController : MonoBehaviour
         time1.text = "Time: " + e.AstronautToChange.vitals.time.ToString();
         timer1.text = "Timer: " + e.AstronautToChange.vitals.timer.ToString();
         started_at1.text = "Started at: " + e.AstronautToChange.vitals.started_at.ToString();
-        suit_p1.text = "Suit Pressure: " + e.AstronautToChange.vitals.suit_pressure.ToString();
         sub_p1.text = "Sub Pressure: " + e.AstronautToChange.vitals.sub_pressure.ToString();
+
+        suit_p1.text = "Suit Pressure: " + e.AstronautToChange.vitals.suit_pressure.ToString();
+        setGaugeObject(suit_p1);
+        updateGaugeValue(e.AstronautToChange.vitals.suit_pressure);
         O2_p1.text = "O2 Pressure: " + e.AstronautToChange.vitals.o2_pressure.ToString();
+        setGaugeObject(O2_p1);
+        updateGaugeValue(e.AstronautToChange.vitals.o2_pressure);
+
+
         h2O_liq_p1.text = "H2O Liquid Pressure: " + e.AstronautToChange.vitals.h2o_liquid_pressure.ToString();
         sop_p1.text = "Sop Pressure: " + e.AstronautToChange.vitals.sop_pressure.ToString();
         sop_rate1.text = "Sop Rate: " + e.AstronautToChange.vitals.sop_rate.ToString();
@@ -173,5 +203,83 @@ public class vitalsController : MonoBehaviour
         O2_secTime1.text = "O2 Secondary Time: " + e.AstronautToChange.vitals.oxygen_secondary_time.ToString();
         h2O_cap1.text = "H2O Capacity: " + e.AstronautToChange.vitals.water_capacity.ToString();
         // Add warning screens + when rates are going to fast
+    }
+
+    // Half gauge functions
+
+    public void setGaugeObject(TextMeshPro halfGauge)
+    {
+        halfRing = halfGauge.transform.Find("HalfRing").gameObject;
+        gaugeUnit = halfGauge.transform.Find("HalfGaugeUnit").gameObject.GetComponent<TextMeshPro>();
+
+        // This ring filler is toggled on when the gauge value is between 0-50%
+        halfRingPartialFiller = halfRing.transform.Find("HalfRingPartialFiller").gameObject;
+        halfRingPartialFillerSprite = halfRingPartialFiller.GetComponent<SpriteRenderer>();
+
+        //This ring filler is toggled on when the gauge value is >= 50%
+        halfRingFullFiller = halfRing.transform.Find("HalfRingFullFiller").gameObject;
+        halfRingFullFillerSprite = halfRingFullFiller.GetComponent<SpriteRenderer>();
+
+    }
+
+    public void updateGaugeValue(float incomingGaugeValue)
+    {
+        setGaugeColor(incomingGaugeValue);
+
+        float percentValue = calculatePercentage(incomingGaugeValue);
+        float degreeRotation = calculateRotation(percentValue);
+        if (percentValue <= 50)
+        {
+            //Fetch current Z rotational value of the filler and subtract that before update
+            float currentRotationZ = halfRingPartialFiller.transform.rotation.eulerAngles.z - 90;
+
+            //Show partial ring filler, hide full ring filler
+            halfRingFullFiller.SetActive(false);
+            halfRingPartialFiller.SetActive(true);
+            halfRingPartialFiller.transform.Rotate(0.0f, 0.0f, degreeRotation - currentRotationZ, Space.Self);
+        }
+        else
+        {
+            //Fetch current Z rotational value of the filler and subtract that before update
+            float currentRotationZ = halfRingFullFiller.transform.rotation.eulerAngles.z - 180;
+
+            //Hide partial ring filler, show full ring filler
+            halfRingFullFiller.SetActive(true);
+            halfRingPartialFiller.SetActive(false);
+            halfRingFullFiller.transform.Rotate(0.0f, 0.0f, degreeRotation - currentRotationZ, Space.Self);
+
+        }
+    }
+
+    float calculatePercentage(float gaugeValue)
+    {
+        return (float)Math.Min((gaugeValue / gaugeMaxValue) * 100, 100);
+    }
+    float calculateRotation(float percentage)
+    {
+        return -(percentage / 100) * 180;
+    }
+
+    void setGaugeColor(float gaugeValue)
+    {
+        Color warningColor = new Color(1.0f, 0.4f, 0f, 1.0f);  // Color values are normalized (0 to 1)
+        Color dangerColor = new Color(1.0f, 0f, 0f, 1.0f);
+        Color regularColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+
+        if (gaugeValue <= 1 || gaugeValue >= 5.0)
+        {
+            halfRingPartialFillerSprite.color = dangerColor;
+            halfRingFullFillerSprite.color = dangerColor;
+        }
+        else if ((gaugeValue > 1 && gaugeValue <= 1.9) || (gaugeValue >= 4.1 && gaugeValue < 5.0))
+        {
+            halfRingPartialFillerSprite.color = warningColor;
+            halfRingFullFillerSprite.color = warningColor;
+        }
+        else
+        {
+            halfRingPartialFillerSprite.color = regularColor;
+            halfRingFullFillerSprite.color = regularColor;
+        }
     }
 }
