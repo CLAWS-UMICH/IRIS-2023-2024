@@ -23,6 +23,8 @@ public class TaskListFullScreen : MonoBehaviour
     [SerializeField] ClippingManager Clipping;
     [SerializeField] GameObject LinesParent;
 
+    [SerializeField] GameObject DetailedView;
+
     Queue<string> FunctionQueue;
 
     [ContextMenu("func RenderTaskList")]
@@ -130,6 +132,7 @@ public class TaskListFullScreen : MonoBehaviour
         GameObject g = Instantiate(EmergencyTaskPrefab, TaskList_ScrollHandler.transform);
         TaskInstance task_instance = g.GetComponent<TaskInstance>();
         task_instance.InitEmergencyTask(taskobj_f);
+        task_instance.DetailedView = DetailedView;
         TaskList_List.Add(g);
         Clipping.objectsToClip.Add(g);
     }
@@ -141,6 +144,7 @@ public class TaskListFullScreen : MonoBehaviour
             GameObject g = Instantiate(TaskExpandedPrefab, TaskList_ScrollHandler.transform);
             TaskInstance task_instance = g.GetComponent<TaskInstance>();
             task_instance.InitTask(taskobj_f, true);
+            task_instance.DetailedView = DetailedView;
             IconsForLines_List.Add(task_instance.GetIcon());
             TaskList_List.Add(g);
             Clipping.objectsToClip.Add(g);
@@ -149,7 +153,9 @@ public class TaskListFullScreen : MonoBehaviour
             foreach (SubtaskObj subtaskobj in taskobj_f.subtasks)
             {
                 GameObject s = Instantiate(SubtaskPrefab, TaskList_ScrollHandler.transform);
-                s.GetComponent<TaskInstance>().InitTask(subtaskobj);
+                TaskInstance i = s.GetComponent<TaskInstance>();
+                i.InitTask(subtaskobj);
+                i.DetailedView = DetailedView;
                 TaskList_List.Add(s);
                 Clipping.objectsToClip.Add(s);
             }
@@ -159,6 +165,7 @@ public class TaskListFullScreen : MonoBehaviour
             GameObject g = Instantiate(TaskPrefab, TaskList_ScrollHandler.transform);
             TaskInstance task_instance = g.GetComponent<TaskInstance>();
             task_instance.InitTask(taskobj_f, false);
+            task_instance.DetailedView = DetailedView;
             IconsForLines_List.Add(task_instance.GetIcon());
             TaskList_List.Add(g);
             Clipping.objectsToClip.Add(g);

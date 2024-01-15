@@ -45,6 +45,12 @@ public class DetailedTask : MonoBehaviour
 
     public void OnCloseButtonPressed()
     {
-        Destroy(gameObject);
+        IEnumerator _close()
+        {
+            yield return new WaitForSeconds(0.01f);
+            gameObject.SetActive(false);
+        }
+
+        StartCoroutine(_close());
     }
 }
