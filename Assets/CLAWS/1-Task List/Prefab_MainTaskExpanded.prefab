@@ -80,7 +80,7 @@ MonoBehaviour:
   Icon: {fileID: 1465742698386238966}
   Title: {fileID: 6237631843263171372}
   Status: {fileID: 7705929112520171267}
-  DetailedViewPrefab: {fileID: 1900387565814396994, guid: d1761dd6cb7204f42bb8e6e9c82f282a, type: 3}
+  DetailedView: {fileID: 0}
 --- !u!1 &5638391587603587466
 GameObject:
   m_ObjectHideFlags: 0
@@ -2437,16 +2437,24 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 259350009368641209, guid: a8f517f7be1d69f4ead74499adf2fdff, type: 3}
+      propertyPath: m_fontSizeMax
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 259350009368641209, guid: a8f517f7be1d69f4ead74499adf2fdff, type: 3}
       propertyPath: m_fontSizeMin
-      value: 0.01
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 259350009368641209, guid: a8f517f7be1d69f4ead74499adf2fdff, type: 3}
       propertyPath: m_fontSizeBase
       value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 259350009368641209, guid: a8f517f7be1d69f4ead74499adf2fdff, type: 3}
-      propertyPath: m_enableAutoSizing
+      propertyPath: m_overflowMode
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 259350009368641209, guid: a8f517f7be1d69f4ead74499adf2fdff, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 259350009368641209, guid: a8f517f7be1d69f4ead74499adf2fdff, type: 3}
       propertyPath: m_VerticalAlignment
@@ -2490,7 +2498,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2392647766582955634, guid: a8f517f7be1d69f4ead74499adf2fdff, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0.05419
+      value: 0.07574
       objectReference: {fileID: 0}
     - target: {fileID: 2392647766582955634, guid: a8f517f7be1d69f4ead74499adf2fdff, type: 3}
       propertyPath: m_LocalScale.x
@@ -2538,7 +2546,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2392647766582955634, guid: a8f517f7be1d69f4ead74499adf2fdff, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.00247
+      value: 0.00269
       objectReference: {fileID: 0}
     - target: {fileID: 2392647766582955634, guid: a8f517f7be1d69f4ead74499adf2fdff, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
