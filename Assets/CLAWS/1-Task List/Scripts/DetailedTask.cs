@@ -18,7 +18,13 @@ public class DetailedTask : MonoBehaviour
         TaskData.text = data;
         TaskMetaData.text = metadata;
 
-        SetBackplateSize();
+        IEnumerator _SetBackplate()
+        {
+            yield return new WaitForSeconds(0.1f);
+            SetBackplateSize();
+        }
+
+        StartCoroutine(_SetBackplate());
     }
 
     [ContextMenu("func SetBackplateSize")]
@@ -33,6 +39,8 @@ public class DetailedTask : MonoBehaviour
 
         Backplate.localScale = new(Backplate.localScale.x, height, Backplate.localScale.z);
         Backplate.localPosition = new(Backplate.localPosition.x, y, Backplate.localPosition.z);
+
+        Debug.Log("Backplate set");
     }
 
     public void OnCloseButtonPressed()

@@ -74,7 +74,7 @@ public class TaskInstance : MonoBehaviour
     public void ViewDetails()
     {
         Vector3 spawnPosition = transform.position - transform.right * 0.2f + transform.up * 0.1f;
-        GameObject DetailedView = Instantiate(DetailedViewPrefab, spawnPosition, Quaternion.identity, transform);
+        GameObject DetailedView = Instantiate(DetailedViewPrefab);
         DetailedTask DetailedTaskView = DetailedView.GetComponent<DetailedTask>();
 
         if (Type == TaskType.Main || Type == TaskType.Emergency)
@@ -85,7 +85,6 @@ public class TaskInstance : MonoBehaviour
         {
             DetailedTaskView.InitDetailedView(Subtask.title, Subtask.description, "boop");
         }
-        
     }
 
     [ContextMenu("func FinishTask")]
