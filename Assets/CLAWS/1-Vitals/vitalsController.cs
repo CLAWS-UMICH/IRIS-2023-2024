@@ -25,6 +25,9 @@ public class vitalsController : MonoBehaviour
     TextMeshPro gaugeValue;
     TextMeshPro gaugeUnit;
 
+    //For progress bar
+    GameObject indicator;
+
     // Placeholder values for the gauge current value and max value. Currently for pressure (psi) from 0.0-7.0
     public float gaugeMaxValue = 7.0f;
 
@@ -59,6 +62,10 @@ public class vitalsController : MonoBehaviour
         O2_p = suitObject.transform.Find("O2_p").gameObject.GetComponent<TextMeshPro>();
 
         PO2 = suitObject.transform.Find("PO2").gameObject.GetComponent<TextMeshPro>();
+
+        //main board
+        h2O_liq_p = parent.transform.Find("H2O_liq_p").gameObject.GetComponent<TextMeshPro>();
+
         //connects to game object
         //1st astronaut
         h2O_gas_p = parent.transform.Find("H2O_gas_p").gameObject.GetComponent<TextMeshPro>();
@@ -72,7 +79,6 @@ public class vitalsController : MonoBehaviour
         sub_p = parent.transform.Find("Sub_p").gameObject.GetComponent<TextMeshPro>();
         SO2 = parent.transform.Find("SO2").gameObject.GetComponent<TextMeshPro>();
         roomID = parent.transform.Find("RoomID").gameObject.GetComponent<TextMeshPro>();
-        h2O_liq_p = parent.transform.Find("H2O_liq_p").gameObject.GetComponent<TextMeshPro>();
         sop_p = parent.transform.Find("Sop_p").gameObject.GetComponent<TextMeshPro>();
         sop_rate = parent.transform.Find("Sop_rate").gameObject.GetComponent<TextMeshPro>();
         fan_tach = parent.transform.Find("Fan_tach").gameObject.GetComponent<TextMeshPro>();
@@ -281,5 +287,15 @@ public class vitalsController : MonoBehaviour
             halfRingPartialFillerSprite.color = regularColor;
             halfRingFullFillerSprite.color = regularColor;
         }
+    }
+
+    //progress bar functions
+    void setBarObject()
+    {
+    }
+
+    float calculatePSI(float barValue)
+    {
+        return (float)Math.Min((barValue / 6) * 10, 10);
     }
 }
