@@ -82,7 +82,7 @@ public class ScrollHandler : MonoBehaviour
 
         if (highlightsOn)
         {
-            GameObject.Find("ButtonHighlightController").GetComponent<LevelManager>().clearButtonList(this.gameObject);
+            GameObject.Find("Controller").GetComponent<LevelManager>().clearButtonList(this.gameObject);
         }
 
         foreach (Transform child in parentTransform)
@@ -91,7 +91,7 @@ public class ScrollHandler : MonoBehaviour
 
             if (highlightsOn)
             {
-                GameObject.Find("ButtonHighlightController").GetComponent<LevelManager>().addButtonFromScroll(this.gameObject, child.gameObject);
+                GameObject.Find("Controller").GetComponent<LevelManager>().addButtonFromScroll(this.gameObject, child.gameObject);
             }
         }
 

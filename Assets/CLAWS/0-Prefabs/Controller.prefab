@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3883599765637248887}
   - component: {fileID: -3026816231006134626}
   - component: {fileID: 148298143307955794}
+  - component: {fileID: 606013790}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -243,3 +244,29 @@ MonoBehaviour:
   fakeGPS:
     latitude: 29.5647012
     longitude: -95.081375
+--- !u!114 &606013790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3580227640093714687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e35e4271eaad20c44a1c22a7d72bb856, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levels:
+  - levelName: 
+    gameObjects: []
+  - levelName: WaypointNav
+    gameObjects:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+  - levelName: WaypointTypeSelect
+    gameObjects:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEditor;
 using System;
 using System.Collections.Generic;
 
@@ -61,7 +60,7 @@ public class LevelManager : MonoBehaviour
             {
                 levelToHighlight[lvlName].GetComponent<ButtonHighlight>().unHighlight();
                 GetRidOfActiveButton(levelToHighlight[lvlName]);
-            } 
+            }
         }
     }
 
@@ -130,28 +129,5 @@ public class LevelManager : MonoBehaviour
             button.GetComponent<ButtonHighlight>().unHighlight();
         }
         activeButtons.Clear();
-    }
-}
-
-[CustomEditor(typeof(LevelManager))]
-public class LevelManagerEditor : Editor
-{
-    private SerializedProperty levelsProp;
-
-    private void OnEnable()
-    {
-        levelsProp = serializedObject.FindProperty("levels");
-    }
-
-    public override void OnInspectorGUI()
-    {
-        // Update the serialized object
-        serializedObject.Update();
-
-        // Display the levels in the inspector
-        EditorGUILayout.PropertyField(levelsProp, true);
-
-        // Apply changes to the serialized object
-        serializedObject.ApplyModifiedProperties();
     }
 }
