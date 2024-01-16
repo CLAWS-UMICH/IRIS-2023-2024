@@ -14,8 +14,8 @@ public class ScrollHandler : MonoBehaviour
     [SerializeField] private int buttonsEnabledCount = 3; // Number of gameobjects to scroll per button press
     [SerializeField] private LayoutType layoutType; // Type of layout
 
-    /*[Tooltip("Turn this on if you want the buttons created under this scroll handler to be affected by the highlighting script!")]
-    [SerializeField] private bool highlightsOn = false;*/
+    [Tooltip("Turn this on if you want the buttons created under this scroll handler to be affected by the highlighting script!")]
+    [SerializeField] private bool highlightsOn = false;
 
 
     private List<Transform> allButtons = new List<Transform>(); // List to store all buttons
@@ -80,19 +80,19 @@ public class ScrollHandler : MonoBehaviour
         Transform parentTransform = transform;
         allButtons.Clear();
 
-        /*if (highlightsOn)
+        if (highlightsOn)
         {
-            GameObject.Find("ButtonHighlightController").GetComponent<LevelManager>().clearButtonList(this.gameObject);
-        }*/
+            GameObject.Find("Controller").GetComponent<LevelManager>().clearButtonList(this.gameObject);
+        }
 
         foreach (Transform child in parentTransform)
         {
             allButtons.Add(child);
 
-            /*if (highlightsOn)
+            if (highlightsOn)
             {
-                GameObject.Find("ButtonHighlightController").GetComponent<LevelManager>().addButtonFromScroll(this.gameObject, child.gameObject);
-            }*/
+                GameObject.Find("Controller").GetComponent<LevelManager>().addButtonFromScroll(this.gameObject, child.gameObject);
+            }
         }
 
 
