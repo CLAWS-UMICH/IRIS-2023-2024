@@ -20,6 +20,8 @@ public class TaskInstance : MonoBehaviour
     [SerializeField] TextMeshPro Title;
     [SerializeField] TextMeshPro Status;
 
+    [SerializeField] GameObject SubtaskIcon; // this is a checkmark
+
     public GameObject DetailedView;
 
     public void InitTask(TaskObj task_f, bool is_current_task_f)
@@ -27,9 +29,10 @@ public class TaskInstance : MonoBehaviour
         Task = task_f;
         Subtask = null;
         Type = TaskType.Main;
+
         Title.text = Task.title;
 
-        // Task Icon
+        // icon
         if (is_current_task_f)
         {
             Icon.SetIcon(TaskListIconEnum.CurrentTask);
@@ -56,6 +59,45 @@ public class TaskInstance : MonoBehaviour
         Task = null;
         Subtask = subtask_f;
         Type = TaskType.Subtask;
+
+        Title.text = Subtask.title;
+        if (Subtask.status >= 1)
+        {
+            Status.text = "Completed";
+            SubtaskIcon.SetActive(true);
+        }
+        else
+        {
+            // mark all subtasks as in progress
+            Status.text = "In Progress";
+            EventBus.Publish<SubtaskStartedEvent>(new(Subtask));
+            SubtaskIcon.SetActive(false);
+        }
+    }
+
+    [ContextMenu("func ToggleSubtaskStatus")]
+    public void ToggleSubtaskStatus()
+    {
+        // this will increment the status (completed -> in progress or in progress -> complete)
+
+        if (Subtask.status >= 1)
+        {
+            // completed -> in progress
+            Subtask.status = 0;
+            Status.text = "In Progress";
+            EventBus.Publish<SubtaskStartedEvent>(new(Subtask));
+            SubtaskIcon.SetActive(false);
+        }
+        else
+        {
+            // in progress -> complete
+            Subtask.status = 1;
+            Status.text = "Completed";
+            EventBus.Publish<SubtaskFinishedEvent>(new(Subtask));
+            SubtaskIcon.SetActive(true);
+        }
+
+        GameObject.Find("Controller").GetComponent<WebsocketDataHandler>().SendTasklistData();
     }
 
     public void InitEmergencyTask(TaskObj task_f)
@@ -63,6 +105,7 @@ public class TaskInstance : MonoBehaviour
         Task = task_f;
         Subtask = null;
         Type = TaskType.Emergency;
+
         Title.text = Task.title;
         Status.text = Task.description;
     }
