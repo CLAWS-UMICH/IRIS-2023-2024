@@ -389,3 +389,24 @@ public class NewPicEvent
         image = pic;
     }
 }
+
+// Highlight Button
+public class HighlightButton
+{
+    public GameObject button { get; private set; }
+
+    public HighlightButton(GameObject _button)
+    {
+        button = _button;
+    }
+}
+
+public class UnHighlight
+{
+    public List<string> levelnames { get; private set; }
+
+    public UnHighlight(List<string> _levelnames)
+    {
+        levelnames = _levelnames;
+    }
+}

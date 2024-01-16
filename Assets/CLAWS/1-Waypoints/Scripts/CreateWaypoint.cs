@@ -80,6 +80,16 @@ public class CreateWaypoint : MonoBehaviour
         }
     }
 
+    public void SelectGeo()
+    {
+        type = 2;
+        if (defaultName)
+        {
+            name = "Geo " + letter;
+            nameField.GetComponent<TextMeshPro>().text = name;
+        }
+    }
+
     public void CreateWay()
     {
         if (type != -1)
