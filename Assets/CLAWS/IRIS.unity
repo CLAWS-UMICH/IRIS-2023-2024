@@ -2188,6 +2188,277 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5192905975431627658, guid: db21c68d9020ecb4988ba26e85f1d7c6, type: 3}
   m_PrefabInstance: {fileID: 639753150}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &150628673297285512
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2779122580129391958}
+  - component: {fileID: 5442246554111572188}
+  - component: {fileID: 7369634222898919401}
+  - component: {fileID: 3582184191572694821}
+  - component: {fileID: 3726911120621084713}
+  - component: {fileID: 3726911122158716099}
+  m_Layer: 0
+  m_Name: Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2779122580129391958
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150628673297285512}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3582184191572694821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150628673297285512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0425a85c5d9575409afacffe84503d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  secondsToUpdate: 3
+  fakeGPS:
+    latitude: 29.5647012
+    longitude: -95.081375
+--- !u!114 &3726911120621084713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150628673297285512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e35e4271eaad20c44a1c22a7d72bb856, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levels:
+  - levelName: 
+    gameObjects: []
+  - levelName: WaypointNav
+    gameObjects:
+    - {fileID: 8587249466245313144}
+    - {fileID: 8587249466245313143}
+    - {fileID: 8587249466245313142}
+  - levelName: WaypointTypeSelect
+    gameObjects:
+    - {fileID: 8587249466245313141}
+    - {fileID: 8587249466245313140}
+    - {fileID: 8587249466245313139}
+    - {fileID: 8587249466245313138}
+  - levelName: MainMenu
+    gameObjects:
+    - {fileID: 8587249466245313137}
+    - {fileID: 8587249466245313136}
+    - {fileID: 8587249466245313135}
+    - {fileID: 8587249466245313134}
+    - {fileID: 8587249466245313133}
+    - {fileID: 8587249466245313132}
+  - levelName: IRISMenu
+    gameObjects:
+    - {fileID: 8587249466245313131}
+    - {fileID: 8587249466245313130}
+    - {fileID: 8587249466245313129}
+    - {fileID: 8587249466245313128}
+    - {fileID: 8587249466245313127}
+--- !u!114 &3726911122158716099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150628673297285512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cfc35c825cca7746be0648b6dbee7f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrScreen: 0
+--- !u!114 &5442246554111572188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150628673297285512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9138a69987212743ba7ff3a7785ccf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _user:
+    id: 0
+    MessagingData:
+      AllMessages: []
+    VitalsData:
+      room_id: 0
+      is_running: 0
+      is_paused: 0
+      time: 0
+      timer: 
+      started_at: 
+      primary_oxygen: 0
+      secondary_oxygen: 0
+      suit_pressure: 0
+      sub_pressure: 0
+      o2_pressure: 0
+      o2_rate: 0
+      h2o_gas_pressure: 0
+      h2o_liquid_pressure: 0
+      sop_pressure: 0
+      sop_rate: 0
+      heart_rate: 0
+      fan_tachometer: 0
+      battery_capacity: 0
+      temperature: 0
+      battery_time_left: 
+      o2_time_left: 
+      h2o_time_left: 
+      battery_percentage: 0
+      battery_outputput: 0
+      oxygen_primary_time: 0
+      oxygen_secondary_time: 0
+      water_capacity: 0
+    GeosampleData:
+      AllGeosamples: []
+    WaypointData:
+      currentIndex: 0
+      AllWaypoints: []
+    TasklistData:
+      AllTasks:
+      - task_id: 0
+        status: 0
+        title: First task
+        description: Do some stuff
+        isEmergency: 0
+        astronauts: []
+        subtasks:
+        - subtask_id: 0
+          status: 0
+          title: Some stuff
+          description: This is stuff
+          astronautIDs: 
+        - subtask_id: 1
+          status: 0
+          title: Stuff 1
+          description: This is stuff
+          astronautIDs: 
+      - task_id: 1
+        status: 0
+        title: Example task 2
+        description: 
+        isEmergency: 0
+        astronauts: []
+        subtasks:
+        - subtask_id: 0
+          status: 0
+          title: Hi
+          description: hi
+          astronautIDs: 
+      - task_id: 2
+        status: 0
+        title: 
+        description: 
+        isEmergency: 0
+        astronauts: []
+        subtasks:
+        - subtask_id: 0
+          status: 0
+          title: blah
+          description: blah blah blah
+          astronautIDs: 
+        - subtask_id: 1
+          status: 0
+          title: blah2
+          description: blah2 blah2 blah2
+          astronautIDs: 
+      - task_id: 3
+        status: 0
+        title: Super urgent emergency task
+        description: Attention agent 007... This is an urgent incoming message!
+        isEmergency: 1
+        astronauts: []
+        subtasks: []
+    AlertData:
+      AllAlerts: []
+    BreadCrumbData:
+      AllCrumbs: []
+    location:
+      latitude: 0
+      longitude: 0
+    currently_navigating: 0
+    inDanger: 0
+    color: 
+    FellowAstronautsData:
+      astronaut_id: 0
+      location:
+        latitude: 0
+        longitude: 0
+      color: 
+      vitals:
+        room_id: 0
+        is_running: 0
+        is_paused: 0
+        time: 0
+        timer: 
+        started_at: 
+        primary_oxygen: 0
+        secondary_oxygen: 0
+        suit_pressure: 0
+        sub_pressure: 0
+        o2_pressure: 0
+        o2_rate: 0
+        h2o_gas_pressure: 0
+        h2o_liquid_pressure: 0
+        sop_pressure: 0
+        sop_rate: 0
+        heart_rate: 0
+        fan_tachometer: 0
+        battery_capacity: 0
+        temperature: 0
+        battery_time_left: 
+        o2_time_left: 
+        h2o_time_left: 
+        battery_percentage: 0
+        battery_outputput: 0
+        oxygen_primary_time: 0
+        oxygen_secondary_time: 0
+        water_capacity: 0
+      navigating: 0
+      bread_crumbs:
+        AllCrumbs: []
+--- !u!114 &7369634222898919401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150628673297285512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35aba9e990343b744840ad257a9dcd78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8587249466245313126
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2269,3 +2540,93 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 452436fb6746e8449908ca0a63732d5d, type: 3}
+--- !u!1 &8587249466245313127 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1523446399101703097, guid: 452436fb6746e8449908ca0a63732d5d, type: 3}
+  m_PrefabInstance: {fileID: 8587249466245313126}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8587249466245313128 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1523446400002889791, guid: 452436fb6746e8449908ca0a63732d5d, type: 3}
+  m_PrefabInstance: {fileID: 8587249466245313126}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8587249466245313129 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1523446399244952267, guid: 452436fb6746e8449908ca0a63732d5d, type: 3}
+  m_PrefabInstance: {fileID: 8587249466245313126}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8587249466245313130 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1523446398369600729, guid: 452436fb6746e8449908ca0a63732d5d, type: 3}
+  m_PrefabInstance: {fileID: 8587249466245313126}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8587249466245313131 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1523446398755737602, guid: 452436fb6746e8449908ca0a63732d5d, type: 3}
+  m_PrefabInstance: {fileID: 8587249466245313126}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8587249466245313132 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1523446398738643780, guid: 452436fb6746e8449908ca0a63732d5d, type: 3}
+  m_PrefabInstance: {fileID: 8587249466245313126}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8587249466245313133 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1523446399841750604, guid: 452436fb6746e8449908ca0a63732d5d, type: 3}
+  m_PrefabInstance: {fileID: 8587249466245313126}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8587249466245313134 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1523446399502747848, guid: 452436fb6746e8449908ca0a63732d5d, type: 3}
+  m_PrefabInstance: {fileID: 8587249466245313126}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8587249466245313135 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1523446399993226176, guid: 452436fb6746e8449908ca0a63732d5d, type: 3}
+  m_PrefabInstance: {fileID: 8587249466245313126}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8587249466245313136 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1523446400007591997, guid: 452436fb6746e8449908ca0a63732d5d, type: 3}
+  m_PrefabInstance: {fileID: 8587249466245313126}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8587249466245313137 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1523446399622986928, guid: 452436fb6746e8449908ca0a63732d5d, type: 3}
+  m_PrefabInstance: {fileID: 8587249466245313126}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8587249466245313138 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3032260436539589074, guid: 452436fb6746e8449908ca0a63732d5d, type: 3}
+  m_PrefabInstance: {fileID: 8587249466245313126}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8587249466245313139 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3032260436067654828, guid: 452436fb6746e8449908ca0a63732d5d, type: 3}
+  m_PrefabInstance: {fileID: 8587249466245313126}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8587249466245313140 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3032260436990912991, guid: 452436fb6746e8449908ca0a63732d5d, type: 3}
+  m_PrefabInstance: {fileID: 8587249466245313126}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8587249466245313141 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1735734830500332740, guid: 452436fb6746e8449908ca0a63732d5d, type: 3}
+  m_PrefabInstance: {fileID: 8587249466245313126}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8587249466245313142 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8149106640890710234, guid: 452436fb6746e8449908ca0a63732d5d, type: 3}
+  m_PrefabInstance: {fileID: 8587249466245313126}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8587249466245313143 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8149106639844874247, guid: 452436fb6746e8449908ca0a63732d5d, type: 3}
+  m_PrefabInstance: {fileID: 8587249466245313126}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8587249466245313144 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8149106640677727857, guid: 452436fb6746e8449908ca0a63732d5d, type: 3}
+  m_PrefabInstance: {fileID: 8587249466245313126}
+  m_PrefabAsset: {fileID: 0}

@@ -65,10 +65,11 @@ public class vitalsController : MonoBehaviour
 
         //main board
         h2O_liq_p = parent.transform.Find("H2O_liq_p").gameObject.GetComponent<TextMeshPro>();
+        h2O_gas_p = parent.transform.Find("H2O_gas_p").gameObject.GetComponent<TextMeshPro>();
+        fan_tach = parent.transform.Find("Fan_tach").gameObject.GetComponent<TextMeshPro>();
 
         //connects to game object
         //1st astronaut
-        h2O_gas_p = parent.transform.Find("H2O_gas_p").gameObject.GetComponent<TextMeshPro>();
         O2timeLeft = parent.transform.Find("O2TimeLeft").gameObject.GetComponent<TextMeshPro>();
         H2OtimeLeft = parent.transform.Find("H2OTimeLeft").gameObject.GetComponent<TextMeshPro>();
         is_running = parent.transform.Find("Running").gameObject.GetComponent<TextMeshPro>();
@@ -81,7 +82,6 @@ public class vitalsController : MonoBehaviour
         roomID = parent.transform.Find("RoomID").gameObject.GetComponent<TextMeshPro>();
         sop_p = parent.transform.Find("Sop_p").gameObject.GetComponent<TextMeshPro>();
         sop_rate = parent.transform.Find("Sop_rate").gameObject.GetComponent<TextMeshPro>();
-        fan_tach = parent.transform.Find("Fan_tach").gameObject.GetComponent<TextMeshPro>();
         btry_cap = parent.transform.Find("Btry_cap").gameObject.GetComponent<TextMeshPro>();
         btry_timeLeft = parent.transform.Find("Btry_timeLeft").gameObject.GetComponent<TextMeshPro>();
         btry_out = parent.transform.Find("Btry_out").gameObject.GetComponent<TextMeshPro>();
@@ -102,6 +102,11 @@ public class vitalsController : MonoBehaviour
         O2_p1 = suitObjectFellow.transform.Find("O2_p").gameObject.GetComponent<TextMeshPro>();
         PO21 = suitObjectFellow.transform.Find("PO2").gameObject.GetComponent<TextMeshPro>();
 
+        //main board
+        h2O_liq_p1 = parent.transform.Find("H2O_liq_p1").gameObject.GetComponent<TextMeshPro>();
+        h2O_gas_p1 = parent.transform.Find("H2O_gas_p1").gameObject.GetComponent<TextMeshPro>();
+        fan_tach1 = parent.transform.Find("Fan_tach1").gameObject.GetComponent<TextMeshPro>();
+
         SO21 = parent.transform.Find("SO21").gameObject.GetComponent<TextMeshPro>();
         O2timeLeft1 = parent.transform.Find("O2TimeLeft1").gameObject.GetComponent<TextMeshPro>();
         H2OtimeLeft1 = parent.transform.Find("H2OTimeLeft1").gameObject.GetComponent<TextMeshPro>();
@@ -112,11 +117,8 @@ public class vitalsController : MonoBehaviour
         timer1 = parent.transform.Find("Timer1").gameObject.GetComponent<TextMeshPro>();
         started_at1 = parent.transform.Find("Started1").gameObject.GetComponent<TextMeshPro>();
         sub_p1 = parent.transform.Find("Sub_p1").gameObject.GetComponent<TextMeshPro>();
-        h2O_gas_p1 = parent.transform.Find("H2O_gas_p1").gameObject.GetComponent<TextMeshPro>();
-        h2O_liq_p1 = parent.transform.Find("H2O_liq_p1").gameObject.GetComponent<TextMeshPro>();
         sop_p1 = parent.transform.Find("Sop_p1").gameObject.GetComponent<TextMeshPro>();
         sop_rate1 = parent.transform.Find("Sop_rate1").gameObject.GetComponent<TextMeshPro>();
-        fan_tach1 = parent.transform.Find("Fan_tach1").gameObject.GetComponent<TextMeshPro>();
         btry_cap1 = parent.transform.Find("Btry_cap1").gameObject.GetComponent<TextMeshPro>();
         btry_timeLeft1 = parent.transform.Find("Btry_timeLeft1").gameObject.GetComponent<TextMeshPro>();
         btry_out1 = parent.transform.Find("Btry_out1").gameObject.GetComponent<TextMeshPro>();
@@ -144,6 +146,16 @@ public class vitalsController : MonoBehaviour
         setGaugeObject(O2_p);
         updateGaugeValue(e.vitals.o2_pressure);
 
+        //main board
+        h2O_liq_p.text = e.vitals.h2o_liquid_pressure.ToString();
+        setBarObject(e.vitals.h2o_liquid_pressure, "liq_psi");
+
+        fan_tach.text = e.vitals.fan_tachometer.ToString();
+        setBarObject(e.vitals.fan_tachometer, "fan");
+
+        h2O_gas_p.text = e.vitals.h2o_gas_pressure.ToString();
+        setBarObject(e.vitals.h2o_gas_pressure, "gas_psi");
+
         PO2.text = e.vitals.primary_oxygen.ToString();
         btry_perc.text = e.vitals.battery_percentage.ToString();
         h2O_gas_p.text = "H2O: " + e.vitals.h2o_gas_pressure.ToString();
@@ -155,13 +167,10 @@ public class vitalsController : MonoBehaviour
         timer.text = "Timer: " + e.vitals.timer.ToString();
         started_at.text = "Started at: " + e.vitals.started_at.ToString();
         sub_p.text = "Sub Pressure: " + e.vitals.sub_pressure.ToString();
-        h2O_gas_p.text = "H2O Gas Pressure: " + e.vitals.h2o_gas_pressure.ToString();
         SO2.text = "Secondary O2: " + e.vitals.secondary_oxygen.ToString();
         roomID.text = "RoomID: " + e.vitals.room_id.ToString();
-        h2O_liq_p.text = "H2O Liquid Pressure: " + e.vitals.h2o_liquid_pressure.ToString();
         sop_p.text = "Sop Pressure: " + e.vitals.sop_pressure.ToString();
         sop_rate.text = "Sop Rate: " + e.vitals.sop_rate.ToString();
-        fan_tach.text = "Fan Tachometer: " + e.vitals.fan_tachometer.ToString();
         btry_cap.text = "Battery Capacity: " + e.vitals.battery_capacity.ToString();
         btry_timeLeft.text = "Battery Time Left: " + e.vitals.battery_time_left.ToString();
         btry_out.text = "Battery Output: " + e.vitals.battery_outputput.ToString();
@@ -290,9 +299,27 @@ public class vitalsController : MonoBehaviour
     }
 
     //progress bar functions
-    void setBarObject()
+    void setBarObject(float barValue, string type)
     {
+        if (type == "liq_psi")
+        {
+            indicator = parent.transform.Find("Liq_bar").gameObject.transform.Find("Indicator").gameObject;
+        }
+        if (type == "gas_psi")
+        {
+            indicator = parent.transform.Find("gas_bar").gameObject.transform.Find("Indicator").gameObject;
+        }
+        if (type == "fan")
+        {
+            indicator = parent.transform.Find("fan_bar").gameObject.transform.Find("Indicator").gameObject;
+        }
+
+        Vector3 currentPosition = transform.position;
+        currentPosition.x = calculatePSI(barValue);
+        indicator.transform.position = currentPosition;
     }
+
+
 
     float calculatePSI(float barValue)
     {
