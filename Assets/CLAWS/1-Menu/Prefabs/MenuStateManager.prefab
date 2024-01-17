@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5378755855802458960
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5378755855802458962}
+  - component: {fileID: 5378755855802458961}
+  m_Layer: 0
+  m_Name: MenuStateManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5378755855802458962
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5378755855802458960}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.3653263, y: 0.16764893, z: 1.1196247}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5378755855802458961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5378755855802458960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5fda751cd80ee04488538bb05c84ba3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isIRISMenuOpen: 0
+  isIRISModeSelected: 0
+  MainMenu: {fileID: 0}
+  TasksButton: {fileID: 0}
+  NavigationButton: {fileID: 0}
+  MessagesButton: {fileID: 0}
+  SamplesButton: {fileID: 0}
+  VitalsButton: {fileID: 0}
+  ModesButton: {fileID: 0}
+  IRISMenu: {fileID: 0}
+  IRISSamplingButton: {fileID: 0}
+  IRISNavigationButton: {fileID: 0}
+  IRISRouteButton: {fileID: 0}
+  IRISEgressButton: {fileID: 0}
+  IRISAirlockButton: {fileID: 0}
+  IRISCloseButton: {fileID: 0}
+  HideMenuButton: {fileID: 0}
+  IRISHideMenuButton: {fileID: 0}
+  ShowMenuButton: {fileID: 0}
+  ExitIRISModeButton: {fileID: 0}
+  SamplingMarkers: {fileID: 0}
+  NavigationMarkers: {fileID: 0}
+  RouteMarkers: {fileID: 0}
+  EgressMarkers: {fileID: 0}
+  AirlockMarkers: {fileID: 0}
+  regularModes: {fileID: 2100000, guid: a0f5da18e12e9a0489340017b5b27f35, type: 2}
+  highlightedModes: {fileID: 2100000, guid: 5ae2bb0c71b11ee4c907f66b31a457b3, type: 2}
+  mode: {fileID: 0}

@@ -591,10 +591,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Controller
       objectReference: {fileID: 0}
-    - target: {fileID: 3580227640093714687, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
 --- !u!1 &694318115
@@ -651,17 +647,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 51ab0cc27c606e14684a0132253b04d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &750765546 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6467310636473905868, guid: 0d65a6d1d3b7b2641b1726d769ff5a2a, type: 3}
-  m_PrefabInstance: {fileID: 6467310636146505510}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a00356c4638d641419fb62ac3d52acce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &759365073
@@ -882,7 +867,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 750765546}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: WaypointScreenHandler, Assembly-CSharp
         m_MethodName: CloseWaypointScreen
         m_Mode: 1
@@ -1022,24 +1007,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1135914413 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3580227640093714687, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
-  m_PrefabInstance: {fileID: 655520906}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1135914420
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1135914413}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cfc35c825cca7746be0648b6dbee7f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CurrScreen: 0
 --- !u!1 &1203092812
 GameObject:
   m_ObjectHideFlags: 0

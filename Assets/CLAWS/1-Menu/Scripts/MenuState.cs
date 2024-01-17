@@ -45,24 +45,24 @@ public class MenuState : MonoBehaviour
 
     public void ClickTasks()
     {
-        
+        ClickIRISClose();
     }
 
     public void ClickNavigation()
     {
-        
+        ClickIRISClose();
     }
     public void ClickMessages()
     {
-        
+        ClickIRISClose();
     }
     public void ClickSamples()
     {
-        
+        ClickIRISClose();
     }
     public void ClickVitals()
     {
-        
+        ClickIRISClose();
     }
 
     public void ClickModes()
@@ -83,14 +83,23 @@ public class MenuState : MonoBehaviour
         }
 
         // Change modes button icon to highlighted
-        ModesButton.transform.GetChild(3).GetChild(0).GetComponent<MeshRenderer>().material = highlightedModes;
+        //ModesButton.transform.GetChild(3).GetChild(0).GetComponent<MeshRenderer>().material = highlightedModes;
 
         // Change the backplate transparency of top menu icons
-        TasksButton.transform.GetChild(3).GetChild(0).GetComponent<MeshRenderer>().material.color = new Color(1, 1, 1, .5f);
-        NavigationButton.transform.GetChild(3).GetChild(0).GetComponent<MeshRenderer>().material.color = new Color(1, 1, 1, .5f);
-        MessagesButton.transform.GetChild(3).GetChild(0).GetComponent<MeshRenderer>().material.color = new Color(1, 1, 1, .5f);
-        SamplesButton.transform.GetChild(3).GetChild(0).GetComponent<MeshRenderer>().material.color = new Color(1, 1, 1, .5f);
-        VitalsButton.transform.GetChild(3).GetChild(0).GetComponent<MeshRenderer>().material.color = new Color(1, 1, 1, .5f);
+        Material mat = TasksButton.transform.Find("Button").transform.Find("BackPlate").transform.Find("Quad").transform.GetComponent<MeshRenderer>().material;
+        mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, 0.4f);
+
+        mat = NavigationButton.transform.Find("Button").transform.Find("BackPlate").transform.Find("Quad").transform.GetComponent<MeshRenderer>().material;
+        mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, 0.4f);
+
+        mat = MessagesButton.transform.Find("Button").transform.Find("BackPlate").transform.Find("Quad").transform.GetComponent<MeshRenderer>().material;
+        mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, 0.4f);
+
+        mat = SamplesButton.transform.Find("Button").transform.Find("BackPlate").transform.Find("Quad").transform.GetComponent<MeshRenderer>().material;
+        mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, 0.4f);
+
+        mat = VitalsButton.transform.Find("Button").transform.Find("BackPlate").transform.Find("Quad").transform.GetComponent<MeshRenderer>().material;
+        mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, 0.4f);
     }
 
     public void ClickIRISSampling()
@@ -185,14 +194,24 @@ public class MenuState : MonoBehaviour
         IRISHideMenuButton.SetActive(false);
 
         // Change modes button icon to regular
-        ModesButton.transform.GetChild(3).GetChild(0).GetComponent<MeshRenderer>().material = regularModes;
+        //ModesButton.transform.GetChild(3).GetChild(0).GetComponent<MeshRenderer>().material = regularModes;
 
         // Change the backplate transparency of top menu icons back to full opacity
-        TasksButton.transform.GetChild(3).GetChild(0).GetComponent<MeshRenderer>().material.color = new Color(1, 1, 1, 1);
-        NavigationButton.transform.GetChild(3).GetChild(0).GetComponent<MeshRenderer>().material.color = new Color(1, 1, 1, 1);
-        MessagesButton.transform.GetChild(3).GetChild(0).GetComponent<MeshRenderer>().material.color = new Color(1, 1, 1, 1);
-        SamplesButton.transform.GetChild(3).GetChild(0).GetComponent<MeshRenderer>().material.color = new Color(1, 1, 1, 1);
-        VitalsButton.transform.GetChild(3).GetChild(0).GetComponent<MeshRenderer>().material.color = new Color(1, 1, 1, 1);
+
+        Material mat = TasksButton.transform.Find("Button").transform.Find("BackPlate").transform.Find("Quad").transform.GetComponent<MeshRenderer>().material;
+        mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, 1f);
+
+        mat = NavigationButton.transform.Find("Button").transform.Find("BackPlate").transform.Find("Quad").transform.GetComponent<MeshRenderer>().material;
+        mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, 1f);
+
+        mat = MessagesButton.transform.Find("Button").transform.Find("BackPlate").transform.Find("Quad").transform.GetComponent<MeshRenderer>().material;
+        mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, 1f);
+
+        mat = SamplesButton.transform.Find("Button").transform.Find("BackPlate").transform.Find("Quad").transform.GetComponent<MeshRenderer>().material;
+        mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, 1f);
+
+        mat = VitalsButton.transform.Find("Button").transform.Find("BackPlate").transform.Find("Quad").transform.GetComponent<MeshRenderer>().material;
+        mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, 1f);
     }
 
     public void ClickHideMenu()
