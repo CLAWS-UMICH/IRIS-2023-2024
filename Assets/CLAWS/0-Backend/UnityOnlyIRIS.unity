@@ -2107,7 +2107,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1702453462}
   m_Layer: 0
-  m_Name: WaypointParent (1)
+  m_Name: BreadCrumbParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2509,10 +2509,6 @@ PrefabInstance:
       propertyPath: empty
       value: 
       objectReference: {fileID: 1702453461}
-    - target: {fileID: 2953456234545824093, guid: 452436fb6746e8449908ca0a63732d5d, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4434114993617689978, guid: 452436fb6746e8449908ca0a63732d5d, type: 3}
       propertyPath: RouteMarkers
       value: 
@@ -2533,18 +2529,6 @@ PrefabInstance:
       propertyPath: NavigationMarkers
       value: 
       objectReference: {fileID: 372987190}
-    - target: {fileID: 8149106639844874246, guid: 452436fb6746e8449908ca0a63732d5d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.036
-      objectReference: {fileID: 0}
-    - target: {fileID: 8149106640677727856, guid: 452436fb6746e8449908ca0a63732d5d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.036
-      objectReference: {fileID: 0}
-    - target: {fileID: 8149106640890710233, guid: 452436fb6746e8449908ca0a63732d5d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.036
-      objectReference: {fileID: 0}
     - target: {fileID: 8587249464618197714, guid: 452436fb6746e8449908ca0a63732d5d, type: 3}
       propertyPath: m_RootOrder
       value: 8
