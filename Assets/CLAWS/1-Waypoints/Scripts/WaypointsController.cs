@@ -10,7 +10,7 @@ public class WaypointsController : MonoBehaviour
     [SerializeField] private GameObject stationPrefab;
     [SerializeField] private GameObject navPrefab;
 
-
+    private GameObject parentObject;
 
     private Subscription<WaypointsAddedEvent> waypointsAddedEvent;
     private Subscription<WaypointsDeletedEvent> waypointsDeletedEvent;
@@ -30,6 +30,7 @@ public class WaypointsController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        parentObject = GameObject.Find("WaypointParent").gameObject;
         wd = GameObject.Find("Controller").GetComponent<WebsocketDataHandler>();
 
         _danger_title = dangerPrefab.transform.Find("Title").gameObject.transform.Find("IconAndText").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
@@ -177,7 +178,7 @@ public class WaypointsController : MonoBehaviour
                 _station_title.text = waypoint.description.ToString();
                 instantiatedObject = Instantiate(stationPrefab, GPSUtils.GPSCoordsToAppPosition(waypoint.location), Quaternion.identity);
                 Debug.Log(GPSUtils.GPSCoordsToAppPosition(waypoint.location));
-                instantiatedObject.transform.parent = this.gameObject.transform;
+                instantiatedObject.transform.parent = parentObject.transform;
                 waypointObjDic[waypoint.waypoint_id] = instantiatedObject;
                 break;
 
@@ -185,7 +186,7 @@ public class WaypointsController : MonoBehaviour
                 _nav_letter.text = waypoint.waypoint_letter.ToString();
                 _nav_title.text = waypoint.description.ToString();
                 instantiatedObject = Instantiate(navPrefab, GPSUtils.GPSCoordsToAppPosition(waypoint.location), Quaternion.identity);
-                instantiatedObject.transform.parent = this.gameObject.transform;
+                instantiatedObject.transform.parent = parentObject.transform;
                 waypointObjDic[waypoint.waypoint_id] = instantiatedObject;
                 break;
 
@@ -193,7 +194,7 @@ public class WaypointsController : MonoBehaviour
                 _geo_letter.text = waypoint.waypoint_letter.ToString();
                 _geo_title.text = waypoint.description.ToString();
                 instantiatedObject = Instantiate(geoPrefab, GPSUtils.GPSCoordsToAppPosition(waypoint.location), Quaternion.identity);
-                instantiatedObject.transform.parent = this.gameObject.transform;
+                instantiatedObject.transform.parent = parentObject.transform;
                 waypointObjDic[waypoint.waypoint_id] = instantiatedObject;
                 break;
 
@@ -201,7 +202,7 @@ public class WaypointsController : MonoBehaviour
                 _danger_letter.text = waypoint.waypoint_letter.ToString();
                 _danger_title.text = waypoint.description.ToString();
                 instantiatedObject = Instantiate(dangerPrefab, GPSUtils.GPSCoordsToAppPosition(waypoint.location), Quaternion.identity);
-                instantiatedObject.transform.parent = this.gameObject.transform;
+                instantiatedObject.transform.parent = parentObject.transform;
                 waypointObjDic[waypoint.waypoint_id] = instantiatedObject;
                 break;
 

@@ -14,6 +14,6 @@ public class NavButtonHandler : MonoBehaviour
 
     public void OnClick()
     {
-        //EventBus.Publish(new SelectButton(letter));
+        EventBus.Publish(new SelectButton(letter));
     }
 }
