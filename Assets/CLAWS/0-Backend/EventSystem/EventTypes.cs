@@ -148,6 +148,23 @@ public class GeosamplesAddedEvent
     }
 }
 
+public class GeosampleModeStartedEvent
+{
+    public GeosampleModeStartedEvent()
+    {
+        Debug.Log("GeosampleModeStartedEvent");
+    }
+}
+
+public class GeosampleModeEndedEvent
+{
+    public GeosampleModeEndedEvent()
+    {
+        Debug.Log("GeosampleModeEndedEvent");
+    }
+}
+
+
 // Waypoints
 public class WaypointsDeletedEvent
 {
