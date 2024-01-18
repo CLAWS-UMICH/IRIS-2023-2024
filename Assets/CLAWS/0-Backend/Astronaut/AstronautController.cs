@@ -98,6 +98,19 @@ public class Geosample
     }
 }
 
+// Geosamples
+[System.Serializable]
+public class GeosampleZones
+{
+    // TODO emily
+}
+
+[System.Serializable]
+public class GeosampleZone
+{
+    // TODO emily
+}
+
 [System.Serializable]
 public class SpecData
 {

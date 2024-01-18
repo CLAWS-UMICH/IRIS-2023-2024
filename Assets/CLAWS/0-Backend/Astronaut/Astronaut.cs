@@ -8,6 +8,7 @@ public class Astronaut
     public Messaging MessagingData;
     public Vitals VitalsData;
     public Geosamples GeosampleData;
+    public GeosampleZones GeosampleZonesData;
     public Waypoints WaypointData;
     public TaskList TasklistData;
     public Alerts AlertData;
