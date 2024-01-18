@@ -1862,6 +1862,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8f3e9cff4868eb4bab1259d9ebf2604, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GeosamplingZonePrefab: {fileID: 0}
 --- !u!4 &1669180069
 Transform:
   m_ObjectHideFlags: 0
@@ -2284,6 +2285,63 @@ MonoBehaviour:
   fakeGPS:
     latitude: 29.5647012
     longitude: -95.081375
+--- !u!1001 &3605733502353555998
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2233994201271534150, guid: 051f527556572f1458bf8acb31f5b152, type: 3}
+      propertyPath: m_Name
+      value: GeosampleZone
+      objectReference: {fileID: 0}
+    - target: {fileID: 9098603372018042049, guid: 051f527556572f1458bf8acb31f5b152, type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 9098603372018042049, guid: 051f527556572f1458bf8acb31f5b152, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9098603372018042049, guid: 051f527556572f1458bf8acb31f5b152, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9098603372018042049, guid: 051f527556572f1458bf8acb31f5b152, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9098603372018042049, guid: 051f527556572f1458bf8acb31f5b152, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9098603372018042049, guid: 051f527556572f1458bf8acb31f5b152, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9098603372018042049, guid: 051f527556572f1458bf8acb31f5b152, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9098603372018042049, guid: 051f527556572f1458bf8acb31f5b152, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9098603372018042049, guid: 051f527556572f1458bf8acb31f5b152, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9098603372018042049, guid: 051f527556572f1458bf8acb31f5b152, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9098603372018042049, guid: 051f527556572f1458bf8acb31f5b152, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 051f527556572f1458bf8acb31f5b152, type: 3}
 --- !u!114 &3726911120621084713
 MonoBehaviour:
   m_ObjectHideFlags: 0
