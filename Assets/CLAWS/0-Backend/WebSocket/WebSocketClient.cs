@@ -11,14 +11,28 @@ public class WebSocketClient : MonoBehaviour
     private AstronautInstance astroInstance;
     private WebsocketDataHandler dataHandler;
     [SerializeField] string webSocketUrl = "ws://localhost:8080";
+    [SerializeField] bool autoConnect = false;
 
     private void Start()
     {
         astroInstance = GetComponent<AstronautInstance>();
         dataHandler = GetComponent<WebsocketDataHandler>();
-        ws = new WebSocket(webSocketUrl);
-        ws.OnMessage += OnWebSocketMessage;
-        ws.Connect();
+
+        if (autoConnect)
+        {
+            ws = new WebSocket(webSocketUrl);
+            ws.OnMessage += OnWebSocketMessage;
+            ws.Connect();
+        }
+    }
+
+    public void Disconnect()
+    {
+        if (ws != null && ws.IsAlive)
+        {
+            ws.Close();
+        }
+
     }
 
     public void ReConnect()
