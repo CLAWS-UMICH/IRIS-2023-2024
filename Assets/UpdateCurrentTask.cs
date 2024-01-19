@@ -1,37 +1,49 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using System.Collections.Generic;
 
 public class UpdateCurrentTask : MonoBehaviour
 {
-    // Start is called before the first frame update
-    private Subscription<TaskStartedEvent> taskStartedEvent;
-    GameObject screen;
-    TextMeshPro currTask;
+    private Subscription<SubtaskStartedEvent> taskStartedEvent;
+
+    [SerializeField] TaskInstance Task;
+    [SerializeField] List<GameObject> EmergencyBackplates;
+
 
     void Start()
     {
-        taskStartedEvent = EventBus.Subscribe<TaskStartedEvent>(OnUpdateCurrentTask);
-        screen = GameObject.Find("curr_task_screen");
-        currTask = screen.transform.Find("curr_task").gameObject.GetComponent<TextMeshPro>();
+        taskStartedEvent = EventBus.Subscribe<SubtaskStartedEvent>(OnUpdateCurrentTask);
+    }
+
+    private void OnUpdateCurrentTask(SubtaskStartedEvent e)
+    {
+        if (TaskListBackend.CurrentEmergencyTask != null)
+        {
+            // emergency task
+            Task.InitEmergencyTask(TaskListBackend.CurrentEmergencyTask);
+            SetActiveEmergencyBackplates(true);
+        }
+        else
+        {
+            // subtask
+            Task.InitTask(e.StartedTask);
+            SetActiveEmergencyBackplates(false);
+        }
+    }
+
+    private void SetActiveEmergencyBackplates(bool active)
+    {
+        foreach (GameObject g in EmergencyBackplates)
+        {
+            g.SetActive(active);
+        }
     }
 
     void OnDestroy()
     {
-        // Unsubscribe when the script is destroyed
         if (taskStartedEvent != null)
         {
             EventBus.Unsubscribe(taskStartedEvent);
         }
 
-    }
-    private void OnUpdateCurrentTask(TaskStartedEvent e)
-    {
-        Debug.Log("Test");
-        TaskObj task = e.StartedTask;
-        currTask.text = task.title.ToString();
-
-        // Update the UI to reflect the new vitals values
     }
 }

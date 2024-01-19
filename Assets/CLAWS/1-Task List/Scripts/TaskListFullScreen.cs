@@ -48,7 +48,7 @@ public class TaskListFullScreen : MonoBehaviour
         // Render emergency tasks first
         foreach (TaskObj taskobj in AstronautInstance.User.TasklistData.AllTasks)
         {
-            if (taskobj.isEmergency)
+            if (taskobj.isEmergency && taskobj.status != 2)
             {
                 AddEmergencyTask(taskobj);
             }
@@ -170,7 +170,6 @@ public class TaskListFullScreen : MonoBehaviour
             TaskList_List.Add(g);
             Clipping.objectsToClip.Add(g);
         }
-        
     }
 
     [ContextMenu("func AddTask")]

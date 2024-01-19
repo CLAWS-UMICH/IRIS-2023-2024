@@ -286,7 +286,7 @@ public class SubtaskStartedEvent
     public SubtaskObj StartedTask { get; private set; }
     public SubtaskStartedEvent(SubtaskObj started_task)
     {
-        Debug.Log("Task Started");
+        Debug.Log("Subtask Started");
         StartedTask = started_task;
     }
 
@@ -296,12 +296,27 @@ public class SubtaskStartedEvent
     }
 }
 
+public class EmergencyTaskEvent
+{
+    public TaskObj StartedTask { get; private set; }
+    public EmergencyTaskEvent(TaskObj started_task)
+    {
+        Debug.Log("Emergency Task Started");
+        StartedTask = started_task;
+    }
+
+    public override string ToString()
+    {
+        return "Emergency" + StartedTask.title + "Started";
+    }
+}
+
 public class SubtaskFinishedEvent
 {
     public SubtaskObj FinishedTask { get; private set; }
     public SubtaskFinishedEvent(SubtaskObj finished_task)
     {
-        Debug.Log("Task Finished");
+        Debug.Log("Subtask Finished");
         FinishedTask = finished_task;
     }
 

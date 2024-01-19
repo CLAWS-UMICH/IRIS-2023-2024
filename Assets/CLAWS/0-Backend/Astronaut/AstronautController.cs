@@ -174,7 +174,7 @@ public class TaskList
 public class TaskObj
 {
     public int task_id; // starting from 0 and going up 1
-    public int status; // 0 = InProgress, 1 = Completed
+    public int status; // 0 = Not Started, 1 = InProgress, 2 = Completed
     public string title;
     public string description; //Detailed description of task
     public bool isEmergency; //0 for not Emergency, 1 for Emergency

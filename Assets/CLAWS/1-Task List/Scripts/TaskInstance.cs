@@ -69,14 +69,26 @@ public class TaskInstance : MonoBehaviour
         else
         {
             // mark all subtasks as in progress
+            // TODO linear execution of subtasks
             Status.text = "In Progress";
-            EventBus.Publish<SubtaskStartedEvent>(new(Subtask));
+            // EventBus.Publish<SubtaskStartedEvent>(new(Subtask));
             SubtaskIcon.SetActive(false);
         }
     }
 
-    [ContextMenu("func ToggleSubtaskStatus")]
-    public void ToggleSubtaskStatus()
+    public void OnCheckButtonPressed()
+    {
+        if (Type == TaskType.Subtask)
+        {
+            ToggleSubtaskStatus();
+        }
+        else if (Type == TaskType.Emergency)
+        {
+            FinishTask();
+        }
+    }
+
+    private void ToggleSubtaskStatus()
     {
         // this will increment the status (completed -> in progress or in progress -> complete)
 
@@ -85,7 +97,6 @@ public class TaskInstance : MonoBehaviour
             // completed -> in progress
             Subtask.status = 0;
             Status.text = "In Progress";
-            EventBus.Publish<SubtaskStartedEvent>(new(Subtask));
             SubtaskIcon.SetActive(false);
         }
         else
@@ -93,11 +104,22 @@ public class TaskInstance : MonoBehaviour
             // in progress -> complete
             Subtask.status = 1;
             Status.text = "Completed";
-            EventBus.Publish<SubtaskFinishedEvent>(new(Subtask));
             SubtaskIcon.SetActive(true);
         }
 
-        GameObject.Find("Controller").GetComponent<WebsocketDataHandler>().SendTasklistData();
+        // propogate changes after delay
+        IEnumerator _SendSubtaskStatus()
+        {
+            yield return new WaitForSeconds(1f);
+
+            List<TaskObj> _editedTask = new();
+            _editedTask.Add(TaskListBackend.CurrentTask);
+            EventBus.Publish<TasksEditedEvent>(new(_editedTask));
+
+            GameObject.Find("Controller").GetComponent<WebsocketDataHandler>().SendTasklistData();
+        }
+
+        StartCoroutine(_SendSubtaskStatus());
     }
 
     public void InitEmergencyTask(TaskObj task_f)
@@ -130,7 +152,6 @@ public class TaskInstance : MonoBehaviour
         }
     }
 
-    [ContextMenu("func FinishTask")]
     public void FinishTask()
     {
         if (Type == TaskType.Main || Type == TaskType.Emergency)
