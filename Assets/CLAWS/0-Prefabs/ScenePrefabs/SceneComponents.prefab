@@ -345,6 +345,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1140557360592300880}
     m_Modifications:
+    - target: {fileID: 495662225, guid: 452436fb6746e8449908ca0a63732d5d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 326541355266825389, guid: 452436fb6746e8449908ca0a63732d5d, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -353,6 +357,14 @@ PrefabInstance:
       propertyPath: empty
       value: 
       objectReference: {fileID: 3794289906063443021}
+    - target: {fileID: 8587249464354161265, guid: 452436fb6746e8449908ca0a63732d5d, type: 3}
+      propertyPath: levelsToCloseWhenClicked.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8587249464354161265, guid: 452436fb6746e8449908ca0a63732d5d, type: 3}
+      propertyPath: levelsToCloseWhenClicked.Array.data[1]
+      value: MainMenu
+      objectReference: {fileID: 0}
     - target: {fileID: 8587249464618197714, guid: 452436fb6746e8449908ca0a63732d5d, type: 3}
       propertyPath: m_RootOrder
       value: 0
