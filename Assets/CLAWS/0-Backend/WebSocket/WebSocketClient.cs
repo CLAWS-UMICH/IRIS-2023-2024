@@ -58,6 +58,20 @@ public class WebSocketClient : MonoBehaviour
         ws.Connect();
     }
 
+    public void ReConnect(string connectionString, string color, string name)
+    {
+        if (ws != null && ws.IsAlive)
+        {
+            ws.Close();
+        }
+        webSocketUrl = connectionString;
+        ws = new WebSocket(webSocketUrl);
+        ws.OnMessage += OnWebSocketMessage;
+        ws.Connect();
+
+        dataHandler.SendInitialData(color, name);
+    }
+
     private void OnDestroy()
     {
         if (ws != null && ws.IsAlive)
@@ -113,7 +127,7 @@ public class WebSocketClient : MonoBehaviour
         {
             case "INITIAL":
                 InitialData initialData = JsonUtility.FromJson<InitialData>(jsonData);
-                dataHandler.HandleInitialData(initialData);
+                dataHandler.HandleInitialData(initialData, "");
                 break;
             case "Messaging":
                 MessagingData messageData = JsonUtility.FromJson<MessagingData>(jsonData);
@@ -187,7 +201,9 @@ public class JsonMessage
 public class InitialData
 {
     public int id;
+    public string use;
     public string color; // Hex values as a string. Ex: #223344
+    public string name; 
     public string type;
     public string data;
 }

@@ -17,36 +17,45 @@ public class WebsocketDataHandler : MonoBehaviour
         wsClient = GetComponent<WebSocketClient>();
     }
 
-    public void HandleInitialData(InitialData data)
+    public void HandleInitialData(InitialData data, string use)
     {
-        try
+        if (use == "GET")
         {
-            AstronautInstance.User.id = data.id;
+            if (debugMode) Debug.Log("(GET) WebsocketDataHandler.cs: Sending INITIAL data");
 
             // Create a new CombinedData instance
             InitialData combinedData = new InitialData
             {
-                id = AstronautInstance.User.id,
-                type = "INITIAL",
-                data = "SUCCESS"
+                type = "Initial",
+                use = "PUT",
+                color = data.color,
+                name = data.name
             };
 
             // Convert the combined data to JSON format and send to WebSocket client
             string jsonData = JsonUtility.ToJson(combinedData);
 
             wsClient.SendJsonData(jsonData);
-        }
-        catch (Exception ex)
+        } 
+        else
         {
-            Debug.LogError("An exception occurred: " + ex.Message);
             try
             {
+                AstronautInstance.User.id = data.id;
+                AstronautInstance.User.color = data.color;
+                AstronautInstance.User.name = data.name;
+
+                if (data.name.Length > 1)
+                {
+                    AstronautInstance.User.initial = data.name[0].ToString();
+                }
+
                 // Create a new CombinedData instance
                 InitialData combinedData = new InitialData
                 {
                     id = AstronautInstance.User.id,
                     type = "INITIAL",
-                    data = "FAILURE"
+                    data = "SUCCESS"
                 };
 
                 // Convert the combined data to JSON format and send to WebSocket client
@@ -54,9 +63,28 @@ public class WebsocketDataHandler : MonoBehaviour
 
                 wsClient.SendJsonData(jsonData);
             }
-            catch (Exception ex1)
+            catch (Exception ex)
             {
-                Debug.LogError("An exception occurred: " + ex1.Message);
+                Debug.LogError("An exception occurred: " + ex.Message);
+                try
+                {
+                    // Create a new CombinedData instance
+                    InitialData combinedData = new InitialData
+                    {
+                        id = AstronautInstance.User.id,
+                        type = "INITIAL",
+                        data = "FAILURE"
+                    };
+
+                    // Convert the combined data to JSON format and send to WebSocket client
+                    string jsonData = JsonUtility.ToJson(combinedData);
+
+                    wsClient.SendJsonData(jsonData);
+                }
+                catch (Exception ex1)
+                {
+                    Debug.LogError("An exception occurred: " + ex1.Message);
+                }
             }
         }
     }
@@ -651,6 +679,14 @@ public class WebsocketDataHandler : MonoBehaviour
     }
 
     // Public functions for to call to send data
+    public void SendInitialData(string color, string name)
+    {
+        InitialData emptyInitials = new InitialData();
+        emptyInitials.color = color;
+        emptyInitials.name = name;
+        HandleInitialData(emptyInitials, "GET");
+    }
+
     public void SendMessageData()
     {
         Messaging emptyMessagingData = new Messaging();

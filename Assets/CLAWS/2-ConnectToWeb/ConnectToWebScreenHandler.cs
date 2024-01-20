@@ -6,21 +6,30 @@ using Microsoft.MixedReality.Toolkit.Experimental.UI;
 
 public class ConnectToWebScreenHandler : MonoBehaviour
 {
-    public NonNativeKeyboard nonNativeKeyboard;
+    public NonNativeKeyboard nameKeyboard;
+    public NonNativeKeyboard linkKeyboard;
+
     GameObject connectScreen;
     GameObject disconnectScreen;
-    WebSocketClient controller;
-    TMP_InputField connectionText;
+
+    TMP_InputField connectionLinkText;
+    TMP_InputField nameText;
     TextMeshPro disconnectText;
+
     bool connected;
-    string currentConnectionString;
+
+    WebSocketClient controller;
+
+    string currentKeyboard;
+    string hex;
 
     // Start is called before the first frame update
     void Start()
     {
         connectScreen = transform.Find("ConnectToWeb").gameObject;
         disconnectScreen = transform.Find("DisconnectScreen").gameObject;
-        connectionText = connectScreen.transform.Find("NameField").transform.Find("TextField").transform.Find("InputField (TMP)").GetComponent<TMP_InputField>();
+        connectionLinkText = connectScreen.transform.Find("LinkField").transform.Find("TextField").transform.Find("InputField (TMP)").GetComponent<TMP_InputField>();
+        nameText = connectScreen.transform.Find("NameField").transform.Find("TextField").transform.Find("InputField (TMP)").GetComponent<TMP_InputField>();
         disconnectText = disconnectScreen.transform.Find("NameField").transform.Find("NameText").GetComponent<TextMeshPro>();
         controller = GameObject.Find("Controller").GetComponent<WebSocketClient>();
 
@@ -28,12 +37,24 @@ public class ConnectToWebScreenHandler : MonoBehaviour
         disconnectScreen.SetActive(false);
 
         connected = false;
-        currentConnectionString = "";
-        connectionText.text = "";
+        connectionLinkText.text = "";
+        hex = "";
+        nameText.text = "";
         disconnectText.text = "";
 
-        nonNativeKeyboard.OnTextUpdated += OnTextUpdated;
+        nameKeyboard.OnTextUpdated += OnTextUpdated;
+        linkKeyboard.OnTextUpdated += OnTextUpdated;
 
+    }
+
+    public void ChangeKeyboardName()
+    {
+        currentKeyboard = "name";
+    }
+
+    public void ChangeKeyboardLink()
+    {
+        currentKeyboard = "link";
     }
 
     public void CloseConnectDisconnectScreen()
@@ -52,8 +73,9 @@ public class ConnectToWebScreenHandler : MonoBehaviour
             disconnectScreen.SetActive(true);
         } else
         {
-            currentConnectionString = "";
-            connectionText.text = "";
+            hex = "";
+            connectionLinkText.text = "";
+            nameText.text = "";
             disconnectText.text = "";
             connectScreen.SetActive(true);
             disconnectScreen.SetActive(false);
@@ -62,9 +84,15 @@ public class ConnectToWebScreenHandler : MonoBehaviour
 
     public void ConnectToWebSocket()
     {
-        controller.ReConnect(connectionText.text);
+        if (hex != "" && nameText.text != "")
+        {
+            controller.ReConnect(connectionLinkText.text, hex, nameText.text);
+        } else
+        {
+            controller.ReConnect(connectionLinkText.text);
+        }
         connected = true;
-        disconnectText.text = connectionText.text;
+        disconnectText.text = connectionLinkText.text;
 
         CloseConnectDisconnectScreen();
     }
@@ -79,14 +107,29 @@ public class ConnectToWebScreenHandler : MonoBehaviour
 
     private void OnTextUpdated(string text)
     {
-        // Handle the updated text, you can use this to update your TextMeshPro text in real-time
+        // Handle the updated text and the reference to the current keyboard
         UpdateTextMeshProText(text);
     }
 
     private void UpdateTextMeshProText(string newText)
     {
-        // Update the TextMeshPro text with the entered text
-        connectionText.text = newText;
+        // Update the TextMeshPro text of the current keyboard with the entered text
+        if (currentKeyboard == "name")
+        {
+            // Update nameKeyboard's text
+            nameText.text = newText;
+        }
+        else if (currentKeyboard == "link")
+        {
+            // Update linkKeyboard's text
+            connectionLinkText.text = newText;
+        }
+    }
+
+    public void SelectColor(string _hex)
+    {
+        Debug.Log(_hex);
+        hex = _hex;
     }
 
 }

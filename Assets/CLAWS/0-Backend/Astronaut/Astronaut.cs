@@ -5,6 +5,8 @@ using System.Collections.Generic;
 public class Astronaut
 {
     public int id;
+    public string name;
+    public string initial;
     public Messaging MessagingData;
     public Vitals VitalsData;
     public Geosamples GeosampleData;
