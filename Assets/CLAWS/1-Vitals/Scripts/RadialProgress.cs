@@ -14,8 +14,8 @@ public class RadialProgress : MonoBehaviour
     {
         SR.GetComponent<SpriteRenderer>().material.SetFloat("_Arc2", 0.0f);
         SR.GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", 360.0f);
-        ProgressIndicator.transform.Find("ProgressIndicator").GetComponent<TextMeshPro>();
-        currentValue = 100.0f;
+        //ProgressIndicator.transform.Find("ProgressIndicator").GetComponent<TextMeshPro>();
+        currentValue = 0f;
         rotate = 360.0f;
     }
 
