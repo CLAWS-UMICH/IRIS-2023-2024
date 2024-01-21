@@ -8,6 +8,7 @@ public class TaskListBackend : MonoBehaviour
     public static SubtaskObj CurrentSubtask;
     public static TaskObj CurrentEmergencyTask; // null if none
 
+
     private Subscription<TaskFinishedEvent> taskFinishedEvent;
     private Subscription<TasksDeletedEvent> tasksDeletedEvent;
     private Subscription<TasksEditedEvent> tasksEditedEvent;
@@ -15,7 +16,7 @@ public class TaskListBackend : MonoBehaviour
 
     void Start()
     {
-        taskFinishedEvent = EventBus.Subscribe<TaskFinishedEvent>(OnTaskFinished);
+        v
         tasksDeletedEvent = EventBus.Subscribe<TasksDeletedEvent>(SetCurrentTask);
         tasksEditedEvent = EventBus.Subscribe<TasksEditedEvent>(SetCurrentTask);
         tasksAddedEvent = EventBus.Subscribe<TasksAddedEvent>(SetCurrentTask);
@@ -97,6 +98,7 @@ public class TaskListBackend : MonoBehaviour
         Debug.Log(JsonUtility.ToJson(e.FinishedTask));
         e.FinishedTask.status = 2;
         SetCurrentTask<TaskFinishedEvent>(e);
+
     }
 
     bool IsComplete(TaskObj task_f)
