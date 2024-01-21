@@ -16,7 +16,6 @@ public class TaskListBackend : MonoBehaviour
 
     void Start()
     {
-        v
         tasksDeletedEvent = EventBus.Subscribe<TasksDeletedEvent>(SetCurrentTask);
         tasksEditedEvent = EventBus.Subscribe<TasksEditedEvent>(SetCurrentTask);
         tasksAddedEvent = EventBus.Subscribe<TasksAddedEvent>(SetCurrentTask);
