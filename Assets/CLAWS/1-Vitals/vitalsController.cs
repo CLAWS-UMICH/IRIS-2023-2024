@@ -50,26 +50,26 @@ public class vitalsController : MonoBehaviour
         fellowVitalsUpdateEvent = EventBus.Subscribe<FellowAstronautVitalsDataChangeEvent>(onFellowVitalsUpdate);
 
         //body board
-        heartRate = bodyObject.transform.Find("HeartRate").gameObject.GetComponent<TextMeshPro>();
-        temp = bodyObject.transform.Find("Temperature").gameObject.GetComponent<TextMeshPro>();
+        heartRate = bodyObject.transform.Find("HeartRateRing").transform.Find("HeartRate").gameObject.GetComponent<TextMeshPro>();
+        temp = bodyObject.transform.Find("TempRing").transform.Find("Temperature").gameObject.GetComponent<TextMeshPro>();
 
         //suit board
-        O2rate = suitObject.transform.Find("O2Rate").gameObject.GetComponent<TextMeshPro>();
-        btry_perc = suitObject.transform.Find("Btry_perc").gameObject.GetComponent<TextMeshPro>();
-
+        // TODO: Fix these
+        O2rate = suitObject.transform.Find("O2Rate").transform.Find("ProgressIndicator").gameObject.GetComponent<TextMeshPro>();
+        btry_perc = suitObject.transform.Find("Btry_perc").transform.Find("ProgressIndicator").gameObject.GetComponent<TextMeshPro>();
         suit_p = suitObject.transform.Find("Suit_p").gameObject.GetComponent<TextMeshPro>();
-
         O2_p = suitObject.transform.Find("O2_p").gameObject.GetComponent<TextMeshPro>();
-
-        PO2 = suitObject.transform.Find("PO2").gameObject.GetComponent<TextMeshPro>();
+        PO2 = suitObject.transform.Find("PO2").transform.Find("Progress Indicator").gameObject.GetComponent<TextMeshPro>();
 
         //main board
-        h2O_liq_p = parent.transform.Find("H2O_liq_p").gameObject.GetComponent<TextMeshPro>();
+        // TODO: Fix these
+        /*h2O_liq_p = parent.transform.Find("H2O_liq_p").gameObject.GetComponent<TextMeshPro>();
         h2O_gas_p = parent.transform.Find("H2O_gas_p").gameObject.GetComponent<TextMeshPro>();
-        fan_tach = parent.transform.Find("Fan_tach").gameObject.GetComponent<TextMeshPro>();
+        fan_tach = parent.transform.Find("Fan_tach").gameObject.GetComponent<TextMeshPro>();*/
 
         //connects to game object
         //1st astronaut
+        // TODO" fix These
         O2timeLeft = parent.transform.Find("O2TimeLeft").gameObject.GetComponent<TextMeshPro>();
         H2OtimeLeft = parent.transform.Find("H2OTimeLeft").gameObject.GetComponent<TextMeshPro>();
         is_running = parent.transform.Find("Running").gameObject.GetComponent<TextMeshPro>();
@@ -92,18 +92,20 @@ public class vitalsController : MonoBehaviour
         //2nd astronaut
 
         //body board
-        heartRate1 = bodyObjectFellow.transform.Find("HeartRate").gameObject.GetComponent<TextMeshPro>();
-        temp1 = bodyObjectFellow.transform.Find("Temperature").gameObject.GetComponent<TextMeshPro>();
+        heartRate1 = bodyObjectFellow.transform.Find("HeartRateRing").transform.Find("HeartRate").gameObject.GetComponent<TextMeshPro>();
+        temp1 = bodyObjectFellow.transform.Find("TempRing").transform.Find("Temperature").gameObject.GetComponent<TextMeshPro>();
 
         //suit board
-        O2rate1 = suitObjectFellow.transform.Find("O2Rate").gameObject.GetComponent<TextMeshPro>();
+        // TODO: Fix these
+        /*O2rate1 = suitObjectFellow.transform.Find("O2Rate").gameObject.GetComponent<TextMeshPro>();
         btry_perc1 = suitObjectFellow.transform.Find("Btry_perc").gameObject.GetComponent<TextMeshPro>();
         suit_p1 = suitObjectFellow.transform.Find("Suit_p").gameObject.GetComponent<TextMeshPro>();
         O2_p1 = suitObjectFellow.transform.Find("O2_p").gameObject.GetComponent<TextMeshPro>();
-        PO21 = suitObjectFellow.transform.Find("PO2").gameObject.GetComponent<TextMeshPro>();
+        PO21 = suitObjectFellow.transform.Find("PO2").gameObject.GetComponent<TextMeshPro>();*/
 
         //main board
-        h2O_liq_p1 = parent.transform.Find("H2O_liq_p1").gameObject.GetComponent<TextMeshPro>();
+        // Fix These:
+        /*h2O_liq_p1 = parent.transform.Find("H2O_liq_p1").gameObject.GetComponent<TextMeshPro>();
         h2O_gas_p1 = parent.transform.Find("H2O_gas_p1").gameObject.GetComponent<TextMeshPro>();
         fan_tach1 = parent.transform.Find("Fan_tach1").gameObject.GetComponent<TextMeshPro>();
 
@@ -124,12 +126,12 @@ public class vitalsController : MonoBehaviour
         btry_out1 = parent.transform.Find("Btry_out1").gameObject.GetComponent<TextMeshPro>();
         O2_primeTime1 = parent.transform.Find("O2_primeTime1").gameObject.GetComponent<TextMeshPro>();
         O2_secTime1 = parent.transform.Find("O2_secTime1").gameObject.GetComponent<TextMeshPro>();
-        h2O_cap1 = parent.transform.Find("H2O_cap1").gameObject.GetComponent<TextMeshPro>();
+        h2O_cap1 = parent.transform.Find("H2O_cap1").gameObject.GetComponent<TextMeshPro>();*/
     }
 
     private void onVitalsUpdate(VitalsUpdatedEvent e)
     {
-        //updates text on game object for 1st astronaut
+        /*//updates text on game object for 1st astronaut
 
         //body
         heartRate.text = e.vitals.heart_rate.ToString();
@@ -137,8 +139,6 @@ public class vitalsController : MonoBehaviour
 
         //suit
         O2rate.text = e.vitals.o2_rate.ToString("F0");
-
-        
         suit_p.text = e.vitals.suit_pressure.ToString("F1");
         setGaugeObject(suit_p);
         updateGaugeValue(e.vitals.suit_pressure);
@@ -146,16 +146,17 @@ public class vitalsController : MonoBehaviour
         setGaugeObject(O2_p);
         updateGaugeValue(e.vitals.o2_pressure);
 
+        
         //main board
-        h2O_liq_p.text = e.vitals.h2o_liquid_pressure.ToString();
+        //h2O_liq_p.text = e.vitals.h2o_liquid_pressure.ToString();
         setBarObject(e.vitals.h2o_liquid_pressure, "liq_psi");
 
-        fan_tach.text = e.vitals.fan_tachometer.ToString();
+        //fan_tach.text = e.vitals.fan_tachometer.ToString();
         setBarObject(e.vitals.fan_tachometer, "fan");
 
-        h2O_gas_p.text = e.vitals.h2o_gas_pressure.ToString();
-        setBarObject(e.vitals.h2o_gas_pressure, "gas_psi");
-
+        //h2O_gas_p.text = e.vitals.h2o_gas_pressure.ToString();
+        setBarObject(e.vitals.h2o_gas_pressure, "gas_psi");*/
+        /*
         PO2.text = e.vitals.primary_oxygen.ToString();
         btry_perc.text = e.vitals.battery_percentage.ToString();
         h2O_gas_p.text = "H2O: " + e.vitals.h2o_gas_pressure.ToString();
@@ -177,11 +178,11 @@ public class vitalsController : MonoBehaviour
         O2_primeTime.text = "O2 Primary Time: " + e.vitals.oxygen_primary_time.ToString();
         O2_secTime.text = "O2 Secondary Time: " + e.vitals.oxygen_secondary_time.ToString();
         h2O_cap.text = "H2O Capacity: " + e.vitals.water_capacity.ToString();
-        // Add warning screens + when rates are going to fast
+        // Add warning screens + when rates are going to fast*/
     }
 
     private void onFellowVitalsUpdate(FellowAstronautVitalsDataChangeEvent e) {
-        //updates text on game object for 2nd astronaut 
+        /*//updates text on game object for 2nd astronaut 
         heartRate1.text = "HeartRate: " + e.AstronautToChange.vitals.heart_rate.ToString();
         h2O_gas_p1.text = "H2O Gas Pressure: " + e.AstronautToChange.vitals.h2o_gas_pressure.ToString();
         PO21.text = "Primary O2: " + e.AstronautToChange.vitals.primary_oxygen.ToString();
@@ -217,7 +218,7 @@ public class vitalsController : MonoBehaviour
         O2_primeTime1.text = "O2 Primary Time: " + e.AstronautToChange.vitals.oxygen_primary_time.ToString();
         O2_secTime1.text = "O2 Secondary Time: " + e.AstronautToChange.vitals.oxygen_secondary_time.ToString();
         h2O_cap1.text = "H2O Capacity: " + e.AstronautToChange.vitals.water_capacity.ToString();
-        // Add warning screens + when rates are going to fast
+        // Add warning screens + when rates are going to fast*/
     }
 
     // Half gauge functions

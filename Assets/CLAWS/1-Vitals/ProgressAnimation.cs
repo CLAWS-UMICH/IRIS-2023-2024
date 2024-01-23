@@ -26,7 +26,7 @@ public class ProgressAnimation : MonoBehaviour
 
     private void Start()
     {
-        vitalsUpdateEvent = EventBus.Subscribe<VitalsUpdatedEvent>(onVitalsUpdate);
+        //vitalsUpdateEvent = EventBus.Subscribe<VitalsUpdatedEvent>(onVitalsUpdate);
         //fellowVitalsUpdateEvent = EventBus.Subscribe<FellowAstronautVitalsDataChangeEvent>(onFellowVitalsUpdate);
         FullProgressBar.SetActive(false);
         val = 0f;
@@ -56,7 +56,7 @@ public class ProgressAnimation : MonoBehaviour
 
     // can change to Update if needed
     // doesn't show in Game Mode
-    private void onVitalsUpdate(VitalsUpdatedEvent e)
+    /*private void onVitalsUpdate(VitalsUpdatedEvent e)
     {
         //testing with heart rate
         val = e.vitals.heart_rate;
@@ -77,6 +77,6 @@ public class ProgressAnimation : MonoBehaviour
         // update everything
         FullProgressBar.transform.localScale = newScale;
         FullProgressBar.SetActive(true);
-    }
+    }*/
 
 }

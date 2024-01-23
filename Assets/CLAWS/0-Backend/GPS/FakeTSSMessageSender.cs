@@ -38,7 +38,7 @@ public class FakeTSSMessageSender : MonoBehaviour
 
     public void Fake_Vitals()
     {
-        AstronautInstance.User.VitalsData.started_at = DateTime.Now.ToString("HH:mm:ss");
+        //AstronautInstance.User.VitalsData.started_at = DateTime.Now.ToString("HH:mm:ss");
         StartCoroutine(UpdateVitals());
     }
 
@@ -48,7 +48,7 @@ public class FakeTSSMessageSender : MonoBehaviour
         {
             yield return new WaitForSeconds(secondsToUpdate); // Wait for 3 seconds
 
-            // Update vitals with random values
+            /*// Update vitals with random values
             AstronautInstance.User.VitalsData.primary_oxygen = UnityEngine.Random.Range(90f, 100f);
             AstronautInstance.User.VitalsData.secondary_oxygen = UnityEngine.Random.Range(90f, 100f);
             AstronautInstance.User.VitalsData.suit_pressure = UnityEngine.Random.Range(0.8f, 5.2f);
@@ -89,7 +89,7 @@ public class FakeTSSMessageSender : MonoBehaviour
             AstronautInstance.User.VitalsData.h2o_time_left = string.Format("{0:D2}:{1:D2}:{2:D2}", h2oTime.Hours, h2oTime.Minutes, h2oTime.Seconds);
 
             // Publish VitalsUpdatedEvent
-            EventBus.Publish<VitalsUpdatedEvent>(new VitalsUpdatedEvent(AstronautInstance.User.VitalsData));
+            EventBus.Publish<VitalsUpdatedEvent>(new VitalsUpdatedEvent(AstronautInstance.User.VitalsData));*/
 
         }
     }
