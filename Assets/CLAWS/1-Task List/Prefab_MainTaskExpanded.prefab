@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 4641814245524369870}
   - component: {fileID: 6770252714410444435}
   m_Layer: 0
-  m_Name: progress bar
+  m_Name: Task_Progress_Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -373,7 +373,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: f64b2cfebebcf384ebe4cea329882220, type: 2}
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1626,7 +1625,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6703239280768569565}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0016681775, y: -0.00010939315, z: 0}
+  m_LocalPosition: {x: 0.0016681775, y: -0.00010939315, z: -0.00001}
   m_LocalScale: {x: 0.05, y: 0.004, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1663,7 +1662,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: da01d9c9ee9d13b4faa22723923daf5c, type: 2}
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

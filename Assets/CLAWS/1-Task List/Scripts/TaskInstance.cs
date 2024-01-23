@@ -105,6 +105,8 @@ public class TaskInstance : MonoBehaviour
             Subtask.status = 1;
             Status.text = "Completed";
             SubtaskIcon.SetActive(true);
+            Debug.Log("WOMP WOMP");
+            GameObject.Find("Prefab_MainTaskExpanded(Clone)").transform.Find("Task_Progress_Bar").GetComponent<progress_bar>().Update_Progress_bar(GetSubCompleted(), TaskListBackend.CurrentTask.subtasks.Count);
         }
 
         // propogate changes after delay
@@ -156,11 +158,42 @@ public class TaskInstance : MonoBehaviour
     {
         if (Type == TaskType.Main || Type == TaskType.Emergency)
         {
+            GameObject.Find("Prefab_FullTaskListScreen").transform.Find("MainProgressBar").GetComponent<progress_bar>().Update_Progress_bar(GetMainCompleted(), AstronautInstance.User.TasklistData.AllTasks.Count);
             EventBus.Publish<TaskFinishedEvent>(new TaskFinishedEvent(Task));
+
         }
         else
         {
+            //Debug.Log("WOMP WOMP");
+            //transform.Find("Task_Progress_Bar").GetComponent<progress_bar>().Update_Progress_bar(GetSubCompleted(), TaskListBackend.CurrentTask.subtasks.Count);
             EventBus.Publish<SubtaskFinishedEvent>(new SubtaskFinishedEvent(Subtask));
         }
+    }
+
+    private int GetMainCompleted()
+    {
+        int c = 0;
+        for (int i = 0; i < AstronautInstance.User.TasklistData.AllTasks.Count; i++)
+        {
+            if (AstronautInstance.User.TasklistData.AllTasks[i].status == 1)
+            {
+                c++;
+            }
+        }
+
+        return c;
+    }
+
+    private int GetSubCompleted()
+    {
+        int c = 0;
+        foreach (SubtaskObj i in TaskListBackend.CurrentTask.subtasks)
+        {
+            if (i.status == 1)
+            {
+                c++;
+            }
+        }
+        return c;
     }
 }
