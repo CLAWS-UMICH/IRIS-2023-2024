@@ -98,12 +98,22 @@ public class Geosample
 public class GeosampleZones
 {
     // TODO emily
+    public List<GeosampleZone> AllGeosamplezones = new List<GeosampleZone>();
 }
 
 [System.Serializable]
 public class GeosampleZone
 {
     // TODO emily
+    // public List<GeoSamples> ZoneGeosamples = new List<GeoSamples>
+    public List<int> ZoneGeosamplesIds = new();
+    public Location location;
+    public float radius;
+    public int zone_id;
+    
+    // what class functions do we need?
+    // do we need a custom = comparator like GeoSamples?
+    
 }
 
 [System.Serializable]
