@@ -10,6 +10,7 @@ using TMPro;
 public class TSScConnection : MonoBehaviour
 {
     [SerializeField] string connectionURL = "";
+    bool autoConnect = false;
     // Connection
     string host;
     string port;
@@ -65,8 +66,10 @@ public class TSScConnection : MonoBehaviour
     }
 
     // This Function is called when the program begins
+
     void Start()
     {
+
         this.connected = false;
         StartCoroutine(_LookForConnection());
     }
