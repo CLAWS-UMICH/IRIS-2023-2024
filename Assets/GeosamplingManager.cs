@@ -14,7 +14,7 @@ public class GeosamplingManager : MonoBehaviour
     {
         // create the zone prefab
         GameObject _zoneObject =  Instantiate(GeosamplingZonePrefab);
-        GeosamplingZone _zone = _zoneObject.AddComponent<GeosamplingZone>();
+        GeosamplingZone _zone = _zoneObject.GetComponent<GeosamplingZone>();
 
         _zone.Init();
     }
