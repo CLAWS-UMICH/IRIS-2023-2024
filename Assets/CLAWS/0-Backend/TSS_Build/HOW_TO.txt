@@ -1,0 +1,25 @@
+Go to this place in terminal (Needs to be able to run C)
+cd ~/IRIS-2023-2024/Assets/CLAWS/0-Backend/TSS_Build/
+
+1. ./build.bat
+2. ./server.exe --local
+
+Should see something like this:
+
+Hello World
+
+Launching Server at IP: 127.0.0.1:14141
+Configuring Local Address...
+Creating Socket...
+Binding Socket...
+Listening...
+
+3. Copy and paste the whole IP into browser:
+127.0.0.1:14141
+
+Go to the CLAWS room (Room 3) and start whenever!
+
+4. Copy and paste IP (without the extention)
+
+For Example,
+Copy and paste 127.0.0.1 and put it into the designated place on the Controller prefab in SceneComponents/Controller

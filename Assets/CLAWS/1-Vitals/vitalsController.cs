@@ -70,7 +70,7 @@ public class vitalsController : MonoBehaviour
         //connects to game object
         //1st astronaut
         // TODO" fix These
-        O2timeLeft = parent.transform.Find("O2TimeLeft").gameObject.GetComponent<TextMeshPro>();
+        /*O2timeLeft = parent.transform.Find("O2TimeLeft").gameObject.GetComponent<TextMeshPro>();
         H2OtimeLeft = parent.transform.Find("H2OTimeLeft").gameObject.GetComponent<TextMeshPro>();
         is_running = parent.transform.Find("Running").gameObject.GetComponent<TextMeshPro>();
         is_paused = parent.transform.Find("Paused").gameObject.GetComponent<TextMeshPro>();
@@ -87,7 +87,7 @@ public class vitalsController : MonoBehaviour
         btry_out = parent.transform.Find("Btry_out").gameObject.GetComponent<TextMeshPro>();
         O2_primeTime = parent.transform.Find("O2_primeTime").gameObject.GetComponent<TextMeshPro>();
         O2_secTime = parent.transform.Find("O2_secTime").gameObject.GetComponent<TextMeshPro>();
-        h2O_cap = parent.transform.Find("H2O_cap").gameObject.GetComponent<TextMeshPro>();
+        h2O_cap = parent.transform.Find("H2O_cap").gameObject.GetComponent<TextMeshPro>();*/
 
         //2nd astronaut
 
