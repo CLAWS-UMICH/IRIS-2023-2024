@@ -106,14 +106,24 @@ public class GeosampleZone
 {
     // TODO emily
     // public List<GeoSamples> ZoneGeosamples = new List<GeoSamples>
+    public int zone_id;
     public List<int> ZoneGeosamplesIds = new();
     public Location location;
     public float radius;
-    public int zone_id;
     
-    // what class functions do we need?
-    // do we need a custom = comparator like GeoSamples?
-    
+    public override bool Equals(object obj)
+    {
+        if (obj == null || GetType() != obj.GetType())
+        {
+            return false;
+        }
+
+        GeosampleZone otherGeoZone = (GeosampleZone)obj;
+        return ZoneGeosamplesIds == otherGeoZone.ZoneGeosamplesIds &&
+               zone_id == otherGeoZone.zone_id &&
+               location.Equals(otherGeoZone.location) &&
+               radius == otherGeoZone.radius;
+    }
 }
 
 [System.Serializable]
