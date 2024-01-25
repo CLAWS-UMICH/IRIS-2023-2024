@@ -97,17 +97,14 @@ public class Geosample
 [System.Serializable]
 public class GeosampleZones
 {
-    // TODO emily
     public List<GeosampleZone> AllGeosamplezones = new List<GeosampleZone>();
 }
 
 [System.Serializable]
 public class GeosampleZone
 {
-    // TODO emily
-    // public List<GeoSamples> ZoneGeosamples = new List<GeoSamples>
-    public int zone_id;
-    public List<int> ZoneGeosamplesIds = new();
+    public char zone_id;
+    public List<char> ZoneGeosamplesIds = new();
     public Location location;
     public float radius;
     
@@ -119,10 +116,10 @@ public class GeosampleZone
         }
 
         GeosampleZone otherGeoZone = (GeosampleZone)obj;
-        return ZoneGeosamplesIds == otherGeoZone.ZoneGeosamplesIds &&
+        return ZoneGeosamplesIds.Equals(otherGeoZone.ZoneGeosamplesIds) &&
                zone_id == otherGeoZone.zone_id &&
                location.Equals(otherGeoZone.location) &&
-               radius == otherGeoZone.radius;
+               radius == otherGeoZone.radius;  
     }
 }
 
