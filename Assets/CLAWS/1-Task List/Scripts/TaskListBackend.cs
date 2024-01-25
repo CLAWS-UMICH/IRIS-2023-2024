@@ -85,6 +85,8 @@ public class TaskListBackend : MonoBehaviour
                     break;
                 }
             }
+
+            EventBus.Publish<TasklistBackendUpdated>(new());
         }
 
         StartCoroutine(_SetCurrentTask());

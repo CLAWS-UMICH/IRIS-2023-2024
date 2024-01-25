@@ -19,7 +19,7 @@ public class progress_bar : MonoBehaviour
 
         Init_Progress_bar();
 
-        EventBus.Subscribe<TasksEditedEvent>(Init);
+        EventBus.Subscribe<TasklistBackendUpdated>(Init);
     }
 
     public void Update_Progress_bar(int completed, int total)
@@ -30,7 +30,7 @@ public class progress_bar : MonoBehaviour
         pbar.transform.localScale = new Vector3(progress, 1, 1);
     }
 
-    public void Init(TasksEditedEvent e)
+    public void Init(TasklistBackendUpdated e)
     {
         Init_Progress_bar();
     }

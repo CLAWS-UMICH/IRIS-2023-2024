@@ -281,6 +281,16 @@ public class TaskFinishedEvent
     }
 }
 
+public class TasklistBackendUpdated
+{
+    public TasklistBackendUpdated() { }
+
+    public override string ToString()
+    {
+        return "Tasklist Backend Finished";
+    }
+}
+
 public class SubtaskStartedEvent
 {
     public SubtaskObj StartedTask { get; private set; }
