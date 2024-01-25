@@ -84,6 +84,7 @@ public class TaskInstance : MonoBehaviour
         }
         else if (Type == TaskType.Emergency)
         {
+            Task.status = 2;
             FinishTask();
         }
     }
@@ -105,7 +106,6 @@ public class TaskInstance : MonoBehaviour
             Subtask.status = 1;
             Status.text = "Completed";
             SubtaskIcon.SetActive(true);
-            Debug.Log("WOMP WOMP");
             GameObject.Find("Prefab_MainTaskExpanded(Clone)").transform.Find("Task_Progress_Bar").GetComponent<progress_bar>().Update_Progress_bar(GetSubCompleted(), TaskListBackend.CurrentTask.subtasks.Count);
         }
 
@@ -160,14 +160,14 @@ public class TaskInstance : MonoBehaviour
         {
             GameObject.Find("Prefab_FullTaskListScreen").transform.Find("MainProgressBar").GetComponent<progress_bar>().Update_Progress_bar(GetMainCompleted(), AstronautInstance.User.TasklistData.AllTasks.Count);
             EventBus.Publish<TaskFinishedEvent>(new TaskFinishedEvent(Task));
-
         }
         else
         {
-            //Debug.Log("WOMP WOMP");
-            //transform.Find("Task_Progress_Bar").GetComponent<progress_bar>().Update_Progress_bar(GetSubCompleted(), TaskListBackend.CurrentTask.subtasks.Count);
             EventBus.Publish<SubtaskFinishedEvent>(new SubtaskFinishedEvent(Subtask));
         }
+
+        GameObject.Find("Controller").GetComponent<WebsocketDataHandler>().SendTasklistData();
+        GameObject.Find("Prefab_FullTaskListScreen").GetComponent<TaskListBackend>().SetCurrentTask<bool>(true);
     }
 
     private int GetMainCompleted()

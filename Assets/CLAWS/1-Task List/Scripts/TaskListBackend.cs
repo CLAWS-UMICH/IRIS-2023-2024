@@ -22,8 +22,7 @@ public class TaskListBackend : MonoBehaviour
 
         SetCurrentTask<bool>(true);
     }
-
-    void SetCurrentTask<T>(T e)
+    public void SetCurrentTask<T>(T e)
     {
         IEnumerator _SetCurrentTask()
         {
@@ -34,7 +33,7 @@ public class TaskListBackend : MonoBehaviour
             // get current task
             foreach (TaskObj t in AstronautInstance.User.TasklistData.AllTasks)
             {
-                if (t.status == 1)
+                if (!t.isEmergency && t.status == 1)
                 {
                     if (IsComplete(t))
                     {
@@ -51,7 +50,7 @@ public class TaskListBackend : MonoBehaviour
                         break;
                     }
                 }
-                else if (t.status == 0)
+                else if (!t.isEmergency && t.status == 0)
                 {
                     // set the first encountered upcoming task as the current task
                     t.status = 1;
@@ -67,7 +66,7 @@ public class TaskListBackend : MonoBehaviour
             CurrentEmergencyTask = null;
             foreach (TaskObj t in AstronautInstance.User.TasklistData.AllTasks)
             {
-                if (t.isEmergency && t.status != 2)
+                if (t.isEmergency && t.status == 0)
                 {
                     CurrentEmergencyTask = t;
                     EventBus.Publish(new EmergencyTaskEvent(t));
