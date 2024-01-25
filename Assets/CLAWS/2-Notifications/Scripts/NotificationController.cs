@@ -5,8 +5,9 @@ using TMPro;
 
 public class NotificationController : MonoBehaviour
 {
-    [SerializeField] List<GameObject> alerts;
+    List<GameObject> alerts = new List<GameObject>();
     public GameObject prefab;
+    public GameObject prefab1;
     private NewScroll scroll;
     int num = 0;
     // Start is called before the first frame update
@@ -18,7 +19,14 @@ public class NotificationController : MonoBehaviour
 
     public void AddAlert()
     {
-        GameObject newButton = scroll.HandleAddingButton(prefab);
+        GameObject newButton = null;
+        if (num % 2 == 0)
+        {
+            newButton = scroll.HandleAddingButton(prefab);
+        } else
+        {
+            newButton = scroll.HandleAddingButton(prefab1);
+        }
         newButton.transform.Find("Text").transform.Find("Num").GetComponent<TextMeshPro>().text = num.ToString();
         newButton.name = num.ToString();
         alerts.Add(newButton);
@@ -28,7 +36,7 @@ public class NotificationController : MonoBehaviour
 
     IEnumerator _DeleteAlert(GameObject alert)
     {
-        yield return new WaitForSeconds(Mathf.Floor(Random.Range(3f, 15f)));
+        yield return new WaitForSeconds(Mathf.Floor(Random.Range(3f, 10f)));
         scroll.HandleButtonDeletion(alert);
         alerts.Remove(alert);
     }
