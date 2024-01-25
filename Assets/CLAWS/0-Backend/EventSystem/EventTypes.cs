@@ -442,3 +442,19 @@ public class UnHighlight
         levelnames = _levelnames;
     }
 }
+
+public class CreateAlert
+{
+    public AlertEnum alertType;
+    public string title;
+    public string desc;
+    public string letter;
+
+    public CreateAlert(AlertEnum _alertType, string _title = "", string _desc = "", string _letter = "")
+    {
+        alertType = _alertType;
+        title = _title;
+        desc = _desc;
+        letter = _letter;
+    }
+}
