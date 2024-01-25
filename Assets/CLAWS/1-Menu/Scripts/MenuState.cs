@@ -45,6 +45,7 @@ public class MenuState : MonoBehaviour
 
     public void ClickTasks()
     {
+        transform.parent.Find("Main_TaskList").GetComponent<TaskListScreenHandler>().OpenTaskListMain();
         ClickIRISClose();
     }
 
