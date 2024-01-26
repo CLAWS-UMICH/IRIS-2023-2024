@@ -104,7 +104,7 @@ public class GeosampleZones
 public class GeosampleZone
 {
     public char zone_id;
-    public List<char> ZoneGeosamplesIds = new();
+    public List<int> ZoneGeosamplesIds = new();
     public Location location;
     public float radius;
     
