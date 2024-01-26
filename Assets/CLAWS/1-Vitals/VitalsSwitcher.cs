@@ -17,7 +17,7 @@ public class VitalsSwitcher : MonoBehaviour
         secondAst.SetActive(false);
         button.SetActive(false);
         buttonText = button.transform.Find("Button").transform.Find("ButtonText").gameObject.GetComponent<TextMeshPro>();
-        buttonText.text = "Astronant 2";
+        buttonText.text = "Astronaut 2";
     }
 
     public void CloseVitals()
@@ -26,9 +26,8 @@ public class VitalsSwitcher : MonoBehaviour
         secondAst.SetActive(false);
         button.SetActive(false);
 
-        buttonText.text = "Astronant 2";
-
-        // Change screen
+        buttonText.text = "Astronaut 2";
+        EventBus.Publish(new ScreenChangedEvent(Screens.Menu));
     }
 
     public void OpenVitals()
@@ -37,9 +36,10 @@ public class VitalsSwitcher : MonoBehaviour
         button.SetActive(true);
         secondAst.SetActive(false);
 
-        buttonText.text = "Astronant 2";
+        buttonText.text = "Astronaut 2";
 
-        // Change screen
+        EventBus.Publish(new ScreenChangedEvent(Screens.Vitals_1));
+
     }
 
     // Change AstrounantToggle to Awake
@@ -49,17 +49,17 @@ public class VitalsSwitcher : MonoBehaviour
         {
             firstAst.SetActive(false);
             secondAst.SetActive(true);
-            buttonText.text = "Astronant 1";
+            buttonText.text = "Astronaut 1";
 
-            // Change screen
+            EventBus.Publish(new ScreenChangedEvent(Screens.Vitals_1));
         }
         else
         {
             firstAst.SetActive(true);
             secondAst.SetActive(false);
-            buttonText.text = "Astronant 2";
+            buttonText.text = "Astronaut 2";
 
-            // Change screen
+            EventBus.Publish(new ScreenChangedEvent(Screens.Vitals_2));
         }
     }
 }

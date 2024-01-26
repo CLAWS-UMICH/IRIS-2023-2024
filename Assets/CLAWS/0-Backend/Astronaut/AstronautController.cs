@@ -36,29 +36,29 @@ public class Message
 [System.Serializable]
 public class Vitals
 {
-    public string eva_time;
-    public string battery_time_left;
-    public double primary_oxygen_storage;
-    public double secondary_oxygen_storage;
-    public double primary_oxygen_pressure;
-    public double secondary_oxygen_pressure;
-    public string oxygen_time_left;
+    public int eva_time;
+    public double batt_time_left;
+    public double oxy_pri_storage;
+    public double oxy_sec_storage;
+    public double oxy_pri_pressure;
+    public double oxy_sec_pressure;
+    public int oxy_time_left;
     public double heart_rate;
-    public double oxygen_consumption;
+    public double oxy_consumption;
     public double co2_production;
-    public double suit_oxygen_pressure;
-    public double suit_cO2_pressure;
-    public double suit_other_pressure;
-    public double suit_total_pressure;
-    public double primary_fan_rpm;
-    public double secondary_fan_rpm;
-    public double helmet_co2_pressure;
-    public double scrubber_a_co2_capacity;
-    public double scrubber_b_co2_capacity;
+    public double suit_pressure_oxy;
+    public double suit_pressure_co2;
+    public double suit_pressure_other;
+    public double suit_pressure_total;
+    public double fan_pri_rpm;
+    public double fan_sec_rpm;
+    public double helmet_pressure_co2;
+    public double scrubber_a_co2_storage;
+    public double scrubber_b_co2_storage;
     public double temperature;
-    public double coolant_ml;
-    public double h2o_gas_pressure;
-    public double h2o_liquid_pressure;
+    public double coolant_m;
+    public double coolant_gas_pressure;
+    public double coolant_liquid_pressure;
 }
 
 // Geosamples
@@ -403,22 +403,42 @@ public class FellowAstronaut
 }
 
 // TSS
+[System.Serializable]
 public class COMM
 {
     public CommDetails comm;
 }
 
+[System.Serializable]
 public class CommDetails
 {
     public bool comm_tower;
 }
 
+[System.Serializable]
 public class DCU
 {
     public EvaDetails eva1;
     public EvaDetails eva2;
 }
 
+[System.Serializable]
+public class IMU
+{
+    public IMUData eva1;
+    public IMUData eva2;
+}
+
+[System.Serializable]
+public class IMUData
+{
+    public double posx;
+    public double posy;
+    public double heading;
+}
+
+
+[System.Serializable]
 public class EvaDetails
 {
     public bool batt;
@@ -429,11 +449,13 @@ public class EvaDetails
     public bool co2;
 }
 
+[System.Serializable]
 public class ROVER
 {
     public RoverDetails rover;
 }
 
+[System.Serializable]
 public class RoverDetails
 {
     public double posx;
@@ -441,12 +463,14 @@ public class RoverDetails
     public int qr_id;
 }
 
+[System.Serializable]
 public class SPEC
 {
     public EvaData eva1;
     public EvaData eva2;
 }
 
+[System.Serializable]
 public class EvaData
 {
     public string name;
@@ -454,6 +478,7 @@ public class EvaData
     public DataDetails data;
 }
 
+[System.Serializable]
 public class DataDetails
 {
     public int SiO2;
@@ -467,11 +492,13 @@ public class DataDetails
     public int P2O3;
 }
 
+[System.Serializable]
 public class TELEMETRY
 {
     public TelemetryDetails telemetry;
 }
 
+[System.Serializable]
 public class TelemetryDetails
 {
     public int eva_time;
@@ -479,37 +506,40 @@ public class TelemetryDetails
     public EvaTelemetryDetails eva2;
 }
 
+[System.Serializable]
 public class EvaTelemetryDetails
 {
-    public double battery_time_left;
-    public double primary_oxygen_storage;
-    public double secondary_oxygen_storage;
-    public double primary_oxygen_pressure;
-    public double secondary_oxygen_pressure;
-    public int oxygen_time_left;
+    public double batt_time_left;
+    public double oxy_pri_storage;
+    public double oxy_sec_storage;
+    public double oxy_pri_pressure;
+    public double oxy_sec_pressure;
+    public int oxy_time_left;
     public double heart_rate;
-    public double oxygen_consumption;
+    public double oxy_consumption;
     public double co2_production;
-    public double suit_oxygen_pressure;
-    public double suit_cO2_pressure;
-    public double suit_other_pressure;
-    public double suit_total_pressure;
-    public double primary_fan_rpm;
-    public double secondary_fan_rpm;
-    public double helmet_co2_pressure;
-    public double scrubber_a_co2_capacity;
-    public double scrubber_b_co2_capacity;
+    public double suit_pressure_oxy;
+    public double suit_pressure_co2;
+    public double suit_pressure_other;
+    public double suit_pressure_total;
+    public double fan_pri_rpm;
+    public double fan_sec_rpm;
+    public double helmet_pressure_co2;
+    public double scrubber_a_co2_storage;
+    public double scrubber_b_co2_storage;
     public double temperature;
-    public double coolant_ml;
-    public double h2o_gas_pressure;
-    public double h2o_liquid_pressure;
+    public double coolant_m;
+    public double coolant_gas_pressure;
+    public double coolant_liquid_pressure;
 }
 
+[System.Serializable]
 public class UIA
 {
     public UiDetails uia;
 }
 
+[System.Serializable]
 public class UiDetails
 {
     public bool eva1_power;

@@ -25,7 +25,7 @@ public class Astronaut
     // TSS Info
     public COMM comm;
     public DCU dcu;
-    //public IMU imu;
+    public IMU imu;
     public ROVER rover;
     public SPEC spec;
     public TELEMETRY telemetry;
