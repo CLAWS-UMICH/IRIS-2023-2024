@@ -209,10 +209,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 352633495570442241, guid: f9852d3613b584fd195c0644d11b92b9, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 352633495570442242, guid: f9852d3613b584fd195c0644d11b92b9, type: 3}
       propertyPath: DetailedView
       value: 
       objectReference: {fileID: 947203734698540741}
+    - target: {fileID: 352633495570442254, guid: f9852d3613b584fd195c0644d11b92b9, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 352633496385318709, guid: f9852d3613b584fd195c0644d11b92b9, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 352633496385318709, guid: f9852d3613b584fd195c0644d11b92b9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6532724680916043976, guid: f9852d3613b584fd195c0644d11b92b9, type: 3}
       propertyPath: m_Name
       value: Prefab_FullTaskListScreen
