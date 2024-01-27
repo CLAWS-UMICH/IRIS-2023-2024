@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
-
+using WebSocketSharp;
+using System;
 using TMPro;
 
 public class TSScConnection : MonoBehaviour
 {
+    [SerializeField] string connectionURL = "";
+    bool autoConnect = false;
     // Connection
     string host;
     string port;
@@ -45,15 +48,30 @@ public class TSScConnection : MonoBehaviour
         StartCoroutine(GetRequest(this.url));
     }
 
+    IEnumerator _LookForConnection()
+    {
+        while (true)
+        {
+            if (!this.connected && connectionURL.Length > 0 && !connectionURL.Contains("/"))
+            {
+                ConnectToHost(connectionURL, 2);
+            }
+            yield return new WaitForSeconds(5);
+        }
+    }
+
     public void DisconnectFromHost()
     {
         this.connected = false;
     }
 
     // This Function is called when the program begins
+
     void Start()
     {
+
         this.connected = false;
+        StartCoroutine(_LookForConnection());
     }
 
     // This Function is called each render frame
@@ -121,6 +139,8 @@ public class TSScConnection : MonoBehaviour
                     {
                         this.UIAUpdated = true;
                         this.UIAJsonString = webRequest.downloadHandler.text;
+
+                        AstronautInstance.User.uia = JsonUtility.FromJson<UIA>(this.UIAJsonString);
                     }
                     break;
             }
@@ -155,7 +175,9 @@ public class TSScConnection : MonoBehaviour
                     {
                         this.DCUUpdated = true;
                         this.DCUJsonString = webRequest.downloadHandler.text;
-                        Debug.Log(this.DCUJsonString);
+                        //Debug.Log(this.DCUJsonString);
+
+                        AstronautInstance.User.dcu = JsonUtility.FromJson<DCU>(this.DCUJsonString);
                     }
                     break;
             }
@@ -190,7 +212,9 @@ public class TSScConnection : MonoBehaviour
                     {
                         this.ROVERUpdated = true;
                         this.ROVERJsonString = webRequest.downloadHandler.text;
-                        Debug.Log(this.ROVERJsonString);
+                        //Debug.Log(this.ROVERJsonString);
+
+                        AstronautInstance.User.rover = JsonUtility.FromJson<ROVER>(this.ROVERJsonString);
                     }
                     break;
             }
@@ -225,7 +249,9 @@ public class TSScConnection : MonoBehaviour
                     {
                         this.SPECUpdated = true;
                         this.SPECJsonString = webRequest.downloadHandler.text;
-                        Debug.Log(this.SPECJsonString);
+                        //Debug.Log(this.SPECJsonString);
+
+                        AstronautInstance.User.spec = JsonUtility.FromJson<SPEC>(this.SPECJsonString);
                     }
                     break;
             }
@@ -260,12 +286,54 @@ public class TSScConnection : MonoBehaviour
                     {
                         this.TELEMETRYUpdated = true;
                         this.TELEMETRYJsonString = webRequest.downloadHandler.text;
-                        Debug.Log(this.TELEMETRYJsonString);
+                        //Debug.Log(this.TELEMETRYJsonString);
+
+                        AstronautInstance.User.telemetry = JsonUtility.FromJson<TELEMETRY>(this.TELEMETRYJsonString);
+                        if (AstronautInstance.User.id == 1)
+                        {
+                            CopyVitals(AstronautInstance.User.VitalsData, AstronautInstance.User.telemetry.telemetry.eva1);
+                            CopyVitals(AstronautInstance.User.FellowAstronautsData.vitals, AstronautInstance.User.telemetry.telemetry.eva2);
+                        } else
+                        {
+                            CopyVitals(AstronautInstance.User.VitalsData, AstronautInstance.User.telemetry.telemetry.eva2);
+                            CopyVitals(AstronautInstance.User.FellowAstronautsData.vitals, AstronautInstance.User.telemetry.telemetry.eva1);
+                        }
+
+                        AstronautInstance.User.VitalsData.eva_time = AstronautInstance.User.telemetry.telemetry.eva_time;
+
+                        EventBus.Publish<VitalsUpdatedEvent>(new VitalsUpdatedEvent(AstronautInstance.User.VitalsData));
+                        EventBus.Publish<FellowAstronautVitalsDataChangeEvent>(new FellowAstronautVitalsDataChangeEvent(AstronautInstance.User.FellowAstronautsData.vitals));
                     }
                     break;
             }
 
         }
+    }
+
+    private void CopyVitals(Vitals vital, EvaTelemetryDetails t)
+    {
+        vital.batt_time_left = t.batt_time_left;
+        vital.oxy_pri_storage = t.oxy_pri_storage;
+        vital.oxy_sec_storage = t.oxy_sec_storage;
+        vital.oxy_pri_pressure = t.oxy_pri_pressure;
+        vital.oxy_sec_pressure = t.oxy_sec_pressure;
+        vital.oxy_time_left = t.oxy_time_left;
+        vital.heart_rate = t.heart_rate;
+        vital.oxy_consumption = t.oxy_consumption;
+        vital.co2_production = t.co2_production;
+        vital.suit_pressure_oxy = t.suit_pressure_oxy;
+        vital.suit_pressure_co2 = t.suit_pressure_co2;
+        vital.suit_pressure_other = t.suit_pressure_other;
+        vital.suit_pressure_total = t.suit_pressure_total;
+        vital.fan_pri_rpm = t.fan_pri_rpm;
+        vital.fan_sec_rpm = t.fan_sec_rpm;
+        vital.helmet_pressure_co2 = t.helmet_pressure_co2;
+        vital.scrubber_a_co2_storage = t.scrubber_a_co2_storage;
+        vital.scrubber_b_co2_storage = t.scrubber_b_co2_storage;
+        vital.temperature = t.temperature;
+        vital.coolant_m = t.coolant_m;
+        vital.coolant_gas_pressure = t.coolant_gas_pressure;
+        vital.coolant_liquid_pressure = t.coolant_liquid_pressure;
     }
 
     public string GetTELEMETRYJsonString()
@@ -295,7 +363,9 @@ public class TSScConnection : MonoBehaviour
                     {
                         this.COMMUpdated = true;
                         this.COMMJsonString = webRequest.downloadHandler.text;
-                        Debug.Log(this.COMMJsonString);
+                        //Debug.Log(this.COMMJsonString);
+
+                        AstronautInstance.User.comm = JsonUtility.FromJson<COMM>(this.COMMJsonString);
                     }
                     break;
             }
@@ -330,7 +400,9 @@ public class TSScConnection : MonoBehaviour
                     {
                         this.IMUUpdated = true;
                         this.IMUJsonString = webRequest.downloadHandler.text;
-                        Debug.Log(this.IMUJsonString);
+                        //Debug.Log(this.IMUJsonString);
+
+                        AstronautInstance.User.imu = JsonUtility.FromJson<IMU>(this.IMUJsonString);
                     }
                     break;
             }

@@ -16,6 +16,8 @@ public class UpdateCurrentTask : MonoBehaviour
 
     private void OnUpdateCurrentTask(SubtaskStartedEvent e)
     {
+        Debug.Log("ASdfssafa");
+        Debug.Log(TaskListBackend.CurrentEmergencyTask != null);
         if (TaskListBackend.CurrentEmergencyTask != null)
         {
             // emergency task

@@ -8,7 +8,6 @@ public class NewScroll : MonoBehaviour
     [SerializeField] private int buttonsEnabledCount = 3; // Number of gameobjects to scroll per button press
 
     private List<GameObject> allButtons = new List<GameObject>(); // List to store all buttons
-    private List<GameObject> activeButtons = new List<GameObject>();
     private Dictionary<GameObject, bool> gameObjectMap = new Dictionary<GameObject, bool>();
 
     public GameObject HandleAddingButton(GameObject newButton)
@@ -46,6 +45,7 @@ public class NewScroll : MonoBehaviour
     private void RefreshLayout()
     {
         int count = 0;
+        float prevOffset = 0;
         GameObject prevButton = null;
         foreach (GameObject obj in allButtons)
         {
@@ -65,11 +65,10 @@ public class NewScroll : MonoBehaviour
                             float prevHeight = prevCollider.size.y * prevButton.transform.localScale.y;
                             float currentHeight = currentCollider.size.y * obj.transform.localScale.y;
 
-                            yOffset = -((prevHeight / 2f) + (currentHeight / 2f) + (spacing / 100)) * count;
+                            yOffset = prevOffset - ((prevHeight / 2f) + (currentHeight / 2f) + (spacing / 100));
                         }
                     }
-
-
+                   
 
                     float xOffset = (currentCollider.size.x * obj.transform.localScale.x) / 2f;
 
@@ -81,6 +80,7 @@ public class NewScroll : MonoBehaviour
 
                     obj.SetActive(true);
                     prevButton = obj;
+                    prevOffset = yOffset;
                 }
                 else
                 {
@@ -94,7 +94,6 @@ public class NewScroll : MonoBehaviour
     // Function to handle button deletion based on GameObject
     public void HandleButtonDeletion(GameObject deletedButton)
     {
-
         if (allButtons.Remove(deletedButton))
         {
             Destroy(deletedButton);

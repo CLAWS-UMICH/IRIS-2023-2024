@@ -623,7 +623,7 @@ public class WebsocketDataHandler : MonoBehaviour
                         EventBus.Publish(new FellowAstronautLocationDataChangeEvent(data));
                         break;
                     case "vitals":
-                        EventBus.Publish(new FellowAstronautVitalsDataChangeEvent(data));
+                        EventBus.Publish(new FellowAstronautVitalsDataChangeEvent(data.vitals));
                         break;
                     case "breadcrumbs":
                         EventBus.Publish(new FellowAstronautBreadcrumbsDataChangeEvent(data));

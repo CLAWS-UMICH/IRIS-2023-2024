@@ -8,12 +8,58 @@ public class vitalsController : MonoBehaviour
 {
     private Subscription<VitalsUpdatedEvent> vitalsUpdateEvent;
     private Subscription<FellowAstronautVitalsDataChangeEvent> fellowVitalsUpdateEvent;
-    public GameObject parent;
-    public GameObject bodyObject;
-    public GameObject suitObject;
-    public GameObject bodyObjectFellow;
-    public GameObject suitObjectFellow;
-    public GameObject parentFellow;
+
+    private GameObject astr1Board;
+    private GameObject astr1BodyBoard;
+    private GameObject astr1SuitBoard;
+    private GameObject astr1BackupBoard;
+    private GameObject astr1BarBoard;
+    private GameObject astr1TimeBoard;
+
+    private GameObject astr2Board;
+    private GameObject astr2BodyBoard;
+    private GameObject astr2SuitBoard;
+    private GameObject astr2BackupBoard;
+    private GameObject astr2BarBoard;
+    private GameObject astr2TimeBoard;
+
+    // Battery parameters
+    private float BATT_TIME_CAP = 21600;
+    private float BATT_FILL_RATE => BATT_TIME_CAP / 150.0f;
+
+    // Oxygen parameters
+    private float OXY_TIME_CAP = 10800;
+    private float OXY_PRESSURE_CAP = 3000.0f;
+    private float OXY_FILL_RATE = 0.8f;
+
+    // Depressurization parameters
+    private float DEPRESS_TIME = 15;
+    private float RESTING_HEART_RATE = 90.0f;
+    private float EVA_HEART_RATE = 140.0f;
+    private float HAB_OXY_PRESSURE = 3.0723f;
+    private float HAB_CO2_PRESSURE = 0.0059f;
+    private float HAB_OTHER_PRESSURE = 11.5542f;
+    private float SUIT_OXY_PRESSURE = 4.0f;
+    private float SUIT_CO2_PRESSURE = 0.001f;
+    private float SUIT_OTHER_PRESSURE = 0.0f;
+
+    // Suit parameters
+    private float SUIT_OXY_CONSUMPTION = 0.1f;
+    private float SUIT_CO2_PRODUCTION = 0.1f;
+
+    // Suit fan parameters
+    private float SUIT_FAN_SPIN_UP_RATE = 0.9f;
+    private float SUIT_FAN_RPM = 30000.0f;
+    private float SUIT_FAN_ERROR_RPM = 5000.0f;
+
+    // Suit scrubber parameters
+    private float SUIT_SCRUBBER_CAP = 1.0f;
+    private float SUIT_SCRUBBER_FILL_RATE = 0.8f;
+    private float SUIT_SCRUBBER_FLUSH_RATE = 0.85f;
+
+    // Suit coolant parameters
+    private float SUIT_COOLANT_NOMINAL_TEMP = 65.0f;
+    private float SUIT_COOLANT_NOMINAL_PRESSURE = 500.0f;
 
     //For half gauge
     GameObject halfRingPartialFiller;
@@ -32,193 +78,157 @@ public class vitalsController : MonoBehaviour
     public float gaugeMaxValue = 7.0f;
 
     //1st astronaut
-    TextMeshPro heartRate, PO2, SO2, roomID, is_running, is_paused, time,
-                timer, started_at, suit_p, sub_p, O2_p, h2O_gas_p, h2O_liq_p, sop_p,
-                sop_rate, fan_tach, btry_cap, temp, btry_timeLeft, btry_perc,
-                btry_out, O2_primeTime, O2_secTime, h2O_cap, O2timeLeft, O2rate,
-                H2OtimeLeft;
-    //2nd astronaut
-    TextMeshPro heartRate1, PO21, SO21, roomID1, is_running1, is_paused1, time1,
-                timer1, started_at1, suit_p1, sub_p1, O2_p1, h2O_gas_p1, h2O_liq_p1, sop_p1,
-                sop_rate1, fan_tach1, btry_cap1, temp1, btry_timeLeft1, btry_perc1,
-                btry_out1, O2_primeTime1, O2_secTime1, h2O_cap1, O2timeLeft1, O2rate1,
-                H2OtimeLeft1;
+    TextMeshPro heartRate, temp, oxyCons, co2Prod, priOxy, batt, suitPresOxy, suitTotPres, suitPresCO2, secOxyStor, secOxyPres, priFan, coolLiquidPres, coolGasPres, powerTime, oxyTime;
+
+    TextMeshPro heartRate2, temp2, oxyCons2, co2Prod2, priOxy2, batt2, suitPresOxy2, suitTotPres2, suitPresCO22, secOxyStor2, secOxyPres2, priFan2, coolLiquidPres2, coolGasPres2, powerTime2, oxyTime2;
 
     void Start()
     {
         vitalsUpdateEvent = EventBus.Subscribe<VitalsUpdatedEvent>(onVitalsUpdate);
         fellowVitalsUpdateEvent = EventBus.Subscribe<FellowAstronautVitalsDataChangeEvent>(onFellowVitalsUpdate);
 
-        //body board
-        heartRate = bodyObject.transform.Find("HeartRateRing").transform.Find("HeartRate").gameObject.GetComponent<TextMeshPro>();
-        temp = bodyObject.transform.Find("TempRing").transform.Find("Temperature").gameObject.GetComponent<TextMeshPro>();
+        // Astr 1
+        astr1Board = transform.Find("MainVitalBoard").gameObject;
+        astr1BodyBoard = astr1Board.transform.Find("BodyBoard").gameObject;
+        astr1SuitBoard = astr1Board.transform.Find("SuitBoard").gameObject;
+        astr1BackupBoard = astr1Board.transform.Find("BackupBoard").gameObject;
+        astr1BarBoard = astr1Board.transform.Find("BarBoard").gameObject;
+        astr1TimeBoard = astr1Board.transform.Find("RemainingBoard").gameObject;
 
-        //suit board
-        // TODO: Fix these
-        O2rate = suitObject.transform.Find("O2Rate").transform.Find("ProgressIndicator").gameObject.GetComponent<TextMeshPro>();
-        btry_perc = suitObject.transform.Find("Btry_perc").transform.Find("ProgressIndicator").gameObject.GetComponent<TextMeshPro>();
-        suit_p = suitObject.transform.Find("Suit_p").gameObject.GetComponent<TextMeshPro>();
-        O2_p = suitObject.transform.Find("O2_p").gameObject.GetComponent<TextMeshPro>();
-        PO2 = suitObject.transform.Find("PO2").transform.Find("Progress Indicator").gameObject.GetComponent<TextMeshPro>();
+        heartRate = astr1BodyBoard.transform.Find("HeartRateRing").Find("HeartRate").GetComponent<TextMeshPro>();
+        temp = astr1BodyBoard.transform.Find("TempRing").Find("Temp").GetComponent<TextMeshPro>();
+        oxyCons = astr1BodyBoard.transform.Find("OxyConsRing").GetComponent<TextMeshPro>();
+        co2Prod = astr1BodyBoard.transform.Find("CO2ProdRing").GetComponent<TextMeshPro>();
+        priOxy = astr1SuitBoard.transform.Find("PriOxyRing").Find("Percent").GetComponent<TextMeshPro>();
+        batt = astr1SuitBoard.transform.Find("BattRing").Find("Percent").GetComponent<TextMeshPro>();
+        suitPresOxy = astr1SuitBoard.transform.Find("SuitPresOxyRing").GetComponent<TextMeshPro>();
+        suitTotPres = astr1SuitBoard.transform.Find("SuitTotPresRing").GetComponent<TextMeshPro>();
+        suitPresCO2 = astr1SuitBoard.transform.Find("SuitPresCO2Ring").GetComponent<TextMeshPro>();
+        secOxyStor = astr1BackupBoard.transform.Find("SecOxyStorRing").Find("Percent").GetComponent<TextMeshPro>();
+        secOxyPres = astr1BackupBoard.transform.Find("SecOxyPresRing").Find("Percent").GetComponent<TextMeshPro>();
+        priFan = astr1BarBoard.transform.Find("rpmVal").GetComponent<TextMeshPro>();
+        coolLiquidPres = astr1BarBoard.transform.Find("liqVal").GetComponent<TextMeshPro>();
+        coolGasPres = astr1BarBoard.transform.Find("gasVal").GetComponent<TextMeshPro>();
+        powerTime = astr1TimeBoard.transform.Find("PowerTime").Find("Btry_timeLeft").GetComponent<TextMeshPro>();
+        oxyTime = astr1TimeBoard.transform.Find("OxyTime").Find("Oxy_timeLeft").GetComponent<TextMeshPro>();
 
-        //main board
-        // TODO: Fix these
-        /*h2O_liq_p = parent.transform.Find("H2O_liq_p").gameObject.GetComponent<TextMeshPro>();
-        h2O_gas_p = parent.transform.Find("H2O_gas_p").gameObject.GetComponent<TextMeshPro>();
-        fan_tach = parent.transform.Find("Fan_tach").gameObject.GetComponent<TextMeshPro>();*/
+        // Astr 2
+        astr2Board = transform.Find("FellowVitalBoard").gameObject;
+        astr2BodyBoard = astr2Board.transform.Find("BodyBoard").gameObject;
+        astr2SuitBoard = astr2Board.transform.Find("SuitBoard").gameObject;
+        astr2BackupBoard = astr2Board.transform.Find("BackupBoard").gameObject;
+        astr2BarBoard = astr2Board.transform.Find("BarBoard").gameObject;
+        astr2TimeBoard = astr2Board.transform.Find("RemainingBoard").gameObject;
 
-        //connects to game object
-        //1st astronaut
-        // TODO" fix These
-        O2timeLeft = parent.transform.Find("O2TimeLeft").gameObject.GetComponent<TextMeshPro>();
-        H2OtimeLeft = parent.transform.Find("H2OTimeLeft").gameObject.GetComponent<TextMeshPro>();
-        is_running = parent.transform.Find("Running").gameObject.GetComponent<TextMeshPro>();
-        is_paused = parent.transform.Find("Paused").gameObject.GetComponent<TextMeshPro>();
-        time = parent.transform.Find("Time").gameObject.GetComponent<TextMeshPro>();
-        timer = parent.transform.Find("Timer").gameObject.GetComponent<TextMeshPro>();
-        started_at = parent.transform.Find("Started").gameObject.GetComponent<TextMeshPro>();
-        sub_p = parent.transform.Find("Sub_p").gameObject.GetComponent<TextMeshPro>();
-        SO2 = parent.transform.Find("SO2").gameObject.GetComponent<TextMeshPro>();
-        roomID = parent.transform.Find("RoomID").gameObject.GetComponent<TextMeshPro>();
-        sop_p = parent.transform.Find("Sop_p").gameObject.GetComponent<TextMeshPro>();
-        sop_rate = parent.transform.Find("Sop_rate").gameObject.GetComponent<TextMeshPro>();
-        btry_cap = parent.transform.Find("Btry_cap").gameObject.GetComponent<TextMeshPro>();
-        btry_timeLeft = parent.transform.Find("Btry_timeLeft").gameObject.GetComponent<TextMeshPro>();
-        btry_out = parent.transform.Find("Btry_out").gameObject.GetComponent<TextMeshPro>();
-        O2_primeTime = parent.transform.Find("O2_primeTime").gameObject.GetComponent<TextMeshPro>();
-        O2_secTime = parent.transform.Find("O2_secTime").gameObject.GetComponent<TextMeshPro>();
-        h2O_cap = parent.transform.Find("H2O_cap").gameObject.GetComponent<TextMeshPro>();
+        heartRate2 = astr2BodyBoard.transform.Find("HeartRateRing").Find("HeartRate").GetComponent<TextMeshPro>();
+        temp2 = astr2BodyBoard.transform.Find("TempRing").Find("Temp").GetComponent<TextMeshPro>();
+        oxyCons2 = astr2BodyBoard.transform.Find("OxyConsRing").GetComponent<TextMeshPro>();
+        co2Prod2 = astr2BodyBoard.transform.Find("CO2ProdRing").GetComponent<TextMeshPro>();
+        priOxy2 = astr2SuitBoard.transform.Find("PriOxyRing").Find("Percent").GetComponent<TextMeshPro>();
+        batt2 = astr2SuitBoard.transform.Find("BattRing").Find("Percent").GetComponent<TextMeshPro>();
+        suitPresOxy2 = astr2SuitBoard.transform.Find("SuitPresOxyRing").GetComponent<TextMeshPro>();
+        suitTotPres2 = astr2SuitBoard.transform.Find("SuitTotPresRing").GetComponent<TextMeshPro>();
+        suitPresCO22 = astr2SuitBoard.transform.Find("SuitPresCO2Ring").GetComponent<TextMeshPro>();
+        secOxyStor2 = astr2BackupBoard.transform.Find("SecOxyStorRing").Find("Percent").GetComponent<TextMeshPro>();
+        secOxyPres2 = astr2BackupBoard.transform.Find("SecOxyPresRing").Find("Percent").GetComponent<TextMeshPro>();
+        priFan2 = astr2BarBoard.transform.Find("rpmVal").GetComponent<TextMeshPro>();
+        coolLiquidPres2 = astr2BarBoard.transform.Find("liqVal").GetComponent<TextMeshPro>();
+        coolGasPres2 = astr2BarBoard.transform.Find("gasVal").GetComponent<TextMeshPro>();
+        powerTime2 = astr2TimeBoard.transform.Find("PowerTime").Find("Btry_timeLeft").GetComponent<TextMeshPro>();
+        oxyTime2 = astr2TimeBoard.transform.Find("OxyTime").Find("Oxy_timeLeft").GetComponent<TextMeshPro>();
 
-        //2nd astronaut
-
-        //body board
-        heartRate1 = bodyObjectFellow.transform.Find("HeartRateRing").transform.Find("HeartRate").gameObject.GetComponent<TextMeshPro>();
-        temp1 = bodyObjectFellow.transform.Find("TempRing").transform.Find("Temperature").gameObject.GetComponent<TextMeshPro>();
-
-        //suit board
-        // TODO: Fix these
-        /*O2rate1 = suitObjectFellow.transform.Find("O2Rate").gameObject.GetComponent<TextMeshPro>();
-        btry_perc1 = suitObjectFellow.transform.Find("Btry_perc").gameObject.GetComponent<TextMeshPro>();
-        suit_p1 = suitObjectFellow.transform.Find("Suit_p").gameObject.GetComponent<TextMeshPro>();
-        O2_p1 = suitObjectFellow.transform.Find("O2_p").gameObject.GetComponent<TextMeshPro>();
-        PO21 = suitObjectFellow.transform.Find("PO2").gameObject.GetComponent<TextMeshPro>();*/
-
-        //main board
-        // Fix These:
-        /*h2O_liq_p1 = parent.transform.Find("H2O_liq_p1").gameObject.GetComponent<TextMeshPro>();
-        h2O_gas_p1 = parent.transform.Find("H2O_gas_p1").gameObject.GetComponent<TextMeshPro>();
-        fan_tach1 = parent.transform.Find("Fan_tach1").gameObject.GetComponent<TextMeshPro>();
-
-        SO21 = parent.transform.Find("SO21").gameObject.GetComponent<TextMeshPro>();
-        O2timeLeft1 = parent.transform.Find("O2TimeLeft1").gameObject.GetComponent<TextMeshPro>();
-        H2OtimeLeft1 = parent.transform.Find("H2OTimeLeft1").gameObject.GetComponent<TextMeshPro>();
-        roomID1 = parent.transform.Find("roomID1").gameObject.GetComponent<TextMeshPro>();
-        is_running1 = parent.transform.Find("Running1").gameObject.GetComponent<TextMeshPro>();
-        is_paused1 = parent.transform.Find("Paused1").gameObject.GetComponent<TextMeshPro>();
-        time1 = parent.transform.Find("Time1").gameObject.GetComponent<TextMeshPro>();
-        timer1 = parent.transform.Find("Timer1").gameObject.GetComponent<TextMeshPro>();
-        started_at1 = parent.transform.Find("Started1").gameObject.GetComponent<TextMeshPro>();
-        sub_p1 = parent.transform.Find("Sub_p1").gameObject.GetComponent<TextMeshPro>();
-        sop_p1 = parent.transform.Find("Sop_p1").gameObject.GetComponent<TextMeshPro>();
-        sop_rate1 = parent.transform.Find("Sop_rate1").gameObject.GetComponent<TextMeshPro>();
-        btry_cap1 = parent.transform.Find("Btry_cap1").gameObject.GetComponent<TextMeshPro>();
-        btry_timeLeft1 = parent.transform.Find("Btry_timeLeft1").gameObject.GetComponent<TextMeshPro>();
-        btry_out1 = parent.transform.Find("Btry_out1").gameObject.GetComponent<TextMeshPro>();
-        O2_primeTime1 = parent.transform.Find("O2_primeTime1").gameObject.GetComponent<TextMeshPro>();
-        O2_secTime1 = parent.transform.Find("O2_secTime1").gameObject.GetComponent<TextMeshPro>();
-        h2O_cap1 = parent.transform.Find("H2O_cap1").gameObject.GetComponent<TextMeshPro>();*/
     }
 
     private void onVitalsUpdate(VitalsUpdatedEvent e)
     {
-        /*//updates text on game object for 1st astronaut
+        // Body
+        heartRate.text = e.vitals.heart_rate.ToString("F0");
+        temp.text = e.vitals.temperature.ToString("F0");
+        oxyCons.text = e.vitals.oxy_consumption.ToString("F1");
+        setGaugeObject(oxyCons);
+        updateGaugeValue((float)e.vitals.oxy_consumption);
+        co2Prod.text = e.vitals.co2_production.ToString("F1");
+        setGaugeObject(co2Prod);
+        updateGaugeValue((float)e.vitals.co2_production);
 
-        //body
-        heartRate.text = e.vitals.heart_rate.ToString();
-        temp.text = e.vitals.temperature.ToString();
+        // Suit
+        priOxy.text = e.vitals.oxy_pri_storage.ToString("F0") + "<size=75%>%</size>"; 
+        batt.text = (e.vitals.batt_time_left / BATT_TIME_CAP).ToString("F0"); // Percentage
+        suitPresOxy.text = e.vitals.suit_pressure_oxy.ToString("F1");
+        setGaugeObject(suitPresOxy);
+        updateGaugeValue((float)e.vitals.suit_pressure_oxy);
+        suitTotPres.text = e.vitals.suit_pressure_total.ToString("F1");
+        setGaugeObject(suitTotPres);
+        updateGaugeValue((float)e.vitals.suit_pressure_total);
+        suitPresCO2.text = e.vitals.suit_pressure_co2.ToString("F1");
+        setGaugeObject(suitPresCO2);
+        updateGaugeValue((float)e.vitals.suit_pressure_co2);
 
-        //suit
-        O2rate.text = e.vitals.o2_rate.ToString("F0");
-        suit_p.text = e.vitals.suit_pressure.ToString("F1");
-        setGaugeObject(suit_p);
-        updateGaugeValue(e.vitals.suit_pressure);
-        O2_p.text = e.vitals.o2_pressure.ToString("F1");
-        setGaugeObject(O2_p);
-        updateGaugeValue(e.vitals.o2_pressure);
+        // Bars
+        priFan.text = e.vitals.fan_pri_rpm.ToString("F0");
+        setBarObject((float)e.vitals.fan_pri_rpm, "fan", astr1BarBoard);
+        coolLiquidPres.text = e.vitals.coolant_liquid_pressure.ToString("F1");
+        setBarObject((float)e.vitals.coolant_liquid_pressure, "liq_psi", astr1BarBoard);
+        coolGasPres.text = e.vitals.coolant_gas_pressure.ToString("F1");
+        setBarObject((float)e.vitals.coolant_gas_pressure, "gas_psi", astr1BarBoard);
 
-        
-        //main board
-        //h2O_liq_p.text = e.vitals.h2o_liquid_pressure.ToString();
-        setBarObject(e.vitals.h2o_liquid_pressure, "liq_psi");
+        // Backups
+        secOxyStor.text = e.vitals.oxy_sec_storage.ToString("F0") + "<size=75%>%</size>";
+        secOxyPres.text = e.vitals.oxy_sec_pressure.ToString("F0") + "<size=75%>%</size>";
 
-        //fan_tach.text = e.vitals.fan_tachometer.ToString();
-        setBarObject(e.vitals.fan_tachometer, "fan");
-
-        //h2O_gas_p.text = e.vitals.h2o_gas_pressure.ToString();
-        setBarObject(e.vitals.h2o_gas_pressure, "gas_psi");*/
-        /*
-        PO2.text = e.vitals.primary_oxygen.ToString();
-        btry_perc.text = e.vitals.battery_percentage.ToString();
-        h2O_gas_p.text = "H2O: " + e.vitals.h2o_gas_pressure.ToString();
-        O2timeLeft.text = "O2 time remaining: " + e.vitals.o2_time_left.ToString();
-        H2OtimeLeft.text = "H2O time remaining: " + e.vitals.h2o_time_left.ToString();
-        is_running.text = "Running: " + e.vitals.is_running.ToString();
-        is_paused.text = "Paused: " + e.vitals.is_paused.ToString();
-        time.text = "Time: " + e.vitals.time.ToString();
-        timer.text = "Timer: " + e.vitals.timer.ToString();
-        started_at.text = "Started at: " + e.vitals.started_at.ToString();
-        sub_p.text = "Sub Pressure: " + e.vitals.sub_pressure.ToString();
-        SO2.text = "Secondary O2: " + e.vitals.secondary_oxygen.ToString();
-        roomID.text = "RoomID: " + e.vitals.room_id.ToString();
-        sop_p.text = "Sop Pressure: " + e.vitals.sop_pressure.ToString();
-        sop_rate.text = "Sop Rate: " + e.vitals.sop_rate.ToString();
-        btry_cap.text = "Battery Capacity: " + e.vitals.battery_capacity.ToString();
-        btry_timeLeft.text = "Battery Time Left: " + e.vitals.battery_time_left.ToString();
-        btry_out.text = "Battery Output: " + e.vitals.battery_outputput.ToString();
-        O2_primeTime.text = "O2 Primary Time: " + e.vitals.oxygen_primary_time.ToString();
-        O2_secTime.text = "O2 Secondary Time: " + e.vitals.oxygen_secondary_time.ToString();
-        h2O_cap.text = "H2O Capacity: " + e.vitals.water_capacity.ToString();
-        // Add warning screens + when rates are going to fast*/
+        // Time Remaining
+        powerTime.text = FloatToTimeString((float)e.vitals.batt_time_left); // 00:00:00
+        oxyTime.text = FloatToTimeString((float)e.vitals.oxy_time_left); // 00:00:00
     }
 
     private void onFellowVitalsUpdate(FellowAstronautVitalsDataChangeEvent e) {
-        /*//updates text on game object for 2nd astronaut 
-        heartRate1.text = "HeartRate: " + e.AstronautToChange.vitals.heart_rate.ToString();
-        h2O_gas_p1.text = "H2O Gas Pressure: " + e.AstronautToChange.vitals.h2o_gas_pressure.ToString();
-        PO21.text = "Primary O2: " + e.AstronautToChange.vitals.primary_oxygen.ToString();
-        SO21.text = "Secondary O2: " + e.AstronautToChange.vitals.secondary_oxygen.ToString();
-        O2timeLeft1.text = "O2 Time Remaining: " + e.AstronautToChange.vitals.o2_time_left.ToString();
-        H2OtimeLeft1.text = "H2O Time Remaining: " + e.AstronautToChange.vitals.h2o_time_left.ToString();
-        O2rate1.text = "O2 Rate: " + e.AstronautToChange.vitals.o2_rate.ToString();
-        roomID1.text = "RoomID: " + e.AstronautToChange.vitals.room_id.ToString();
-        is_running1.text = "Running: " + e.AstronautToChange.vitals.is_running.ToString();
-        is_paused1.text = "Paused: " + e.AstronautToChange.vitals.is_paused.ToString();
-        time1.text = "Time: " + e.AstronautToChange.vitals.time.ToString();
-        timer1.text = "Timer: " + e.AstronautToChange.vitals.timer.ToString();
-        started_at1.text = "Started at: " + e.AstronautToChange.vitals.started_at.ToString();
-        sub_p1.text = "Sub Pressure: " + e.AstronautToChange.vitals.sub_pressure.ToString();
+        // Body
+        heartRate2.text = e.vital.heart_rate.ToString("F0");
+        temp2.text = e.vital.temperature.ToString("F0");
+        oxyCons2.text = e.vital.oxy_consumption.ToString("F1");
+        setGaugeObject(oxyCons2);
+        updateGaugeValue((float)e.vital.oxy_consumption);
+        co2Prod2.text = e.vital.co2_production.ToString("F1");
+        setGaugeObject(co2Prod2);
+        updateGaugeValue((float)e.vital.co2_production);
 
-        suit_p1.text = "Suit Pressure: " + e.AstronautToChange.vitals.suit_pressure.ToString();
-        setGaugeObject(suit_p1);
-        updateGaugeValue(e.AstronautToChange.vitals.suit_pressure);
-        O2_p1.text = "O2 Pressure: " + e.AstronautToChange.vitals.o2_pressure.ToString();
-        setGaugeObject(O2_p1);
-        updateGaugeValue(e.AstronautToChange.vitals.o2_pressure);
+        // Suit
+        priOxy2.text = e.vital.oxy_pri_storage.ToString("F0") + "<size=75%>%</size>";
+        batt2.text = (e.vital.batt_time_left / BATT_TIME_CAP).ToString("F0"); // Percentage
+        suitPresOxy2.text = e.vital.suit_pressure_oxy.ToString("F1");
+        setGaugeObject(suitPresOxy2);
+        updateGaugeValue((float)e.vital.suit_pressure_oxy);
+        suitTotPres2.text = e.vital.suit_pressure_total.ToString("F1");
+        setGaugeObject(suitTotPres2);
+        updateGaugeValue((float)e.vital.suit_pressure_total);
+        suitPresCO22.text = e.vital.suit_pressure_co2.ToString("F1");
+        setGaugeObject(suitPresCO22);
+        updateGaugeValue((float)e.vital.suit_pressure_co2);
 
+        // Bars
+        priFan2.text = e.vital.fan_pri_rpm.ToString("F0");
+        setBarObject((float)e.vital.fan_pri_rpm, "fan", astr2BarBoard);
+        coolLiquidPres2.text = e.vital.coolant_liquid_pressure.ToString("F1");
+        setBarObject((float)e.vital.coolant_liquid_pressure, "liq_psi", astr2BarBoard);
+        coolGasPres2.text = e.vital.coolant_gas_pressure.ToString("F1");
+        setBarObject((float)e.vital.coolant_gas_pressure, "gas_psi", astr2BarBoard);
 
-        h2O_liq_p1.text = "H2O Liquid Pressure: " + e.AstronautToChange.vitals.h2o_liquid_pressure.ToString();
-        sop_p1.text = "Sop Pressure: " + e.AstronautToChange.vitals.sop_pressure.ToString();
-        sop_rate1.text = "Sop Rate: " + e.AstronautToChange.vitals.sop_rate.ToString();
-        fan_tach1.text = "Fan Tachometer: " + e.AstronautToChange.vitals.fan_tachometer.ToString();
-        btry_cap1.text = "Battery Capacity: " + e.AstronautToChange.vitals.battery_capacity.ToString();
-        temp1.text = "Temperature: " + e.AstronautToChange.vitals.temperature.ToString();
-        btry_timeLeft1.text = "Battery Time Left: " + e.AstronautToChange.vitals.battery_time_left.ToString();
-        btry_perc1.text = "Battery Percent: " + e.AstronautToChange.vitals.battery_percentage.ToString();
-        btry_out1.text = "Battery Output: " + e.AstronautToChange.vitals.battery_outputput.ToString();
-        O2_primeTime1.text = "O2 Primary Time: " + e.AstronautToChange.vitals.oxygen_primary_time.ToString();
-        O2_secTime1.text = "O2 Secondary Time: " + e.AstronautToChange.vitals.oxygen_secondary_time.ToString();
-        h2O_cap1.text = "H2O Capacity: " + e.AstronautToChange.vitals.water_capacity.ToString();
-        // Add warning screens + when rates are going to fast*/
+        // Backups
+        secOxyStor2.text = e.vital.oxy_sec_storage.ToString("F0") + "<size=75%>%</size>";
+        secOxyPres2.text = e.vital.oxy_sec_pressure.ToString("F0") + "<size=75%>%</size>";
+
+        // Time Remaining
+        powerTime2.text = FloatToTimeString((float)e.vital.batt_time_left); // 00:00:00
+        oxyTime2.text = FloatToTimeString((float)e.vital.oxy_time_left); // 00:00:00
+    }
+
+    private string FloatToTimeString(float timeInSeconds)
+    {
+        int hours = (int)(timeInSeconds / 3600);
+        int minutes = (int)((timeInSeconds % 3600) / 60);
+        int seconds = (int)(timeInSeconds % 60);
+
+        return $"{hours:D2}:{minutes:D2}:{seconds:D2}";
     }
 
     // Half gauge functions
@@ -240,7 +250,7 @@ public class vitalsController : MonoBehaviour
 
     public void updateGaugeValue(float incomingGaugeValue)
     {
-        setGaugeColor(incomingGaugeValue);
+        //setGaugeColor(incomingGaugeValue);
 
         float percentValue = calculatePercentage(incomingGaugeValue);
         float degreeRotation = calculateRotation(percentValue);
@@ -300,30 +310,48 @@ public class vitalsController : MonoBehaviour
     }
 
     //progress bar functions
-    void setBarObject(float barValue, string type)
+    void setBarObject(float barValue, string type, GameObject parent)
     {
+        float percentage = 0f;
         if (type == "liq_psi")
         {
             indicator = parent.transform.Find("Liq_bar").gameObject.transform.Find("Indicator").gameObject;
+            percentage = barValue / 500f;
         }
         if (type == "gas_psi")
         {
             indicator = parent.transform.Find("gas_bar").gameObject.transform.Find("Indicator").gameObject;
+            percentage = barValue / 500f;
         }
         if (type == "fan")
         {
             indicator = parent.transform.Find("fan_bar").gameObject.transform.Find("Indicator").gameObject;
+            percentage = barValue / 50000f;
         }
 
-        Vector3 currentPosition = transform.position;
-        currentPosition.x = calculatePSI(barValue);
-        indicator.transform.position = currentPosition;
+        MoveIndicator(percentage, indicator);
     }
 
 
+    // -1.86 -> 10.13
 
     float calculatePSI(float barValue)
     {
         return (float)Math.Min((barValue / 6) * 10, 10);
+    }
+
+    void MoveIndicator(float percentage, GameObject i)
+    {
+        // Define the range of the local x position
+        float minX = -1.86f;
+        float maxX = 10.13f;
+
+        // Calculate the target x position within the specified range
+        float targetX = Mathf.Lerp(minX, maxX, percentage);
+
+        // Set the local position of the indicator
+        Vector3 targetPosition = i.transform.localPosition;
+        targetPosition.x = targetX;
+        i.transform.localPosition = targetPosition;
     }
 }

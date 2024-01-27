@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using TMPro;
 
@@ -12,19 +13,17 @@ public class RadialProgress : MonoBehaviour
 
     void Start()
     {
-        /*SR.GetComponent<SpriteRenderer>().material.SetFloat("_Arc2", 0.0f);
+        SR.GetComponent<SpriteRenderer>().material.SetFloat("_Arc2", 0.0f);
         SR.GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", 360.0f);
-        //ProgressIndicator.transform.Find("ProgressIndicator").GetComponent<TextMeshPro>();
-        currentValue = 0f;
-        rotate = 360.0f;*/
     }
 
     void Update()
     {
-        /*if (currentValue <= 100.0f)
+        Match match = Regex.Match(ProgressIndicator.text, @"\d+");
+
+        if (match.Success)
         {
-            currentValue += speed * Time.deltaTime;
-            ProgressIndicator.text = ((int)currentValue).ToString() + "%";
+            currentValue = float.Parse(match.Value);
 
             // Calculate rotation based on percentage of progress
             float percentage = 1.0f - (currentValue / 100.0f);
@@ -33,10 +32,6 @@ public class RadialProgress : MonoBehaviour
             // Set the rotation in the material
             SR.GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", rotate);
         }
-        else
-        {
-            ProgressIndicator.text = "Done";
-        }*/
     }
 }
 

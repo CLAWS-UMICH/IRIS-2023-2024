@@ -11,7 +11,8 @@ public enum Screens
     SelectNavWaypoint,
     SelectGeoWaypoint,
     CreatingWaypoint,
-    Vitals,
+    Vitals_1,
+    Vitals_2,
     Map_3D,
     Map_2D,
     Navigation,
@@ -54,7 +55,8 @@ public class StateMachine : MonoBehaviour
     public void CloseAll()
     {
         EventBus.Publish(new CloseEvent(Screens.CreatingWaypoint));
-        EventBus.Publish(new CloseEvent(Screens.Vitals));
+        EventBus.Publish(new CloseEvent(Screens.Vitals_1));
+        EventBus.Publish(new CloseEvent(Screens.Vitals_2));
         EventBus.Publish(new CloseEvent(Screens.Map_3D));
         EventBus.Publish(new CloseEvent(Screens.Map_2D));
         EventBus.Publish(new CloseEvent(Screens.Navigation));

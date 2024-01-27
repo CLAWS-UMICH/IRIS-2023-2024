@@ -36,6 +36,7 @@ public class Message
 [System.Serializable]
 public class Vitals
 {
+<<<<<<< HEAD
     public string eva_time;
     public string battery_time_left;
     public double primary_oxygen_storage;
@@ -59,6 +60,31 @@ public class Vitals
     public double coolant_ml;
     public double h2o_gas_pressure;
     public double h2o_liquid_pressure;
+=======
+    public int eva_time;
+    public double batt_time_left;
+    public double oxy_pri_storage;
+    public double oxy_sec_storage;
+    public double oxy_pri_pressure;
+    public double oxy_sec_pressure;
+    public int oxy_time_left;
+    public double heart_rate;
+    public double oxy_consumption;
+    public double co2_production;
+    public double suit_pressure_oxy;
+    public double suit_pressure_co2;
+    public double suit_pressure_other;
+    public double suit_pressure_total;
+    public double fan_pri_rpm;
+    public double fan_sec_rpm;
+    public double helmet_pressure_co2;
+    public double scrubber_a_co2_storage;
+    public double scrubber_b_co2_storage;
+    public double temperature;
+    public double coolant_m;
+    public double coolant_gas_pressure;
+    public double coolant_liquid_pressure;
+>>>>>>> 7a710a88ec4b9fe9e3147315c7fb93216039ba5d
 }
 
 // Geosamples
@@ -97,16 +123,13 @@ public class Geosample
 [System.Serializable]
 public class GeosampleZones
 {
-    // TODO emily
     public List<GeosampleZone> AllGeosamplezones = new List<GeosampleZone>();
 }
 
 [System.Serializable]
 public class GeosampleZone
 {
-    // TODO emily
-    // public List<GeoSamples> ZoneGeosamples = new List<GeoSamples>
-    public int zone_id;
+    public char zone_id;
     public List<int> ZoneGeosamplesIds = new();
     public Location location;
     public float radius;
@@ -119,10 +142,10 @@ public class GeosampleZone
         }
 
         GeosampleZone otherGeoZone = (GeosampleZone)obj;
-        return ZoneGeosamplesIds == otherGeoZone.ZoneGeosamplesIds &&
+        return ZoneGeosamplesIds.Equals(otherGeoZone.ZoneGeosamplesIds) &&
                zone_id == otherGeoZone.zone_id &&
                location.Equals(otherGeoZone.location) &&
-               radius == otherGeoZone.radius;
+               radius == otherGeoZone.radius;  
     }
 }
 
@@ -406,6 +429,7 @@ public class FellowAstronaut
 }
 
 // TSS
+<<<<<<< HEAD
 public class COMM
 {
     public CommDetails comm;
@@ -525,4 +549,155 @@ public class UiDetails
     public bool eva2_water_waste;
     public bool oxy_vent;
     public bool depress;
+=======
+[System.Serializable]
+public class COMM
+{
+    public CommDetails comm;
+}
+
+[System.Serializable]
+public class CommDetails
+{
+    public bool comm_tower;
+}
+
+[System.Serializable]
+public class DCU
+{
+    public EvaDetails eva1;
+    public EvaDetails eva2;
+}
+
+[System.Serializable]
+public class IMU
+{
+    public IMUData eva1;
+    public IMUData eva2;
+}
+
+[System.Serializable]
+public class IMUData
+{
+    public double posx;
+    public double posy;
+    public double heading;
+}
+
+
+[System.Serializable]
+public class EvaDetails
+{
+    public bool batt;
+    public bool oxy;
+    public bool comm;
+    public bool fan;
+    public bool pump;
+    public bool co2;
+}
+
+[System.Serializable]
+public class ROVER
+{
+    public RoverDetails rover;
+}
+
+[System.Serializable]
+public class RoverDetails
+{
+    public double posx;
+    public double posy;
+    public int qr_id;
+}
+
+[System.Serializable]
+public class SPEC
+{
+    public EvaData eva1;
+    public EvaData eva2;
+}
+
+[System.Serializable]
+public class EvaData
+{
+    public string name;
+    public int id;
+    public DataDetails data;
+}
+
+[System.Serializable]
+public class DataDetails
+{
+    public int SiO2;
+    public int TiO2;
+    public int Al2O3;
+    public int FeO;
+    public int MnO;
+    public int MgO;
+    public int CaO;
+    public int K2O;
+    public int P2O3;
+}
+
+[System.Serializable]
+public class TELEMETRY
+{
+    public TelemetryDetails telemetry;
+}
+
+[System.Serializable]
+public class TelemetryDetails
+{
+    public int eva_time;
+    public EvaTelemetryDetails eva1;
+    public EvaTelemetryDetails eva2;
+}
+
+[System.Serializable]
+public class EvaTelemetryDetails
+{
+    public double batt_time_left;
+    public double oxy_pri_storage;
+    public double oxy_sec_storage;
+    public double oxy_pri_pressure;
+    public double oxy_sec_pressure;
+    public int oxy_time_left;
+    public double heart_rate;
+    public double oxy_consumption;
+    public double co2_production;
+    public double suit_pressure_oxy;
+    public double suit_pressure_co2;
+    public double suit_pressure_other;
+    public double suit_pressure_total;
+    public double fan_pri_rpm;
+    public double fan_sec_rpm;
+    public double helmet_pressure_co2;
+    public double scrubber_a_co2_storage;
+    public double scrubber_b_co2_storage;
+    public double temperature;
+    public double coolant_m;
+    public double coolant_gas_pressure;
+    public double coolant_liquid_pressure;
+}
+
+[System.Serializable]
+public class UIA
+{
+    public UiDetails uia;
+}
+
+[System.Serializable]
+public class UiDetails
+{
+    public bool eva1_power;
+    public bool eva1_oxy;
+    public bool eva1_water_supply;
+    public bool eva1_water_waste;
+    public bool eva2_power;
+    public bool eva2_oxy;
+    public bool eva2_water_supply;
+    public bool eva2_water_waste;
+    public bool oxy_vent;
+    public bool depress;
+>>>>>>> 7a710a88ec4b9fe9e3147315c7fb93216039ba5d
 }

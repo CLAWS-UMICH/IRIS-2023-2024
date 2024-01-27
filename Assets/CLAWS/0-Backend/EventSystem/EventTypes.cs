@@ -281,6 +281,16 @@ public class TaskFinishedEvent
     }
 }
 
+public class TasklistBackendUpdated
+{
+    public TasklistBackendUpdated() { }
+
+    public override string ToString()
+    {
+        return "Tasklist Backend Finished";
+    }
+}
+
 public class SubtaskStartedEvent
 {
     public SubtaskObj StartedTask { get; private set; }
@@ -340,11 +350,11 @@ public class FellowAstronautLocationDataChangeEvent
 
 public class FellowAstronautVitalsDataChangeEvent
 {
-    public FellowAstronaut AstronautToChange { get; private set; }
+    public Vitals vital { get; private set; }
 
-    public FellowAstronautVitalsDataChangeEvent(FellowAstronaut astronautToChange)
+    public FellowAstronautVitalsDataChangeEvent(Vitals v)
     {
-        AstronautToChange = astronautToChange;
+        vital = v;
     }
 }
 
@@ -440,5 +450,21 @@ public class UnHighlight
     public UnHighlight(List<string> _levelnames)
     {
         levelnames = _levelnames;
+    }
+}
+
+public class CreateAlert
+{
+    public AlertEnum alertType;
+    public string title;
+    public string desc;
+    public string letter;
+
+    public CreateAlert(AlertEnum _alertType, string _title = "", string _desc = "", string _letter = "")
+    {
+        alertType = _alertType;
+        title = _title;
+        desc = _desc;
+        letter = _letter;
     }
 }

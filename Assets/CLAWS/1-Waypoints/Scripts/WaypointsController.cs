@@ -56,6 +56,7 @@ public class WaypointsController : MonoBehaviour
 
     public void onWaypointsAdded(WaypointsAddedEvent e)
     {
+        Debug.Log("test");
         List<Waypoint> addedWaypoints = e.NewAddedWaypoints;
         foreach(Waypoint waypoint in addedWaypoints)
         {
@@ -63,8 +64,8 @@ public class WaypointsController : MonoBehaviour
             AstronautInstance.User.WaypointData.AllWaypoints.Add(waypoint);
             SpawnWaypoint(waypoint);
 
-            GameObject button = screenHandler.AddButton(waypoint);
-            waypointButtonDic[waypoint.waypoint_id] = button;
+            //GameObject button = screenHandler.AddButton(waypoint); Set the function to add button with screen handler
+            //waypointButtonDic[waypoint.waypoint_id] = button;
         }
     }
     public void onWaypointToAdd(WaypointToAdd e)
