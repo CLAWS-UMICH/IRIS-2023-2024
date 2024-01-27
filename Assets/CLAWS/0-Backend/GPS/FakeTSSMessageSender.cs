@@ -15,7 +15,7 @@ public class FakeTSSMessageSender : MonoBehaviour
         mainCamera = mainCameraHolder.transform.Find("Main Camera").gameObject;
         Fake_SetGPS();
         Fake_Vitals();
-        FakeWayPoint();
+        StartCoroutine(AddFake());
     }
    
     public void Fake_SetGPS()
@@ -57,6 +57,12 @@ public class FakeTSSMessageSender : MonoBehaviour
         List<Waypoint> list = new List<Waypoint>();
         list.Add(way);
         EventBus.Publish(new WaypointsAddedEvent(list));
+    }
+
+    IEnumerator AddFake()
+    {
+        yield return new WaitForSeconds(3);
+        FakeWayPoint();
     }
 
     IEnumerator UpdateVitals()
