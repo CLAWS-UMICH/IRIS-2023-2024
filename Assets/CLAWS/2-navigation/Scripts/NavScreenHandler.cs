@@ -116,9 +116,9 @@ public class NavScreenHandler : MonoBehaviour
                 stationScrollHandler.ScrollUpOrLeft();
                 break;
 
-            /*case ScreenType.Navigation:
-                navScrollHandler.ScrollUpOrLeft();
-                break;*/
+            case ScreenType.Danger:
+                dangerScrollHandler.ScrollUpOrLeft();
+                break;
 
             case ScreenType.GeoSample:
                 geoScrollHandler.ScrollUpOrLeft();
@@ -137,9 +137,9 @@ public class NavScreenHandler : MonoBehaviour
                 stationScrollHandler.ScrollDownOrRight();
                 break;
 
-            /*case ScreenType.Navigation:
-                navScrollHandler.ScrollDownOrRight();
-                break;*/
+            case ScreenType.Danger:
+                dangerScrollHandler.ScrollDownOrRight();
+                break;
 
             case ScreenType.GeoSample:
                 geoScrollHandler.ScrollDownOrRight();
