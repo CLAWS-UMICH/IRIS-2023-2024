@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public enum ScreenType
 {
@@ -15,6 +16,7 @@ public class NavScreenHandler : MonoBehaviour
 {
     GameObject parentScreen;
     GameObject stationScreen;
+    GameObject POIScreen;
     GameObject navScreen;
     GameObject geoScreen;
 
@@ -24,8 +26,9 @@ public class NavScreenHandler : MonoBehaviour
     [SerializeField] GameObject buttonPrefab;
 
     ScrollHandler stationScrollHandler;
-    ScrollHandler navScrollHandler;
+    ScrollHandler POIScrollHandler;
     ScrollHandler geoScrollHandler;
+    ScrollHandler dangerScrollHandler;
 
     [SerializeField] ScreenType currentScreen;
 
@@ -39,11 +42,13 @@ public class NavScreenHandler : MonoBehaviour
         selectButtonEvent = EventBus.Subscribe<SelectButton>(onButtonSelect);
         parentScreen = transform.parent.Find("NavScreen").gameObject;
         stationScreen = parentScreen.transform.Find("StationScroll").gameObject;
+        POIScreen = parentScreen.transform.Find("POIScroll").gameObject;
         navScreen = parentScreen.transform.Find("NavScroll").gameObject;
         geoScreen = parentScreen.transform.Find("GeoScroll").gameObject;
         currentScreen = ScreenType.Station;
         stationScrollHandler = stationScreen.GetComponent<ScrollHandler>();
-        navScrollHandler = navScreen.GetComponent<ScrollHandler>();
+        POIScrollHandler = POIScreen.GetComponent<ScrollHandler>();
+        dangerScrollHandler = navScreen.GetComponent<ScrollHandler>();
         geoScrollHandler = geoScreen.GetComponent<ScrollHandler>();
         hasLocation = false;
         CloseNavScreen();
@@ -157,7 +162,7 @@ public class NavScreenHandler : MonoBehaviour
                 break;
 
             case 1:
-                go = navScrollHandler.HandleAddingButton(buttonPrefab);
+                go = dangerScrollHandler.HandleAddingButton(buttonPrefab);
                 break;
 
             case 2:
@@ -180,7 +185,7 @@ public class NavScreenHandler : MonoBehaviour
                 break;
 
             case 1:
-                navScrollHandler.HandleButtonDeletion(button);
+                dangerScrollHandler.HandleButtonDeletion(button);
                 break;
 
             case 2:
