@@ -6,8 +6,9 @@ using TMPro;
 public enum ScreenType
 {
     Station,
-    Navigation,
-    GeoSample
+    POI,
+    GeoSample,
+    Danger
 }
 
 public class NavScreenHandler : MonoBehaviour
@@ -86,7 +87,7 @@ public class NavScreenHandler : MonoBehaviour
     {
         EventBus.Publish(new ScreenChangedEvent(Screens.SelectNavWaypoint));
         hasLocation = false;
-        currentScreen = ScreenType.Navigation;
+        //currentScreen = ScreenType.Navigation;
         navScreen.SetActive(true);
         stationScreen.SetActive(false);
         geoScreen.SetActive(false);
@@ -110,9 +111,9 @@ public class NavScreenHandler : MonoBehaviour
                 stationScrollHandler.ScrollUpOrLeft();
                 break;
 
-            case ScreenType.Navigation:
+            /*case ScreenType.Navigation:
                 navScrollHandler.ScrollUpOrLeft();
-                break;
+                break;*/
 
             case ScreenType.GeoSample:
                 geoScrollHandler.ScrollUpOrLeft();
@@ -131,9 +132,9 @@ public class NavScreenHandler : MonoBehaviour
                 stationScrollHandler.ScrollDownOrRight();
                 break;
 
-            case ScreenType.Navigation:
+            /*case ScreenType.Navigation:
                 navScrollHandler.ScrollDownOrRight();
-                break;
+                break;*/
 
             case ScreenType.GeoSample:
                 geoScrollHandler.ScrollDownOrRight();
