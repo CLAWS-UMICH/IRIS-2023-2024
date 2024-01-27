@@ -15,6 +15,7 @@ public class FakeTSSMessageSender : MonoBehaviour
         mainCamera = mainCameraHolder.transform.Find("Main Camera").gameObject;
         Fake_SetGPS();
         Fake_Vitals();
+        FakeWayPoint();
     }
    
     public void Fake_SetGPS()
@@ -23,6 +24,7 @@ public class FakeTSSMessageSender : MonoBehaviour
         EventBus.Publish<UpdatedGPSEvent>(new UpdatedGPSEvent());
         StartCoroutine(UpdateLocation());
     }
+
 
     IEnumerator UpdateLocation()
     {
@@ -40,6 +42,21 @@ public class FakeTSSMessageSender : MonoBehaviour
     {
         //AstronautInstance.User.VitalsData.started_at = DateTime.Now.ToString("HH:mm:ss");
         StartCoroutine(UpdateVitals());
+    }
+
+    public void FakeWayPoint()
+    {
+        Waypoint way = new Waypoint();
+        way.waypoint_id = 0;
+        way.waypoint_letter = "A";
+        way.location =(GPSUtils.AppPositionToGPSCoords( GameObject.Find("Main Camera").transform.position));
+        way.type = 0;
+        way.description = "FakeWayPoint";
+        way.author = 1;
+        AstronautInstance.User.WaypointData.AllWaypoints.Add(way);
+        List<Waypoint> list = new List<Waypoint>();
+        list.Add(way);
+        EventBus.Publish(new WaypointsAddedEvent(list));
     }
 
     IEnumerator UpdateVitals()
