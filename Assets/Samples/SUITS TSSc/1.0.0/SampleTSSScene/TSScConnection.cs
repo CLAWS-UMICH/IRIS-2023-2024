@@ -292,14 +292,17 @@ public class TSScConnection : MonoBehaviour
                         if (AstronautInstance.User.id == 1)
                         {
                             CopyVitals(AstronautInstance.User.VitalsData, AstronautInstance.User.telemetry.telemetry.eva1);
+                            CopyVitals(AstronautInstance.User.FellowAstronautsData.vitals, AstronautInstance.User.telemetry.telemetry.eva2);
                         } else
                         {
                             CopyVitals(AstronautInstance.User.VitalsData, AstronautInstance.User.telemetry.telemetry.eva2);
+                            CopyVitals(AstronautInstance.User.FellowAstronautsData.vitals, AstronautInstance.User.telemetry.telemetry.eva1);
                         }
 
                         AstronautInstance.User.VitalsData.eva_time = AstronautInstance.User.telemetry.telemetry.eva_time;
 
                         EventBus.Publish<VitalsUpdatedEvent>(new VitalsUpdatedEvent(AstronautInstance.User.VitalsData));
+                        EventBus.Publish<FellowAstronautVitalsDataChangeEvent>(new FellowAstronautVitalsDataChangeEvent(AstronautInstance.User.FellowAstronautsData.vitals));
                     }
                     break;
             }
