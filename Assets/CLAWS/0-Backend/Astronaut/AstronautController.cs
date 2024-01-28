@@ -36,31 +36,6 @@ public class Message
 [System.Serializable]
 public class Vitals
 {
-<<<<<<< HEAD
-    public string eva_time;
-    public string battery_time_left;
-    public double primary_oxygen_storage;
-    public double secondary_oxygen_storage;
-    public double primary_oxygen_pressure;
-    public double secondary_oxygen_pressure;
-    public string oxygen_time_left;
-    public double heart_rate;
-    public double oxygen_consumption;
-    public double co2_production;
-    public double suit_oxygen_pressure;
-    public double suit_cO2_pressure;
-    public double suit_other_pressure;
-    public double suit_total_pressure;
-    public double primary_fan_rpm;
-    public double secondary_fan_rpm;
-    public double helmet_co2_pressure;
-    public double scrubber_a_co2_capacity;
-    public double scrubber_b_co2_capacity;
-    public double temperature;
-    public double coolant_ml;
-    public double h2o_gas_pressure;
-    public double h2o_liquid_pressure;
-=======
     public int eva_time;
     public double batt_time_left;
     public double oxy_pri_storage;
@@ -84,7 +59,6 @@ public class Vitals
     public double coolant_m;
     public double coolant_gas_pressure;
     public double coolant_liquid_pressure;
->>>>>>> 7a710a88ec4b9fe9e3147315c7fb93216039ba5d
 }
 
 // Geosamples
@@ -429,127 +403,6 @@ public class FellowAstronaut
 }
 
 // TSS
-<<<<<<< HEAD
-public class COMM
-{
-    public CommDetails comm;
-}
-
-public class CommDetails
-{
-    public bool comm_tower;
-}
-
-public class DCU
-{
-    public EvaDetails eva1;
-    public EvaDetails eva2;
-}
-
-public class EvaDetails
-{
-    public bool batt;
-    public bool oxy;
-    public bool comm;
-    public bool fan;
-    public bool pump;
-    public bool co2;
-}
-
-public class ROVER
-{
-    public RoverDetails rover;
-}
-
-public class RoverDetails
-{
-    public double posx;
-    public double posy;
-    public int qr_id;
-}
-
-public class SPEC
-{
-    public EvaData eva1;
-    public EvaData eva2;
-}
-
-public class EvaData
-{
-    public string name;
-    public int id;
-    public DataDetails data;
-}
-
-public class DataDetails
-{
-    public int SiO2;
-    public int TiO2;
-    public int Al2O3;
-    public int FeO;
-    public int MnO;
-    public int MgO;
-    public int CaO;
-    public int K2O;
-    public int P2O3;
-}
-
-public class TELEMETRY
-{
-    public TelemetryDetails telemetry;
-}
-
-public class TelemetryDetails
-{
-    public int eva_time;
-    public EvaTelemetryDetails eva1;
-    public EvaTelemetryDetails eva2;
-}
-
-public class EvaTelemetryDetails
-{
-    public double battery_time_left;
-    public double primary_oxygen_storage;
-    public double secondary_oxygen_storage;
-    public double primary_oxygen_pressure;
-    public double secondary_oxygen_pressure;
-    public int oxygen_time_left;
-    public double heart_rate;
-    public double oxygen_consumption;
-    public double co2_production;
-    public double suit_oxygen_pressure;
-    public double suit_cO2_pressure;
-    public double suit_other_pressure;
-    public double suit_total_pressure;
-    public double primary_fan_rpm;
-    public double secondary_fan_rpm;
-    public double helmet_co2_pressure;
-    public double scrubber_a_co2_capacity;
-    public double scrubber_b_co2_capacity;
-    public double temperature;
-    public double coolant_ml;
-    public double h2o_gas_pressure;
-    public double h2o_liquid_pressure;
-}
-
-public class UIA
-{
-    public UiDetails uia;
-}
-
-public class UiDetails
-{
-    public bool eva1_power;
-    public bool eva1_oxy;
-    public bool eva1_water_supply;
-    public bool eva1_water_waste;
-    public bool eva2_power;
-    public bool eva2_oxy;
-    public bool eva2_water_supply;
-    public bool eva2_water_waste;
-    public bool oxy_vent;
-    public bool depress;
-=======
 [System.Serializable]
 public class COMM
 {
@@ -699,5 +552,4 @@ public class UiDetails
     public bool eva2_water_waste;
     public bool oxy_vent;
     public bool depress;
->>>>>>> 7a710a88ec4b9fe9e3147315c7fb93216039ba5d
 }
