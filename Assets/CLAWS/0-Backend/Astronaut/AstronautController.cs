@@ -72,7 +72,7 @@ public class Geosamples
 public class Geosample
 {
     public int geosample_id;
-    public SpecData spec_data;
+    public EvaData eva_data;
     public string time;
     public Location location;
     public int author;
@@ -471,11 +471,11 @@ public class SPEC
 }
 
 [System.Serializable]
-public class EvaData
+public class EvaData 
 {
-    public string name;
-    public int id;
-    public DataDetails data;
+    public string name; // Name of rock
+    public int id; // id of rock from NASA
+    public DataDetails data; // data of rock
 }
 
 [System.Serializable]
