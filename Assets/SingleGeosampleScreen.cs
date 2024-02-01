@@ -9,6 +9,13 @@ public class SingleGeosampleScreen : MonoBehaviour
 {
 
     public Geosample Sample;
+    public GeoSampleScreens CurrentScreen;
+    //add public for each of the geosampling screens
+    public GameObject NameScreen;
+    public GameObject ZoneScreen;
+    public GameObject ColorScreen;
+    public GameObject ShapeScreen;
+    public GameObject VoiceNotesScreen;
 
     // TODO get references of all relevant data here
     //      and then drag and drop
@@ -17,6 +24,7 @@ public class SingleGeosampleScreen : MonoBehaviour
 
     private void Start()
     {
+        CurrentScreen = GeoSampleScreens.None;
         // set zone if within a zone
         // set ID
         // set coordinates
@@ -45,7 +53,9 @@ public class SingleGeosampleScreen : MonoBehaviour
     // ----------------- Buttons -----------------
     public void OnSampleButtonPressed()
     {
+        //check using enum if the screen is open if open close it
         // TODO show screen
+
     }
     public void OnZoneButtonPressed()
     {
