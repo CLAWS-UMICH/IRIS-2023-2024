@@ -27,8 +27,8 @@ Transform:
   m_GameObject: {fileID: 1144119788802389011}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.0126, z: 0}
-  m_LocalScale: {x: 0.13858761, y: 0.27063787, z: 0.02}
+  m_LocalPosition: {x: 0, y: 0.02553, z: 0}
+  m_LocalScale: {x: 0.13858761, y: 0.19438295, z: 0.02}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5575878423252928060}
@@ -596,8 +596,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sample:
     geosample_id: 0
-    spec_data:
-      rock_example_data: 0
+    eva_data:
+      name: 
+      id: 0
+      data:
+        SiO2: 0
+        TiO2: 0
+        Al2O3: 0
+        FeO: 0
+        MnO: 0
+        MgO: 0
+        CaO: 0
+        K2O: 0
+        P2O3: 0
     time: 
     location:
       latitude: 0
