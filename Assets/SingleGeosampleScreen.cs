@@ -28,6 +28,19 @@ public class SingleGeosampleScreen : MonoBehaviour
         // Set all relevant data 
     }
 
+    public enum GeoSampleScreens
+    {
+        None,
+        Name,
+        VegaEditName,
+        Zone,
+        XRFScan,
+        Shape,
+        Color,
+        ColorValueSelector,
+        VoiceNotes,
+        TakePhoto
+    }
 
     // ----------------- Buttons -----------------
     public void OnSampleButtonPressed()
