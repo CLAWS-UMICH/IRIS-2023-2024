@@ -72,7 +72,7 @@ public class Geosamples
 public class Geosample
 {
     public int geosample_id;
-    public SpecData spec_data;
+    public EvaData eva_data;
     public string time;
     public Location location;
     public int author;
@@ -86,11 +86,40 @@ public class Geosample
 
         Geosample otherGeo = (Geosample)obj;
         return geosample_id == otherGeo.geosample_id &&
-               spec_data.Equals(otherGeo.spec_data) &&
+               eva_data.Equals(otherGeo.eva_data) &&
                time == otherGeo.time &&
                location.Equals(otherGeo.location) &&
                author == otherGeo.author;
     }
+}
+
+[System.Serializable]
+public class SPEC
+{
+    public EvaData eva1;
+    public EvaData eva2;
+}
+
+[System.Serializable]
+public class EvaData 
+{
+    public string name; // Name of rock
+    public int id; // id of rock from NASA
+    public DataDetails data; // data of rock
+}
+
+[System.Serializable]
+public class DataDetails
+{
+    public int SiO2;
+    public int TiO2;
+    public int Al2O3;
+    public int FeO;
+    public int MnO;
+    public int MgO;
+    public int CaO;
+    public int K2O;
+    public int P2O3;
 }
 
 // Geosamples
@@ -461,35 +490,6 @@ public class RoverDetails
     public double posx;
     public double posy;
     public int qr_id;
-}
-
-[System.Serializable]
-public class SPEC
-{
-    public EvaData eva1;
-    public EvaData eva2;
-}
-
-[System.Serializable]
-public class EvaData
-{
-    public string name;
-    public int id;
-    public DataDetails data;
-}
-
-[System.Serializable]
-public class DataDetails
-{
-    public int SiO2;
-    public int TiO2;
-    public int Al2O3;
-    public int FeO;
-    public int MnO;
-    public int MgO;
-    public int CaO;
-    public int K2O;
-    public int P2O3;
 }
 
 [System.Serializable]
