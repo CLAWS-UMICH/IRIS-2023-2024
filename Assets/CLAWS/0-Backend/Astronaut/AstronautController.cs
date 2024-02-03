@@ -72,8 +72,12 @@ public class Geosamples
 public class Geosample
 {
     public int geosample_id;
+    public char zone_id;
     public EvaData eva_data;
     public string time;
+    public string color;
+    public string shape;
+    public string rock_type;
     public Location location;
     public int author;
 
@@ -86,8 +90,11 @@ public class Geosample
 
         Geosample otherGeo = (Geosample)obj;
         return geosample_id == otherGeo.geosample_id &&
+               zone_id == otherGeo.zone_id &&
                eva_data.Equals(otherGeo.eva_data) &&
                time == otherGeo.time &&
+               color == otherGeo.color &&
+               shape == otherGeo.shape &&
                location.Equals(otherGeo.location) &&
                author == otherGeo.author;
     }
