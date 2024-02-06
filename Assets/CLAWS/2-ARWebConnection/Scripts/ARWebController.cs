@@ -9,6 +9,7 @@ public class ARWebController : MonoBehaviour
 
     private GameObject MainMenuParent;
     private int currentActiveButton;
+    private Subscription<LLMCHighlight> newHighlightEvent;
 
     private Dictionary<int, GameObject> buttonDict = new Dictionary<int, GameObject>();
 
@@ -23,6 +24,7 @@ public class ARWebController : MonoBehaviour
         buttonDict[4] = MainMenuParent.transform.Find("VitalsButton").gameObject;
         buttonDict[5] = MainMenuParent.transform.Find("ModesButton").gameObject;
         currentActiveButton = -1;
+        newHighlightEvent = EventBus.Subscribe<LLMCHighlight>(onNewHighlight);
         //StartCoroutine(_testHighlight(0));
     }
 
@@ -32,6 +34,11 @@ public class ARWebController : MonoBehaviour
         LLMCHighlight(id);
         yield return new WaitForSeconds(2);
         LLMCHighlight((id + 2) % 6);
+    }
+
+    public void onNewHighlight(LLMCHighlight e)
+    {
+        LLMCHighlight(e.button_id);
     }
 
     private void LLMCHighlight(int id)
