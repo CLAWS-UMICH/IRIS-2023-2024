@@ -669,7 +669,7 @@ public class WebsocketDataHandler : MonoBehaviour
         {
             if (debugMode) Debug.Log("(PUT) WebsocketDataHandler.cs: Updating PICTURE data");
 
-            EventBus.Publish(new NewPicEvent(pic));
+            EventBus.Publish(new NewPicEvent(pic, title, height, width));
 
         }
         else
