@@ -663,13 +663,28 @@ public class WebsocketDataHandler : MonoBehaviour
         }
     }
 
-    public void HandlePicData(string pic, string use)
+    public void HandlePicData(string pic, string title, int height, int width, string use)
     {
         if (use == "PUT")
         {
             if (debugMode) Debug.Log("(PUT) WebsocketDataHandler.cs: Updating PICTURE data");
 
             EventBus.Publish(new NewPicEvent(pic));
+
+        }
+        else
+        {
+            Debug.Log("Invalid use case from server");
+        }
+    }
+
+    public void HandleHighlightData(int id, string use)
+    {
+        if (use == "PUT")
+        {
+            if (debugMode) Debug.Log("(PUT) WebsocketDataHandler.cs: Updating HIGHLIGHT data");
+
+            EventBus.Publish(new LLMCHighlight(id));
 
         }
         else

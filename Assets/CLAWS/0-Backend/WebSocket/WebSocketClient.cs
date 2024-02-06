@@ -171,7 +171,11 @@ public class WebSocketClient : MonoBehaviour
                 break;
             case "Picture":
                 PictureData picData = JsonUtility.FromJson<PictureData>(jsonData);
-                dataHandler.HandlePicData(picData.pic, picData.use);
+                dataHandler.HandlePicData(picData.binary_img, picData.title, picData.height, picData.width, picData.use);
+                break;
+            case "Highlight":
+                HighlightData highData = JsonUtility.FromJson<HighlightData>(jsonData);
+                dataHandler.HandleHighlightData(highData.button_id, highData.use);
                 break;
             // Handle other message types similarly
             default:
@@ -305,5 +309,17 @@ public class PictureData
     public int id;
     public string type;
     public string use;
-    public string pic;
+    public string binary_img;
+    public string title;
+    public int height;
+    public int width;
+}
+
+[Serializable]
+public class HighlightData
+{
+    public int id;
+    public string type;
+    public string use;
+    public int button_id;
 }

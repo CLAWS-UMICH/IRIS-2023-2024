@@ -468,3 +468,14 @@ public class CreateAlert
         letter = _letter;
     }
 }
+
+// Highlight from LLMC
+public class LLMCHighlight
+{
+    public int button_id { get; private set; }
+
+    public LLMCHighlight(int _id)
+    {
+        button_id = _id;
+    }
+}
