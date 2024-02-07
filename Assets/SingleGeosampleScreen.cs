@@ -206,6 +206,7 @@ public class SingleGeosampleScreen : MonoBehaviour
         Zone_icon.SetActive(true);
 
         // TODO update Sample.zone
+        Sample.zone_id = name[0];
         SendData();
     }
     public void SetCoordinates()
@@ -239,7 +240,7 @@ public class SingleGeosampleScreen : MonoBehaviour
     public void SetColor(string hex)
     {
         Color_visual.SetColor(hex);
-
+        Sample.color = hex;
         // TODO update Sample.color
         SendData();
     }
