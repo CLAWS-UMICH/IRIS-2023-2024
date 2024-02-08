@@ -544,6 +544,25 @@ MonoBehaviour:
   timeDelay: 1
   playerCam: {fileID: 127777994}
   offset: 0
+--- !u!1 &211288311 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7733805253989673232, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+  m_PrefabInstance: {fileID: 3794289907722291898}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &211288317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 211288311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f30b4ff59d450d40b5ad6d0bebece0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonPrefab: {fileID: 867768118535805958, guid: da15efbeb50b4e74981b7abfdf05ac83, type: 3}
+  currentScreen: 0
 --- !u!1001 &331076760
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3042,7 +3061,8 @@ PrefabInstance:
       propertyPath: NavigationMarkers
       value: 
       objectReference: {fileID: 372987190}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7733805253989673239, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3644395221631852033, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
@@ -3067,6 +3087,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2070856890}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7733805253989673232, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 211288317}
     - targetCorrespondingSourceObject: {fileID: 3794289906097164916, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
