@@ -58,7 +58,7 @@ public class SingleGeosampleScreen : MonoBehaviour
     // ----------------- Buttons -----------------
     public void OnNameButtonPressed()
     {
-        if (CurrentScreen == GeoSampleScreens.Name)
+        if (CurrentScreen != GeoSampleScreens.Name)
         {
             CloseCurrentScreen();
         }
@@ -70,7 +70,7 @@ public class SingleGeosampleScreen : MonoBehaviour
     }
     public void OnZoneButtonPressed()
     {
-        if (CurrentScreen == GeoSampleScreens.Zone)
+        if (CurrentScreen != GeoSampleScreens.Zone)
         {
             CloseCurrentScreen();
         }
@@ -82,7 +82,7 @@ public class SingleGeosampleScreen : MonoBehaviour
     }
     public void OnXRFButtonPressed()
     {
-        if (CurrentScreen == GeoSampleScreens.XRFScan)
+        if (CurrentScreen != GeoSampleScreens.XRFScan)
         {
             CloseCurrentScreen();
         }
@@ -94,7 +94,7 @@ public class SingleGeosampleScreen : MonoBehaviour
     }
     public void OnShapeButtonPressed()
     {
-        if (CurrentScreen == GeoSampleScreens.Shape)
+        if (CurrentScreen != GeoSampleScreens.Shape)
         {
             CloseCurrentScreen();
         }
@@ -106,7 +106,7 @@ public class SingleGeosampleScreen : MonoBehaviour
     }
     public void OnColorButtonPressed()
     {
-        if (CurrentScreen == GeoSampleScreens.Color)
+        if (CurrentScreen != GeoSampleScreens.Color)
         {
             CloseCurrentScreen();
         }
@@ -118,7 +118,7 @@ public class SingleGeosampleScreen : MonoBehaviour
     }
     public void OnPhotoButtonPressed()
     {
-        if (CurrentScreen == GeoSampleScreens.Name)
+        if (CurrentScreen != GeoSampleScreens.Name)
         {
             CloseCurrentScreen();
         }
@@ -130,7 +130,7 @@ public class SingleGeosampleScreen : MonoBehaviour
     }
     public void OnVEGAButtonPressed()
     {
-        if (CurrentScreen == GeoSampleScreens.VoiceNotes)
+        if (CurrentScreen != GeoSampleScreens.VoiceNotes)
         {
             CloseCurrentScreen();
         }
