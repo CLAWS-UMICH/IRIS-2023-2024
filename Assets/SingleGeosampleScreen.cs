@@ -62,11 +62,10 @@ public class SingleGeosampleScreen : MonoBehaviour
         {
             CloseCurrentScreen();
         }
-        else
-        {
-            CurrentScreen = GeoSampleScreens.Name;
-            NameScreen.SetActive(true);
-        }
+        
+        CurrentScreen = GeoSampleScreens.Name;
+        NameScreen.SetActive(true);
+        
     }
     public void OnZoneButtonPressed()
     {
@@ -74,11 +73,10 @@ public class SingleGeosampleScreen : MonoBehaviour
         {
             CloseCurrentScreen();
         }
-        else
-        {
-            CurrentScreen = GeoSampleScreens.Zone;
-            ZoneScreen.SetActive(true);
-        }
+        
+        CurrentScreen = GeoSampleScreens.Zone;
+        ZoneScreen.SetActive(true);
+        
     }
     public void OnXRFButtonPressed()
     {
@@ -98,11 +96,10 @@ public class SingleGeosampleScreen : MonoBehaviour
         {
             CloseCurrentScreen();
         }
-        else
-        {
-            CurrentScreen = GeoSampleScreens.Shape;
-            ShapeScreen.SetActive(true);
-        }
+        
+        CurrentScreen = GeoSampleScreens.Shape;
+        ShapeScreen.SetActive(true);
+        
     }
     public void OnColorButtonPressed()
     {
@@ -110,11 +107,10 @@ public class SingleGeosampleScreen : MonoBehaviour
         {
             CloseCurrentScreen();
         }
-        else
-        {
-            CurrentScreen = GeoSampleScreens.Color;
-            ColorScreen.SetActive(true);
-        }
+        
+        CurrentScreen = GeoSampleScreens.Color;
+        ColorScreen.SetActive(true);
+        
     }
     public void OnPhotoButtonPressed()
     {
@@ -122,11 +118,10 @@ public class SingleGeosampleScreen : MonoBehaviour
         {
             CloseCurrentScreen();
         }
-        else
-        {
-            CurrentScreen = GeoSampleScreens.Name;
-            NameScreen.SetActive(true);
-        }
+        
+        CurrentScreen = GeoSampleScreens.Name;
+        NameScreen.SetActive(true);
+        
     }
     public void OnVEGAButtonPressed()
     {
@@ -134,11 +129,10 @@ public class SingleGeosampleScreen : MonoBehaviour
         {
             CloseCurrentScreen();
         }
-        else
-        {
-            CurrentScreen = GeoSampleScreens.VoiceNotes;
-            VoiceNotesScreen.SetActive(true);
-        }
+        
+        CurrentScreen = GeoSampleScreens.VoiceNotes;
+        VoiceNotesScreen.SetActive(true);
+        
     }
     public void CloseCurrentScreen()
     {
@@ -174,8 +168,10 @@ public class SingleGeosampleScreen : MonoBehaviour
 
     // -------------- Setter Methods --------------
     public TextMeshPro Zone_tmp;
+    public TextMeshPro ZoneLetter_tmp;
     public TextMeshPro ZoneNone_tmp;
     public GameObject Zone_icon;
+    public TextMeshPro OtherZone_tmp;
 
     public TextMeshPro RockType_tmp;
     public TextMeshPro XRF_tmp;
@@ -199,14 +195,17 @@ public class SingleGeosampleScreen : MonoBehaviour
         // called on start function
         Sample.geosample_id = id_counter++;
     }
-    public void SetZone(string name)
+    public void SetZone(string letter)
     {
-        Zone_tmp.text = "Zone " + name;
+        letter = letter.Trim();
+        ZoneLetter_tmp.gameObject.SetActive(true);
+        ZoneLetter_tmp.text = letter;
         ZoneNone_tmp.text = "";
         Zone_icon.SetActive(true);
+        OtherZone_tmp.gameObject.SetActive(true);
+        OtherZone_tmp.text = "Zone " + letter;
 
-        // TODO update Sample.zone
-        Sample.zone_id = name[0];
+        Sample.zone_id = letter[0];
         SendData();
     }
     public void SetCoordinates()
@@ -230,18 +229,52 @@ public class SingleGeosampleScreen : MonoBehaviour
         // TODO update Sample.rockType
         SendData();
     }
-    public void SetShape(GeosamplingShapes.Shape shape_in)
+    [SerializeField]
+    public void SetShape(GeosamplingShape shape_in)
     {
-        Shape_visual.SetShape(shape_in);
+        Shape_visual.SetShape(shape_in.shape);
 
-        // TODO update Sample.shape
+        switch (shape_in.shape)
+        {
+            case GeosamplingShape.Shape.None:
+                Sample.shape = "Shape";
+                break;
+            case GeosamplingShape.Shape.Polygon:
+                Sample.shape = "Polygon";
+                break;
+            case GeosamplingShape.Shape.Cube:
+                Sample.shape = "Cube";
+                break;
+            case GeosamplingShape.Shape.Cylinder:
+                Sample.shape = "Cylinder";
+                break;
+            case GeosamplingShape.Shape.Cone:
+                Sample.shape = "Cone";
+                break;
+            case GeosamplingShape.Shape.Sphere:
+                Sample.shape = "Sphere";
+                break;
+            case GeosamplingShape.Shape.Crystalline:
+                Sample.shape = "Crystalline";
+                break;
+            case GeosamplingShape.Shape.Ellipsoid:
+                Sample.shape = "Ellipsoid";
+                break;
+            case GeosamplingShape.Shape.Irregular:
+                Sample.shape = "Irregular";
+                break;
+            default:
+                Debug.LogError("Shape error");
+                break;
+        }
+
         SendData();
+        CloseCurrentScreen();
     }
     public void SetColor(string hex)
     {
         Color_visual.SetColor(hex);
         Sample.color = hex;
-        // TODO update Sample.color
         SendData();
     }
     public void SetPhoto()
