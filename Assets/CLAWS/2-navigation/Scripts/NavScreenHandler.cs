@@ -78,6 +78,8 @@ public class NavScreenHandler : MonoBehaviour
         geoScreen.SetActive(false);
     }
 
+
+
     public void OpenStation()
     {
         EventBus.Publish(new ScreenChangedEvent(Screens.SelectStationWaypoint));

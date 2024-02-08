@@ -64,8 +64,8 @@ public class WaypointsController : MonoBehaviour
             AstronautInstance.User.WaypointData.AllWaypoints.Add(waypoint);
             SpawnWaypoint(waypoint);
 
-            //GameObject button = screenHandler.AddButton(waypoint); Set the function to add button with screen handler
-            //waypointButtonDic[waypoint.waypoint_id] = button;
+            GameObject button = screenHandler.AddButton(waypoint); //Set the function to add button with screen handler
+            waypointButtonDic[waypoint.waypoint_id] = button;
         }
     }
     public void onWaypointToAdd(WaypointToAdd e)
@@ -85,8 +85,8 @@ public class WaypointsController : MonoBehaviour
                 GameObject gm = waypointObjDic[waypoint.waypoint_id];
                 waypointObjDic.Remove(waypoint.waypoint_id);
 
-                //GameObject gmButton = waypointButtonDic[waypoint.waypoint_id];
-                //screenHandler.DeleteButton(gmButton, waypoint.type);
+                GameObject gmButton = waypointButtonDic[waypoint.waypoint_id];
+                screenHandler.DeleteButton(gmButton, waypoint.type);
                 waypointButtonDic.Remove(waypoint.waypoint_id);
 
                 Destroy(gm);
@@ -108,8 +108,8 @@ public class WaypointsController : MonoBehaviour
             GameObject gm = waypointObjDic[indexToDelete];
             waypointObjDic.Remove(indexToDelete);
 
-            //GameObject gmButton = waypointButtonDic[indexToDelete];
-            //screenHandler.DeleteButton(gmButton, w.type);
+            GameObject gmButton = waypointButtonDic[indexToDelete];
+            screenHandler.DeleteButton(gmButton, w.type);
             waypointButtonDic.Remove(indexToDelete);
 
             Destroy(gm);
