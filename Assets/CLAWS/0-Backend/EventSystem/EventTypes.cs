@@ -425,10 +425,16 @@ public class BreadCrumbCollisionEvent
 public class NewPicEvent
 {
     public string image { get; private set; }
+    public string title { get; private set; }
+    public int height { get; private set; }
+    public int width { get; private set; }
 
-    public NewPicEvent(string pic)
+    public NewPicEvent(string pic, string _title, int _h, int _w)
     {
         image = pic;
+        title = _title;
+        height = _h;
+        width = _h;
     }
 }
 
@@ -466,5 +472,16 @@ public class CreateAlert
         title = _title;
         desc = _desc;
         letter = _letter;
+    }
+}
+
+// Highlight from LLMC
+public class LLMCHighlight
+{
+    public int button_id { get; private set; }
+
+    public LLMCHighlight(int _id)
+    {
+        button_id = _id;
     }
 }
