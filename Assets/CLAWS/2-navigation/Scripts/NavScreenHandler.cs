@@ -15,10 +15,11 @@ public enum ScreenType
 public class NavScreenHandler : MonoBehaviour
 {
     GameObject parentScreen;
+    GameObject navScreen;
     GameObject stationScreen;
     GameObject POIScreen;
-    GameObject navScreen;
     GameObject geoScreen;
+    GameObject dangerScreen;
 
     Location loc;
     bool hasLocation;
@@ -41,14 +42,15 @@ public class NavScreenHandler : MonoBehaviour
         wayController = transform.parent.Find("WaypointController").GetComponent<WaypointsController>();
         selectButtonEvent = EventBus.Subscribe<SelectButton>(onButtonSelect);
         parentScreen = transform.parent.Find("NavScreen").gameObject;
+        navScreen = parentScreen.transform.Find("NavScroll").gameObject;
         stationScreen = parentScreen.transform.Find("StationScroll").gameObject;
         POIScreen = parentScreen.transform.Find("POIScroll").gameObject;
-        navScreen = parentScreen.transform.Find("NavScroll").gameObject;
         geoScreen = parentScreen.transform.Find("GeoScroll").gameObject;
+        dangerScreen = parentScreen.transform.Find("DangerScroll").gameObject;
         currentScreen = ScreenType.Station;
         stationScrollHandler = stationScreen.GetComponent<ScrollHandler>();
         POIScrollHandler = POIScreen.GetComponent<ScrollHandler>();
-        dangerScrollHandler = navScreen.GetComponent<ScrollHandler>();
+        dangerScrollHandler = dangerScreen.GetComponent<ScrollHandler>();
         geoScrollHandler = geoScreen.GetComponent<ScrollHandler>();
         hasLocation = false;
         CloseNavScreen();
@@ -63,6 +65,7 @@ public class NavScreenHandler : MonoBehaviour
         currentScreen = ScreenType.Station;
         stationScreen.SetActive(true);
         navScreen.SetActive(false);
+        POIScreen.SetActive(false);
         geoScreen.SetActive(false);
         parentScreen.SetActive(true);
     }
@@ -74,18 +77,7 @@ public class NavScreenHandler : MonoBehaviour
         currentScreen = ScreenType.Station;
         parentScreen.SetActive(false);
         stationScreen.SetActive(true);
-        navScreen.SetActive(false);
-        geoScreen.SetActive(false);
-    }
-
-
-
-    public void OpenStation()
-    {
-        EventBus.Publish(new ScreenChangedEvent(Screens.SelectStationWaypoint));
-        hasLocation = false;
-        currentScreen = ScreenType.Station;
-        stationScreen.SetActive(true);
+        POIScreen.SetActive(false);
         navScreen.SetActive(false);
         geoScreen.SetActive(false);
     }
@@ -97,7 +89,33 @@ public class NavScreenHandler : MonoBehaviour
         //currentScreen = ScreenType.Navigation;
         navScreen.SetActive(true);
         stationScreen.SetActive(false);
+        POIScreen.SetActive(false);
         geoScreen.SetActive(false);
+        dangerScreen.SetActive(false);
+    }
+
+
+    public void OpenStation()
+    {
+        EventBus.Publish(new ScreenChangedEvent(Screens.SelectStationWaypoint));
+        hasLocation = false;
+        currentScreen = ScreenType.Station;
+        stationScreen.SetActive(true);
+        POIScreen.SetActive(false);
+        navScreen.SetActive(false);
+        geoScreen.SetActive(false);
+        dangerScreen.SetActive(false);
+    }
+
+    public void OpenPOI()
+    {
+        hasLocation = false;
+        currentScreen = ScreenType.GeoSample;
+        geoScreen.SetActive(false);
+        POIScreen.SetActive(true);
+        dangerScreen.SetActive(false);
+        stationScreen.SetActive(false);
+        navScreen.SetActive(false);
     }
 
     public void OpenGeo()
@@ -106,8 +124,22 @@ public class NavScreenHandler : MonoBehaviour
         hasLocation = false;
         currentScreen = ScreenType.GeoSample;
         geoScreen.SetActive(true);
+        POIScreen.SetActive(false);
+        dangerScreen.SetActive(false);
         stationScreen.SetActive(false);
         navScreen.SetActive(false);
+    }
+
+    public void OpenDanger()
+    {
+        hasLocation = false;
+        currentScreen = ScreenType.Danger;
+        dangerScreen.SetActive(true);
+        POIScreen.SetActive(false);
+        geoScreen.SetActive(true);
+        stationScreen.SetActive(false);
+        navScreen.SetActive(false);
+
     }
 
     public void ScrollUp()
@@ -116,6 +148,10 @@ public class NavScreenHandler : MonoBehaviour
         {
             case ScreenType.Station:
                 stationScrollHandler.ScrollUpOrLeft();
+                break;
+
+            case ScreenType.POI:
+                POIScrollHandler.ScrollUpOrLeft();
                 break;
 
             case ScreenType.Danger:
@@ -137,6 +173,10 @@ public class NavScreenHandler : MonoBehaviour
         {
             case ScreenType.Station:
                 stationScrollHandler.ScrollDownOrRight();
+                break;
+
+            case ScreenType.POI:
+                POIScrollHandler.ScrollDownOrRight();
                 break;
 
             case ScreenType.Danger:
