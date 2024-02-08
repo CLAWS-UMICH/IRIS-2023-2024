@@ -485,3 +485,12 @@ public class LLMCHighlight
         button_id = _id;
     }
 }
+
+public class XRFScanEvent
+{
+    DataDetails data;
+    public XRFScanEvent(DataDetails d)
+    {
+        data = d;
+    }
+}

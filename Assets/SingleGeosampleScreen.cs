@@ -16,6 +16,9 @@ public class SingleGeosampleScreen : MonoBehaviour
     public GameObject ShapeScreen;
     public GameObject VoiceNotesScreen;
 
+    public GameObject TakeXRF;
+    public GameObject WaitingXRF;
+
     private void Start()
     {
         NameScreen.SetActive(false);
@@ -86,12 +89,21 @@ public class SingleGeosampleScreen : MonoBehaviour
         {
             CloseCurrentScreen();
         }
-        else
-        {
-            CurrentScreen = GeoSampleScreens.XRFScan;
-            // XRFScreen.SetActive(true);
-        }
+        CurrentScreen = GeoSampleScreens.XRFScan;
+        TakeXRF.SetActive(false);
+
+        // Wait for the event
+        TakeXRF.SetActive(true);
+        EventBus.Subscribe<XRFScanEvent>(waitingForXRF);
+        
     }
+
+    public void waitingForXRF(XRFScanEvent e)
+    {
+        TakeXRF.SetActive(true);
+        // Update XRF Readings
+    }
+
     public void OnShapeButtonPressed()
     {
         if (CurrentScreen != GeoSampleScreens.Shape)
