@@ -137,6 +137,7 @@ public class Pathfinding : MonoBehaviour {
         AstronautInstance.User.BreadCrumbData.AllCrumbs.Clear();
         indexToBreadCrumb.Clear();
         // TODO: Should we send the breadcrumb data to web here?
+        GameObject.Find("Controller").GetComponent<WebsocketDataHandler>().SendBreadCrumbData();
     }
 
     void GetFinalPath(Node a_StartingNode, Node a_EndNode)
@@ -190,6 +191,8 @@ public class Pathfinding : MonoBehaviour {
             index++;
         }
 
+        GameObject.Find("Controller").GetComponent<WebsocketDataHandler>().SendBreadCrumbData();
+
         showCrumbs();
     }
 
@@ -228,6 +231,8 @@ public class Pathfinding : MonoBehaviour {
         {
             indexToBreadCrumb.Remove(key);
         }
+
+        GameObject.Find("Controller").GetComponent<WebsocketDataHandler>().SendBreadCrumbData();
 
         showCrumbs();
     }

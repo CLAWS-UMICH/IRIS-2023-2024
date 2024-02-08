@@ -5,20 +5,8 @@ using UnityEngine;
 
 public class GeosamplingShapes : MonoBehaviour
 {
-    public enum Shape
-    {
-        None, 
-        Polygon, 
-        Cylinder, 
-        Cube, 
-        Cone, 
-        Sphere, 
-        Crystalline, 
-        Ellipsoid,
-        Irregular
-    }
 
-    public Shape CurrentShape;
+    public GeosamplingShape.Shape CurrentShape;
 
     public GameObject None_icon;
     public GameObject Polygon_icon;
@@ -34,82 +22,60 @@ public class GeosamplingShapes : MonoBehaviour
 
     private void Start()
     {
-        CurrentShape = Shape.None;
+        CurrentShape = GeosamplingShape.Shape.None;
     }
 
-    public void SetShape(Shape shape_in)
+    public void SetShape(GeosamplingShape.Shape shape_in)
     {
         // deactivate old icon
-        switch (CurrentShape)
-        {
-            case Shape.None:
-                None_icon.SetActive(false);
-                break;
-            case Shape.Polygon:
-                Polygon_icon.SetActive(false);
-                break;
-            case Shape.Cube:
-                Cube_icon.SetActive(false);
-                break;
-            case Shape.Cylinder:
-                Cylinder_icon.SetActive(false);
-                break;
-            case Shape.Cone:
-                Cone_icon.SetActive(false);
-                break;
-            case Shape.Sphere:
-                Sphere_icon.SetActive(false);
-                break;
-            case Shape.Crystalline:
-                None_icon.SetActive(false);
-                break;
-            case Shape.Ellipsoid:
-                None_icon.SetActive(false);
-                break;
-            case Shape.Irregular:
-                None_icon.SetActive(false);
-                break;
-            default:
-                Debug.LogError("Shape error");
-                break;
-        }
+        
+        None_icon.SetActive(false);                
+        Polygon_icon.SetActive(false);
+        Cube_icon.SetActive(false);
+        Cylinder_icon.SetActive(false);
+        Cone_icon.SetActive(false);
+        Sphere_icon.SetActive(false);
+        Crustalline_icon.SetActive(false);
+        Ellipsoid_icon.SetActive(false);
+        Irregular_icon.SetActive(false);
+        
         // activate new icon
         switch (shape_in)
         {
-            case Shape.None:
+            case GeosamplingShape.Shape.None:
                 None_icon.SetActive(true);
                 Shape_tmp.text = "Shape";
                 break;
-            case Shape.Polygon:
+            case GeosamplingShape.Shape.Polygon:
                 Polygon_icon.SetActive(true);
                 Shape_tmp.text = "Polygon";
                 break;
-            case Shape.Cube:
+            case GeosamplingShape.Shape.Cube:
                 Cube_icon.SetActive(true);
                 Shape_tmp.text = "Cube";
                 break;
-            case Shape.Cylinder:
+            case GeosamplingShape.Shape.Cylinder:
                 Cylinder_icon.SetActive(true);
                 Shape_tmp.text = "Cylinder";
                 break;
-            case Shape.Cone:
+            case GeosamplingShape.Shape.Cone:
                 Cone_icon.SetActive(true);
                 Shape_tmp.text = "Cone";
                 break;
-            case Shape.Sphere:
+            case GeosamplingShape.Shape.Sphere:
                 Sphere_icon.SetActive(true);
                 Shape_tmp.text = "Sphere";
                 break;
-            case Shape.Crystalline:
-                None_icon.SetActive(true);
+            case GeosamplingShape.Shape.Crystalline:
+                Crustalline_icon.SetActive(true);
                 Shape_tmp.text = "Crystalline";
                 break;
-            case Shape.Ellipsoid:
-                None_icon.SetActive(true);
+            case GeosamplingShape.Shape.Ellipsoid:
+                Ellipsoid_icon.SetActive(true);
                 Shape_tmp.text = "Ellipsoid";
                 break;
-            case Shape.Irregular:
-                None_icon.SetActive(true);
+            case GeosamplingShape.Shape.Irregular:
+                Irregular_icon.SetActive(true);
                 Shape_tmp.text = "Irregular";
                 break;
             default:
@@ -122,6 +88,6 @@ public class GeosamplingShapes : MonoBehaviour
     [ContextMenu("func SetShapeTest")]
     public void SetShapeTest()
     {
-        SetShape(Shape.Polygon);
+        SetShape(GeosamplingShape.Shape.Polygon);
     }
 }
