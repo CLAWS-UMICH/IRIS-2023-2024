@@ -2048,11 +2048,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b3e6359c9750ad4fb8a05c9b8704d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handType: 0
-  proximityType: 0
+  handType: -1
+  proximityType: -1
   executionOrder: 0
   constraintOnRotation: -1
-  useLocalSpaceForConstraint: 0
+  useLocalSpaceForConstraint: 1
 --- !u!114 &352633496286687965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2160,7 +2160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 149fa3ae453128b41940b5caa905f8ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handType: 1
+  handType: -1
   proximityType: 3
   executionOrder: 0
   constraintOnMovement: 5
