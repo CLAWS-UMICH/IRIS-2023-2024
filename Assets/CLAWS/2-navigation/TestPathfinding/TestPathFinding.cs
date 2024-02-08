@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TestPathFinding : MonoBehaviour
 {
+
+    private Subscription<StartPathfinding> pathfinding;
     // Start is called before the first frame update
     void Start()
     {

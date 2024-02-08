@@ -21,9 +21,11 @@ public class NavController : MonoBehaviour
         pathfinding = EventBus.Subscribe<StartPathfinding>(OnPathfinding);
     }
 
-    private void OnPathfinding(StartPathfinding e)
+    public void OnPathfinding(StartPathfinding e)
     {
+        Debug.Log("WOMP WOMP!");
         pf.startPathFinding(player.transform, e.location);
+        Debug.Log("WOMP WOMP?");
 
     }
 }
