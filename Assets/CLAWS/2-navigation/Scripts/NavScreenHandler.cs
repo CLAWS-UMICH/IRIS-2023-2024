@@ -264,11 +264,17 @@ public class NavScreenHandler : MonoBehaviour
         {
             EventBus.Publish(new StartPathfinding(loc));
             hasLocation = false;
+            NavScreenMode();
             CloseNavScreen();
         } else
         {
             Debug.Log("Did not select where to pathfind!");
         }
+    }
+
+    public void NavScreenMode()
+    {
+        GameObject.Find("AllScreens").transform.Find("MainMenu").GetComponent<MenuState>().ClickIRISNavigation();
     }
 
 

@@ -157,6 +157,7 @@ public class Pathfinding : MonoBehaviour {
 
         GridReference.FinalPath = FinalPath;//Set the final path
         int index = 0;
+        bool hideMinimapIcon = false;
         // Instantiate objects along the final path
         for (int i = 0; i < FinalPath.Count; i++)
         {
@@ -181,7 +182,18 @@ public class Pathfinding : MonoBehaviour {
             {
                 instantiatedObject.transform.LookAt(FinalPath[i].vPosition);
             }
-            instantiatedObject.SetActive(false);
+
+            if (hideMinimapIcon)
+            {
+                instantiatedObject.transform.GetChild(1).gameObject.SetActive(false);
+                hideMinimapIcon = false;
+            }
+            else
+            {
+                hideMinimapIcon = true;
+            }
+            instantiatedObject.transform.GetChild(0).gameObject.SetActive(false);
+            //instantiatedObject.SetActive(false);
             Breadcrumb b = new Breadcrumb(index, GPSUtils.AppPositionToGPSCoords(instantiatedObject.transform.position), 1);
             AstronautInstance.User.BreadCrumbData.AllCrumbs.Add(b);
             indexToBreadCrumb[index] = instantiatedObject;
@@ -206,7 +218,8 @@ public class Pathfinding : MonoBehaviour {
             Vector3 newPosition = gm.transform.position;
             newPosition.y = player.transform.position.y - crumbYChange;
             gm.transform.position = newPosition;
-            gm.SetActive(true);
+            gm.transform.GetChild(0).gameObject.SetActive(true);
+            //gm.SetActive(true);
         }
     }
 
