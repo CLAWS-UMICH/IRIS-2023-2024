@@ -22,7 +22,7 @@ public class WaypointsController : MonoBehaviour
     private Dictionary<int, GameObject> waypointObjDic = new Dictionary<int, GameObject>();
     private Dictionary<int, GameObject> waypointButtonDic = new Dictionary<int, GameObject>();
 
-    private TextMeshPro _danger_title, _danger_letter, _geo_title, _geo_letter, _nav_title, _nav_letter, _station_title, _station_letter;
+    private TextMeshPro _danger_title, _danger_letter, _danger_minimap_letter, _geo_title, _geo_letter, _geo_minimap_letter, _nav_title, _nav_letter, _nav_minimap_letter, _station_title, _station_letter, _station_minimap_letter;
 
     private WebsocketDataHandler wd;
     private NavScreenHandler screenHandler;
@@ -33,17 +33,21 @@ public class WaypointsController : MonoBehaviour
         parentObject = GameObject.Find("WaypointParent").gameObject;
         wd = GameObject.Find("Controller").GetComponent<WebsocketDataHandler>();
 
-        _danger_title = dangerPrefab.transform.Find("Title").gameObject.transform.Find("IconAndText").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
-        _danger_letter = dangerPrefab.transform.Find("Quad").gameObject.transform.Find("Text").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
+        _danger_title = dangerPrefab.transform.Find("Body").Find("Title").gameObject.transform.Find("IconAndText").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
+        _danger_letter = dangerPrefab.transform.Find("Body").Find("Quad").gameObject.transform.Find("Text").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
+        _danger_minimap_letter = dangerPrefab.transform.Find("MiniMap").Find("Letter").gameObject.GetComponent<TextMeshPro>();
 
-        _geo_title = geoPrefab.transform.Find("Title").gameObject.transform.Find("IconAndText").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
-        _geo_letter = geoPrefab.transform.Find("Quad").gameObject.transform.Find("Text").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
+        _geo_title = geoPrefab.transform.Find("Body").Find("Title").gameObject.transform.Find("IconAndText").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
+        _geo_letter = geoPrefab.transform.Find("Body").Find("Quad").gameObject.transform.Find("Text").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
+        _geo_minimap_letter = geoPrefab.transform.Find("MiniMap").Find("Letter").gameObject.GetComponent<TextMeshPro>();
 
-        _nav_title = navPrefab.transform.Find("Title").gameObject.transform.Find("IconAndText").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
-        _nav_letter = navPrefab.transform.Find("Quad").gameObject.transform.Find("Text").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
+        _nav_title = navPrefab.transform.Find("Body").Find("Title").gameObject.transform.Find("IconAndText").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
+        _nav_letter = navPrefab.transform.Find("Body").Find("Quad").gameObject.transform.Find("Text").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
+        _nav_minimap_letter = navPrefab.transform.Find("MiniMap").Find("Letter").gameObject.GetComponent<TextMeshPro>();
 
-        _station_title = stationPrefab.transform.Find("Title").gameObject.transform.Find("IconAndText").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
-        _station_letter = stationPrefab.transform.Find("Quad").gameObject.transform.Find("Text").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
+        _station_title = stationPrefab.transform.Find("Body").Find("Title").gameObject.transform.Find("IconAndText").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
+        _station_letter = stationPrefab.transform.Find("Body").Find("Quad").gameObject.transform.Find("Text").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
+        _station_minimap_letter = stationPrefab.transform.Find("MiniMap").Find("Letter").gameObject.GetComponent<TextMeshPro>();
 
         waypointsAddedEvent = EventBus.Subscribe<WaypointsAddedEvent>(onWaypointsAdded);
         waypointsDeletedEvent = EventBus.Subscribe<WaypointsDeletedEvent>(onWaypointsDeleted);
@@ -177,6 +181,7 @@ public class WaypointsController : MonoBehaviour
             case 0: // station
                 _station_letter.text = waypoint.waypoint_letter.ToString();
                 _station_title.text = waypoint.description.ToString();
+                _station_minimap_letter.text = waypoint.waypoint_letter.ToString();
                 instantiatedObject = Instantiate(stationPrefab, GPSUtils.GPSCoordsToAppPosition(waypoint.location), Quaternion.identity);
                 Debug.Log(GPSUtils.GPSCoordsToAppPosition(waypoint.location));
                 instantiatedObject.transform.parent = parentObject.transform;
@@ -186,6 +191,7 @@ public class WaypointsController : MonoBehaviour
             case 1: // nav
                 _nav_letter.text = waypoint.waypoint_letter.ToString();
                 _nav_title.text = waypoint.description.ToString();
+                _nav_minimap_letter.text = waypoint.waypoint_letter.ToString();
                 instantiatedObject = Instantiate(navPrefab, GPSUtils.GPSCoordsToAppPosition(waypoint.location), Quaternion.identity);
                 instantiatedObject.transform.parent = parentObject.transform;
                 waypointObjDic[waypoint.waypoint_id] = instantiatedObject;
@@ -194,6 +200,7 @@ public class WaypointsController : MonoBehaviour
             case 2: // geo
                 _geo_letter.text = waypoint.waypoint_letter.ToString();
                 _geo_title.text = waypoint.description.ToString();
+                _geo_minimap_letter.text = waypoint.waypoint_letter.ToString();
                 instantiatedObject = Instantiate(geoPrefab, GPSUtils.GPSCoordsToAppPosition(waypoint.location), Quaternion.identity);
                 instantiatedObject.transform.parent = parentObject.transform;
                 waypointObjDic[waypoint.waypoint_id] = instantiatedObject;
@@ -202,6 +209,7 @@ public class WaypointsController : MonoBehaviour
             case 3: // danger
                 _danger_letter.text = waypoint.waypoint_letter.ToString();
                 _danger_title.text = waypoint.description.ToString();
+                _danger_minimap_letter.text = waypoint.waypoint_letter.ToString();
                 instantiatedObject = Instantiate(dangerPrefab, GPSUtils.GPSCoordsToAppPosition(waypoint.location), Quaternion.identity);
                 instantiatedObject.transform.parent = parentObject.transform;
                 waypointObjDic[waypoint.waypoint_id] = instantiatedObject;

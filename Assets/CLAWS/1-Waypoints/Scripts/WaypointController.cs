@@ -10,7 +10,7 @@ public class WaypointController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        index = getNumGivenString(gameObject.transform.Find("Quad").transform.Find("Text").transform.Find("TextMeshPro").GetComponent<TextMeshPro>().text);
+        index = getNumGivenString(gameObject.transform.Find("Body").Find("Quad").transform.Find("Text").transform.Find("TextMeshPro").GetComponent<TextMeshPro>().text);
     }
 
     public void onDelete()
