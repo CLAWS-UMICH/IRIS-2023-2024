@@ -23,9 +23,6 @@ public class NavController : MonoBehaviour
 
     public void OnPathfinding(StartPathfinding e)
     {
-        Debug.Log("WOMP WOMP!");
         pf.startPathFinding(player.transform, e.location);
-        Debug.Log("WOMP WOMP?");
-
     }
 }

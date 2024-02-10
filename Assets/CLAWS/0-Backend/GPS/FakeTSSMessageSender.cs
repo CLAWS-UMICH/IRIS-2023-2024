@@ -44,25 +44,57 @@ public class FakeTSSMessageSender : MonoBehaviour
         StartCoroutine(UpdateVitals());
     }
 
-    public void FakeWayPoint()
+    public void FakeWayPoints()
     {
-        Waypoint way = new Waypoint();
-        way.waypoint_id = 0;
-        way.waypoint_letter = "A";
-        way.location =(GPSUtils.AppPositionToGPSCoords( GameObject.Find("Main Camera").transform.position));
-        way.type = 0;
-        way.description = "FakeWayPoint";
-        way.author = 1;
-        AstronautInstance.User.WaypointData.AllWaypoints.Add(way);
+        double[,] locationAndTypes = new double[9, 3]
+        {
+            {29.564810, -95.0817410, 0},
+            {29.5646824, -95.0811564, 0},
+            {29.5650460, -95.0810944, 1},
+            {29.5645430, -95.0516440, 2},
+            {29.5648290, -95.0813750, 3},
+            {29.5647012, -95.0813750, 2},
+            {29.5651359, -95.0807408, 0},
+            {29.5651465, -95.0814092, 1},
+            {29.5648850, -95.0808360, 2}
+        };
+
+        string[,] letters = new string[9, 1]
+        {
+            {"A"},
+            {"B"},
+            {"C"},
+            {"D"},
+            {"E"},
+            {"F"},
+            {"G"},
+            {"H"},
+            {"I"}
+        };
+
         List<Waypoint> list = new List<Waypoint>();
-        list.Add(way);
+
+        for (int i = 0; i < 9; i++)
+        {
+            Waypoint way = new Waypoint();
+            way.waypoint_id = i;
+            way.waypoint_letter = letters[i, 0];
+            Location loc = new Location(locationAndTypes[i, 0], locationAndTypes[i, 1]);
+            way.location = loc;
+            way.type = (int)locationAndTypes[i, 2];
+            way.description = "Way " + way.waypoint_letter;
+            way.author = 1;
+            AstronautInstance.User.WaypointData.AllWaypoints.Add(way);
+            list.Add(way);
+        }
+
         EventBus.Publish(new WaypointsAddedEvent(list));
     }
 
     IEnumerator AddFake()
     {
         yield return new WaitForSeconds(3);
-        FakeWayPoint();
+        FakeWayPoints();
     }
 
     IEnumerator UpdateVitals()

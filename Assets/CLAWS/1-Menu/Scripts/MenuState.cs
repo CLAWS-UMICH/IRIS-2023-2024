@@ -51,6 +51,7 @@ public class MenuState : MonoBehaviour
 
     public void ClickNavigation()
     {
+        transform.parent.Find("Navigation").Find("NavController").GetComponent<NavScreenHandler>().OpenNavScreen();
         ClickIRISClose();
     }
     public void ClickMessages()
