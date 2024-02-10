@@ -80,6 +80,7 @@ public class Geosample
     public string rock_type;
     public Location location;
     public int author;
+    public string photo_jpg;
 
     public override bool Equals(object obj)
     {
@@ -96,7 +97,8 @@ public class Geosample
                color == otherGeo.color &&
                shape == otherGeo.shape &&
                location.Equals(otherGeo.location) &&
-               author == otherGeo.author;
+               author == otherGeo.author && 
+               photo_jpg == otherGeo.photo_jpg;
     }
 }
 

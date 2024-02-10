@@ -64,36 +64,46 @@ public class SingleGeosampleScreen : MonoBehaviour
         if (CurrentScreen != GeoSampleScreens.Name)
         {
             CloseCurrentScreen();
+
+            CurrentScreen = GeoSampleScreens.Name;
+            NameScreen.SetActive(true);
         }
-        
-        CurrentScreen = GeoSampleScreens.Name;
-        NameScreen.SetActive(true);
-        
+        else
+        {
+            CloseCurrentScreen();
+        }        
     }
     public void OnZoneButtonPressed()
     {
         if (CurrentScreen != GeoSampleScreens.Zone)
         {
             CloseCurrentScreen();
+
+            CurrentScreen = GeoSampleScreens.Zone;
+            ZoneScreen.SetActive(true);
         }
-        
-        CurrentScreen = GeoSampleScreens.Zone;
-        ZoneScreen.SetActive(true);
-        
+        else
+        {
+            CloseCurrentScreen();
+        }
     }
     public void OnXRFButtonPressed()
     {
         if (CurrentScreen != GeoSampleScreens.XRFScan)
         {
             CloseCurrentScreen();
-        }
-        CurrentScreen = GeoSampleScreens.XRFScan;
-        TakeXRF.SetActive(false);
 
-        // Wait for the event
-        TakeXRF.SetActive(true);
-        EventBus.Subscribe<XRFScanEvent>(waitingForXRF);
-        
+            CurrentScreen = GeoSampleScreens.XRFScan;
+            TakeXRF.SetActive(false);
+
+            // Wait for the event
+            TakeXRF.SetActive(true);
+            EventBus.Subscribe<XRFScanEvent>(waitingForXRF);
+        }
+        else
+        {
+            CloseCurrentScreen();
+        }
     }
 
     public void waitingForXRF(XRFScanEvent e)
@@ -107,44 +117,55 @@ public class SingleGeosampleScreen : MonoBehaviour
         if (CurrentScreen != GeoSampleScreens.Shape)
         {
             CloseCurrentScreen();
+            CurrentScreen = GeoSampleScreens.Shape;
+            ShapeScreen.SetActive(true);
         }
-        
-        CurrentScreen = GeoSampleScreens.Shape;
-        ShapeScreen.SetActive(true);
-        
+        else
+        {
+            CloseCurrentScreen();
+        }
     }
     public void OnColorButtonPressed()
     {
         if (CurrentScreen != GeoSampleScreens.Color)
         {
             CloseCurrentScreen();
+            CurrentScreen = GeoSampleScreens.Color;
+            ColorScreen.SetActive(true);
         }
-        
-        CurrentScreen = GeoSampleScreens.Color;
-        ColorScreen.SetActive(true);
-        
-    }
-    public void OnPhotoButtonPressed()
-    {
-        if (CurrentScreen != GeoSampleScreens.Name)
+        else
         {
             CloseCurrentScreen();
+        }        
+    }
+    [SerializeField] GameObject PhotoScreen;
+    public void OnPhotoButtonPressed()
+    {
+        if (CurrentScreen != GeoSampleScreens.TakePhoto)
+        {
+            CloseCurrentScreen();
+
+            CurrentScreen = GeoSampleScreens.TakePhoto;
+            PhotoScreen.SetActive(true);
         }
-        
-        CurrentScreen = GeoSampleScreens.Name;
-        NameScreen.SetActive(true);
-        
+        else { 
+            CloseCurrentScreen();
+            PhotoScreen.SetActive(false);
+        }
     }
     public void OnVEGAButtonPressed()
     {
         if (CurrentScreen != GeoSampleScreens.VoiceNotes)
         {
             CloseCurrentScreen();
+
+            CurrentScreen = GeoSampleScreens.VoiceNotes;
+            VoiceNotesScreen.SetActive(true);
         }
-        
-        CurrentScreen = GeoSampleScreens.VoiceNotes;
-        VoiceNotesScreen.SetActive(true);
-        
+        else
+        {
+            CloseCurrentScreen();
+        }
     }
     public void CloseCurrentScreen()
     {
