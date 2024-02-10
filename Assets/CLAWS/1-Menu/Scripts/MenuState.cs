@@ -33,11 +33,11 @@ public class MenuState : MonoBehaviour
     [SerializeField] private GameObject ShowMenuButton;
     [SerializeField] private GameObject ExitIRISModeButton;
 
-    [SerializeField] private GameObject SamplingMarkers;
+    /*[SerializeField] private GameObject SamplingMarkers;
     [SerializeField] private GameObject NavigationMarkers;
     [SerializeField] private GameObject RouteMarkers;
     [SerializeField] private GameObject EgressMarkers;
-    [SerializeField] private GameObject AirlockMarkers;
+    [SerializeField] private GameObject AirlockMarkers;*/
 
     [SerializeField] private Material regularModes;
     [SerializeField] private Material highlightedModes;
@@ -113,12 +113,12 @@ public class MenuState : MonoBehaviour
         mode.text = "Exit Sampling Mode";
         isIRISModeSelected = true;
 
-        // Filter markers on minimap
-        SamplingMarkers.SetActive(true);
+        // TODO: edit culling mask of minimap
+        /*SamplingMarkers.SetActive(true);
         NavigationMarkers.SetActive(false);
         RouteMarkers.SetActive(false);
         EgressMarkers.SetActive(false);
-        AirlockMarkers.SetActive(false);
+        AirlockMarkers.SetActive(false);*/
     }
 
     public void ClickIRISNavigation()
@@ -129,12 +129,12 @@ public class MenuState : MonoBehaviour
         mode.text = "Exit Navigation Mode";
         isIRISModeSelected = true;
 
-        // Filter markers on minimap
-        SamplingMarkers.SetActive(false);
+        // TODO: edit culling mask of minimap
+        /*SamplingMarkers.SetActive(false);
         NavigationMarkers.SetActive(true);
         RouteMarkers.SetActive(false);
         EgressMarkers.SetActive(false);
-        AirlockMarkers.SetActive(false);
+        AirlockMarkers.SetActive(false);*/
     }
 
     public void ClickIRISRoute()
@@ -145,12 +145,12 @@ public class MenuState : MonoBehaviour
         mode.text = "Exit Route Mode";
         isIRISModeSelected = true;
 
-        // Filter markers on minimap
-        SamplingMarkers.SetActive(false);
+        // TODO: edit culling mask of minimap
+        /*SamplingMarkers.SetActive(false);
         NavigationMarkers.SetActive(false);
         RouteMarkers.SetActive(true);
         EgressMarkers.SetActive(false);
-        AirlockMarkers.SetActive(false);
+        AirlockMarkers.SetActive(false);*/
     }
 
     public void ClickIRISEgress()
@@ -161,12 +161,12 @@ public class MenuState : MonoBehaviour
         mode.text = "Exit Egress Mode";
         isIRISModeSelected = true;
 
-        // Filter markers on minimap
-        SamplingMarkers.SetActive(false);
+        // TODO: edit culling mask of minimap
+        /*SamplingMarkers.SetActive(false);
         NavigationMarkers.SetActive(false);
         RouteMarkers.SetActive(false);
         EgressMarkers.SetActive(true);
-        AirlockMarkers.SetActive(false);
+        AirlockMarkers.SetActive(false);*/
     }
 
     public void ClickIRISAirlock()
@@ -177,12 +177,12 @@ public class MenuState : MonoBehaviour
         mode.text = "Exit Airlock Mode";
         isIRISModeSelected = true;
 
-        // Filter markers on minimap
-        SamplingMarkers.SetActive(false);
+        // TODO: edit culling mask of minimap
+        /*SamplingMarkers.SetActive(false);
         NavigationMarkers.SetActive(false);
         RouteMarkers.SetActive(false);
         EgressMarkers.SetActive(false);
-        AirlockMarkers.SetActive(true);
+        AirlockMarkers.SetActive(true);*/
     }
 
     public void ClickIRISClose()
@@ -252,12 +252,12 @@ public class MenuState : MonoBehaviour
         isIRISModeSelected = false;
         ExitIRISModeButton.SetActive(false);
 
-        // Unfilter markers on minimap
-        SamplingMarkers.SetActive(true);
+        // TODO: edit culling mask of minimap
+        /*SamplingMarkers.SetActive(true);
         NavigationMarkers.SetActive(true);
         RouteMarkers.SetActive(true);
         EgressMarkers.SetActive(true);
-        AirlockMarkers.SetActive(true);
+        AirlockMarkers.SetActive(true);*/
     }
 
 }
