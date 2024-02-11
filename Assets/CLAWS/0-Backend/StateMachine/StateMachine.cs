@@ -7,9 +7,10 @@ using UnityEngine;
 public enum Screens
 {
     Menu,
-    SelectStationWaypoint,
-    SelectNavWaypoint,
-    SelectGeoWaypoint,
+    SelectStationNav,
+    SelectPOINav,
+    SelectGeoNav,
+    SelectDangerNav,
     CreatingWaypoint,
     Vitals_1,
     Vitals_2,
