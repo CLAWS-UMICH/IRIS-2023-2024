@@ -5,7 +5,7 @@ using UnityEngine;
 public class LineRender : MonoBehaviour
 {
     // Start is called before the first frame update
-    public float radius;
+    public float radius = 3;
     public float circleThickness = 0.02f;
 
     LineRenderer lineRenderer;
