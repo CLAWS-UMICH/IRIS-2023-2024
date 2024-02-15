@@ -71,11 +71,13 @@ public class Screenshot : MonoBehaviour
         // Deactivate the camera
         photoCaptureObject.StopPhotoModeAsync(OnStoppedPhotoMode);
     }
+#endif
 
     // use this photo button
     [ContextMenu("func UseThisPhoto")]
     public string UseThisPhoto(GameObject outputQuad)
     {
+#if !UNITY_WEBGL
         Renderer r = outputQuad.GetComponent<Renderer>();
         r.material = new Material(Shader.Find("Unlit/Texture"));
         r.material.SetTexture("_MainTex", targetTexture);
@@ -92,8 +94,12 @@ public class Screenshot : MonoBehaviour
 
         string s = Convert.ToBase64String(jpg); // TODO send to WEB TEAM!!!
         return s;
+#else
+        return ""
+#endif
     }
 
+#if !UNITY_WEBGL
     void OnStoppedPhotoMode(PhotoCapture.PhotoCaptureResult result)
     {
         photoCaptureObject.Dispose();
