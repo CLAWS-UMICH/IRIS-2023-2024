@@ -7,7 +7,6 @@ using System;
 
 #if !UNITY_WEBGL
 using UnityEngine.Windows.WebCam;
-#endif
 
 
 [System.Serializable]
@@ -15,7 +14,11 @@ public class Screenshot : MonoBehaviour
 {
 
     private GameObject button;
+
+
     PhotoCapture photoCaptureObject = null;
+
+
     Texture2D targetTexture = null;
 
     public string sampleName = "GeoSample";
@@ -29,7 +32,6 @@ public class Screenshot : MonoBehaviour
     [ContextMenu("func TakePhoto")]
     public void TakePhoto()
     {
-#if !UNITY_WEBGL
         Resolution cameraResolution = PhotoCapture.SupportedResolutions.OrderByDescending((res) => res.width * res.height).First();
         targetTexture = new Texture2D(cameraResolution.width, cameraResolution.height);
 
@@ -55,10 +57,7 @@ public class Screenshot : MonoBehaviour
                 photoCaptureObject.TakePhotoAsync(PhotoToMemory);
             });
         });
-#endif
     }
-
-#if !UNITY_WEBGL
 
     void PhotoToMemory(PhotoCapture.PhotoCaptureResult result, PhotoCaptureFrame photoCaptureFrame)
     {
@@ -75,13 +74,11 @@ public class Screenshot : MonoBehaviour
         // Deactivate the camera
         photoCaptureObject.StopPhotoModeAsync(OnStoppedPhotoMode);
     }
-#endif
 
     // use this photo button
     [ContextMenu("func UseThisPhoto")]
     public string UseThisPhoto(GameObject outputQuad)
     {
-#if !UNITY_WEBGL
         Renderer r = outputQuad.GetComponent<Renderer>();
         r.material = new Material(Shader.Find("Unlit/Texture"));
         r.material.SetTexture("_MainTex", targetTexture);
@@ -98,18 +95,13 @@ public class Screenshot : MonoBehaviour
 
         string s = Convert.ToBase64String(jpg); // TODO send to WEB TEAM!!!
         return s;
-#else
-        return "";
-#endif
     }
 
-#if !UNITY_WEBGL
     void OnStoppedPhotoMode(PhotoCapture.PhotoCaptureResult result)
     {
         photoCaptureObject.Dispose();
         photoCaptureObject = null;
     }
-#endif
 
 
     public void TogglePanel(GameObject panel)
@@ -118,3 +110,34 @@ public class Screenshot : MonoBehaviour
     }
 
 }
+
+#else
+[System.Serializable]
+public class Screenshot : MonoBehaviour
+{
+    private GameObject button;
+
+    public string sampleName = "GeoSample";
+
+    [SerializeField] private Material defaultmaterial;
+    [SerializeField] private Material defaultConfirmMaterial;
+    [SerializeField] private GameObject confirmationQuad;
+
+
+    public void TakePhoto()
+    {
+    }
+    
+    public string UseThisPhoto(GameObject outputQuad)
+    {
+        return "";
+    }
+
+    public void TogglePanel(GameObject panel)
+    {
+        panel.SetActive(!button.activeSelf);
+    }
+
+}
+
+#endif
