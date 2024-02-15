@@ -15,7 +15,7 @@ public class TaskListScreenHandler : MonoBehaviour
         CurrentTaskScreen = GameObject.Find("Prefab_CurrentTaskScreen").gameObject;
         DetailedTaskScreen = transform.Find("Detailed Task View").gameObject;
 
-        FullTaskListScreen.SetActive(false);
+        FullTaskListScreen.SetActive(true);
         CurrentTaskScreen.SetActive(true);
         DetailedTaskScreen.SetActive(false);
     }
