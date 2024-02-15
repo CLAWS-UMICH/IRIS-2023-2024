@@ -22,6 +22,8 @@ public class SingleGeosampleScreen : MonoBehaviour
     public GameObject XRFReadings;
     //public TextMeshPro[] XRFList;
     public List<TextMeshPro> XRFList = new List<TextMeshPro>();
+    public GameObject XRFCollider;
+    public GameObject XRFBackPlate;
 
     private void Start()
     {
@@ -147,6 +149,8 @@ public class SingleGeosampleScreen : MonoBehaviour
 
         WaitingXRF.SetActive(false);
         XRFReadings.SetActive(true);
+        XRFBackPlate.SetActive(false);
+        XRFCollider.SetActive(false);
 
         
         // Update XRF Readings
