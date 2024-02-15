@@ -81,6 +81,7 @@ public class Geosample
     public Location location;
     public int author;
     public string photo_jpg;
+    public string description;
 
     public override bool Equals(object obj)
     {
