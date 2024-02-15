@@ -488,7 +488,7 @@ public class LLMCHighlight
 
 public class XRFScanEvent
 {
-    DataDetails data;
+    public DataDetails data;
     public XRFScanEvent(DataDetails d)
     {
         data = d;

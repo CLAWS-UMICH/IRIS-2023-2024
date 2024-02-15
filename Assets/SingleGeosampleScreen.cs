@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System;
+using System.Collections.Generic;
 
 
 public class SingleGeosampleScreen : MonoBehaviour
@@ -18,6 +19,9 @@ public class SingleGeosampleScreen : MonoBehaviour
 
     public GameObject TakeXRF;
     public GameObject WaitingXRF;
+    public GameObject XRFReadings;
+    //public TextMeshPro[] XRFList;
+    public List<TextMeshPro> XRFList = new List<TextMeshPro>();
 
     private void Start()
     {
@@ -26,6 +30,8 @@ public class SingleGeosampleScreen : MonoBehaviour
         ColorScreen.SetActive(false);
         ShapeScreen.SetActive(false);
         VoiceNotesScreen.SetActive(false);
+        WaitingXRF.SetActive(false);
+        XRFReadings.SetActive(false);
 
         CurrentScreen = GeoSampleScreens.None;
         SetID();
@@ -50,7 +56,13 @@ public class SingleGeosampleScreen : MonoBehaviour
     {
         DataDetails d = new DataDetails();
         // todo set d.blahblahblah to whatever you want
+        d.Al2O3 = 99.99;
+        d.SiO2 = 2.888;
+        d.FeO = 30.19;
+        d.CaO = 1.0;
         EventBus.Publish<XRFScanEvent>(new(d));
+
+        
     }
     public enum GeoSampleScreens
     {
@@ -103,7 +115,7 @@ public class SingleGeosampleScreen : MonoBehaviour
             TakeXRF.SetActive(false);
 
             // Wait for the event
-            TakeXRF.SetActive(true);
+            WaitingXRF.SetActive(true);
             EventBus.Subscribe<XRFScanEvent>(waitingForXRF);
         }
         else
@@ -114,7 +126,20 @@ public class SingleGeosampleScreen : MonoBehaviour
 
     public void waitingForXRF(XRFScanEvent e)
     {
-        TakeXRF.SetActive(true);
+        XRFList[0].text = e.data.SiO2.ToString();
+        XRFList[1].text = e.data.FeO.ToString();
+        XRFList[2].text = e.data.CaO.ToString();
+        XRFList[3].text = e.data.TiO2.ToString();
+        XRFList[4].text = e.data.MnO.ToString();
+        XRFList[5].text = e.data.K2O.ToString();
+        XRFList[6].text = e.data.Al2O3.ToString();
+        XRFList[7].text = e.data.MgO.ToString();
+        XRFList[8].text = e.data.P2O3.ToString();
+
+        WaitingXRF.SetActive(false);
+        XRFReadings.SetActive(true);
+
+        
         // Update XRF Readings
     }
 
@@ -186,7 +211,8 @@ public class SingleGeosampleScreen : MonoBehaviour
                 ZoneScreen.SetActive(false);
                 break;
             case GeoSampleScreens.XRFScan:
-                // NameScreen.SetActive(false);
+                WaitingXRF.SetActive(false);
+                TakeXRF.SetActive(true);
                 break;
             case GeoSampleScreens.Shape:
                 ShapeScreen.SetActive(false);
