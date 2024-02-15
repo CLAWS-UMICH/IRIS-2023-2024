@@ -45,7 +45,13 @@ public class SingleGeosampleScreen : MonoBehaviour
     {
         GameObject.Find("Controller").GetComponent<WebsocketDataHandler>().SendGeosampleData();
     }
-
+    [ContextMenu("func FakeXRFScanned()")]
+    public void FakeXRFScanned()
+    {
+        DataDetails d = new DataDetails();
+        // todo set d.blahblahblah to whatever you want
+        EventBus.Publish<XRFScanEvent>(new(d));
+    }
     public enum GeoSampleScreens
     {
         None,
