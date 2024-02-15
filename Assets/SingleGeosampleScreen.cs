@@ -26,6 +26,12 @@ public class SingleGeosampleScreen : MonoBehaviour
         ColorScreen.SetActive(false);
         ShapeScreen.SetActive(false);
         VoiceNotesScreen.SetActive(false);
+    }
+    public void Init()
+    {
+        Sample = new();
+        Sample.author = AstronautInstance.User.id;
+        AstronautInstance.User.GeosampleData.AllGeosamples.Add(Sample);
 
         CurrentScreen = GeoSampleScreens.None;
         SetID();
@@ -34,17 +40,19 @@ public class SingleGeosampleScreen : MonoBehaviour
         SetSampleName("Sample " + Sample.geosample_id);
 
         // set zone if within a zone
-
     }
     public void Load(Geosample Sample_f)
     {
         Sample = Sample_f;
         // Set all relevant data 
+
+        CurrentScreen = GeoSampleScreens.None;
+        SetZone(((char)('A' + (char)(Sample.zone_id++ % 27))).ToString());
+        SetSampleName("Sample " + Sample.geosample_id);
+
+        // set zone if within a zone
     }
-    public void SendData()
-    {
-        GameObject.Find("Controller").GetComponent<WebsocketDataHandler>().SendGeosampleData();
-    }
+
     [ContextMenu("func FakeXRFScanned()")]
     public void FakeXRFScanned()
     {
@@ -52,6 +60,7 @@ public class SingleGeosampleScreen : MonoBehaviour
         // todo set d.blahblahblah to whatever you want
         EventBus.Publish<XRFScanEvent>(new(d));
     }
+
     public enum GeoSampleScreens
     {
         None,
@@ -225,13 +234,10 @@ public class SingleGeosampleScreen : MonoBehaviour
         Name_tmp.text = name;
 
         // TODO update Sample.name
-        SendData();
+        GeosamplingManager.SendData();
     }
     public void SetID()
     {
-        // this will be automatic assignment based on global ID
-        // maybe a static variable for this class or smth
-        // called on start function
         Sample.geosample_id = id_counter++;
     }
     public void SetZone(string letter)
@@ -245,7 +251,7 @@ public class SingleGeosampleScreen : MonoBehaviour
         OtherZone_tmp.text = "Zone " + letter;
 
         Sample.zone_id = letter[0];
-        SendData();
+        GeosamplingManager.SendData();
     }
     public void SetCoordinates()
     {
@@ -266,7 +272,7 @@ public class SingleGeosampleScreen : MonoBehaviour
         RockType_tmp.text = name;
 
         // TODO update Sample.rockType
-        SendData();
+        GeosamplingManager.SendData();
     }
     [SerializeField]
     public void SetShape(GeosamplingShape shape_in)
@@ -307,28 +313,28 @@ public class SingleGeosampleScreen : MonoBehaviour
                 break;
         }
 
-        SendData();
+        GeosamplingManager.SendData();
         CloseCurrentScreen();
     }
     public void SetColor(string hex)
     {
         Color_visual.SetColor(hex);
         Sample.color = hex;
-        SendData();
+        GeosamplingManager.SendData();
     }
     public void SetPhoto()
     {
         // TODO show photo
 
         // TODO update Sample.photo
-        SendData();
+        GeosamplingManager.SendData();
     }
     public void SetNote()
     {
         // TODO update tmp
 
         // TODO update Sample.note
-        SendData();
+        GeosamplingManager.SendData();
     }
 
 

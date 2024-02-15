@@ -51,7 +51,7 @@ public class GeosamplingPhotoScreen : MonoBehaviour
         if (s != null)
         {
             Geosample.Sample.photo_jpg = s;
-            Geosample.SendData();
+            GeosamplingManager.SendData();
         }
         else
         {
