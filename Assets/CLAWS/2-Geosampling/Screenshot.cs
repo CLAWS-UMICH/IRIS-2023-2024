@@ -95,7 +95,7 @@ public class Screenshot : MonoBehaviour
         string s = Convert.ToBase64String(jpg); // TODO send to WEB TEAM!!!
         return s;
 #else
-        return ""
+        return "";
 #endif
     }
 
