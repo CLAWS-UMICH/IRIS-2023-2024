@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Linq;
-using UnityEngine.Windows.WebCam;
 using System;
+
+#if !UNITY_WEBGL
+using UnityEngine.Windows.WebCam;
+#endif
+
 
 [System.Serializable]
 public class Screenshot : MonoBehaviour
