@@ -25,6 +25,7 @@ public class Screenshot : MonoBehaviour
     [ContextMenu("func TakePhoto")]
     public void TakePhoto()
     {
+#if !UNITY_WEBGL
         Resolution cameraResolution = PhotoCapture.SupportedResolutions.OrderByDescending((res) => res.width * res.height).First();
         targetTexture = new Texture2D(cameraResolution.width, cameraResolution.height);
 
@@ -50,7 +51,10 @@ public class Screenshot : MonoBehaviour
                 photoCaptureObject.TakePhotoAsync(PhotoToMemory);
             });
         });
+#endif
     }
+
+#if !UNITY_WEBGL
 
     void PhotoToMemory(PhotoCapture.PhotoCaptureResult result, PhotoCaptureFrame photoCaptureFrame)
     {
@@ -95,6 +99,7 @@ public class Screenshot : MonoBehaviour
         photoCaptureObject.Dispose();
         photoCaptureObject = null;
     }
+#endif
 
 
     public void TogglePanel(GameObject panel)
