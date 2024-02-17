@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GeosamplingZone : MonoBehaviour
@@ -7,6 +8,8 @@ public class GeosamplingZone : MonoBehaviour
     private Subscription<GeosampleModeStartedEvent> geosampleModeStartedEvent;
     private Subscription<GeosampleModeEndedEvent> geosampleModeEndedEvent;
     private Subscription<GeosamplesAddedEvent> geosampleAddedEvent;
+
+    public TextMeshPro label;
 
     public bool isEntered = false;
     public Location location;
@@ -26,15 +29,30 @@ public class GeosamplingZone : MonoBehaviour
 
         transform.position = Camera.main.transform.position - new Vector3(0f, offsetBelow, 0f);
         location = GPSUtils.AppPositionToGPSCoords(transform.position);
-
+        GeoSampleLabel();
+        
         StartCoroutine(TrackUserLocation());
+    }
+
+    private void GeoSampleLabel()
+    {
+        // creating geosample zone textmeshpro
+        int ascii = (int)'A';
+        ascii += sessionSamples;
+        string zoneLabel = "";
+        while (ascii > 90)
+        {
+            zoneLabel += "Z";
+            ascii -= 90;
+        }
+        zoneLabel = ((char)ascii).ToString();
+        label.text = zoneLabel;
     }
 
     private void OnGeosampleModeStarted(GeosampleModeStartedEvent e)
     {
         // show perimeter
         sessionSamples = 0;
-
         StartCoroutine(TrackUserLocation());
     }
 
