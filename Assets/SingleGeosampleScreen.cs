@@ -36,11 +36,8 @@ public class SingleGeosampleScreen : MonoBehaviour
         VoiceNotesScreen.SetActive(false);
         WaitingXRF.SetActive(false);
         XRFReadings.SetActive(false);
-<<<<<<< HEAD
         StarredIcon.SetActive(false);
-=======
         XRFScanned = false;
->>>>>>> 2c14b1dca1cea43db37ae95f21112144a575df53
         CurrentScreen = GeoSampleScreens.None;
     }
     public void Init()
