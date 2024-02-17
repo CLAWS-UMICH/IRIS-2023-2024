@@ -80,6 +80,7 @@ public class Geosample
     public string time;
     public string color;
     public string shape;
+    public bool starred;
     public string rock_type;
     public Location location;
     public int author;
@@ -100,6 +101,7 @@ public class Geosample
                time == otherGeo.time &&
                color == otherGeo.color &&
                shape == otherGeo.shape &&
+               starred == otherGeo.starred &&
                location.Equals(otherGeo.location) &&
                author == otherGeo.author && 
                photo_jpg == otherGeo.photo_jpg;

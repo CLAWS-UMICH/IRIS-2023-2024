@@ -44,6 +44,8 @@ public class GeosamplingZone : MonoBehaviour
         Zone.ZoneGeosamplesIds = new();
         
         GeosamplingManager.SendData();
+
+        zoneSamples++;
         
         StartCoroutine(TrackUserLocation());
     }
