@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class GeoSampleIcon : MonoBehaviour
 {
-    public GameObject prefab;
-
+    public GameObject marker;
 
     // Start is called before the first frame update
     void Start()
     {
-        Vector3 position = transform.position;
-        position.y = 6.86f; 
-        Instantiate(prefab, position, Quaternion.identity);
+      
+    }
 
+    void SetIcon()
+    {
+        Vector3 position = transform.position;
+        position.y = 6.86f;
+        marker.transform.position = position;
     }
 }

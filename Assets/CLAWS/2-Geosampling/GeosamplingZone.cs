@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
@@ -11,8 +12,10 @@ public class GeosamplingZone : MonoBehaviour
     private Subscription<GeosampleModeEndedEvent> geosampleModeEndedEvent;
     private Subscription<GeosamplesAddedEvent> geosampleAddedEvent;
 
-    public static int numZones = 0;
+    public static int NumZones = 0;
+    public static string CurrentZone = "";
 
+    public TextMeshPro label;
     public bool isEntered = false;
     public Location location;
     public GeosampleZone Zone;
@@ -31,23 +34,41 @@ public class GeosamplingZone : MonoBehaviour
 
         transform.position = Camera.main.transform.position - new Vector3(0f, offsetBelow, 0f);
         location = GPSUtils.AppPositionToGPSCoords(transform.position);
+        GeoSampleLabel();
         zoneSamples = 0;
         radius = 3;
 
         // Update backend
         Zone = new GeosampleZone();
-        Zone.zone_id = (char)('A' + (char)(numZones++ % 27));
+        Zone.zone_id = (char)('A' + (char)(NumZones++ % 27));
         Zone.radius = 3;
         Zone.location = location;
         Zone.ZoneGeosamplesIds = new();
         
         GeosamplingManager.SendData();
-        
+
         StartCoroutine(TrackUserLocation());
+    }
+
+    private void GeoSampleLabel()
+    {
+        // creating geosample zone textmeshpro
+        int ascii = (int)'A';
+        ascii += sessionSamples;
+        string zoneLabel = "";
+        while (ascii > 90)
+        {
+            zoneLabel += "Z";
+            ascii -= 90;
+        }
+        zoneLabel = ((char)ascii).ToString();
+        label.text = zoneLabel;
     }
 
     private void OnGeosampleModeStarted(GeosampleModeStartedEvent e)
     {
+        // show perimeter
+        sessionSamples = 0;
         GetComponent<LineRender>().ShowBoundary();
 
         StartCoroutine(TrackUserLocation());
@@ -95,6 +116,7 @@ public class GeosamplingZone : MonoBehaviour
         Debug.Log("Geosample Zone Entered: " + Zone.ToString());
 
         isEntered = true;
+        CurrentZone = Zone.zone_id.ToString();
 
         // todo show geosamples
         // todo update current zone and upper left
@@ -105,8 +127,7 @@ public class GeosamplingZone : MonoBehaviour
         Debug.Log("Geosample Zone Exited: " + Zone.ToString());
 
         isEntered = false;
-
-        GeosamplingManager.EndGeosamplingMode();
+        CurrentZone = "";
     }
 
 
