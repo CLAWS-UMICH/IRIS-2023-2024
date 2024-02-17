@@ -11,7 +11,9 @@ public class GeosamplingZone : MonoBehaviour
     private Subscription<GeosampleModeEndedEvent> geosampleModeEndedEvent;
     private Subscription<GeosamplesAddedEvent> geosampleAddedEvent;
 
-    public static int numZones = 0;
+    public static int NumZones = 0;
+    public static string CurrentZone = "";
+
 
     public bool isEntered = false;
     public Location location;
@@ -36,7 +38,7 @@ public class GeosamplingZone : MonoBehaviour
 
         // Update backend
         Zone = new GeosampleZone();
-        Zone.zone_id = (char)('A' + (char)(numZones++ % 27));
+        Zone.zone_id = (char)('A' + (char)(NumZones++ % 27));
         Zone.radius = 3;
         Zone.location = location;
         Zone.ZoneGeosamplesIds = new();
@@ -95,6 +97,7 @@ public class GeosamplingZone : MonoBehaviour
         Debug.Log("Geosample Zone Entered: " + Zone.ToString());
 
         isEntered = true;
+        CurrentZone = Zone.zone_id.ToString();
 
         // todo show geosamples
         // todo update current zone and upper left
@@ -105,8 +108,7 @@ public class GeosamplingZone : MonoBehaviour
         Debug.Log("Geosample Zone Exited: " + Zone.ToString());
 
         isEntered = false;
-
-        GeosamplingManager.EndGeosamplingMode();
+        CurrentZone = "";
     }
 
 

@@ -47,7 +47,10 @@ public class SingleGeosampleScreen : MonoBehaviour
         SetTime();
         SetSampleName("Sample " + Sample.geosample_id);
 
-        // set zone if within a zone
+        if (GeosamplingZone.CurrentZone != "")
+        {
+            SetZone(GeosamplingZone.CurrentZone);
+        }
     }
     public void Load(Geosample Sample_f)
     {
@@ -57,15 +60,12 @@ public class SingleGeosampleScreen : MonoBehaviour
         CurrentScreen = GeoSampleScreens.None;
         SetZone(((char)('A' + (char)(Sample.zone_id++ % 27))).ToString());
         SetSampleName("Sample " + Sample.geosample_id);
-
-        // set zone if within a zone
     }
 
     [ContextMenu("func FakeXRFScanned()")]
     public void FakeXRFScanned()
     {
         DataDetails d = new DataDetails();
-        // todo set d.blahblahblah to whatever you want
         d.Al2O3 = 99.99;
         d.SiO2 = 2.888;
         d.FeO = 30.19;
