@@ -50,6 +50,7 @@ public class SingleGeosampleScreen : MonoBehaviour
         SetCoordinates();
         SetTime();
         SetStar();
+        SetZoneId();
         SetSampleName("Sample " + Sample.geosample_id);
 
         if (GeosamplingZone.CurrentZone != "")
@@ -66,6 +67,7 @@ public class SingleGeosampleScreen : MonoBehaviour
         SetZone(((char)('A' + (char)(Sample.zone_id++ % 27))).ToString());
         SetSampleName("Sample " + Sample.geosample_id);
         SetStar();
+        SetZoneId();
 
         // set zone if within a zone
     }
@@ -267,6 +269,7 @@ public class SingleGeosampleScreen : MonoBehaviour
     public TextMeshPro ZoneNone_tmp;
     public GameObject Zone_icon;
     public TextMeshPro OtherZone_tmp;
+    public TextMeshPro Zone_id_tmp;
 
     public TextMeshPro RockType_tmp;
     public TextMeshPro XRF_tmp;
@@ -298,6 +301,7 @@ public class SingleGeosampleScreen : MonoBehaviour
         OtherZone_tmp.text = "Zone " + letter;
 
         Sample.zone_id = letter[0];
+        SetZoneId();
         GeosamplingManager.SendData();
     }
     public void SetCoordinates()
@@ -387,6 +391,10 @@ public class SingleGeosampleScreen : MonoBehaviour
     {
         StarredIcon.SetActive(Sample.starred);
 
+    }
+    public void SetZoneId()
+    {
+        Zone_id_tmp.text =(Sample.zone_id + Sample.geosample_id).ToString();
     }
 
     // -------------- Screen Visuals --------------
