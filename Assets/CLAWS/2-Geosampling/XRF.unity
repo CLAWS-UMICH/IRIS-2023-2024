@@ -433,6 +433,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 143888265}
   m_CullTransparentMesh: 1
+--- !u!1 &145222735 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1876235420285575114, guid: c2f596a61d388af4abc528d0381ce4a1, type: 3}
+  m_PrefabInstance: {fileID: 8275031044536681265}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &160533306
 GameObject:
   m_ObjectHideFlags: 0
@@ -1955,6 +1960,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8f3e9cff4868eb4bab1259d9ebf2604, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GeosamplingZonePrefab: {fileID: 0}
 --- !u!4 &1669180069
 Transform:
   m_ObjectHideFlags: 0
@@ -2502,6 +2508,10 @@ PrefabInstance:
       value: Al203 Num
       objectReference: {fileID: 0}
     - target: {fileID: 1567260017021656407, guid: c2f596a61d388af4abc528d0381ce4a1, type: 3}
+      propertyPath: ShapeScreen
+      value: 
+      objectReference: {fileID: 145222735}
+    - target: {fileID: 1567260017021656407, guid: c2f596a61d388af4abc528d0381ce4a1, type: 3}
       propertyPath: XRFList.Array.size
       value: 9
       objectReference: {fileID: 0}
@@ -2913,36 +2923,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
     - targetCorrespondingSourceObject: {fileID: 7191814109951483196, guid: c2f596a61d388af4abc528d0381ce4a1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 8442338166258588961, guid: c2f596a61d388af4abc528d0381ce4a1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 2296970982691736626, guid: c2f596a61d388af4abc528d0381ce4a1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 3054694984565014901, guid: c2f596a61d388af4abc528d0381ce4a1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 4388309445829011112, guid: c2f596a61d388af4abc528d0381ce4a1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 1624773266144173258, guid: c2f596a61d388af4abc528d0381ce4a1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 1899588833114213461, guid: c2f596a61d388af4abc528d0381ce4a1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 709554582814784693, guid: c2f596a61d388af4abc528d0381ce4a1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 767759050270353670, guid: c2f596a61d388af4abc528d0381ce4a1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 8031069151316256262, guid: c2f596a61d388af4abc528d0381ce4a1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 2138220784951443057, guid: c2f596a61d388af4abc528d0381ce4a1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: c2f596a61d388af4abc528d0381ce4a1, type: 3}

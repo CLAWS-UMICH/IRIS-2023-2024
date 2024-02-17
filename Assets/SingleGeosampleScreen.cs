@@ -25,6 +25,7 @@ public class SingleGeosampleScreen : MonoBehaviour
     public List<TextMeshPro> XRFList = new List<TextMeshPro>();
     public GameObject XRFCollider;
     public GameObject XRFBackPlate;
+    public bool XRFScanned;
 
     private void Start()
     {
@@ -35,7 +36,11 @@ public class SingleGeosampleScreen : MonoBehaviour
         VoiceNotesScreen.SetActive(false);
         WaitingXRF.SetActive(false);
         XRFReadings.SetActive(false);
+<<<<<<< HEAD
         StarredIcon.SetActive(false);
+=======
+        XRFScanned = false;
+>>>>>>> 2c14b1dca1cea43db37ae95f21112144a575df53
         CurrentScreen = GeoSampleScreens.None;
     }
     public void Init()
@@ -127,6 +132,7 @@ public class SingleGeosampleScreen : MonoBehaviour
             CloseCurrentScreen();
 
             CurrentScreen = GeoSampleScreens.XRFScan;
+            XRFReadings.SetActive(false);
             TakeXRF.SetActive(false);
 
             // Wait for the event
@@ -141,6 +147,7 @@ public class SingleGeosampleScreen : MonoBehaviour
 
     public void waitingForXRF(XRFScanEvent e)
     {
+        // Update XRF Readings
         XRFList[0].text = e.data.SiO2.ToString();
         XRFList[1].text = e.data.FeO.ToString();
         XRFList[2].text = e.data.CaO.ToString();
@@ -151,13 +158,12 @@ public class SingleGeosampleScreen : MonoBehaviour
         XRFList[7].text = e.data.MgO.ToString();
         XRFList[8].text = e.data.P2O3.ToString();
 
+        // Show Readings
+        XRFScanned = true;
         WaitingXRF.SetActive(false);
         XRFReadings.SetActive(true);
-        XRFBackPlate.SetActive(false);
-        XRFCollider.SetActive(false);
-
+  
         
-        // Update XRF Readings
     }
 
     public void OnShapeButtonPressed()
@@ -229,7 +235,15 @@ public class SingleGeosampleScreen : MonoBehaviour
                 break;
             case GeoSampleScreens.XRFScan:
                 WaitingXRF.SetActive(false);
-                TakeXRF.SetActive(true);
+                if (XRFScanned == true)
+                {
+                    XRFReadings.SetActive(false);
+                    WaitingXRF.SetActive(true);
+                }
+                else
+                {
+                    TakeXRF.SetActive(true);
+                }
                 break;
             case GeoSampleScreens.Shape:
                 ShapeScreen.SetActive(false);
