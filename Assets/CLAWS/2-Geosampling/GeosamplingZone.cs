@@ -44,31 +44,21 @@ public class GeosamplingZone : MonoBehaviour
         Zone.radius = 3;
         Zone.location = location;
         Zone.ZoneGeosamplesIds = new();
-        
-        GeosamplingManager.SendData();
 
+        GeosamplingManager.SendData();  
         StartCoroutine(TrackUserLocation());
     }
 
     private void GeoSampleLabel()
     {
         // creating geosample zone textmeshpro
-        int ascii = (int)'A';
-        ascii += sessionSamples;
-        string zoneLabel = "";
-        while (ascii > 90)
-        {
-            zoneLabel += "Z";
-            ascii -= 90;
-        }
-        zoneLabel = ((char)ascii).ToString();
-        label.text = zoneLabel;
+        Zone.zone_id = (char)('A' + (char)(zoneSamples % 27));
+        label.text = Zone.zone_id.ToString();
     }
 
     private void OnGeosampleModeStarted(GeosampleModeStartedEvent e)
     {
         // show perimeter
-        sessionSamples = 0;
         GetComponent<LineRender>().ShowBoundary();
 
         StartCoroutine(TrackUserLocation());
