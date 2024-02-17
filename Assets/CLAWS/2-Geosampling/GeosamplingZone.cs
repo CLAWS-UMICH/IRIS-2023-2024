@@ -52,7 +52,7 @@ public class GeosamplingZone : MonoBehaviour
     private void GeoSampleLabel()
     {
         // creating geosample zone textmeshpro
-        string text = ((char)((int)'A' + (numZones % 27))).ToString();
+        string text = ((char)((int)'A' + (NumZones % 27))).ToString();
         label.text = text;
     }
 
@@ -143,3 +143,5 @@ public class GeosamplingZone : MonoBehaviour
         }
     }
 }
+
+
