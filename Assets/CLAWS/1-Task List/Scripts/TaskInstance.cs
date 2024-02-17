@@ -131,7 +131,7 @@ public class TaskInstance : MonoBehaviour
         Type = TaskType.Emergency;
 
         Title.text = Task.title;
-        Status.text = Task.description;
+        Status.text = "Urgent!";
     }
 
     public GameObject GetIcon()

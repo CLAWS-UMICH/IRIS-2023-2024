@@ -20,8 +20,12 @@ public class GeosamplingManager : MonoBehaviour
     }
 
 
+    public static void SendData()
+    {
+        GameObject.Find("Controller").GetComponent<WebsocketDataHandler>().SendGeosampleData();
+    }
 
-
+    
     [ContextMenu("func StartGeosamplingMode")]
     public static void StartGeosamplingMode()
     {

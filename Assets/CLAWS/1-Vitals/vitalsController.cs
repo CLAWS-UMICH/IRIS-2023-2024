@@ -179,6 +179,9 @@ public class vitalsController : MonoBehaviour
         // Time Remaining
         powerTime.text = FloatToTimeString((float)e.vitals.batt_time_left); // 00:00:00
         oxyTime.text = FloatToTimeString((float)e.vitals.oxy_time_left); // 00:00:00
+
+        AstronautInstance.User.VitalsData.batt_percentage = e.vitals.batt_time_left / BATT_TIME_CAP;
+        AstronautInstance.User.VitalsData.oxy_percentage = e.vitals.oxy_time_left / OXY_TIME_CAP;
     }
 
     private void onFellowVitalsUpdate(FellowAstronautVitalsDataChangeEvent e) {

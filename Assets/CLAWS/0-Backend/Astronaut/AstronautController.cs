@@ -59,6 +59,9 @@ public class Vitals
     public double coolant_m;
     public double coolant_gas_pressure;
     public double coolant_liquid_pressure;
+
+    public double batt_percentage;
+    public double oxy_percentage;
 }
 
 // Geosamples
@@ -121,15 +124,15 @@ public class EvaData
 [System.Serializable]
 public class DataDetails
 {
-    public int SiO2;
-    public int TiO2;
-    public int Al2O3;
-    public int FeO;
-    public int MnO;
-    public int MgO;
-    public int CaO;
-    public int K2O;
-    public int P2O3;
+    public double SiO2;
+    public double TiO2;
+    public double Al2O3;
+    public double FeO;
+    public double MnO;
+    public double MgO;
+    public double CaO;
+    public double K2O;
+    public double P2O3;
 }
 
 // Geosamples

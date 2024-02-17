@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9098603372018042049}
   - component: {fileID: -8146118307087318076}
   - component: {fileID: 5746770925143163427}
+  - component: {fileID: 4403208710502128705}
   m_Layer: 0
   m_Name: GeosampleZone
   m_TagString: Untagged
@@ -49,9 +50,16 @@ MonoBehaviour:
   location:
     latitude: 0
     longitude: 0
+  Zone:
+    zone_id: 81
+    ZoneGeosamplesIds: 
+    location:
+      latitude: 0
+      longitude: 0
+    radius: 0
   offsetBelow: 0
   radius: 0
-  sessionSamples: 0
+  zoneSamples: 0
 --- !u!114 &5746770925143163427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,8 +69,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 2233994201271534150}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e0865df3bf8cc34c81ae28dfa11a56e, type: 3}
+  m_Script: {fileID: 11500000, guid: f6930e09c3c2f43e9abd4f46ab830748, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 3
   circleThickness: 0.02
+--- !u!114 &4403208710502128705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2233994201271534150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20d5c0b6a881a4c47970cf3d94b8c7b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 3277404595331234808, guid: 51d3b50462daa4de994cdc675bda086f, type: 3}
