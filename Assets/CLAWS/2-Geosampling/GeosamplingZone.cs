@@ -1,6 +1,9 @@
+using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
 public class GeosamplingZone : MonoBehaviour
@@ -10,19 +13,20 @@ public class GeosamplingZone : MonoBehaviour
     private Subscription<GeosamplesAddedEvent> geosampleAddedEvent;
 
     public TextMeshPro label;
+    public static int numZones = 0;
 
     public bool isEntered = false;
     public Location location;
+    public GeosampleZone Zone;
 
     public float offsetBelow;
     public float radius;
 
-    public int sessionSamples = 0;
+    public int zoneSamples = 0;
 
     public void Init()
     {
         // Creates a Geosample Zone at the user's current location 
-
         geosampleModeStartedEvent = EventBus.Subscribe<GeosampleModeStartedEvent>(OnGeosampleModeStarted);
         geosampleModeEndedEvent = EventBus.Subscribe<GeosampleModeEndedEvent>(OnGeosampleModeEnded);
         geosampleAddedEvent = EventBus.Subscribe<GeosamplesAddedEvent>(OnGeosampleAdded);
@@ -30,7 +34,17 @@ public class GeosamplingZone : MonoBehaviour
         transform.position = Camera.main.transform.position - new Vector3(0f, offsetBelow, 0f);
         location = GPSUtils.AppPositionToGPSCoords(transform.position);
         GeoSampleLabel();
+        zoneSamples = 0;
+        radius = 3;
+
+        // Update backend
+        Zone = new GeosampleZone();
+        Zone.zone_id = (char)('A' + (char)(numZones++ % 27));
+        Zone.radius = 3;
+        Zone.location = location;
+        Zone.ZoneGeosamplesIds = new();
         
+        GeosamplingManager.SendData();   
         StartCoroutine(TrackUserLocation());
     }
 
@@ -53,19 +67,23 @@ public class GeosamplingZone : MonoBehaviour
     {
         // show perimeter
         sessionSamples = 0;
+        GetComponent<LineRender>().ShowBoundary();
+
         StartCoroutine(TrackUserLocation());
     }
 
     private void OnGeosampleModeEnded(GeosampleModeEndedEvent e)
     {
-        // hide perimeter
+        GetComponent<LineRender>().HideBoundary();
 
         isEntered = false;
     }
 
     private void OnGeosampleAdded(GeosamplesAddedEvent e)
     {
-        sessionSamples += 1;
+        zoneSamples += 1;
+
+        // TODO update zone object
     }
 
     IEnumerator TrackUserLocation()
@@ -93,13 +111,18 @@ public class GeosamplingZone : MonoBehaviour
 
     private void OnZoneEntered()
     {
+        Debug.Log("Geosample Zone Entered: " + Zone.ToString());
+
         isEntered = true;
 
         // todo show geosamples
+        // todo update current zone and upper left
     }
 
     private void OnZoneExited()
     {
+        Debug.Log("Geosample Zone Exited: " + Zone.ToString());
+
         isEntered = false;
 
         GeosamplingManager.EndGeosamplingMode();

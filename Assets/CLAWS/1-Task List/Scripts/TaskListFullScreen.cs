@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
 
 /*  Phase 1 - Task List Team 
  *  Patrick, Alex, John
@@ -25,11 +26,14 @@ public class TaskListFullScreen : MonoBehaviour
 
     [SerializeField] GameObject DetailedView;
 
+    public bool RenderFinished = true;
+
     Queue<string> FunctionQueue;
 
     [ContextMenu("func RenderTaskList")]
     public void RenderTaskList()
     {
+        RenderFinished = false;
         FunctionQueue.Enqueue("ClearAll");
         FunctionQueue.Enqueue("Render");
     }
@@ -73,6 +77,8 @@ public class TaskListFullScreen : MonoBehaviour
 
         DrawLines();
         Clipping.SetRenderers();
+
+        RenderFinished = true;
     }
 
     private void Update()
@@ -223,6 +229,20 @@ public class TaskListFullScreen : MonoBehaviour
         taskFinishedEvent = EventBus.Subscribe<TaskFinishedEvent>(OnEvent_RenderTaskList);
 
         RenderTaskList();
+        CloseScreen();
+    }
+
+    public void CloseScreen()
+    {
+        StartCoroutine(_Disable());
+    }
+    IEnumerator _Disable()
+    {
+        while (!RenderFinished)
+        {
+            yield return new WaitForSeconds(0.1f);
+        }
+        gameObject.SetActive(false);
     }
 
     void OnDestroy()

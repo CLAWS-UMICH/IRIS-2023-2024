@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System;
+using System.Collections.Generic;
 
 
 public class SingleGeosampleScreen : MonoBehaviour
@@ -15,9 +16,16 @@ public class SingleGeosampleScreen : MonoBehaviour
     public GameObject ColorScreen;
     public GameObject ShapeScreen;
     public GameObject VoiceNotesScreen;
+    public GameObject StarredIcon;
 
     public GameObject TakeXRF;
     public GameObject WaitingXRF;
+    public GameObject XRFReadings;
+    //public TextMeshPro[] XRFList;
+    public List<TextMeshPro> XRFList = new List<TextMeshPro>();
+    public GameObject XRFCollider;
+    public GameObject XRFBackPlate;
+    public bool XRFScanned;
 
     private void Start()
     {
@@ -26,32 +34,56 @@ public class SingleGeosampleScreen : MonoBehaviour
         ColorScreen.SetActive(false);
         ShapeScreen.SetActive(false);
         VoiceNotesScreen.SetActive(false);
-
+        WaitingXRF.SetActive(false);
+        XRFReadings.SetActive(false);
+<<<<<<< HEAD
+        StarredIcon.SetActive(false);
+=======
+        XRFScanned = false;
+>>>>>>> 2c14b1dca1cea43db37ae95f21112144a575df53
         CurrentScreen = GeoSampleScreens.None;
+    }
+    public void Init()
+    {
+        Sample = new();
+        Sample.author = AstronautInstance.User.id;
+        AstronautInstance.User.GeosampleData.AllGeosamples.Add(Sample);
+
         SetID();
         SetCoordinates();
         SetTime();
+        SetStar();
         SetSampleName("Sample " + Sample.geosample_id);
 
         // set zone if within a zone
-
     }
     public void Load(Geosample Sample_f)
     {
         Sample = Sample_f;
         // Set all relevant data 
+
+        CurrentScreen = GeoSampleScreens.None;
+        SetZone(((char)('A' + (char)(Sample.zone_id++ % 27))).ToString());
+        SetSampleName("Sample " + Sample.geosample_id);
+        SetStar();
+
+        // set zone if within a zone
     }
-    public void SendData()
-    {
-        GameObject.Find("Controller").GetComponent<WebsocketDataHandler>().SendGeosampleData();
-    }
+
     [ContextMenu("func FakeXRFScanned()")]
     public void FakeXRFScanned()
     {
         DataDetails d = new DataDetails();
         // todo set d.blahblahblah to whatever you want
+        d.Al2O3 = 99.99;
+        d.SiO2 = 2.888;
+        d.FeO = 30.19;
+        d.CaO = 1.0;
         EventBus.Publish<XRFScanEvent>(new(d));
+
+        
     }
+
     public enum GeoSampleScreens
     {
         None,
@@ -100,10 +132,11 @@ public class SingleGeosampleScreen : MonoBehaviour
             CloseCurrentScreen();
 
             CurrentScreen = GeoSampleScreens.XRFScan;
+            XRFReadings.SetActive(false);
             TakeXRF.SetActive(false);
 
             // Wait for the event
-            TakeXRF.SetActive(true);
+            WaitingXRF.SetActive(true);
             EventBus.Subscribe<XRFScanEvent>(waitingForXRF);
         }
         else
@@ -114,8 +147,23 @@ public class SingleGeosampleScreen : MonoBehaviour
 
     public void waitingForXRF(XRFScanEvent e)
     {
-        TakeXRF.SetActive(true);
         // Update XRF Readings
+        XRFList[0].text = e.data.SiO2.ToString();
+        XRFList[1].text = e.data.FeO.ToString();
+        XRFList[2].text = e.data.CaO.ToString();
+        XRFList[3].text = e.data.TiO2.ToString();
+        XRFList[4].text = e.data.MnO.ToString();
+        XRFList[5].text = e.data.K2O.ToString();
+        XRFList[6].text = e.data.Al2O3.ToString();
+        XRFList[7].text = e.data.MgO.ToString();
+        XRFList[8].text = e.data.P2O3.ToString();
+
+        // Show Readings
+        XRFScanned = true;
+        WaitingXRF.SetActive(false);
+        XRFReadings.SetActive(true);
+  
+        
     }
 
     public void OnShapeButtonPressed()
@@ -186,7 +234,16 @@ public class SingleGeosampleScreen : MonoBehaviour
                 ZoneScreen.SetActive(false);
                 break;
             case GeoSampleScreens.XRFScan:
-                // NameScreen.SetActive(false);
+                WaitingXRF.SetActive(false);
+                if (XRFScanned == true)
+                {
+                    XRFReadings.SetActive(false);
+                    WaitingXRF.SetActive(true);
+                }
+                else
+                {
+                    TakeXRF.SetActive(true);
+                }
                 break;
             case GeoSampleScreens.Shape:
                 ShapeScreen.SetActive(false);
@@ -225,13 +282,10 @@ public class SingleGeosampleScreen : MonoBehaviour
         Name_tmp.text = name;
 
         // TODO update Sample.name
-        SendData();
+        GeosamplingManager.SendData();
     }
     public void SetID()
     {
-        // this will be automatic assignment based on global ID
-        // maybe a static variable for this class or smth
-        // called on start function
         Sample.geosample_id = id_counter++;
     }
     public void SetZone(string letter)
@@ -245,7 +299,7 @@ public class SingleGeosampleScreen : MonoBehaviour
         OtherZone_tmp.text = "Zone " + letter;
 
         Sample.zone_id = letter[0];
-        SendData();
+        GeosamplingManager.SendData();
     }
     public void SetCoordinates()
     {
@@ -266,7 +320,7 @@ public class SingleGeosampleScreen : MonoBehaviour
         RockType_tmp.text = name;
 
         // TODO update Sample.rockType
-        SendData();
+        GeosamplingManager.SendData();
     }
     [SerializeField]
     public void SetShape(GeosamplingShape shape_in)
@@ -307,30 +361,34 @@ public class SingleGeosampleScreen : MonoBehaviour
                 break;
         }
 
-        SendData();
+        GeosamplingManager.SendData();
         CloseCurrentScreen();
     }
     public void SetColor(string hex)
     {
         Color_visual.SetColor(hex);
         Sample.color = hex;
-        SendData();
+        GeosamplingManager.SendData();
     }
     public void SetPhoto()
     {
         // TODO show photo
 
         // TODO update Sample.photo
-        SendData();
+        GeosamplingManager.SendData();
     }
     public void SetNote()
     {
         // TODO update tmp
 
         // TODO update Sample.note
-        SendData();
+        GeosamplingManager.SendData();
     }
+    public void SetStar()
+    {
+        StarredIcon.SetActive(Sample.starred);
 
+    }
 
     // -------------- Screen Visuals --------------
     private void Update()

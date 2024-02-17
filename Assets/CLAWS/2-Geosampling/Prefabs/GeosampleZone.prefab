@@ -53,9 +53,16 @@ MonoBehaviour:
   location:
     latitude: 0
     longitude: 0
+  Zone:
+    zone_id: 81
+    ZoneGeosamplesIds: 
+    location:
+      latitude: 0
+      longitude: 0
+    radius: 0
   offsetBelow: 0
   radius: 0
-  sessionSamples: 0
+  zoneSamples: 0
 --- !u!114 &5746770925143163427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,7 +72,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2233994201271534150}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e0865df3bf8cc34c81ae28dfa11a56e, type: 3}
+  m_Script: {fileID: 11500000, guid: f6930e09c3c2f43e9abd4f46ab830748, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 3
