@@ -1301,7 +1301,7 @@ MonoBehaviour:
   NameScreen: {fileID: 2370690620654482421}
   ZoneScreen: {fileID: 3875556298632919432}
   ColorScreen: {fileID: 4646266488529956752}
-  ShapeScreen: {fileID: 0}
+  ShapeScreen: {fileID: 1876235420285575114}
   VoiceNotesScreen: {fileID: 682435210399780100}
   TakeXRF: {fileID: 8260094875698192377}
   WaitingXRF: {fileID: 8488801473396843169}
@@ -3461,6 +3461,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shape: 5
+--- !u!1 &1876235420285575114 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1117086137629968144, guid: 22e42dd96b85f4fafa84a5448b251a03, type: 3}
+  m_PrefabInstance: {fileID: 1551795465242155226}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3534913498085320862 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2632244967217164356, guid: 22e42dd96b85f4fafa84a5448b251a03, type: 3}
@@ -7587,10 +7592,6 @@ PrefabInstance:
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1567260017021656407}
-    - target: {fileID: 448647870341449941, guid: d04855a6b3a384cb8a32fb1c45d6c5b5, type: 3}
-      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetColor
-      objectReference: {fileID: 0}
     - target: {fileID: 984999550441356557, guid: d04855a6b3a384cb8a32fb1c45d6c5b5, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -7607,10 +7608,6 @@ PrefabInstance:
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1567260017021656407}
-    - target: {fileID: 2788631188167586450, guid: d04855a6b3a384cb8a32fb1c45d6c5b5, type: 3}
-      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: Other
-      objectReference: {fileID: 0}
     - target: {fileID: 4024186465303133276, guid: d04855a6b3a384cb8a32fb1c45d6c5b5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.1118

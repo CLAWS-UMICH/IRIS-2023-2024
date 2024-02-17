@@ -502,6 +502,25 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5192905976714687753, guid: db21c68d9020ecb4988ba26e85f1d7c6, type: 3}
   m_PrefabInstance: {fileID: 639753150}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &403243136 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3580227640093714687, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
+  m_PrefabInstance: {fileID: 1874274912}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &403243145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 403243136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8f3e9cff4868eb4bab1259d9ebf2604, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GeosamplingZonePrefab: {fileID: 2233994201271534150, guid: 051f527556572f1458bf8acb31f5b152, type: 3}
+  SingleGeosamplePrefab: {fileID: 4821597568018791157, guid: c1ab3b2b74a28524db71e19546a7ae7b, type: 3}
 --- !u!1 &405464337
 GameObject:
   m_ObjectHideFlags: 0
@@ -730,10 +749,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1520708949411565263, guid: c1ab3b2b74a28524db71e19546a7ae7b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.043
-      objectReference: {fileID: 0}
     - target: {fileID: 4821597568018791157, guid: c1ab3b2b74a28524db71e19546a7ae7b, type: 3}
       propertyPath: m_Name
       value: Prefab_SingleGeosample
@@ -2078,51 +2093,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5415031c92c5bd548900dcfaa0bb5359, type: 3}
---- !u!1 &1669180067
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1669180069}
-  - component: {fileID: 1669180068}
-  m_Layer: 0
-  m_Name: Geosampling
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1669180068
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1669180067}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8f3e9cff4868eb4bab1259d9ebf2604, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GeosamplingZonePrefab: {fileID: 2233994201271534150, guid: 051f527556572f1458bf8acb31f5b152, type: 3}
---- !u!4 &1669180069
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1669180067}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1714724835
 GameObject:
   m_ObjectHideFlags: 0
@@ -2465,7 +2435,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3580227640093714687, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 403243145}
   m_SourcePrefab: {fileID: 100100000, guid: d486cacfbe5389442b8224f3baa9f511, type: 3}
 --- !u!1001 &1895588064
 PrefabInstance:
@@ -2626,6 +2599,10 @@ PrefabInstance:
       propertyPath: NavigationMarkers
       value: 
       objectReference: {fileID: 372987190}
+    - target: {fileID: 8149106640032540382, guid: 452436fb6746e8449908ca0a63732d5d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8587249464618197714, guid: 452436fb6746e8449908ca0a63732d5d, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -2910,7 +2887,6 @@ SceneRoots:
   - {fileID: 984663942}
   - {fileID: 8587249466245313126}
   - {fileID: 1874274912}
-  - {fileID: 1669180069}
   - {fileID: 3605733502353555998}
   - {fileID: 665392411}
   - {fileID: 9192131723112121482}

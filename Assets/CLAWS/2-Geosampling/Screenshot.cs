@@ -9,7 +9,6 @@ using System;
 using UnityEngine.Windows.WebCam;
 
 
-[System.Serializable]
 public class Screenshot : MonoBehaviour
 {
 
@@ -112,7 +111,6 @@ public class Screenshot : MonoBehaviour
 }
 
 #else
-[System.Serializable]
 public class Screenshot : MonoBehaviour
 {
     private GameObject button;
