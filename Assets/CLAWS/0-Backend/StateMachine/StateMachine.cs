@@ -12,6 +12,7 @@ public enum Screens
     SelectGeoNav,
     SelectDangerNav,
     CreatingWaypoint,
+    NavConfirmation,
     Vitals_1,
     Vitals_2,
     Map_3D,

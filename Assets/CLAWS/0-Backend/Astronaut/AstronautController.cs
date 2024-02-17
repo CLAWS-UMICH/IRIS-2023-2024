@@ -59,6 +59,9 @@ public class Vitals
     public double coolant_m;
     public double coolant_gas_pressure;
     public double coolant_liquid_pressure;
+
+    public double batt_percentage;
+    public double oxy_percentage;
 }
 
 // Geosamples
