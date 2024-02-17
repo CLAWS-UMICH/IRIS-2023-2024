@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ public class GeosamplingZone : MonoBehaviour
     public static int NumZones = 0;
     public static string CurrentZone = "";
 
-
+    public TextMeshPro label;
     public bool isEntered = false;
     public Location location;
     public GeosampleZone Zone;
@@ -33,6 +34,7 @@ public class GeosamplingZone : MonoBehaviour
 
         transform.position = Camera.main.transform.position - new Vector3(0f, offsetBelow, 0f);
         location = GPSUtils.AppPositionToGPSCoords(transform.position);
+        GeoSampleLabel();
         zoneSamples = 0;
         radius = 3;
 
@@ -45,13 +47,28 @@ public class GeosamplingZone : MonoBehaviour
         
         GeosamplingManager.SendData();
 
-        zoneSamples++;
-        
         StartCoroutine(TrackUserLocation());
+    }
+
+    private void GeoSampleLabel()
+    {
+        // creating geosample zone textmeshpro
+        int ascii = (int)'A';
+        ascii += sessionSamples;
+        string zoneLabel = "";
+        while (ascii > 90)
+        {
+            zoneLabel += "Z";
+            ascii -= 90;
+        }
+        zoneLabel = ((char)ascii).ToString();
+        label.text = zoneLabel;
     }
 
     private void OnGeosampleModeStarted(GeosampleModeStartedEvent e)
     {
+        // show perimeter
+        sessionSamples = 0;
         GetComponent<LineRender>().ShowBoundary();
 
         StartCoroutine(TrackUserLocation());
