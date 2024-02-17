@@ -16,6 +16,7 @@ public class SingleGeosampleScreen : MonoBehaviour
     public GameObject ColorScreen;
     public GameObject ShapeScreen;
     public GameObject VoiceNotesScreen;
+    public GameObject StarredIcon;
 
     public GameObject TakeXRF;
     public GameObject WaitingXRF;
@@ -34,6 +35,7 @@ public class SingleGeosampleScreen : MonoBehaviour
         VoiceNotesScreen.SetActive(false);
         WaitingXRF.SetActive(false);
         XRFReadings.SetActive(false);
+        StarredIcon.SetActive(false);
         CurrentScreen = GeoSampleScreens.None;
     }
     public void Init()
@@ -45,6 +47,7 @@ public class SingleGeosampleScreen : MonoBehaviour
         SetID();
         SetCoordinates();
         SetTime();
+        SetStar();
         SetSampleName("Sample " + Sample.geosample_id);
 
         // set zone if within a zone
@@ -57,6 +60,7 @@ public class SingleGeosampleScreen : MonoBehaviour
         CurrentScreen = GeoSampleScreens.None;
         SetZone(((char)('A' + (char)(Sample.zone_id++ % 27))).ToString());
         SetSampleName("Sample " + Sample.geosample_id);
+        SetStar();
 
         // set zone if within a zone
     }
@@ -366,7 +370,11 @@ public class SingleGeosampleScreen : MonoBehaviour
         // TODO update Sample.note
         GeosamplingManager.SendData();
     }
+    public void SetStar()
+    {
+        StarredIcon.SetActive(Sample.starred);
 
+    }
 
     // -------------- Screen Visuals --------------
     private void Update()
