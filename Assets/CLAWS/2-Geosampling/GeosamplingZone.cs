@@ -26,6 +26,7 @@ public class GeosamplingZone : MonoBehaviour
     public int zoneSamples = 0;
 
     // Geosample Zone Notification
+    // need to set the Zone Notification on default not shown either in unity or in code
     private GameObject GeoSampleZoneNotif;
     private TextMeshPro GeoSampleZoneScanned;
     //private TextMeshPro GeoSampleZoneStarred;
