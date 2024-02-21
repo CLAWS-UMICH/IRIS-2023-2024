@@ -25,6 +25,11 @@ public class GeosamplingZone : MonoBehaviour
 
     public int zoneSamples = 0;
 
+    // Geosample Zone Notification
+    private GameObject GeoSampleZoneNotif;
+    private TextMeshPro GeoSampleZoneScanned;
+    //private TextMeshPro GeoSampleZoneStarred;
+
     public void Init()
     {
         // Creates a Geosample Zone at the user's current location 
@@ -76,6 +81,8 @@ public class GeosamplingZone : MonoBehaviour
         zoneSamples += 1;
 
         // TODO update zone object
+        // Find Notif Game Object
+        GeoSampleZoneScanned.text = zoneSamples.ToString();
     }
 
     IEnumerator TrackUserLocation()
@@ -110,6 +117,15 @@ public class GeosamplingZone : MonoBehaviour
 
         // todo show geosamples
         // todo update current zone and upper left
+        // once zone entered find the notif + show available stats of zone
+        // starred gameobject commented out until we can find the number of starred
+        GeoSampleZoneNotif = GameObject.Find("ZoneGeoSampleInfo");
+        GeoSampleZoneScanned = GeoSampleZoneNotif.transform.Find("SampleZoneScanned VALUE").gameObject.GetComponent<TextMeshPro>();
+        GeoSampleZoneScanned.text = zoneSamples.ToString();
+        // GeoSampleZoneStarred = GeoSampleZoneNotif.transform.Find("SampleZoneStarred VALUE").gameObject.GetComponent<TextMeshPro>();
+
+        GeoSampleZoneNotif.SetActive(true);
+
     }
 
     private void OnZoneExited()
@@ -118,14 +134,10 @@ public class GeosamplingZone : MonoBehaviour
 
         isEntered = false;
         CurrentZone = "";
+
+        //todo hide current zone notification
+        GeoSampleZoneNotif.SetActive(false);
     }
-
-
-
-
-
-
-
 
     private void OnDestroy()
     {
