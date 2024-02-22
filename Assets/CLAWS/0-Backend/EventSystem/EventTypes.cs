@@ -164,6 +164,26 @@ public class GeosampleModeEndedEvent
     }
 }
 
+public class GeosampleZoneEnteredEvent
+{
+    public string Zone;
+
+    public GeosampleZoneEnteredEvent(string f_zone_id)
+    {
+        Zone = f_zone_id;
+    }
+}
+
+public class GeosampleZoneExitedEvent
+{
+    public string Zone;
+
+    public GeosampleZoneExitedEvent(string f_zone_id)
+    {
+        Zone = f_zone_id;
+    }
+}
+
 
 // Waypoints
 public class WaypointsDeletedEvent
