@@ -127,6 +127,7 @@ public class GeosamplingZone : MonoBehaviour
 
         GeoSampleZoneNotif.SetActive(true);
 
+        EventBus.Publish<GeosampleZoneEnteredEvent>(new(Zone.zone_id.ToString()));
     }
 
     private void OnZoneExited()
@@ -136,8 +137,9 @@ public class GeosamplingZone : MonoBehaviour
         isEntered = false;
         CurrentZone = "";
 
-        //todo hide current zone notification
         GeoSampleZoneNotif.SetActive(false);
+
+        EventBus.Publish<GeosampleZoneExitedEvent>(new(Zone.zone_id.ToString()));
     }
 
     private void OnDestroy()

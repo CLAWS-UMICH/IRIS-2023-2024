@@ -62,4 +62,17 @@ public class GeosamplingVisibilityManager : MonoBehaviour
             }
         }
     }
+
+
+    void OnDestroy()
+    {
+        if (geosampleModeStartedEvent != null)
+        {
+            EventBus.Unsubscribe(geosampleModeStartedEvent);
+        }
+        if (geosampleModeEndedEvent != null)
+        {
+            EventBus.Unsubscribe(geosampleModeEndedEvent);
+        }
+    }
 }

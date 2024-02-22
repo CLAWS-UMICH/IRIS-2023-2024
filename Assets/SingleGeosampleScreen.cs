@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using System;
 using System.Collections.Generic;
+using System.Collections;
 
 
 public class SingleGeosampleScreen : MonoBehaviour
@@ -56,6 +57,21 @@ public class SingleGeosampleScreen : MonoBehaviour
         if (GeosamplingZone.CurrentZone != "")
         {
             SetZone(GeosamplingZone.CurrentZone);
+            Debug.Log("Automatically setting geosample zone");
+        }
+        else
+        {
+            // create a zone right now
+            GeosamplingManager.CreateZone();
+
+            IEnumerator _SetZone()
+            {
+                yield return new WaitForSeconds(0.1f);
+                SetZone(GeosamplingZone.CurrentZone);
+                Debug.Log("Automatically creating a geosample zone and setting current zone");
+            }
+
+            StartCoroutine(_SetZone());
         }
     }
     public void Load(Geosample Sample_f)
@@ -68,8 +84,6 @@ public class SingleGeosampleScreen : MonoBehaviour
         SetSampleName("Sample " + Sample.geosample_id);
         SetStar();
         SetZoneId();
-
-        // set zone if within a zone
     }
 
     [ContextMenu("func FakeXRFScanned()")]
