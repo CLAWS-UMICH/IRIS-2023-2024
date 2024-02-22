@@ -17,6 +17,7 @@ public class SingleGeosampleScreen : MonoBehaviour
     public GameObject ShapeScreen;
     public GameObject VoiceNotesScreen;
     public GameObject StarredIcon;
+    public TextMeshPro GeoSampleIDLabel;
 
     public GameObject TakeXRF;
     public GameObject WaitingXRF;
@@ -52,6 +53,7 @@ public class SingleGeosampleScreen : MonoBehaviour
         SetStar();
         SetZoneId();
         SetSampleName("Sample " + Sample.geosample_id);
+        SetGeoSampleMiniMapIcon(Sample.geosample_id);
 
         if (GeosamplingZone.CurrentZone != "")
         {
@@ -391,6 +393,7 @@ public class SingleGeosampleScreen : MonoBehaviour
     {
         StarredIcon.SetActive(Sample.starred);
 
+
     }
     public void SetZoneId()
     {
@@ -403,5 +406,11 @@ public class SingleGeosampleScreen : MonoBehaviour
         // Rotate to user
         transform.forward = transform.position - Camera.main.transform.position;
     }
-    
+    private void SetGeoSampleMiniMapIcon(int geoSampleID)
+    {
+        // Create geosample zone textmeshpro
+        string text = geoSampleID.ToString();
+        GeoSampleIDLabel.text = text;
+    }
+
 }
