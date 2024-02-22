@@ -40,9 +40,9 @@ public class GeosamplingZone : MonoBehaviour
 
         transform.position = Camera.main.transform.position - new Vector3(0f, offsetBelow, 0f);
         location = GPSUtils.AppPositionToGPSCoords(transform.position);
-        GeoSampleLabel();
         zoneSamples = 0;
         radius = 3;
+        GeoSampleLabel();
 
         // Update backend
         Zone = new GeosampleZone();
@@ -60,7 +60,7 @@ public class GeosamplingZone : MonoBehaviour
         // creating geosample zone textmeshpro
         string text = ((char)((int)'A' + (zoneSamples % 27))).ToString();
         label.text = text;
-    }
+    } 
 
     private void OnGeosampleModeStarted(GeosampleModeStartedEvent e)
     {
