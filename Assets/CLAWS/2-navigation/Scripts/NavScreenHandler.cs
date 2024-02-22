@@ -19,6 +19,7 @@ public class NavScreenHandler : MonoBehaviour
     GameObject POIScreen;
     GameObject geoScreen;
     GameObject dangerScreen;
+    GameObject pathfindingScreen;
 
     GameObject confirmationScreen;
 
@@ -71,6 +72,7 @@ public class NavScreenHandler : MonoBehaviour
         dangerScreen = parentScreen.transform.Find("DangerScroll").gameObject;
         title = parentScreen.transform.Find("Title").GetComponent<TextMeshPro>();
         confirmationScreen = transform.parent.Find("NavConfirmation").gameObject;
+        pathfindingScreen = transform.parent.Find("PathfindingScreen").gameObject;
 
         mainMapCamera = GameObject.Find("MainMapCamera").GetComponent<Camera>();
         miniMapCamera = GameObject.Find("MinimapCamera").GetComponent<Camera>();
@@ -399,6 +401,7 @@ public class NavScreenHandler : MonoBehaviour
     {
         NavScreenMode();
         CloseNavScreen();
+        pathfindingScreen.SetActive(true);
     }
 
     public void CancelPathfindConfirmation()
@@ -407,6 +410,13 @@ public class NavScreenHandler : MonoBehaviour
         pf.destroyCurrentBreadCrumbs();
 
         CloseNavScreen();
+    }
+
+    public void ClosePathfinding()
+    {
+        pf.destroyCurrentBreadCrumbs();
+        pathfindingScreen.SetActive(false);
+        OpenNavScreen();
     }
 
     public void NavScreenMode()

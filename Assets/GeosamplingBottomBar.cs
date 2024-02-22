@@ -10,6 +10,15 @@ public class GeosamplingBottomBar : MonoBehaviour
     {
         EventBus.Subscribe<GeosampleModeStartedEvent>(OnModeStart);
         EventBus.Subscribe<GeosampleModeEndedEvent>(OnModeEnd);
+
+        if (GeosamplingManager.GeosamplingMode == true)
+        {
+            OnModeStart(new());
+        }
+        else
+        {
+            OnModeEnd(new());
+        }
     }
 
     public void OnAddSamplePressed()
