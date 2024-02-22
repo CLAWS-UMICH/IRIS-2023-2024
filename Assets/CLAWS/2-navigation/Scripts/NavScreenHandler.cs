@@ -38,6 +38,7 @@ public class NavScreenHandler : MonoBehaviour
     [SerializeField] ScreenType currentScreen;
 
     WaypointsController wayController;
+    CreateWaypoint wayCreate;
     private Subscription<SelectButton> selectButtonEvent;
     TextMeshPro title;
     Pathfinding pf;
@@ -59,6 +60,7 @@ public class NavScreenHandler : MonoBehaviour
         selectButtonEvent = EventBus.Subscribe<SelectButton>(onButtonSelect);
 
         wayController = transform.parent.Find("WaypointController").GetComponent<WaypointsController>();
+        wayCreate = transform.parent.Find("WaypointController").GetComponent<CreateWaypoint>();
         pf = transform.GetComponent<Pathfinding>();
 
         parentScreen = transform.parent.Find("NavScreen").gameObject;
@@ -448,5 +450,10 @@ public class NavScreenHandler : MonoBehaviour
         }
     }
 
+    public void openWaypointCreation()
+    {
+        CloseNavScreen();
+        wayCreate.OpenCreateWaypointScreen();
+    }
 
 }
