@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7109578213454486564}
   - component: {fileID: 578313663543739447}
+  - component: {fileID: 1020958480805601539}
   m_Layer: 0
   m_Name: Prefab_SingleGeosample
   m_TagString: Untagged
@@ -55,6 +56,29 @@ MonoBehaviour:
   OnModeEnd_Disable:
   - {fileID: 1627181854875162035}
   - {fileID: 5138842288374950710}
+--- !u!114 &1020958480805601539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4821597568018791157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1162b5ae08fc2045b5ca7781b5d95a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnZoneEntered_Enable:
+  - {fileID: 1627181854875162035}
+  - {fileID: 448564126741636627}
+  OnZoneEntered_Disable:
+  - {fileID: 5138842288374950710}
+  OnZoneExited_Enable: []
+  OnZoneExited_Disable:
+  - {fileID: 448564126741636627}
+  - {fileID: 1627181854875162035}
+  - {fileID: 5138842288374950710}
+  Geo: {fileID: 5277410092214794959}
 --- !u!1 &7377376601216402826
 GameObject:
   m_ObjectHideFlags: 0
@@ -298,6 +322,11 @@ PrefabInstance:
       addedObject: {fileID: 7057537462578246495}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 51d3b50462daa4de994cdc675bda086f, type: 3}
+--- !u!1 &448564126741636627 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3277404595331234808, guid: 51d3b50462daa4de994cdc675bda086f, type: 3}
+  m_PrefabInstance: {fileID: 3117107420952288747}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &893555244087598233 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2820585346547253618, guid: 51d3b50462daa4de994cdc675bda086f, type: 3}

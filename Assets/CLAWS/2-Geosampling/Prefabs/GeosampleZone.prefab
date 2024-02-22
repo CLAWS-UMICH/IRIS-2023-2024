@@ -56,7 +56,6 @@ GameObject:
   m_Component:
   - component: {fileID: 9098603372018042049}
   - component: {fileID: -8146118307087318076}
-  - component: {fileID: 4403208710502128705}
   - component: {fileID: 8391809025740137320}
   m_Layer: 0
   m_Name: GeosampleZone
@@ -109,19 +108,6 @@ MonoBehaviour:
   offsetBelow: 0
   radius: 0
   zoneSamples: 0
---- !u!114 &4403208710502128705
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2233994201271534150}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20d5c0b6a881a4c47970cf3d94b8c7b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  marker: {fileID: 8254724432121849837}
 --- !u!114 &8391809025740137320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,7 +146,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5147133109488277897, guid: 51d3b50462daa4de994cdc675bda086f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 6.8
       objectReference: {fileID: 0}
     - target: {fileID: 5147133109488277897, guid: 51d3b50462daa4de994cdc675bda086f, type: 3}
       propertyPath: m_LocalPosition.z
