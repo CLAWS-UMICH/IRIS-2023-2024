@@ -71,7 +71,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7057537462578246495
 Transform:
   m_ObjectHideFlags: 0
@@ -81,8 +81,8 @@ Transform:
   m_GameObject: {fileID: 7377376601216402826}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.502, y: -6.86, z: -0.45}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7794740183100490850}
@@ -234,6 +234,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GeoSampleIcon
       objectReference: {fileID: 0}
+    - target: {fileID: 3015926330987942996, guid: 51d3b50462daa4de994cdc675bda086f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3277404595331234808, guid: 51d3b50462daa4de994cdc675bda086f, type: 3}
       propertyPath: m_Name
       value: GeoSampleMiniMapIcon
@@ -278,11 +282,19 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5366568397481501297, guid: 51d3b50462daa4de994cdc675bda086f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5611966144509437294, guid: 51d3b50462daa4de994cdc675bda086f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5147133109488277897, guid: 51d3b50462daa4de994cdc675bda086f, type: 3}
-      insertIndex: 0
+      insertIndex: -1
       addedObject: {fileID: 7057537462578246495}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 51d3b50462daa4de994cdc675bda086f, type: 3}

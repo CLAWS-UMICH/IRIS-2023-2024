@@ -55,6 +55,8 @@ public class SingleGeosampleScreen : MonoBehaviour
         SetZoneId();
         SetSampleName("Sample " + Sample.geosample_id);
         SetGeoSampleMiniMapIcon(Sample.geosample_id);
+        //StarredIcon = transform.Find("GeoSampleMiniMapIcon").transform.Find("FavoritedGeoSampleIcon").gameObject;
+
 
         if (GeosamplingZone.CurrentZone != "")
         {
