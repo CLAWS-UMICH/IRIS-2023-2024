@@ -3,15 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Linq;
-using UnityEngine.Windows.WebCam;
 using System;
 
-[System.Serializable]
+#if !UNITY_WEBGL
+using UnityEngine.Windows.WebCam;
+
+
 public class Screenshot : MonoBehaviour
 {
 
     private GameObject button;
+
+
     PhotoCapture photoCaptureObject = null;
+
+
     Texture2D targetTexture = null;
 
     public string sampleName = "GeoSample";
@@ -103,3 +109,33 @@ public class Screenshot : MonoBehaviour
     }
 
 }
+
+#else
+public class Screenshot : MonoBehaviour
+{
+    private GameObject button;
+
+    public string sampleName = "GeoSample";
+
+    [SerializeField] private Material defaultmaterial;
+    [SerializeField] private Material defaultConfirmMaterial;
+    [SerializeField] private GameObject confirmationQuad;
+
+
+    public void TakePhoto()
+    {
+    }
+    
+    public string UseThisPhoto(GameObject outputQuad)
+    {
+        return "";
+    }
+
+    public void TogglePanel(GameObject panel)
+    {
+        panel.SetActive(!button.activeSelf);
+    }
+
+}
+
+#endif

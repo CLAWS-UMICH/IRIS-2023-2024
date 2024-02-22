@@ -20,6 +20,8 @@ public class NavScreenHandler : MonoBehaviour
     GameObject geoScreen;
     GameObject dangerScreen;
 
+    GameObject confirmationScreen;
+
     Camera mainMapCamera;
     Camera miniMapCamera;
 
@@ -38,11 +40,18 @@ public class NavScreenHandler : MonoBehaviour
     WaypointsController wayController;
     private Subscription<SelectButton> selectButtonEvent;
     TextMeshPro title;
+    Pathfinding pf;
+
+    TextMeshPro confirmation_title, confirmation_time, confirmation_dist, confirmation_bat_depletion, confirmation_oxy_depletion;
 
     List<string> stationLetters = new List<string>();
     List<string> poiLetters = new List<string>();
     List<string> geoLetters = new List<string>();
     List<string> dangerLetters = new List<string>();
+
+    private float BATT_TIME_CAP = 21600;
+    private float OXY_TIME_CAP = 10800;
+    private float astronautWalkingSpeed = 55;
 
     // Start is called before the first frame update
     void Start()
@@ -50,6 +59,7 @@ public class NavScreenHandler : MonoBehaviour
         selectButtonEvent = EventBus.Subscribe<SelectButton>(onButtonSelect);
 
         wayController = transform.parent.Find("WaypointController").GetComponent<WaypointsController>();
+        pf = transform.GetComponent<Pathfinding>();
 
         parentScreen = transform.parent.Find("NavScreen").gameObject;
 
@@ -58,6 +68,7 @@ public class NavScreenHandler : MonoBehaviour
         geoScreen = parentScreen.transform.Find("GeoScroll").gameObject;
         dangerScreen = parentScreen.transform.Find("DangerScroll").gameObject;
         title = parentScreen.transform.Find("Title").GetComponent<TextMeshPro>();
+        confirmationScreen = transform.parent.Find("NavConfirmation").gameObject;
 
         mainMapCamera = GameObject.Find("MainMapCamera").GetComponent<Camera>();
         miniMapCamera = GameObject.Find("MinimapCamera").GetComponent<Camera>();
@@ -75,6 +86,13 @@ public class NavScreenHandler : MonoBehaviour
         POIScreen.SetActive(false);
         geoScreen.SetActive(false);
         parentScreen.SetActive(false);
+        confirmationScreen.SetActive(false);
+
+        confirmation_title = confirmationScreen.transform.Find("Title").GetComponent<TextMeshPro>();
+        confirmation_time = confirmationScreen.transform.Find("Info").Find("TimeMsg").GetComponent<TextMeshPro>();
+        confirmation_dist = confirmationScreen.transform.Find("Info").Find("DistMsg").GetComponent<TextMeshPro>();
+        confirmation_bat_depletion = confirmationScreen.transform.Find("Info").Find("BatteryMsg").GetComponent<TextMeshPro>();
+        confirmation_oxy_depletion = confirmationScreen.transform.Find("Info").Find("OxyMsg").GetComponent<TextMeshPro>();
 
         // Update to see ALL icons on map
         SwitchCameraCull(-1);
@@ -92,6 +110,7 @@ public class NavScreenHandler : MonoBehaviour
         POIScreen.SetActive(false);
         geoScreen.SetActive(false);
         parentScreen.SetActive(true);
+        confirmationScreen.SetActive(false);
 
         // Update to see ONLY station icons on map (ASK UX IF THIS SHOULD BE ALL OR ONLY STATION)
         SwitchCameraCull(23);
@@ -103,11 +122,11 @@ public class NavScreenHandler : MonoBehaviour
         title.text = "Station";
         hasLocation = false;
         currentScreen = ScreenType.Station;
-        parentScreen.SetActive(false);
         stationScreen.SetActive(true);
         POIScreen.SetActive(false);
         geoScreen.SetActive(false);
         parentScreen.SetActive(false);
+        confirmationScreen.SetActive(false);
 
         // Update to see ALL icons on map
         SwitchCameraCull(-1);
@@ -124,6 +143,7 @@ public class NavScreenHandler : MonoBehaviour
         geoScreen.SetActive(false);
         dangerScreen.SetActive(false);
         stationScreen.SetActive(true);
+        confirmationScreen.SetActive(false);
 
         // Update to see ONLY station icons on map
         SwitchCameraCull(23);
@@ -138,6 +158,7 @@ public class NavScreenHandler : MonoBehaviour
         geoScreen.SetActive(false);
         dangerScreen.SetActive(false);
         stationScreen.SetActive(false);
+        confirmationScreen.SetActive(false);
         POIScreen.SetActive(true);
 
         // Update to see ONLY POI icons on map
@@ -153,6 +174,7 @@ public class NavScreenHandler : MonoBehaviour
         POIScreen.SetActive(false);
         dangerScreen.SetActive(false);
         stationScreen.SetActive(false);
+        confirmationScreen.SetActive(false);
         geoScreen.SetActive(true);
 
         // Update to see ONLY geo icons on map
@@ -168,6 +190,7 @@ public class NavScreenHandler : MonoBehaviour
         POIScreen.SetActive(false);
         geoScreen.SetActive(false);
         stationScreen.SetActive(false);
+        confirmationScreen.SetActive(false);
         dangerScreen.SetActive(true);
 
         // Update to see ONLY danger icons on map
@@ -293,21 +316,95 @@ public class NavScreenHandler : MonoBehaviour
     {
         hasLocation = true;
         loc = wayController.getLocationOfButton(e.letter);
-        Pathfind();
+        InitializePathfind(e.letter);
+
+
     }
 
-    public void Pathfind()
+    private void EditConfirmationDetails(string letter)
+    {
+        double distance = pf.getTotalDistance();
+        double totalTime = distance / astronautWalkingSpeed;
+
+        /*double initialBatTime = AstronautInstance.User.VitalsData.batt_time_left;
+        double initialOxyTime = AstronautInstance.User.VitalsData.oxy_time_left;
+        double initialBatPerc = AstronautInstance.User.VitalsData.batt_percentage;
+        double initialOxyPerc = AstronautInstance.User.VitalsData.oxy_percentage;*/
+        double initialBatTime = 21000;
+        double initialOxyTime = 10000;
+        double initialBatPerc = initialBatTime / BATT_TIME_CAP * 100;
+        double initialOxyPerc = initialOxyTime / OXY_TIME_CAP * 100;
+
+        double newBatTime = initialBatTime - (totalTime * 60);
+        double newOxyTime = 10000 - (totalTime * 60);
+        double newBatPerc = newBatTime / BATT_TIME_CAP * 100;
+        double newOxyPerc = newOxyTime / OXY_TIME_CAP * 100;
+
+        confirmation_title.text = "Navigate to Point: " + letter;
+
+        // TODO: Update values (make them up)
+        confirmation_dist.text = distance.ToString("0") + "m";
+
+        string formattedTime;
+        if (totalTime < 1.0)
+        {
+            // If less than 1 minute, convert to seconds with no decimal places
+            double totalSeconds = totalTime * 60;
+            formattedTime = totalSeconds.ToString("0") + "s";
+        }
+        else
+        {
+            // If 1 minute or more, display the time in minutes with no decimal places
+            formattedTime = totalTime.ToString("0") + "min";
+        }
+        confirmation_time.text = formattedTime;
+
+        // TODO: Update progress bars
+        // TODO: Update progress bars text values
+        string batInitialPercentage = initialBatPerc.ToString("0") + "%";
+        string batNewPercentage = newBatPerc.ToString("0") + "%";
+        confirmation_bat_depletion.text = $"Battery Depletion: ({batInitialPercentage} to {batNewPercentage})";
+
+
+        string oxyInitialPercentage = initialOxyPerc.ToString("0") + "%";
+        string oxyNewPercentage = newOxyPerc.ToString("0") + "%";
+        confirmation_oxy_depletion.text = $"Oxygen Depletion: ({oxyInitialPercentage} to {oxyNewPercentage})";
+    }
+
+    public void InitializePathfind(string letter)
     {
         if (hasLocation)
         {
+            EventBus.Publish(new ScreenChangedEvent(Screens.NavConfirmation));
             EventBus.Publish(new StartPathfinding(loc));
             hasLocation = false;
-            NavScreenMode();
-            CloseNavScreen();
-        } else
+
+            // Edit confirmation screen details
+            EditConfirmationDetails(letter);
+
+            // Show confirmation screen
+            parentScreen.SetActive(false);
+            confirmationScreen.SetActive(true);
+
+        }
+        else
         {
             Debug.Log("Did not select where to pathfind!");
         }
+    }
+
+    public void ConfirmPathFind()
+    {
+        NavScreenMode();
+        CloseNavScreen();
+    }
+
+    public void CancelPathfindConfirmation()
+    {
+        // delete breadcrumbs
+        pf.destroyCurrentBreadCrumbs();
+
+        CloseNavScreen();
     }
 
     public void NavScreenMode()

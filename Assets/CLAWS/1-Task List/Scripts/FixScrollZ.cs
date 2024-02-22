@@ -6,8 +6,13 @@ public class FixScrollZ : MonoBehaviour
 {
     [SerializeField] float z;
 
+    void Start()
+    {
+        
+    }
+
     void Update()
     {
-        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, z);
+        transform.localPosition = new Vector3(0, transform.localPosition.y, z);
     }
 }
