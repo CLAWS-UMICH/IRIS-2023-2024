@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using System;
 using System.Collections.Generic;
+using System.Collections;
 
 
 public class SingleGeosampleScreen : MonoBehaviour
@@ -17,6 +18,7 @@ public class SingleGeosampleScreen : MonoBehaviour
     public GameObject ShapeScreen;
     public GameObject VoiceNotesScreen;
     public GameObject StarredIcon;
+    public TextMeshPro GeoSampleIDLabel;
 
     public GameObject TakeXRF;
     public GameObject WaitingXRF;
@@ -52,10 +54,28 @@ public class SingleGeosampleScreen : MonoBehaviour
         SetStar();
         SetZoneId();
         SetSampleName("Sample " + Sample.geosample_id);
+        SetGeoSampleMiniMapIcon(Sample.geosample_id);
+        //StarredIcon = transform.Find("GeoSampleMiniMapIcon").transform.Find("FavoritedGeoSampleIcon").gameObject;
+
 
         if (GeosamplingZone.CurrentZone != "")
         {
             SetZone(GeosamplingZone.CurrentZone);
+            Debug.Log("Automatically setting geosample zone");
+        }
+        else
+        {
+            // create a zone right now
+            GeosamplingManager.CreateZone();
+
+            IEnumerator _SetZone()
+            {
+                yield return new WaitForSeconds(0.1f);
+                SetZone(GeosamplingZone.CurrentZone);
+                Debug.Log("Automatically creating a geosample zone and setting current zone");
+            }
+
+            StartCoroutine(_SetZone());
         }
     }
     public void Load(Geosample Sample_f)
@@ -68,8 +88,6 @@ public class SingleGeosampleScreen : MonoBehaviour
         SetSampleName("Sample " + Sample.geosample_id);
         SetStar();
         SetZoneId();
-
-        // set zone if within a zone
     }
 
     [ContextMenu("func FakeXRFScanned()")]
@@ -391,6 +409,7 @@ public class SingleGeosampleScreen : MonoBehaviour
     {
         StarredIcon.SetActive(Sample.starred);
 
+
     }
     public void SetZoneId()
     {
@@ -403,5 +422,11 @@ public class SingleGeosampleScreen : MonoBehaviour
         // Rotate to user
         transform.forward = transform.position - Camera.main.transform.position;
     }
-    
+    private void SetGeoSampleMiniMapIcon(int geoSampleID)
+    {
+        // Create geosample zone textmeshpro
+        string text = geoSampleID.ToString();
+        GeoSampleIDLabel.text = text;
+    }
+
 }
