@@ -15,6 +15,19 @@ public class GeosamplingZone : MonoBehaviour
     public static int NumZones = 0;
     public static string CurrentZone = "";
 
+    public static GeosampleZone FindZone(char zone_id)
+    {
+        foreach (GeosampleZone zone in AstronautInstance.User.GeosampleZonesData.AllGeosamplezones) {
+            if (zone.zone_id == zone_id)
+            {
+                return zone;
+            }
+        }
+
+        Debug.LogError("Geosample Zone Not Found");
+        return null;
+    }
+
     public TextMeshPro label;
     public bool isEntered = false;
     public Location location;
@@ -50,6 +63,8 @@ public class GeosamplingZone : MonoBehaviour
         Zone.radius = 3;
         Zone.location = location;
         Zone.ZoneGeosamplesIds = new();
+
+        AstronautInstance.User.GeosampleZonesData.AllGeosamplezones.Add(Zone);
 
         GeosamplingManager.SendData();  
         StartCoroutine(TrackUserLocation());
@@ -116,17 +131,6 @@ public class GeosamplingZone : MonoBehaviour
         isEntered = true;
         CurrentZone = Zone.zone_id.ToString();
 
-        // todo show geosamples
-        // todo update current zone and upper left
-        // once zone entered find the notif + show available stats of zone
-        // starred gameobject commented out until we can find the number of starred
-        GeoSampleZoneNotif = GameObject.Find("ZoneGeoSampleInfo");
-        GeoSampleZoneScanned = GeoSampleZoneNotif.transform.Find("SampleZoneScanned VALUE").gameObject.GetComponent<TextMeshPro>();
-        GeoSampleZoneScanned.text = zoneSamples.ToString();
-        // GeoSampleZoneStarred = GeoSampleZoneNotif.transform.Find("SampleZoneStarred VALUE").gameObject.GetComponent<TextMeshPro>();
-
-        GeoSampleZoneNotif.SetActive(true);
-
         EventBus.Publish<GeosampleZoneEnteredEvent>(new(Zone.zone_id.ToString()));
     }
 
@@ -136,8 +140,6 @@ public class GeosamplingZone : MonoBehaviour
 
         isEntered = false;
         CurrentZone = "";
-
-        GeoSampleZoneNotif.SetActive(false);
 
         EventBus.Publish<GeosampleZoneExitedEvent>(new(Zone.zone_id.ToString()));
     }

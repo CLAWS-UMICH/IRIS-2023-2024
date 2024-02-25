@@ -47,6 +47,20 @@ public class GeosamplingManager : MonoBehaviour
         GameObject.Find("Controller").GetComponent<WebsocketDataHandler>().SendGeosampleData();
     }
 
+
+    public static Geosample FindGeosample(int sample_id)
+    {
+        foreach (Geosample g in AstronautInstance.User.GeosampleData.AllGeosamples)
+        {
+            if (g.geosample_id == sample_id)
+            {
+                return g;
+            }
+        }
+
+        Debug.LogError("Geosample Not Found");
+        return null;
+    }
     
     [ContextMenu("func StartGeosamplingMode")]
     public static void StartGeosamplingMode()

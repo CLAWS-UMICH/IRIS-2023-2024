@@ -77,6 +77,8 @@ public class SingleGeosampleScreen : MonoBehaviour
 
             StartCoroutine(_SetZone());
         }
+
+        EventBus.Publish<GeosampleCreatedEvent>(new());
     }
     public void Load(Geosample Sample_f)
     {
@@ -319,6 +321,12 @@ public class SingleGeosampleScreen : MonoBehaviour
         OtherZone_tmp.text = "Zone " + letter;
 
         Sample.zone_id = letter[0];
+        var zone = GeosamplingZone.FindZone(letter[0]);
+        if (zone != null)
+        {
+            zone.ZoneGeosamplesIds.Add(Sample.geosample_id);
+        }
+
         SetZoneId();
         GeosamplingManager.SendData();
     }
