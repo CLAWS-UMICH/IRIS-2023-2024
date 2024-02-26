@@ -267,12 +267,24 @@ PrefabInstance:
       value: GeoSampleMiniMapIcon
       objectReference: {fileID: 0}
     - target: {fileID: 5147133109488277897, guid: 51d3b50462daa4de994cdc675bda086f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5147133109488277897, guid: 51d3b50462daa4de994cdc675bda086f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5147133109488277897, guid: 51d3b50462daa4de994cdc675bda086f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5147133109488277897, guid: 51d3b50462daa4de994cdc675bda086f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5147133109488277897, guid: 51d3b50462daa4de994cdc675bda086f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.86
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5147133109488277897, guid: 51d3b50462daa4de994cdc675bda086f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -305,6 +317,10 @@ PrefabInstance:
     - target: {fileID: 5147133109488277897, guid: 51d3b50462daa4de994cdc675bda086f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5147133109488277897, guid: 51d3b50462daa4de994cdc675bda086f, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5366568397481501297, guid: 51d3b50462daa4de994cdc675bda086f, type: 3}
       propertyPath: m_IsActive
