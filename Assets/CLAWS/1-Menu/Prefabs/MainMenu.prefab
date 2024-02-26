@@ -24,6 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7788615368505100689}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,7 +33,6 @@ Transform:
   - {fileID: 337472558165716603}
   - {fileID: 9021057992432914703}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7788615368505100688
 MonoBehaviour:
@@ -66,11 +66,6 @@ MonoBehaviour:
   IRISHideMenuButton: {fileID: 2788737086459773875}
   ShowMenuButton: {fileID: 2788737086621042989}
   ExitIRISModeButton: {fileID: 2788737085698056829}
-  SamplingMarkers: {fileID: 0}
-  NavigationMarkers: {fileID: 0}
-  RouteMarkers: {fileID: 0}
-  EgressMarkers: {fileID: 0}
-  AirlockMarkers: {fileID: 0}
   regularModes: {fileID: 2100000, guid: a0f5da18e12e9a0489340017b5b27f35, type: 2}
   highlightedModes: {fileID: 2100000, guid: 5ae2bb0c71b11ee4c907f66b31a457b3, type: 2}
   mode: {fileID: 2788737086357693125}
@@ -79,6 +74,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 7788615368505100691}
     m_Modifications:
     - target: {fileID: 9122214303768362586, guid: b0630227292d13347ace37160457f99b, type: 3}
@@ -170,6 +166,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0630227292d13347ace37160457f99b, type: 3}
 --- !u!224 &9021057992432914703 stripped
 RectTransform:
@@ -181,6 +180,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 7788615368505100691}
     m_Modifications:
     - target: {fileID: 129555006524157942, guid: 43b049a5cf3d29648bc0deb79f39d65e, type: 3}
@@ -276,9 +276,33 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7788615368505100688}
     - target: {fileID: 4744953443127152138, guid: 43b049a5cf3d29648bc0deb79f39d65e, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4744953443127152138, guid: 43b049a5cf3d29648bc0deb79f39d65e, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4744953443127152138, guid: 43b049a5cf3d29648bc0deb79f39d65e, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 7788615368505100688}
+    - target: {fileID: 4744953443127152138, guid: 43b049a5cf3d29648bc0deb79f39d65e, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4744953443127152138, guid: 43b049a5cf3d29648bc0deb79f39d65e, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: StartGeosamplingMode
+      objectReference: {fileID: 0}
+    - target: {fileID: 4744953443127152138, guid: 43b049a5cf3d29648bc0deb79f39d65e, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: GeosamplingManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4744953443127152138, guid: 43b049a5cf3d29648bc0deb79f39d65e, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4744953443210847564, guid: 43b049a5cf3d29648bc0deb79f39d65e, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -296,6 +320,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7788615368505100688}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43b049a5cf3d29648bc0deb79f39d65e, type: 3}
 --- !u!1 &337472556491763677 stripped
 GameObject:
