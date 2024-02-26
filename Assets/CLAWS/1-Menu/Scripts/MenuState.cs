@@ -43,6 +43,11 @@ public class MenuState : MonoBehaviour
     [SerializeField] private Material highlightedModes;
     [SerializeField] private TMP_Text mode;
 
+    private void Start()
+    {
+        EventBus.Subscribe<GeosampleModeEndedEvent>((e) => ClickIRISClose());
+    }
+
     public void ClickTasks()
     {
         transform.parent.Find("Main_TaskList").GetComponent<TaskListScreenHandler>().OpenTaskListMain();
@@ -195,6 +200,8 @@ public class MenuState : MonoBehaviour
         // Change hide menu buttons
         HideMenuButton.SetActive(true);
         IRISHideMenuButton.SetActive(false);
+
+        ClickShowMenu();
 
         // Change modes button icon to regular
         //ModesButton.transform.GetChild(3).GetChild(0).GetComponent<MeshRenderer>().material = regularModes;
