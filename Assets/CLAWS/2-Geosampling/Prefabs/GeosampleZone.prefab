@@ -242,6 +242,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9098603372018042049}
     m_Modifications:
+    - target: {fileID: 1235203211221824222, guid: 51d3b50462daa4de994cdc675bda086f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: fdf8757d6bfa24124875d9af1eed8a37, type: 2}
     - target: {fileID: 3277404595331234808, guid: 51d3b50462daa4de994cdc675bda086f, type: 3}
       propertyPath: m_Name
       value: GeoSamplingMarker
