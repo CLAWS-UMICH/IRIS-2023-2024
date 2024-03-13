@@ -2590,6 +2590,14 @@ PrefabInstance:
       propertyPath: additionalOffset.z
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 4622140549207159529, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      propertyPath: autoConnect
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4622140549207159529, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      propertyPath: webSocketUrl
+      value: ws://35.3.44.252:8000/hololens
+      objectReference: {fileID: 0}
     - target: {fileID: 6287077056513230634, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       propertyPath: m_Name
       value: SceneComponents
