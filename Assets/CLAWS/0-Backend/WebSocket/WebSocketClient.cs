@@ -46,6 +46,7 @@ public class WebSocketClient : MonoBehaviour
         ws.Connect();
     }
 
+    [ContextMenu("Func ReConnect")]
     public void ReConnect(string connectionString)
     {
         if (ws != null && ws.IsAlive)
@@ -237,6 +238,7 @@ public class GeosamplesData
     public string type;
     public string use;
     public Geosamples data;
+    public GeosampleZones zones;
 }
 
 [Serializable]
