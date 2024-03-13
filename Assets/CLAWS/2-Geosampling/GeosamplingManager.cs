@@ -34,6 +34,7 @@ public class GeosamplingManager : MonoBehaviour
     public static void CreateGeosample()
     {
         Vector3 _spawn = Camera.main.transform.position + Camera.main.transform.forward * 0.6f;
+        _spawn = new Vector3(_spawn.x, Camera.main.transform.position.y - 0.2f, _spawn.z);
         GameObject _geosample = Instantiate(Instance.SingleGeosamplePrefab, _spawn, Quaternion.identity);
         SingleGeosampleScreen _screen = _geosample.transform.Find("Prefab_SingleGeosampleScreen").GetComponent<SingleGeosampleScreen>();
 
@@ -46,6 +47,20 @@ public class GeosamplingManager : MonoBehaviour
         GameObject.Find("Controller").GetComponent<WebsocketDataHandler>().SendGeosampleData();
     }
 
+
+    public static Geosample FindGeosample(int sample_id)
+    {
+        foreach (Geosample g in AstronautInstance.User.GeosampleData.AllGeosamples)
+        {
+            if (g.geosample_id == sample_id)
+            {
+                return g;
+            }
+        }
+
+        Debug.LogError("Geosample Not Found");
+        return null;
+    }
     
     [ContextMenu("func StartGeosamplingMode")]
     public static void StartGeosamplingMode()

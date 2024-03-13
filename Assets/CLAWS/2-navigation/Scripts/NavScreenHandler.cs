@@ -19,8 +19,15 @@ public class NavScreenHandler : MonoBehaviour
     GameObject POIScreen;
     GameObject geoScreen;
     GameObject dangerScreen;
+    GameObject pathfindingScreen;
 
     GameObject confirmationScreen;
+    private GameObject BatteryOld;
+    private GameObject BatteryNew;
+
+    private GameObject OxygenOld;
+    private GameObject OxygenNew;
+
 
     Camera mainMapCamera;
     Camera miniMapCamera;
@@ -38,6 +45,7 @@ public class NavScreenHandler : MonoBehaviour
     [SerializeField] ScreenType currentScreen;
 
     WaypointsController wayController;
+    CreateWaypoint wayCreate;
     private Subscription<SelectButton> selectButtonEvent;
     TextMeshPro title;
     Pathfinding pf;
@@ -59,6 +67,7 @@ public class NavScreenHandler : MonoBehaviour
         selectButtonEvent = EventBus.Subscribe<SelectButton>(onButtonSelect);
 
         wayController = transform.parent.Find("WaypointController").GetComponent<WaypointsController>();
+        wayCreate = transform.parent.Find("WaypointController").GetComponent<CreateWaypoint>();
         pf = transform.GetComponent<Pathfinding>();
 
         parentScreen = transform.parent.Find("NavScreen").gameObject;
@@ -69,6 +78,7 @@ public class NavScreenHandler : MonoBehaviour
         dangerScreen = parentScreen.transform.Find("DangerScroll").gameObject;
         title = parentScreen.transform.Find("Title").GetComponent<TextMeshPro>();
         confirmationScreen = transform.parent.Find("NavConfirmation").gameObject;
+        pathfindingScreen = transform.parent.Find("PathfindingScreen").gameObject;
 
         mainMapCamera = GameObject.Find("MainMapCamera").GetComponent<Camera>();
         miniMapCamera = GameObject.Find("MinimapCamera").GetComponent<Camera>();
@@ -93,6 +103,11 @@ public class NavScreenHandler : MonoBehaviour
         confirmation_dist = confirmationScreen.transform.Find("Info").Find("DistMsg").GetComponent<TextMeshPro>();
         confirmation_bat_depletion = confirmationScreen.transform.Find("Info").Find("BatteryMsg").GetComponent<TextMeshPro>();
         confirmation_oxy_depletion = confirmationScreen.transform.Find("Info").Find("OxyMsg").GetComponent<TextMeshPro>();
+        BatteryOld = confirmationScreen.transform.Find("battery_bar").Find("BatteryPBOld").gameObject;
+        BatteryNew = confirmationScreen.transform.Find("battery_bar").Find("BatteryPBNew").gameObject;
+
+        OxygenOld = confirmationScreen.transform.Find("oxygen_bar").Find("OxygenPBOld").gameObject;
+        OxygenNew = confirmationScreen.transform.Find("oxygen_bar").Find("OxygenPBNew").gameObject;
 
         // Update to see ALL icons on map
         SwitchCameraCull(-1);
@@ -364,11 +379,15 @@ public class NavScreenHandler : MonoBehaviour
         string batInitialPercentage = initialBatPerc.ToString("0") + "%";
         string batNewPercentage = newBatPerc.ToString("0") + "%";
         confirmation_bat_depletion.text = $"Battery Depletion: ({batInitialPercentage} to {batNewPercentage})";
+        BatteryOld.GetComponent<progress_bar_nav>().Update_Progress_bar((float)initialBatPerc);
+        BatteryNew.GetComponent<progress_bar_nav>().Update_Progress_bar((float)newBatPerc);
 
 
         string oxyInitialPercentage = initialOxyPerc.ToString("0") + "%";
         string oxyNewPercentage = newOxyPerc.ToString("0") + "%";
         confirmation_oxy_depletion.text = $"Oxygen Depletion: ({oxyInitialPercentage} to {oxyNewPercentage})";
+        OxygenOld.GetComponent<progress_bar_nav>().Update_Progress_bar((float)initialOxyPerc);
+        OxygenNew.GetComponent<progress_bar_nav>().Update_Progress_bar((float)newOxyPerc);
     }
 
     public void InitializePathfind(string letter)
@@ -397,6 +416,7 @@ public class NavScreenHandler : MonoBehaviour
     {
         NavScreenMode();
         CloseNavScreen();
+        pathfindingScreen.SetActive(true);
     }
 
     public void CancelPathfindConfirmation()
@@ -405,6 +425,13 @@ public class NavScreenHandler : MonoBehaviour
         pf.destroyCurrentBreadCrumbs();
 
         CloseNavScreen();
+    }
+
+    public void ClosePathfinding()
+    {
+        pf.destroyCurrentBreadCrumbs();
+        pathfindingScreen.SetActive(false);
+        OpenNavScreen();
     }
 
     public void NavScreenMode()
@@ -448,5 +475,10 @@ public class NavScreenHandler : MonoBehaviour
         }
     }
 
+    public void openWaypointCreation()
+    {
+        CloseNavScreen();
+        wayCreate.OpenCreateWaypointScreen();
+    }
 
 }
