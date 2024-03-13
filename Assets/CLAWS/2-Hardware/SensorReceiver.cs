@@ -1,38 +1,64 @@
 using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 using UnityEngine;
-
 public class SensorReceiver : MonoBehaviour
 {
-    UdpClient udpClient;
-    int port = 12345; // Match the port number in Arduino code
-
+    private UdpClient serverSocket;
     void Start()
     {
-        udpClient = new UdpClient(port);
-        udpClient.BeginReceive(ReceiveData, null);
+        try
+        {
+            // Create a UDP socket
+            serverSocket = new UdpClient(8888);
+            Debug.Log("UDP socket created, waiting for messages...");
+            // Start listening in a separate thread
+            StartListening();
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("Error creating UDP socket: " +e.Message);
+        }
     }
-
-    void ReceiveData(IAsyncResult result)
+    private void StartListening()
     {
-        IPEndPoint source = new IPEndPoint(0, 0);
-        byte[] received = udpClient.EndReceive(result, ref source);
-
-        // Parse received data (assuming floats for XYZ, roll, pitch, yaw)
-        float x = BitConverter.ToSingle(received, 0);
-
-        Debug.Log(x);
-
-        // Do something with the sensor data (e.g., update HoloLens objects)
-        // ...
-
-        // Continue listening for more data
-        udpClient.BeginReceive(ReceiveData, null);
+        try
+        {
+            // Begin receiving messages asynchronously
+            serverSocket.BeginReceive(ReceiveCallback, null);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("Error starting to listen for messages: " +e.Message);
+        }
     }
-
-    void OnDestroy()
+    private void ReceiveCallback(IAsyncResult result)
     {
-        udpClient.Close();
+        try
+        {
+            // Get the client’s message and endpoint
+            IPEndPoint clientEndpoint = new IPEndPoint(IPAddress.Any, 0);
+            byte[] receivedData = serverSocket.EndReceive(result, ref clientEndpoint);
+            // Convert the byte array to a string
+            string message = Encoding.ASCII.GetString(receivedData);
+            // Print the received message
+            Debug.Log("Received message: " +message);
+            // Continue listening for more messages
+            StartListening();
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("Error receiving message: " +e.Message);
+        }
+    }
+    void OnApplicationQuit()
+    {
+        // Close the UDP socket when the application quits
+        if (serverSocket != null)
+        {
+            serverSocket.Close();
+            Debug.Log("UDP socket closed.");
+        }
     }
 }

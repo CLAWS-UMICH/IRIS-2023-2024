@@ -148,6 +148,15 @@ public class GeosamplesAddedEvent
     }
 }
 
+public class GeosampleCreatedEvent
+{
+    public GeosampleCreatedEvent()
+    {
+        Debug.Log("GeosampleCreatedEvent");
+    }
+}
+
+
 public class GeosampleModeStartedEvent
 {
     public GeosampleModeStartedEvent()
@@ -161,6 +170,26 @@ public class GeosampleModeEndedEvent
     public GeosampleModeEndedEvent()
     {
         Debug.Log("GeosampleModeEndedEvent");
+    }
+}
+
+public class GeosampleZoneEnteredEvent
+{
+    public string Zone;
+
+    public GeosampleZoneEnteredEvent(string f_zone_id)
+    {
+        Zone = f_zone_id;
+    }
+}
+
+public class GeosampleZoneExitedEvent
+{
+    public string Zone;
+
+    public GeosampleZoneExitedEvent(string f_zone_id)
+    {
+        Zone = f_zone_id;
     }
 }
 
@@ -488,7 +517,7 @@ public class LLMCHighlight
 
 public class XRFScanEvent
 {
-    DataDetails data;
+    public DataDetails data;
     public XRFScanEvent(DataDetails d)
     {
         data = d;

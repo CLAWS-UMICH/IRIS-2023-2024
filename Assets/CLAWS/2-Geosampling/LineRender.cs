@@ -5,13 +5,14 @@ using UnityEngine;
 public class LineRender : MonoBehaviour
 {
     // Start is called before the first frame update
-    public float radius;
+    public float radius = 3;
     public float circleThickness = 0.02f;
+
+    LineRenderer lineRenderer;
 
     private void Start()
     {
-        var boundary = new GameObject { name = "GeoSample Boundary" };
-        var lineRenderer = boundary.AddComponent<LineRenderer>();
+        lineRenderer = gameObject.AddComponent<LineRenderer>();
 
         var circleSegments = 360;
         lineRenderer.material.color = new Color(99f/255, 131f/255, 216f/255); // color from figma #6992D8
@@ -34,4 +35,19 @@ public class LineRender : MonoBehaviour
         lineRenderer.SetPositions(points);
     }
 
+    public void HideBoundary()
+    {
+        if (lineRenderer != null)
+        {
+            lineRenderer.enabled = false;
+        }   
+    }
+
+    public void ShowBoundary()
+    {
+        if (lineRenderer != null)
+        {
+            lineRenderer.enabled = true;
+        }
+    }
 }

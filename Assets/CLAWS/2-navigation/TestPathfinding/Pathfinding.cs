@@ -19,6 +19,8 @@ public class Pathfinding : MonoBehaviour {
     GameObject playspace;
     GameObject player;
 
+    double totalDistance = 0;
+
 
     private void Awake()//When the program starts
     {
@@ -30,10 +32,12 @@ public class Pathfinding : MonoBehaviour {
         collisionEvent = EventBus.Subscribe<BreadCrumbCollisionEvent>(OnBreadCollision);
         playspace = GameObject.Find("MixedRealityPlayspace");
         player = playspace.transform.Find("Main Camera").gameObject;
+        totalDistance = 0;
     }
 
     public void startPathFinding(Transform start, Transform end)
     {
+        totalDistance = 0;
         StartPosition = start;
         TargetPosition = end;
 
@@ -42,6 +46,7 @@ public class Pathfinding : MonoBehaviour {
 
     public void startPathFinding(Transform start, Location end)
     {
+        totalDistance = 0;
         StartPosition = start;
 
         // Ensure TargetPosition is properly initialized
@@ -55,10 +60,16 @@ public class Pathfinding : MonoBehaviour {
         FindNewPath();
     }
 
+    public double getTotalDistance()
+    {
+        return totalDistance;
+    }
+
     // Button on screen will find the path everytime when pressed to not have it run every frame
     // Could maybe be changed to have it clicked once and always running, but for now, this will suffice
     public void FindNewPath()
     {
+        totalDistance = 0;
         FindPath(StartPosition.position, TargetPosition.position);//Find a path to the goal
     }
 
@@ -142,6 +153,7 @@ public class Pathfinding : MonoBehaviour {
 
     void GetFinalPath(Node a_StartingNode, Node a_EndNode)
     {
+        totalDistance = 0;
         destroyCurrentBreadCrumbs(); // Destroys all current breadcrumbs
         List<Node> FinalPath = new List<Node>();//List to hold the path sequentially 
         Node CurrentNode = a_EndNode;//Node to store the current node being checked
@@ -158,6 +170,7 @@ public class Pathfinding : MonoBehaviour {
         GridReference.FinalPath = FinalPath;//Set the final path
         int index = 0;
         bool hideMinimapIcon = false;
+        Vector3 prevLocation = new Vector3(0f, 0f, 0f);
         // Instantiate objects along the final path
         for (int i = 0; i < FinalPath.Count; i++)
         {
@@ -165,6 +178,7 @@ public class Pathfinding : MonoBehaviour {
             {
                 continue;
             }
+
             GameObject instantiatedObject = Instantiate(prefabToInstantiate, FinalPath[i].vPosition, Quaternion.identity);
             if (i != FinalPath.Count - 1)
             {
@@ -195,6 +209,11 @@ public class Pathfinding : MonoBehaviour {
             instantiatedObject.transform.GetChild(0).gameObject.SetActive(false);
             //instantiatedObject.SetActive(false);
             Breadcrumb b = new Breadcrumb(index, GPSUtils.AppPositionToGPSCoords(instantiatedObject.transform.position), 1);
+            if (i != 0)
+            {
+                totalDistance += Vector3.Distance(instantiatedObject.transform.position, prevLocation);
+            }
+            prevLocation = instantiatedObject.transform.position;
             AstronautInstance.User.BreadCrumbData.AllCrumbs.Add(b);
             indexToBreadCrumb[index] = instantiatedObject;
             instantiatedObject.GetComponent<BreadCrumbController>().UpdateInfo(index);
