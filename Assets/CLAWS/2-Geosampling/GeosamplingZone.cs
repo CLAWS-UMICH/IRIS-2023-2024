@@ -70,6 +70,21 @@ public class GeosamplingZone : MonoBehaviour
         StartCoroutine(TrackUserLocation());
     }
 
+    public void Load(GeosampleZone Zone_f)
+    {
+        geosampleModeStartedEvent = EventBus.Subscribe<GeosampleModeStartedEvent>(OnGeosampleModeStarted);
+        geosampleModeEndedEvent = EventBus.Subscribe<GeosampleModeEndedEvent>(OnGeosampleModeEnded);
+        geosampleAddedEvent = EventBus.Subscribe<GeosamplesAddedEvent>(OnGeosampleAdded);
+
+        transform.position = GPSUtils.GPSCoordsToAppPosition(Zone_f.location) + new Vector3(0, Camera.main.transform.position.y - offsetBelow, 0);
+        location = Zone_f.location;
+        zoneSamples = Zone_f.ZoneGeosamplesIds.Count;
+        radius = Zone_f.radius;
+        GeoSampleLabel();
+
+        StartCoroutine(TrackUserLocation());
+    }
+
     private void GeoSampleLabel()
     {
         // creating geosample zone textmeshpro
