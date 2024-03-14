@@ -11,6 +11,7 @@ public class GeosamplingZone : MonoBehaviour
     private Subscription<GeosampleModeStartedEvent> geosampleModeStartedEvent;
     private Subscription<GeosampleModeEndedEvent> geosampleModeEndedEvent;
     private Subscription<GeosamplesAddedEvent> geosampleAddedEvent;
+    private Subscription<GeosampleZoneDeletedEvent> geosamplezoneDeletedEvent;
 
     public static int NumZones = 0;
     public static string CurrentZone = "";
@@ -50,6 +51,8 @@ public class GeosamplingZone : MonoBehaviour
         geosampleModeStartedEvent = EventBus.Subscribe<GeosampleModeStartedEvent>(OnGeosampleModeStarted);
         geosampleModeEndedEvent = EventBus.Subscribe<GeosampleModeEndedEvent>(OnGeosampleModeEnded);
         geosampleAddedEvent = EventBus.Subscribe<GeosamplesAddedEvent>(OnGeosampleAdded);
+        geosamplezoneDeletedEvent = EventBus.Subscribe<GeosampleZoneDeletedEvent>(OnGeosamplezoneDeleted);
+
 
         transform.position = Camera.main.transform.position - new Vector3(0f, offsetBelow, 0f);
         location = GPSUtils.AppPositionToGPSCoords(transform.position);
@@ -116,6 +119,17 @@ public class GeosamplingZone : MonoBehaviour
         GeoSampleZoneScanned.text = zoneSamples.ToString();
     }
 
+    private void OnGeosamplezoneDeleted(GeosampleZoneDeletedEvent e)
+    {
+        foreach (GeosampleZone geosamplezone in e.DeletedGeoSampleZones)
+        {
+            if (geosamplezone.zone_id == Zone.zone_id)
+            {
+                OnDestroy(gameObject);
+            }
+        }
+    }
+
     IEnumerator TrackUserLocation()
     {
         while (GeosamplingManager.GeosamplingMode)
@@ -172,6 +186,10 @@ public class GeosamplingZone : MonoBehaviour
         if (geosampleAddedEvent != null)
         {
             EventBus.Unsubscribe(geosampleAddedEvent);
+        }
+        if (geosamplezoneDeletedEvent != null)
+        {
+            EventBus.Unsubscribe(geosamplezoneDeletedEvent);
         }
     }
 }
