@@ -78,7 +78,7 @@ public class NavScreenHandler : MonoBehaviour
         dangerScreen = parentScreen.transform.Find("DangerScroll").gameObject;
         title = parentScreen.transform.Find("Title").GetComponent<TextMeshPro>();
         confirmationScreen = transform.parent.Find("NavConfirmation").gameObject;
-        pathfindingScreen = transform.parent.Find("PathfindingScreen").gameObject;
+        //pathfindingScreen = transform.parent.Find("PathfindingScreen").gameObject;
 
         mainMapCamera = GameObject.Find("MainMapCamera").GetComponent<Camera>();
         miniMapCamera = GameObject.Find("MinimapCamera").GetComponent<Camera>();
