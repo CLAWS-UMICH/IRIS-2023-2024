@@ -1,23 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System;
-using System.Text;
+using UnityEngine;
 using UnityEngine.UI;
-using WebSocketSharp;
 
 public class TestImage : MonoBehaviour
 {
-
     private Subscription<NewPicEvent> newPicEvent;
-    RawImage displayImage;
-
-    public GameObject quad;
+    public GameObject screen;
+    private GameObject backplate; // Variable to hold the backplate GameObject
+    private GameObject quad; // Variable to hold the quad GameObject
 
     // Start is called before the first frame update
     void Start()
     {
         newPicEvent = EventBus.Subscribe<NewPicEvent>(onNewPic);
+        screen = transform.Find("ARWebScreen").gameObject;
+        backplate = screen.transform.Find("Backplate").gameObject;
+        quad = backplate.transform.Find("Quad").gameObject;
     }
 
     public void onNewPic(NewPicEvent e)

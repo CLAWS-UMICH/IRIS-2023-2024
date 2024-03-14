@@ -248,16 +248,36 @@ public class WebsocketDataHandler : MonoBehaviour
             if (debugMode) Debug.Log("(PUT) WebsocketDataHandler.cs: Updating GEOSAMPLE data");
 
             // TODO - Add events for each scenario
-
+         
             // Get the current list of geosamples from the instance
             List<Geosample> currentGeosamples = AstronautInstance.User.GeosampleData.AllGeosamples;
+            List<GeosampleZone> currentGeosampleZones = AstronautInstance.User.GeosampleZonesData.AllGeosampleZones;
 
             // Get the new list of geosamples from the data parameter
             List<Geosample> newGeosamples = data.AllGeosamples;
+            List<GeosampleZone> newGeosampleZones = data.AllGeosampleZones;
+
 
             List<Geosample> deletedGeosamples = new List<Geosample>();
+            List<GeosampleZone> deletedGeosampleZones = new List<GeosampleZone>();
+
             List<Geosample> editedGeosamples = new List<Geosample>();
+            List<GeosampleZone> editedGeosampleZones = new List<GeosampleZone>();
+
             List<Geosample> newAddedGeosamples = new List<Geosample>();
+            List<GeosampleZone> newAddedGeosampleZones = new List<GeosampleZone>();
+
+            //go through all zones, check samples exist for each
+
+            foreach (GeosampleZone currentZone in currentGeosampleZones)
+            {
+                bool sampleFound = false;
+
+                if (currentZone.ZoneGeosamplesIds.Count == 0)
+                {
+                    deletedGeosampleZones.Add(currentZone);
+                }
+            }
 
             foreach (Geosample currentSample in currentGeosamples)
             {
@@ -315,6 +335,11 @@ public class WebsocketDataHandler : MonoBehaviour
             if (newAddedGeosamples.Count > 0)
             {
                 EventBus.Publish(new GeosamplesAddedEvent(newAddedGeosamples));
+            }
+
+            if (deletedGeosampleZones.Count > 0)
+            {
+                EventBus.Publish(new GeosampleZoneDeletedEvent(deletedGeosampleZones));
             }
 
             // Update the list of geosamples with the new data

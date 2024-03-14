@@ -416,12 +416,10 @@ public class SingleGeosampleScreen : MonoBehaviour
     public void SetStar()
     {
         StarredIcon.SetActive(Sample.starred);
-
-
     }
     public void SetZoneId()
     {
-        Zone_id_tmp.text =(Sample.zone_id + Sample.geosample_id).ToString();
+        Zone_id_tmp.text = Sample.zone_id.ToString() + Sample.geosample_id.ToString();
     }
 
     // -------------- Screen Visuals --------------

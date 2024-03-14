@@ -11,6 +11,7 @@ public class GeosamplingZone : MonoBehaviour
     private Subscription<GeosampleModeStartedEvent> geosampleModeStartedEvent;
     private Subscription<GeosampleModeEndedEvent> geosampleModeEndedEvent;
     private Subscription<GeosamplesAddedEvent> geosampleAddedEvent;
+    private Subscription<GeosampleZoneDeletedEvent> geosamplezoneDeletedEvent;
 
     public static int NumZones = 0;
     public static string CurrentZone = "";
@@ -50,6 +51,8 @@ public class GeosamplingZone : MonoBehaviour
         geosampleModeStartedEvent = EventBus.Subscribe<GeosampleModeStartedEvent>(OnGeosampleModeStarted);
         geosampleModeEndedEvent = EventBus.Subscribe<GeosampleModeEndedEvent>(OnGeosampleModeEnded);
         geosampleAddedEvent = EventBus.Subscribe<GeosamplesAddedEvent>(OnGeosampleAdded);
+        geosamplezoneDeletedEvent = EventBus.Subscribe<GeosampleZoneDeletedEvent>(OnGeosamplezoneDeleted);
+
 
         transform.position = Camera.main.transform.position - new Vector3(0f, offsetBelow, 0f);
         location = GPSUtils.AppPositionToGPSCoords(transform.position);
@@ -67,6 +70,21 @@ public class GeosamplingZone : MonoBehaviour
         AstronautInstance.User.GeosampleZonesData.AllGeosamplezones.Add(Zone);
 
         GeosamplingManager.SendData();  
+        StartCoroutine(TrackUserLocation());
+    }
+
+    public void Load(GeosampleZone Zone_f)
+    {
+        geosampleModeStartedEvent = EventBus.Subscribe<GeosampleModeStartedEvent>(OnGeosampleModeStarted);
+        geosampleModeEndedEvent = EventBus.Subscribe<GeosampleModeEndedEvent>(OnGeosampleModeEnded);
+        geosampleAddedEvent = EventBus.Subscribe<GeosamplesAddedEvent>(OnGeosampleAdded);
+
+        transform.position = GPSUtils.GPSCoordsToAppPosition(Zone_f.location) + new Vector3(0, Camera.main.transform.position.y - offsetBelow, 0);
+        location = Zone_f.location;
+        zoneSamples = Zone_f.ZoneGeosamplesIds.Count;
+        radius = Zone_f.radius;
+        GeoSampleLabel();
+
         StartCoroutine(TrackUserLocation());
     }
 
@@ -99,6 +117,17 @@ public class GeosamplingZone : MonoBehaviour
         // TODO update zone object
         // Find Notif Game Object
         GeoSampleZoneScanned.text = zoneSamples.ToString();
+    }
+
+    private void OnGeosamplezoneDeleted(GeosampleZoneDeletedEvent e)
+    {
+        foreach (GeosampleZone geosamplezone in e.DeletedGeoSampleZones)
+        {
+            if (geosamplezone.zone_id == Zone.zone_id)
+            {
+                OnDestroy(gameObject);
+            }
+        }
     }
 
     IEnumerator TrackUserLocation()
@@ -157,6 +186,10 @@ public class GeosamplingZone : MonoBehaviour
         if (geosampleAddedEvent != null)
         {
             EventBus.Unsubscribe(geosampleAddedEvent);
+        }
+        if (geosamplezoneDeletedEvent != null)
+        {
+            EventBus.Unsubscribe(geosamplezoneDeletedEvent);
         }
     }
 }
