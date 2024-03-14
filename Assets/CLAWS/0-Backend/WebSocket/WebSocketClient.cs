@@ -35,6 +35,7 @@ public class WebSocketClient : MonoBehaviour
 
     }
 
+    [ContextMenu("func ReConnect")]
     public void ReConnect()
     {
         if (ws != null && ws.IsAlive)
@@ -46,7 +47,6 @@ public class WebSocketClient : MonoBehaviour
         ws.Connect();
     }
 
-    [ContextMenu("Func ReConnect")]
     public void ReConnect(string connectionString)
     {
         if (ws != null && ws.IsAlive)
