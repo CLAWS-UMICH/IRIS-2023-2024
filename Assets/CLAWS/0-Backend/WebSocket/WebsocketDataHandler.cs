@@ -235,7 +235,8 @@ public class WebsocketDataHandler : MonoBehaviour
                 id = AstronautInstance.User.id,
                 type = "Geosamples",
                 use = "PUT",
-                data = AstronautInstance.User.GeosampleData
+                data = AstronautInstance.User.GeosampleData, 
+                zones = AstronautInstance.User.GeosampleZonesData
             };
 
             // Convert the vitals data to JSON format and send to WebSocket client
@@ -245,6 +246,8 @@ public class WebsocketDataHandler : MonoBehaviour
         else if (use == "PUT")
         {
             if (debugMode) Debug.Log("(PUT) WebsocketDataHandler.cs: Updating GEOSAMPLE data");
+
+            // TODO - Add events for each scenario
 
             // Get the current list of geosamples from the instance
             List<Geosample> currentGeosamples = AstronautInstance.User.GeosampleData.AllGeosamples;
