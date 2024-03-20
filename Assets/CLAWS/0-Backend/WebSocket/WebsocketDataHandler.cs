@@ -223,7 +223,7 @@ public class WebsocketDataHandler : MonoBehaviour
         }
     }
 
-    public void HandleGeosamplesData(Geosamples data, string use)
+    public void HandleGeosamplesData(Geosamples data, GeosampleZones zoneData, string use)
     {
         if (use == "GET")
         {
@@ -255,17 +255,13 @@ public class WebsocketDataHandler : MonoBehaviour
 
             // Get the new list of geosamples from the data parameter
             List<Geosample> newGeosamples = data.AllGeosamples;
-            List<GeosampleZone> newGeosampleZones = data.AllGeosampleZones;
-
 
             List<Geosample> deletedGeosamples = new List<Geosample>();
             List<GeosampleZone> deletedGeosampleZones = new List<GeosampleZone>();
 
             List<Geosample> editedGeosamples = new List<Geosample>();
-            List<GeosampleZone> editedGeosampleZones = new List<GeosampleZone>();
 
             List<Geosample> newAddedGeosamples = new List<Geosample>();
-            List<GeosampleZone> newAddedGeosampleZones = new List<GeosampleZone>();
 
             //go through all zones, check samples exist for each
 
@@ -745,7 +741,8 @@ public class WebsocketDataHandler : MonoBehaviour
     public void SendGeosampleData()
     {
         Geosamples emptyGeosampleData = new Geosamples();
-        HandleGeosamplesData(emptyGeosampleData, "GET");
+        GeosampleZones emptyGeosampleZoneData = new GeosampleZones();
+        HandleGeosamplesData(emptyGeosampleData, emptyGeosampleZoneData, "GET");
     }
 
     public void SendWaypointData()

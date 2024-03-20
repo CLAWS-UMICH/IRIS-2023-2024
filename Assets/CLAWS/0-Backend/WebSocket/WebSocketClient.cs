@@ -140,7 +140,7 @@ public class WebSocketClient : MonoBehaviour
                 break;
             case "Geosamples":
                 GeosamplesData geoData = JsonUtility.FromJson<GeosamplesData>(jsonData);
-                dataHandler.HandleGeosamplesData(geoData.data, messageUse);
+                dataHandler.HandleGeosamplesData(geoData.data, geoData.zones, messageUse);
                 break;
             case "Waypoints":
                 WaypointsData waypointsData = JsonUtility.FromJson<WaypointsData>(jsonData);

@@ -195,7 +195,7 @@ public class GeosampleZoneExitedEvent
 
 public class GeosampleZoneDeletedEvent
 {
-    public List<GeosampleZone> DeletedGeoSampleZones { get; private; set; }
+    public List<GeosampleZone> DeletedGeoSampleZones { get; private set; }
 
     public GeosampleZoneDeletedEvent(List<GeosampleZone> deletedGeosampleZones)
     {
