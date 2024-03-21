@@ -4,13 +4,14 @@ using UnityEngine.UI;
 
 public class TestImage : MonoBehaviour
 {
-    public Image john;
-    public GameObject quad; // Variable to hold the quad GameObject
+    private Subscription<NewPicEvent> newPicEvent;
+    private GameObject quad; // Variable to hold the quad GameObject
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        newPicEvent = EventBus.Subscribe<NewPicEvent>(onNewPic);
+        quad = transform.Find("Quad").gameObject;
     }
 
     public void onNewPic(NewPicEvent e)
