@@ -223,9 +223,9 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: NavScreenHandler, Assembly-CSharp
-        m_MethodName: OpenStation
+      - m_Target: {fileID: 7617869532862205652}
+        m_TargetAssemblyTypeName: ButtonHighlight, Assembly-CSharp
+        m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -235,8 +235,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ButtonHighlight, Assembly-CSharp
+      - m_Target: {fileID: 3128751550572160389}
+        m_TargetAssemblyTypeName: GeosamplingDB_ZoneButton, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:
@@ -966,7 +966,7 @@ GameObject:
   - component: {fileID: 7617869532862205652}
   - component: {fileID: 3128751550572160389}
   m_Layer: 0
-  m_Name: ZoneButton
+  m_Name: ZoneButton_Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1013,7 +1013,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f9258157462855408a6a2e57d135807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ZoneLetter: {fileID: 3050099688502125162}
+  Letter: 
+  ZoneLetter_tmp: {fileID: 3050099688502125162}
 --- !u!1 &2844509840230271198
 GameObject:
   m_ObjectHideFlags: 0
@@ -1976,6 +1977,10 @@ PrefabInstance:
       value: 0.17
       objectReference: {fileID: 0}
     - target: {fileID: 259350009368641209, guid: a8f517f7be1d69f4ead74499adf2fdff, type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 259350009368641209, guid: a8f517f7be1d69f4ead74499adf2fdff, type: 3}
       propertyPath: m_fontSizeBase
       value: 0.17
       objectReference: {fileID: 0}
@@ -2029,7 +2034,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2392647766582955634, guid: a8f517f7be1d69f4ead74499adf2fdff, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.0001
       objectReference: {fileID: 0}
     - target: {fileID: 2392647766582955634, guid: a8f517f7be1d69f4ead74499adf2fdff, type: 3}
       propertyPath: m_LocalRotation.w

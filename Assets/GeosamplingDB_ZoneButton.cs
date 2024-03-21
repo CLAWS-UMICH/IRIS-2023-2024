@@ -5,10 +5,16 @@ using TMPro;
 
 public class GeosamplingDB_ZoneButton : MonoBehaviour
 {
-    [SerializeField] TextMeshPro ZoneLetter;
+    [SerializeField] string Letter;
+    [SerializeField] TextMeshPro ZoneLetter_tmp;
 
     public void SetZoneLetter(string letter)
     {
-        ZoneLetter.text = letter;
+        ZoneLetter_tmp.text = letter;
+    }
+
+    public void OnClick()
+    {
+        GeosamplingDB_Manager.Instance.OnZoneClicked(Letter);
     }
 }
