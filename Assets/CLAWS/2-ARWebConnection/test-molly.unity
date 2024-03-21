@@ -190,7 +190,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cca8cf2fc79b43742adda92629f2f3c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  screen: {fileID: 7343857048367641862}
+  john: {fileID: 0}
+  quad: {fileID: 0}
 --- !u!4 &64672583
 Transform:
   m_ObjectHideFlags: 0
@@ -606,7 +607,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cca8cf2fc79b43742adda92629f2f3c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  screen: {fileID: 0}
+  john: {fileID: 0}
+  quad: {fileID: 0}
 --- !u!1 &169661751
 GameObject:
   m_ObjectHideFlags: 0
@@ -3392,11 +3394,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2151015659346519163, guid: 415cc1cdedc9a4f4bbdd7540fa1c0666, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.008802861
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 2151015659346519163, guid: 415cc1cdedc9a4f4bbdd7540fa1c0666, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.2184
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 2151015659346519163, guid: 415cc1cdedc9a4f4bbdd7540fa1c0666, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3458,6 +3460,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0.0271
       objectReference: {fileID: 0}
+    - target: {fileID: 6905330770392617187, guid: 415cc1cdedc9a4f4bbdd7540fa1c0666, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4f525c25b83fb4acb88d9752b4e64ac5, type: 2}
     - target: {fileID: 7353602832542134739, guid: 415cc1cdedc9a4f4bbdd7540fa1c0666, type: 3}
       propertyPath: m_Name
       value: ARWebScreen
@@ -3489,20 +3495,78 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7353602832542134739, guid: 415cc1cdedc9a4f4bbdd7540fa1c0666, type: 3}
       insertIndex: -1
       addedObject: {fileID: 168664783}
+    - targetCorrespondingSourceObject: {fileID: 7353602832542134739, guid: 415cc1cdedc9a4f4bbdd7540fa1c0666, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7343857048367641874}
+    - targetCorrespondingSourceObject: {fileID: 7353602832542134739, guid: 415cc1cdedc9a4f4bbdd7540fa1c0666, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7343857048367641873}
     - targetCorrespondingSourceObject: {fileID: 457934645842057792, guid: 415cc1cdedc9a4f4bbdd7540fa1c0666, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 415cc1cdedc9a4f4bbdd7540fa1c0666, type: 3}
---- !u!1 &7343857048367641862 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2579047401263661881, guid: 415cc1cdedc9a4f4bbdd7540fa1c0666, type: 3}
-  m_PrefabInstance: {fileID: 7343857048367641861}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7343857048367641864 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2151015659346519163, guid: 415cc1cdedc9a4f4bbdd7540fa1c0666, type: 3}
   m_PrefabInstance: {fileID: 7343857048367641861}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7343857048367641873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1758308585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 181cd563a8349c34ea8978b0bc8d9c7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hostTransform: {fileID: 7343857048367641864}
+  manipulationType: 3
+  twoHandedManipulationType: 7
+  allowFarManipulation: 1
+  useForcesForNearManipulation: 0
+  oneHandRotationModeNear: 1
+  oneHandRotationModeFar: 1
+  releaseBehavior: 3
+  transformSmoothingLogicType:
+    reference: Microsoft.MixedReality.Toolkit.Utilities.DefaultTransformSmoothingLogic,
+      Microsoft.MixedReality.Toolkit.SDK
+  smoothingFar: 1
+  smoothingNear: 1
+  moveLerpTime: 0.001
+  rotateLerpTime: 0.001
+  scaleLerpTime: 0.001
+  enableConstraints: 1
+  constraintsManager: {fileID: 7343857048367641874}
+  elasticsManager: {fileID: 0}
+  onManipulationStarted:
+    m_PersistentCalls:
+      m_Calls: []
+  onManipulationEnded:
+    m_PersistentCalls:
+      m_Calls: []
+  onHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  onHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &7343857048367641874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1758308585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a98de877dee5fc341b4eb59dfdab266c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoConstraintSelection: 1
+  selectedConstraints: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
