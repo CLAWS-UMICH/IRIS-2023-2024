@@ -10,16 +10,14 @@ public class GeoSamplingFollow : MonoBehaviour
     [SerializeField] float coneAngle = 130f;
 
     GameObject body;
-    GameObject title;
     GameObject button;
     GameObject icon;
 
     float distance;
-    [SerializeField] float distanceForTitle = 2.5f;
-    [SerializeField] float distanceToSetYLvl = 2.5f;
-    [SerializeField] float distanceForButton = 1.25f;
+    [SerializeField] float distanceToSetYLvl = 2.0f;
     bool isVisible;
     float updateDistance;
+    float radius = 3.0f;
 
     bool levelHasBeenUpdated;
 
@@ -27,7 +25,6 @@ public class GeoSamplingFollow : MonoBehaviour
     {
         player = GameObject.Find("Main Camera");
         body = gameObject.transform.Find("Body").gameObject;
-        title = body.transform.Find("Title").gameObject;
         icon = body.transform.Find("Quad").gameObject;
         button = body.transform.Find("DeleteButton").gameObject;
 
@@ -39,7 +36,6 @@ public class GeoSamplingFollow : MonoBehaviour
 
     private void Start()
     {
-        title.SetActive(false);
         icon.SetActive(false);
         button.SetActive(false);
 
@@ -63,34 +59,18 @@ public class GeoSamplingFollow : MonoBehaviour
             {
                 isVisible = true;
                 icon.SetActive(true);
-
-                if (distance < distanceForTitle)
-                {
-                    title.SetActive(true);
-                }
-
-                if (distance < distanceForButton)
-                {
-                    button.SetActive(true);
-                }
-
             }
             else
             {
                 isVisible = false;
                 icon.SetActive(false);
-                title.SetActive(false);
                 button.SetActive(false);
             }
 
-            if (distance >= distanceForTitle)
+            if (isVisible && distance <= radius)
             {
-                title.SetActive(false);
-            }
-
-            if (distance >= distanceForButton)
-            {
-                button.SetActive(false);
+                icon.SetActive(false);
+                isVisible = false;
             }
 
             if (!levelHasBeenUpdated && distance < distanceToSetYLvl)

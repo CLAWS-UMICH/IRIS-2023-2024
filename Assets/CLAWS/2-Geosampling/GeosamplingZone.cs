@@ -18,7 +18,7 @@ public class GeosamplingZone : MonoBehaviour
 
     public static GeosampleZone FindZone(char zone_id)
     {
-        foreach (GeosampleZone zone in AstronautInstance.User.GeosampleZonesData.AllGeosamplezones) {
+        foreach (GeosampleZone zone in AstronautInstance.User.GeosampleZonesData.AllGeosampleZones) {
             if (zone.zone_id == zone_id)
             {
                 return zone;
@@ -67,7 +67,7 @@ public class GeosamplingZone : MonoBehaviour
         Zone.location = location;
         Zone.ZoneGeosamplesIds = new();
 
-        AstronautInstance.User.GeosampleZonesData.AllGeosamplezones.Add(Zone);
+        AstronautInstance.User.GeosampleZonesData.AllGeosampleZones.Add(Zone);
 
         GeosamplingManager.SendData();  
         StartCoroutine(TrackUserLocation());
@@ -125,7 +125,7 @@ public class GeosamplingZone : MonoBehaviour
         {
             if (geosamplezone.zone_id == Zone.zone_id)
             {
-                OnDestroy(gameObject);
+                Destroy(gameObject);
             }
         }
     }

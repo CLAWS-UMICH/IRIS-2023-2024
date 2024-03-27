@@ -141,7 +141,7 @@ public class DataDetails
 [System.Serializable]
 public class GeosampleZones
 {
-    public List<GeosampleZone> AllGeosamplezones = new List<GeosampleZone>();
+    public List<GeosampleZone> AllGeosampleZones = new List<GeosampleZone>();
 }
 
 [System.Serializable]

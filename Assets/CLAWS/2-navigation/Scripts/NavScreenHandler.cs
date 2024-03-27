@@ -108,12 +108,16 @@ public class NavScreenHandler : MonoBehaviour
 
         OxygenOld = confirmationScreen.transform.Find("oxygen_bar").Find("OxygenPBOld").gameObject;
         OxygenNew = confirmationScreen.transform.Find("oxygen_bar").Find("OxygenPBNew").gameObject;
+        CloseScreenStart();
 
         // Update to see ALL icons on map
         SwitchCameraCull(-1);
     }
 
-
+    public void CloseScreenStart()
+    {
+        gameObject.SetActive(false);
+    }
 
     public void OpenNavScreen()
     {
