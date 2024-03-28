@@ -17,6 +17,7 @@ public class GeosamplingDB_Manager : MonoBehaviour
     private void Start()
     {
         ZoneButtons = new();
+        FunctionQueue = new();
 
         RenderZones();
     }
@@ -33,7 +34,6 @@ public class GeosamplingDB_Manager : MonoBehaviour
 
 
     // rendering
-    bool RenderFinished = true;
     Queue<string> FunctionQueue;
     string currZoneLetter;
 
@@ -41,15 +41,12 @@ public class GeosamplingDB_Manager : MonoBehaviour
     [ContextMenu("func RenderZones")]
     public void RenderZones()
     {
-        RenderFinished = false;
-
         FunctionQueue.Enqueue("ClearZones");
         FunctionQueue.Enqueue("RenderZones");
     }
 
     public void RenderSamples(string zoneLetter)
     {
-        RenderFinished = false;
         currZoneLetter = zoneLetter;
         Debug.Log("Rendering samples for zone " + zoneLetter);
 
@@ -63,6 +60,7 @@ public class GeosamplingDB_Manager : MonoBehaviour
         {
             GameObject g = Instantiate(ZoneButtonPrefab, ZoneParent.transform);
             g.GetComponent<GeosamplingDB_ZoneButton>().SetZoneLetter(zone.zone_id.ToString());
+            ZoneButtons.Add(g);
         }
         ZoneParent.GetComponent<ScrollHandler>().Fix();
     }
@@ -75,6 +73,7 @@ public class GeosamplingDB_Manager : MonoBehaviour
             {
                 GameObject g = Instantiate(SampleButtonPrefab, SampleParent.transform);
                 g.GetComponent<GeosamplingDB_SampleButton>().SetSample(sample);
+                SampleButtons.Add(g);
             }
         }
         SampleParent.GetComponent<ScrollHandler>().Fix();
