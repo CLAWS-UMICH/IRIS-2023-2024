@@ -98,15 +98,13 @@ public class GeosamplingZone : MonoBehaviour
     private void OnGeosampleModeStarted(GeosampleModeStartedEvent e)
     {
         // show perimeter
-        GetComponent<LineRender>().ShowBoundary();
-
+        transform.Find("BoundaryCircle").GetComponent<LineRender>().ShowBoundary();
         StartCoroutine(TrackUserLocation());
     }
 
     private void OnGeosampleModeEnded(GeosampleModeEndedEvent e)
     {
-        GetComponent<LineRender>().HideBoundary();
-
+        transform.Find("BoundaryCircle").GetComponent<LineRender>().HideBoundary();
         isEntered = false;
     }
 
