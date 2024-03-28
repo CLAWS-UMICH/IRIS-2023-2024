@@ -33841,16 +33841,44 @@ PrefabInstance:
       objectReference: {fileID: 5322953305774492675}
     - target: {fileID: 1573732603780126752, guid: bf3ecf53a3a2a4740ba8ff6a4542975d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4027473410168731419, guid: bf3ecf53a3a2a4740ba8ff6a4542975d, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 5322953305774492675}
     - target: {fileID: 5240727978953894255, guid: bf3ecf53a3a2a4740ba8ff6a4542975d, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5240727978953894255, guid: bf3ecf53a3a2a4740ba8ff6a4542975d, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5240727978953894255, guid: bf3ecf53a3a2a4740ba8ff6a4542975d, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 5322953305774492675}
+    - target: {fileID: 5240727978953894255, guid: bf3ecf53a3a2a4740ba8ff6a4542975d, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 7874677308355973111}
+    - target: {fileID: 5240727978953894255, guid: bf3ecf53a3a2a4740ba8ff6a4542975d, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5240727978953894255, guid: bf3ecf53a3a2a4740ba8ff6a4542975d, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: OnClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 5240727978953894255, guid: bf3ecf53a3a2a4740ba8ff6a4542975d, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: GeosamplingDB_Toggle, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5240727978953894255, guid: bf3ecf53a3a2a4740ba8ff6a4542975d, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 5822803927167817766, guid: bf3ecf53a3a2a4740ba8ff6a4542975d, type: 3}
       propertyPath: m_Name
       value: Geosampling
@@ -33906,13 +33934,33 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7550896588887043799, guid: bf3ecf53a3a2a4740ba8ff6a4542975d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7874677308355973111}
   m_SourcePrefab: {fileID: 100100000, guid: bf3ecf53a3a2a4740ba8ff6a4542975d, type: 3}
 --- !u!4 &8064688204312152781 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8439485716432451533, guid: bf3ecf53a3a2a4740ba8ff6a4542975d, type: 3}
   m_PrefabInstance: {fileID: 1942340866102230272}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8232220350779053015 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7550896588887043799, guid: bf3ecf53a3a2a4740ba8ff6a4542975d, type: 3}
+  m_PrefabInstance: {fileID: 1942340866102230272}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7874677308355973111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8232220350779053015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f81e4a136c7fd8f42b146ee83b785418, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3203914351247644081
 PrefabInstance:
   m_ObjectHideFlags: 0

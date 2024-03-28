@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Properties;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -41,6 +42,7 @@ public class GeosamplingDB_Manager : MonoBehaviour
         isOpen = true;
 
         RenderZones();
+        gameObject.SetActive(false);
     }
 
     // data
