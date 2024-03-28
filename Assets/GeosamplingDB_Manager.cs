@@ -14,10 +14,31 @@ public class GeosamplingDB_Manager : MonoBehaviour
         }
     }
 
+    public bool isOpen = false;
+
+    private void OnEnable()
+    {
+        isOpen = true;
+    }
+    private void OnDisable()
+    {
+        isOpen = false;
+    }
+
+    public static void OpenScreen()
+    {
+        Instance.gameObject.SetActive(true);
+    }
+    public static void CloseScreen()
+    {
+        Instance.gameObject.SetActive(false);
+    }
+
     private void Start()
     {
         ZoneButtons = new();
         FunctionQueue = new();
+        isOpen = true;
 
         RenderZones();
     }
