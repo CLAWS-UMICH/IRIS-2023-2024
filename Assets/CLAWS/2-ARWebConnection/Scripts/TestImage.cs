@@ -28,7 +28,7 @@ public class TestImage : MonoBehaviour
         {
             // Set the starting position for the screen when it is set to true
             screen.transform.localPosition = new Vector3(0f, 0f, 0f);
-\       }
+        }
         // Set the screen (quad GameObject) active or inactive based on the visibility flag
             screen.SetActive(isScreenVisible);
     }
