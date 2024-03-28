@@ -10,6 +10,7 @@ public class GeosamplingDB_ZoneButton : MonoBehaviour
 
     public void SetZoneLetter(string letter)
     {
+        Letter = letter;
         ZoneLetter_tmp.text = letter;
     }
 

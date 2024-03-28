@@ -16,9 +16,31 @@ public class GeosamplingDB_Manager : MonoBehaviour
         }
     }
 
+    public bool isOpen = false;
+
+    private void OnEnable()
+    {
+        isOpen = true;
+    }
+    private void OnDisable()
+    {
+        isOpen = false;
+    }
+
+    public static void OpenScreen()
+    {
+        Instance.gameObject.SetActive(true);
+    }
+    public static void CloseScreen()
+    {
+        Instance.gameObject.SetActive(false);
+    }
+
     private void Start()
     {
         ZoneButtons = new();
+        FunctionQueue = new();
+        isOpen = true;
 
         RenderZones();
     }
@@ -41,7 +63,6 @@ public class GeosamplingDB_Manager : MonoBehaviour
     public List<TextMeshPro> XRFList = new List<TextMeshPro>();
 
     // rendering
-    bool RenderFinished = true;
     Queue<string> FunctionQueue;
     string currZoneLetter;
 
@@ -49,15 +70,12 @@ public class GeosamplingDB_Manager : MonoBehaviour
     [ContextMenu("func RenderZones")]
     public void RenderZones()
     {
-        RenderFinished = false;
-
         FunctionQueue.Enqueue("ClearZones");
         FunctionQueue.Enqueue("RenderZones");
     }
 
     public void RenderSamples(string zoneLetter)
     {
-        RenderFinished = false;
         currZoneLetter = zoneLetter;
         Debug.Log("Rendering samples for zone " + zoneLetter);
 
@@ -71,6 +89,7 @@ public class GeosamplingDB_Manager : MonoBehaviour
         {
             GameObject g = Instantiate(ZoneButtonPrefab, ZoneParent.transform);
             g.GetComponent<GeosamplingDB_ZoneButton>().SetZoneLetter(zone.zone_id.ToString());
+            ZoneButtons.Add(g);
         }
         ZoneParent.GetComponent<ScrollHandler>().Fix();
     }
@@ -83,6 +102,7 @@ public class GeosamplingDB_Manager : MonoBehaviour
             {
                 GameObject g = Instantiate(SampleButtonPrefab, SampleParent.transform);
                 g.GetComponent<GeosamplingDB_SampleButton>().SetSample(sample);
+                SampleButtons.Add(g);
             }
         }
         SampleParent.GetComponent<ScrollHandler>().Fix();
