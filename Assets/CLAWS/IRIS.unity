@@ -768,6 +768,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding: {x: -8, y: -5, z: -8, w: -5}
   m_Softness: {x: 0, y: 0}
+--- !u!114 &604298443 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5322953305774492675, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+  m_PrefabInstance: {fileID: 3794289907722291898}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f30b4ff59d450d40b5ad6d0bebece0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &694318115
 GameObject:
   m_ObjectHideFlags: 0
@@ -2488,6 +2499,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1343306739585201578, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 604298443}
+    - target: {fileID: 1343306739585201578, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CancelPathfindConfirmation
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641153364206372246, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 604298443}
+    - target: {fileID: 1641153364206372246, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CancelPathfindConfirmation
+      objectReference: {fileID: 0}
+    - target: {fileID: 3561213367164893782, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 604298443}
+    - target: {fileID: 3561213367164893782, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ConfirmPathFind
+      objectReference: {fileID: 0}
     - target: {fileID: 3794289906129230345, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       propertyPath: transformOverride
       value: 
@@ -2500,25 +2535,25 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 9052906465477797132, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 3093696953208149741, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 4341368357893170656, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 7559905911704854413, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 1533370000747523024, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 8479206310729923287, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 3528313688774814592, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 1631272055385301313, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 4956259409424937920, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 3712523339557340739, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 2607697412513180967, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 686124708215923244, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 7106323326764953414, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 9182000603035057682, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
     - targetCorrespondingSourceObject: {fileID: 3794289906097164916, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
