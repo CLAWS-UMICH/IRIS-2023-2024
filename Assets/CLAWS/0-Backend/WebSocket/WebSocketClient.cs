@@ -23,6 +23,7 @@ public class WebSocketClient : MonoBehaviour
             ws = new WebSocket(webSocketUrl);
             ws.OnMessage += OnWebSocketMessage;
             ws.Connect();
+            dataHandler.SendVitalsData();
         }
     }
 
@@ -57,6 +58,7 @@ public class WebSocketClient : MonoBehaviour
         ws = new WebSocket(webSocketUrl);
         ws.OnMessage += OnWebSocketMessage;
         ws.Connect();
+        dataHandler.SendVitalsData();
     }
 
     public void ReConnect(string connectionString, string color, string name)

@@ -84,13 +84,14 @@ public class ConnectToWebScreenHandler : MonoBehaviour
 
     public void ConnectToWebSocket()
     {
-        if (hex != "" && nameText.text != "")
+        /*if (hex != "" && nameText.text != "")
         {
             controller.ReConnect(connectionLinkText.text, hex, nameText.text);
         } else
         {
             controller.ReConnect(connectionLinkText.text);
-        }
+        }*/
+        controller.ReConnect("ws://ec2-52-15-178-2.us-east-2.compute.amazonaws.com/hololens");
         connected = true;
         disconnectText.text = connectionLinkText.text;
 
