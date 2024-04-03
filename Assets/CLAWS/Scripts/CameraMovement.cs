@@ -13,7 +13,7 @@ public class CameraMovement : MonoBehaviour
     private UdpClient serverSocket;
     void Start()
     {
-        /*try
+        try
         {
             // Create a UDP socket
             serverSocket = new UdpClient(8888);
@@ -24,7 +24,7 @@ public class CameraMovement : MonoBehaviour
         catch (Exception e)
         {
             Debug.LogError("Error creating UDP socket: " + e.Message);
-        }*/
+        }
     }
     private void StartListening()
     {
