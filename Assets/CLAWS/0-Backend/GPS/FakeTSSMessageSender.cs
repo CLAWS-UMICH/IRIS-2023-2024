@@ -101,8 +101,9 @@ public class FakeTSSMessageSender : MonoBehaviour
     {
         while (true)
         {
+            AstronautInstance.User.VitalsData.eva_time = 69;
             yield return new WaitForSeconds(secondsToUpdate); // Wait for 3 seconds
-
+            
             /*// Update vitals with random values
             AstronautInstance.User.VitalsData.primary_oxygen = UnityEngine.Random.Range(90f, 100f);
             AstronautInstance.User.VitalsData.secondary_oxygen = UnityEngine.Random.Range(90f, 100f);
