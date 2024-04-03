@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Properties;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GeosamplingDB_Manager : MonoBehaviour
 {
@@ -14,11 +17,34 @@ public class GeosamplingDB_Manager : MonoBehaviour
         }
     }
 
+    public bool isOpen = false;
+
+    private void OnEnable()
+    {
+        isOpen = true;
+    }
+    private void OnDisable()
+    {
+        isOpen = false;
+    }
+
+    public static void OpenScreen()
+    {
+        Instance.gameObject.SetActive(true);
+    }
+    public static void CloseScreen()
+    {
+        Instance.gameObject.SetActive(false);
+    }
+
     private void Start()
     {
         ZoneButtons = new();
+        FunctionQueue = new();
+        isOpen = true;
 
         RenderZones();
+        gameObject.SetActive(false);
     }
 
     // data
@@ -31,9 +57,14 @@ public class GeosamplingDB_Manager : MonoBehaviour
     public GameObject ZoneButtonPrefab;
     public GameObject SampleButtonPrefab;
 
+    public GeosamplingColor colors;
+    public GeosamplingShapes shapes;
+
+    // XRF things
+    public GameObject XRFReadings;
+    public List<TextMeshPro> XRFList = new List<TextMeshPro>();
 
     // rendering
-    bool RenderFinished = true;
     Queue<string> FunctionQueue;
     string currZoneLetter;
 
@@ -41,15 +72,12 @@ public class GeosamplingDB_Manager : MonoBehaviour
     [ContextMenu("func RenderZones")]
     public void RenderZones()
     {
-        RenderFinished = false;
-
         FunctionQueue.Enqueue("ClearZones");
         FunctionQueue.Enqueue("RenderZones");
     }
 
     public void RenderSamples(string zoneLetter)
     {
-        RenderFinished = false;
         currZoneLetter = zoneLetter;
         Debug.Log("Rendering samples for zone " + zoneLetter);
 
@@ -63,6 +91,7 @@ public class GeosamplingDB_Manager : MonoBehaviour
         {
             GameObject g = Instantiate(ZoneButtonPrefab, ZoneParent.transform);
             g.GetComponent<GeosamplingDB_ZoneButton>().SetZoneLetter(zone.zone_id.ToString());
+            ZoneButtons.Add(g);
         }
         ZoneParent.GetComponent<ScrollHandler>().Fix();
     }
@@ -75,6 +104,7 @@ public class GeosamplingDB_Manager : MonoBehaviour
             {
                 GameObject g = Instantiate(SampleButtonPrefab, SampleParent.transform);
                 g.GetComponent<GeosamplingDB_SampleButton>().SetSample(sample);
+                SampleButtons.Add(g);
             }
         }
         SampleParent.GetComponent<ScrollHandler>().Fix();
@@ -133,6 +163,59 @@ public class GeosamplingDB_Manager : MonoBehaviour
 
     public void OnSampleClicked(Geosample g)
     {
-        // sample clicked
+        // SHAPE
+        GeosamplingShape.Shape shapeName = GeosamplingShape.Shape.None;
+        switch (g.shape) { 
+            case "Shape":
+                shapeName = GeosamplingShape.Shape.None;
+                break;
+            case "Polygon":
+                shapeName = GeosamplingShape.Shape.Polygon;
+                break;
+            case "Cube":
+                shapeName = GeosamplingShape.Shape.Cube;
+                break;
+            case "Cylinder":
+                shapeName = GeosamplingShape.Shape.Cylinder;
+                break;
+            case "Cone":
+                shapeName = GeosamplingShape.Shape.Cone;
+                break;
+            case "Sphere":
+                shapeName = GeosamplingShape.Shape.Sphere;
+                break;
+            case "Crystalline":
+                shapeName = GeosamplingShape.Shape.Crystalline;
+                break;
+            case "Ellipsoid":
+                shapeName = GeosamplingShape.Shape.Ellipsoid;
+                break;
+            case "Irregular":
+                shapeName = GeosamplingShape.Shape.Irregular;
+                break;
+            default:
+                Debug.LogError("Shape error");
+                break;
+        }
+        shapes.SetShape(shapeName);
+
+        // COLOR
+        colors.SetColor(g.color);
+
+        // XRF
+        // Update XRF Readings
+        XRFList[0].text = g.eva_data.data.SiO2.ToString();
+        XRFList[1].text = g.eva_data.data.FeO.ToString();
+        XRFList[2].text = g.eva_data.data.CaO.ToString();
+        XRFList[3].text = g.eva_data.data.TiO2.ToString();
+        XRFList[4].text = g.eva_data.data.MnO.ToString();
+        XRFList[5].text = g.eva_data.data.K2O.ToString();
+        XRFList[6].text = g.eva_data.data.Al2O3.ToString();
+        XRFList[7].text = g.eva_data.data.MgO.ToString();
+        XRFList[8].text = g.eva_data.data.P2O3.ToString();
+
+        // Show Readings
+        XRFReadings.SetActive(true);
+
     }
 }

@@ -2088,6 +2088,7 @@ GameObject:
   - component: {fileID: 4932275072529037506}
   - component: {fileID: 2775296531170216883}
   - component: {fileID: 935870156161517564}
+  - component: {fileID: 5343792050452201498}
   m_Layer: 0
   m_Name: View Samples Button
   m_TagString: Untagged
@@ -2299,6 +2300,18 @@ MonoBehaviour:
       - m_Target: {fileID: 8395119700048930641}
         m_TargetAssemblyTypeName: GeosamplingBottomBar, Assembly-CSharp
         m_MethodName: OnViewSamplesPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5343792050452201498}
+        m_TargetAssemblyTypeName: GeosamplingDB_Toggle, Assembly-CSharp
+        m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2606,6 +2619,18 @@ MonoBehaviour:
   defaultButtonQuadMaterial: {fileID: 2100000, guid: fa419ab56051229449e3b813df8f295f, type: 2}
   iconSet: {fileID: 11400000, guid: 8b386ef895f7c924f8c4b03d1d3ed683, type: 2}
   defaultIconSet: {fileID: 11400000, guid: 8b386ef895f7c924f8c4b03d1d3ed683, type: 2}
+--- !u!114 &5343792050452201498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4497608574612705554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f81e4a136c7fd8f42b146ee83b785418, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4548410426532117820
 GameObject:
   m_ObjectHideFlags: 0
@@ -3855,7 +3880,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5970020286283622880}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.0903, y: 0.2203, z: -0.2062679}
   m_LocalScale: {x: 0.56, y: 0.56, z: 0.56}
   m_ConstrainProportionsScale: 1
