@@ -12,6 +12,16 @@ public class ScreenChangedEvent
     }
 }
 
+public class ModeChangedEvent
+{
+    public Modes Mode;
+
+    public ModeChangedEvent(Modes mode)
+    {
+        Mode = mode;
+    }
+}
+
 public class CloseEvent
 {
     public Screens Screen;

@@ -33,19 +33,44 @@ public class MenuState : MonoBehaviour
     [SerializeField] private GameObject ShowMenuButton;
     [SerializeField] private GameObject ExitIRISModeButton;
 
-    /*[SerializeField] private GameObject SamplingMarkers;
-    [SerializeField] private GameObject NavigationMarkers;
-    [SerializeField] private GameObject RouteMarkers;
-    [SerializeField] private GameObject EgressMarkers;
-    [SerializeField] private GameObject AirlockMarkers;*/
-
     [SerializeField] private Material regularModes;
     [SerializeField] private Material highlightedModes;
     [SerializeField] private TMP_Text mode;
 
+    private Subscription<ModeChangedEvent> modeChangedSubscription;
+
     private void Start()
     {
         EventBus.Subscribe<GeosampleModeEndedEvent>((e) => ClickIRISClose());
+        modeChangedSubscription = EventBus.Subscribe<ModeChangedEvent>(SwitchMode);
+    }
+
+    private void SwitchMode(ModeChangedEvent e)
+    {
+        switch (e.Mode)
+        {
+            case Modes.Normal:
+                ClickIRISClose();
+                break;
+            case Modes.Sampling:
+                ClickIRISSampling();
+                break;
+            case Modes.Navigation:
+                ClickIRISNavigation();
+                break;
+            case Modes.Route:
+                ClickIRISRoute();
+                break;
+            case Modes.Egress:
+                ClickIRISEgress();
+                break;
+            case Modes.Airlock:
+                ClickIRISAirlock();
+                break;
+            default:
+                ClickIRISClose();
+                break;
+        }
     }
 
     public void ClickTasks()
@@ -90,9 +115,6 @@ public class MenuState : MonoBehaviour
             ExitIRISModeButton.SetActive(true);
         }
 
-        // Change modes button icon to highlighted
-        //ModesButton.transform.GetChild(3).GetChild(0).GetComponent<MeshRenderer>().material = highlightedModes;
-
         // Change the backplate transparency of top menu icons
         Material mat = TasksButton.transform.Find("Button").transform.Find("BackPlate").transform.Find("Quad").transform.GetComponent<MeshRenderer>().material;
         mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, 0.4f);
@@ -117,13 +139,6 @@ public class MenuState : MonoBehaviour
         // Update exit IRIS mode button text
         mode.text = "Exit Sampling Mode";
         isIRISModeSelected = true;
-
-        // TODO: edit culling mask of minimap
-        /*SamplingMarkers.SetActive(true);
-        NavigationMarkers.SetActive(false);
-        RouteMarkers.SetActive(false);
-        EgressMarkers.SetActive(false);
-        AirlockMarkers.SetActive(false);*/
     }
 
     public void ClickIRISNavigation()
@@ -133,13 +148,6 @@ public class MenuState : MonoBehaviour
         // Update exit IRIS mode button text
         mode.text = "Exit Navigation Mode";
         isIRISModeSelected = true;
-
-        // TODO: edit culling mask of minimap
-        /*SamplingMarkers.SetActive(false);
-        NavigationMarkers.SetActive(true);
-        RouteMarkers.SetActive(false);
-        EgressMarkers.SetActive(false);
-        AirlockMarkers.SetActive(false);*/
     }
 
     public void ClickIRISRoute()
@@ -149,13 +157,6 @@ public class MenuState : MonoBehaviour
         // Update exit IRIS mode button text
         mode.text = "Exit Route Mode";
         isIRISModeSelected = true;
-
-        // TODO: edit culling mask of minimap
-        /*SamplingMarkers.SetActive(false);
-        NavigationMarkers.SetActive(false);
-        RouteMarkers.SetActive(true);
-        EgressMarkers.SetActive(false);
-        AirlockMarkers.SetActive(false);*/
     }
 
     public void ClickIRISEgress()
@@ -165,13 +166,6 @@ public class MenuState : MonoBehaviour
         // Update exit IRIS mode button text
         mode.text = "Exit Egress Mode";
         isIRISModeSelected = true;
-
-        // TODO: edit culling mask of minimap
-        /*SamplingMarkers.SetActive(false);
-        NavigationMarkers.SetActive(false);
-        RouteMarkers.SetActive(false);
-        EgressMarkers.SetActive(true);
-        AirlockMarkers.SetActive(false);*/
     }
 
     public void ClickIRISAirlock()
@@ -181,13 +175,6 @@ public class MenuState : MonoBehaviour
         // Update exit IRIS mode button text
         mode.text = "Exit Airlock Mode";
         isIRISModeSelected = true;
-
-        // TODO: edit culling mask of minimap
-        /*SamplingMarkers.SetActive(false);
-        NavigationMarkers.SetActive(false);
-        RouteMarkers.SetActive(false);
-        EgressMarkers.SetActive(false);
-        AirlockMarkers.SetActive(true);*/
     }
 
     public void ClickIRISClose()
@@ -202,9 +189,6 @@ public class MenuState : MonoBehaviour
         IRISHideMenuButton.SetActive(false);
 
         ClickShowMenu();
-
-        // Change modes button icon to regular
-        //ModesButton.transform.GetChild(3).GetChild(0).GetComponent<MeshRenderer>().material = regularModes;
 
         // Change the backplate transparency of top menu icons back to full opacity
 
@@ -259,12 +243,6 @@ public class MenuState : MonoBehaviour
         isIRISModeSelected = false;
         ExitIRISModeButton.SetActive(false);
 
-        // TODO: edit culling mask of minimap
-        /*SamplingMarkers.SetActive(true);
-        NavigationMarkers.SetActive(true);
-        RouteMarkers.SetActive(true);
-        EgressMarkers.SetActive(true);
-        AirlockMarkers.SetActive(true);*/
     }
 
 }

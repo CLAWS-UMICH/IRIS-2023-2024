@@ -34,7 +34,7 @@ Transform:
   m_Children:
   - {fileID: 5573860579986510582}
   - {fileID: 1031268572776379670}
-  - {fileID: 4114943896264375617}
+  - {fileID: 2886769653261299280}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5221800105288618692
@@ -105,7 +105,7 @@ MonoBehaviour:
   additionalOffset: {x: 0.06, y: 0, z: 0}
   additionalRotation: {x: 0, y: 0, z: 0}
   updateSolvers: 1
---- !u!1001 &6749341729773438579
+--- !u!1001 &5530016360650134882
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -113,9 +113,47 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6197522167855598861}
     m_Modifications:
+    - target: {fileID: 17471613911714687, guid: b3ba6073209d4f44aa3a37ba5bd7f5b7, type: 3}
+      propertyPath: m_text
+      value: 'Cancel Route
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 755139785607993490, guid: b3ba6073209d4f44aa3a37ba5bd7f5b7, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 755139785607993490, guid: b3ba6073209d4f44aa3a37ba5bd7f5b7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0056
+      objectReference: {fileID: 0}
+    - target: {fileID: 3846632482427541203, guid: b3ba6073209d4f44aa3a37ba5bd7f5b7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0267
+      objectReference: {fileID: 0}
+    - target: {fileID: 4497608574612705554, guid: b3ba6073209d4f44aa3a37ba5bd7f5b7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5108414632235282899, guid: b3ba6073209d4f44aa3a37ba5bd7f5b7, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5108414632235282899, guid: b3ba6073209d4f44aa3a37ba5bd7f5b7, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CancelRoute
+      objectReference: {fileID: 0}
+    - target: {fileID: 5108414632235282899, guid: b3ba6073209d4f44aa3a37ba5bd7f5b7, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: NavScreenHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5824103901513624443, guid: b3ba6073209d4f44aa3a37ba5bd7f5b7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5970020286283622880, guid: b3ba6073209d4f44aa3a37ba5bd7f5b7, type: 3}
       propertyPath: m_Name
-      value: Prefab_GeosampleModeBottomBar (1)
+      value: Prefab_NavigationBottomBar
       objectReference: {fileID: 0}
     - target: {fileID: 7255665278156159794, guid: b3ba6073209d4f44aa3a37ba5bd7f5b7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -123,7 +161,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7255665278156159794, guid: b3ba6073209d4f44aa3a37ba5bd7f5b7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.0013
+      value: -0.0013000071
       objectReference: {fileID: 0}
     - target: {fileID: 7255665278156159794, guid: b3ba6073209d4f44aa3a37ba5bd7f5b7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -157,15 +195,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8395119700048930641, guid: b3ba6073209d4f44aa3a37ba5bd7f5b7, type: 3}
+      propertyPath: Children.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8395119700048930641, guid: b3ba6073209d4f44aa3a37ba5bd7f5b7, type: 3}
+      propertyPath: Children.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8863181962298044477, guid: b3ba6073209d4f44aa3a37ba5bd7f5b7, type: 3}
+      propertyPath: m_Name
+      value: CancelRouteButton
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4497608574612705554, guid: b3ba6073209d4f44aa3a37ba5bd7f5b7, type: 3}
+    - {fileID: 5824103901513624443, guid: b3ba6073209d4f44aa3a37ba5bd7f5b7, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3ba6073209d4f44aa3a37ba5bd7f5b7, type: 3}
---- !u!4 &4114943896264375617 stripped
+--- !u!4 &2886769653261299280 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7255665278156159794, guid: b3ba6073209d4f44aa3a37ba5bd7f5b7, type: 3}
-  m_PrefabInstance: {fileID: 6749341729773438579}
+  m_PrefabInstance: {fileID: 5530016360650134882}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7063957011813836357
 PrefabInstance:

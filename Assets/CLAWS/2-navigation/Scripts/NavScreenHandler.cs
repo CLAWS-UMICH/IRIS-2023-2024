@@ -14,6 +14,7 @@ public enum ScreenType
 
 public class NavScreenHandler : MonoBehaviour
 {
+    GameObject player;
     GameObject parentScreen;
     GameObject stationScreen;
     GameObject POIScreen;
@@ -64,8 +65,11 @@ public class NavScreenHandler : MonoBehaviour
 
     private Vector3 destinationVector;
     // Start is called before the first frame update
+
+    private Subscription<ModeChangedEvent> modeChangedSubscription;
     void Start()
     {
+        player = GameObject.Find("Main Camera").gameObject;
         selectButtonEvent = EventBus.Subscribe<SelectButton>(onButtonSelect);
 
         wayController = transform.parent.Find("WaypointController").GetComponent<WaypointsController>();
@@ -116,11 +120,21 @@ public class NavScreenHandler : MonoBehaviour
 
         // Update to see ALL icons on map
         SwitchCameraCull(-1);
+
+        modeChangedSubscription = EventBus.Subscribe<ModeChangedEvent>(SwitchMode);
     }
 
     public void CloseScreenStart()
     {
         gameObject.SetActive(false);
+    }
+
+    private void SwitchMode(ModeChangedEvent e)
+    {
+        if (e.Mode != Modes.Navigation)
+        {
+            CancelPathfindConfirmation();
+        }
     }
 
     public void OpenNavScreen()
@@ -427,17 +441,25 @@ public class NavScreenHandler : MonoBehaviour
         NavScreenMode();
         CloseNavScreen();
         AstronautInstance.User.currently_navigating = true;
-        cancelRouteBtn.SetActive(true);
-        Debug.Log("Cancel route button should appear");
-        //pathfindingScreen.SetActive(true);
-        // Vector3 destinationVector = GPSUtils.GPSCoordsToAppPosition(loc)
-        // Call enumerator to check distance every 2 seconds
-        // - Wait 2 seconds
-        // - Check distance = Vector3.Distance(destinationVector, player.transform.position);
-        // - If within 2 then cancel navigation
-        // - - pf.destroyCurrentBreadCrumbs()
-        // - - exit nav mode
+        StartCoroutine(_CheckDistance());
+    }
 
+    IEnumerator _CheckDistance()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(2f);
+            float distance = Vector3.Distance(destinationVector, player.transform.position);
+            if (distance <= 2)
+            {
+                // Cancel Navigation
+                ExitNavScreenMode();
+
+                // TODO: Maybe tell web we got to the destination
+
+                yield break;
+            }
+        }
     }
 
     public void CancelPathfindConfirmation()
@@ -460,12 +482,18 @@ public class NavScreenHandler : MonoBehaviour
     public void CancelRoute()
     {
         AstronautInstance.User.currently_navigating = false;
-        cancelRouteBtn.SetActive(false);
+        ExitNavScreenMode();
     }
 
     public void NavScreenMode()
     {
-        GameObject.Find("AllScreens").transform.Find("MainMenu").GetComponent<MenuState>().ClickIRISNavigation();
+        EventBus.Publish(new ModeChangedEvent(Modes.Navigation));
+    }
+
+    public void ExitNavScreenMode()
+    {
+        CancelPathfindConfirmation();
+        EventBus.Publish(new ModeChangedEvent(Modes.Normal));
     }
 
     public void SwitchCameraCull(int num)

@@ -18,12 +18,14 @@ public class WebSocketClient : MonoBehaviour
         astroInstance = GetComponent<AstronautInstance>();
         dataHandler = GetComponent<WebsocketDataHandler>();
 
+
         if (autoConnect)
         {
-            ws = new WebSocket(webSocketUrl);
-            ws.OnMessage += OnWebSocketMessage;
-            ws.Connect();
-            dataHandler.SendVitalsData();
+            #if !UNITY_WEBGL
+                ws = new WebSocket(webSocketUrl);
+                ws.OnMessage += OnWebSocketMessage;
+                ws.Connect();
+            #endif
         }
     }
 
@@ -31,7 +33,9 @@ public class WebSocketClient : MonoBehaviour
     {
         if (ws != null && ws.IsAlive)
         {
-            ws.Close();
+            #if !UNITY_WEBGL
+                ws.Close();
+            #endif
         }
 
     }
@@ -41,24 +45,32 @@ public class WebSocketClient : MonoBehaviour
     {
         if (ws != null && ws.IsAlive)
         {
-            ws.Close();
+            #if !UNITY_WEBGL
+                ws.Close();
+            #endif
         }
-        ws = new WebSocket(webSocketUrl);
-        ws.OnMessage += OnWebSocketMessage;
-        ws.Connect();
+        #if !UNITY_WEBGL
+            ws = new WebSocket(webSocketUrl);
+            ws.OnMessage += OnWebSocketMessage;
+            ws.Connect();
+        #endif
     }
 
     public void ReConnect(string connectionString)
     {
         if (ws != null && ws.IsAlive)
         {
-            ws.Close();
+            #if !UNITY_WEBGL
+                ws.Close();
+            #endif
         }
+
         webSocketUrl = connectionString;
-        ws = new WebSocket(webSocketUrl);
-        ws.OnMessage += OnWebSocketMessage;
-        ws.Connect();
-        dataHandler.SendVitalsData();
+        #if !UNITY_WEBGL
+            ws = new WebSocket(webSocketUrl);
+            ws.OnMessage += OnWebSocketMessage;
+            ws.Connect();
+        #endif
     }
 
     public void ReConnect(string connectionString, string color, string name)

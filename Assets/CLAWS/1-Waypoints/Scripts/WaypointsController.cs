@@ -183,7 +183,6 @@ public class WaypointsController : MonoBehaviour
                 _station_title.text = waypoint.description.ToString();
                 _station_minimap_letter.text = waypoint.waypoint_letter.ToString();
                 instantiatedObject = Instantiate(stationPrefab, GPSUtils.GPSCoordsToAppPosition(waypoint.location), Quaternion.identity);
-                Debug.Log(GPSUtils.GPSCoordsToAppPosition(waypoint.location));
                 instantiatedObject.transform.parent = parentObject.transform;
                 waypointObjDic[waypoint.waypoint_id] = instantiatedObject;
                 break;
