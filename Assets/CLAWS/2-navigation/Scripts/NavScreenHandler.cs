@@ -20,6 +20,7 @@ public class NavScreenHandler : MonoBehaviour
     GameObject geoScreen;
     GameObject dangerScreen;
     GameObject pathfindingScreen;
+    public GameObject cancelRouteBtn;
 
     GameObject confirmationScreen;
     private GameObject BatteryOld;
@@ -420,7 +421,10 @@ public class NavScreenHandler : MonoBehaviour
     {
         NavScreenMode();
         CloseNavScreen();
-        pathfindingScreen.SetActive(true);
+        AstronautInstance.User.currently_navigating = true;
+        cancelRouteBtn.SetActive(true);
+        Debug.Log("Cancel route button should appear");
+        //pathfindingScreen.SetActive(true);
     }
 
     public void CancelPathfindConfirmation()
@@ -429,6 +433,7 @@ public class NavScreenHandler : MonoBehaviour
         pf.destroyCurrentBreadCrumbs();
 
         CloseNavScreen();
+        AstronautInstance.User.currently_navigating = false;
     }
 
     public void ClosePathfinding()
@@ -436,6 +441,13 @@ public class NavScreenHandler : MonoBehaviour
         pf.destroyCurrentBreadCrumbs();
         pathfindingScreen.SetActive(false);
         OpenNavScreen();
+        AstronautInstance.User.currently_navigating = false;
+    }
+
+    public void CancelRoute()
+    {
+        AstronautInstance.User.currently_navigating = false;
+        cancelRouteBtn.SetActive(false);
     }
 
     public void NavScreenMode()

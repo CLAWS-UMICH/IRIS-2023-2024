@@ -692,6 +692,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding: {x: -8, y: -5, z: -8, w: -5}
   m_Softness: {x: 0, y: 0}
+--- !u!114 &500328031 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5322953305774492675, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+  m_PrefabInstance: {fileID: 3794289907722291898}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f30b4ff59d450d40b5ad6d0bebece0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &670674866 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4081066026014102382, guid: 65a4e85d2e07cfc449f35d9c10e835be, type: 3}
+  m_PrefabInstance: {fileID: 1670230114}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &670674871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 670674866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f27ecd48913444df79f54fec5298d5b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cancelRouteBtn: {fileID: 1775375477}
 --- !u!1 &694318115
 GameObject:
   m_ObjectHideFlags: 0
@@ -2066,9 +2095,49 @@ PrefabInstance:
       propertyPath: DetailedView
       value: 
       objectReference: {fileID: 770566799}
+    - target: {fileID: 1113443929632698259, guid: 65a4e85d2e07cfc449f35d9c10e835be, type: 3}
+      propertyPath: m_Name
+      value: Prefab_NavigationBottomBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 1967728348605413280, guid: 65a4e85d2e07cfc449f35d9c10e835be, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1967728348605413280, guid: 65a4e85d2e07cfc449f35d9c10e835be, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 500328031}
+    - target: {fileID: 1967728348605413280, guid: 65a4e85d2e07cfc449f35d9c10e835be, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CancelRoute
+      objectReference: {fileID: 0}
+    - target: {fileID: 1967728348605413280, guid: 65a4e85d2e07cfc449f35d9c10e835be, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: NavScreenHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2786078361618839118, guid: 65a4e85d2e07cfc449f35d9c10e835be, type: 3}
+      propertyPath: m_Name
+      value: CancelRouteButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 2966480621516431650, guid: 65a4e85d2e07cfc449f35d9c10e835be, type: 3}
+      propertyPath: Children.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2966480621516431650, guid: 65a4e85d2e07cfc449f35d9c10e835be, type: 3}
+      propertyPath: Children.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4046279466860783556, guid: 65a4e85d2e07cfc449f35d9c10e835be, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4081066026014102382, guid: 65a4e85d2e07cfc449f35d9c10e835be, type: 3}
       propertyPath: m_Name
       value: BottomBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 4081066026014102382, guid: 65a4e85d2e07cfc449f35d9c10e835be, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6197522167855598861, guid: 65a4e85d2e07cfc449f35d9c10e835be, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2110,10 +2179,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6327752268157296353, guid: 65a4e85d2e07cfc449f35d9c10e835be, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 6327752268157296353, guid: 65a4e85d2e07cfc449f35d9c10e835be, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0056
+      objectReference: {fileID: 0}
+    - target: {fileID: 6743129837021531404, guid: 65a4e85d2e07cfc449f35d9c10e835be, type: 3}
+      propertyPath: m_text
+      value: 'Cancel Route
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7551271414742864032, guid: 65a4e85d2e07cfc449f35d9c10e835be, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0267
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7187971094414317409, guid: 65a4e85d2e07cfc449f35d9c10e835be, type: 3}
+    - {fileID: 970848079382211848, guid: 65a4e85d2e07cfc449f35d9c10e835be, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4081066026014102382, guid: 65a4e85d2e07cfc449f35d9c10e835be, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 670674871}
     - targetCorrespondingSourceObject: {fileID: 5104552663478762216, guid: 65a4e85d2e07cfc449f35d9c10e835be, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
@@ -2130,6 +2222,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
     - targetCorrespondingSourceObject: {fileID: 272117364439241257, guid: 65a4e85d2e07cfc449f35d9c10e835be, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 3788155844340619902, guid: 65a4e85d2e07cfc449f35d9c10e835be, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 65a4e85d2e07cfc449f35d9c10e835be, type: 3}
@@ -2265,6 +2360,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1714724835}
   m_CullTransparentMesh: 1
+--- !u!1 &1775375477 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1113443929632698259, guid: 65a4e85d2e07cfc449f35d9c10e835be, type: 3}
+  m_PrefabInstance: {fileID: 1670230114}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1786517279
 GameObject:
   m_ObjectHideFlags: 0
@@ -2643,10 +2743,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3561213367164893782, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 500328031}
+    - target: {fileID: 3561213367164893782, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ConfirmPathFind
+      objectReference: {fileID: 0}
     - target: {fileID: 3794289906129230345, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       propertyPath: transformOverride
       value: 
       objectReference: {fileID: 169661752}
+    - target: {fileID: 5322953305774492675, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      propertyPath: cancelRouteBtn
+      value: 
+      objectReference: {fileID: 1775375477}
     - target: {fileID: 6287077056513230634, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       propertyPath: m_Name
       value: SceneComponents
