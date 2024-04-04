@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Windows.Speech;
 using TMPro;
+
+#if !UNITY_WEBGL
+using UnityEngine.Windows.Speech;
 
 public class VoiceMessage : MonoBehaviour
 {
@@ -32,3 +34,5 @@ public class VoiceMessage : MonoBehaviour
         message.SetText(message + " " + text);
     }
 }
+
+#endif
