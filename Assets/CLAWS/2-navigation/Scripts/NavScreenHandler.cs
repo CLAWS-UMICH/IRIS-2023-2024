@@ -62,6 +62,7 @@ public class NavScreenHandler : MonoBehaviour
     private float OXY_TIME_CAP = 10800;
     private float astronautWalkingSpeed = 55;
 
+    private Vector3 destinationVector;
     // Start is called before the first frame update
     void Start()
     {
@@ -79,6 +80,8 @@ public class NavScreenHandler : MonoBehaviour
         dangerScreen = parentScreen.transform.Find("DangerScroll").gameObject;
         title = parentScreen.transform.Find("Title").GetComponent<TextMeshPro>();
         confirmationScreen = transform.parent.Find("NavConfirmation").gameObject;
+
+
         //pathfindingScreen = transform.parent.Find("PathfindingScreen").gameObject;
 
         mainMapCamera = GameObject.Find("MainMapCamera").GetComponent<Camera>();
@@ -401,6 +404,8 @@ public class NavScreenHandler : MonoBehaviour
         {
             EventBus.Publish(new ScreenChangedEvent(Screens.NavConfirmation));
             EventBus.Publish(new StartPathfinding(loc));
+            destinationVector = GPSUtils.GPSCoordsToAppPosition(loc);
+  
             hasLocation = false;
 
             // Edit confirmation screen details
@@ -425,6 +430,14 @@ public class NavScreenHandler : MonoBehaviour
         cancelRouteBtn.SetActive(true);
         Debug.Log("Cancel route button should appear");
         //pathfindingScreen.SetActive(true);
+        // Vector3 destinationVector = GPSUtils.GPSCoordsToAppPosition(loc)
+        // Call enumerator to check distance every 2 seconds
+        // - Wait 2 seconds
+        // - Check distance = Vector3.Distance(destinationVector, player.transform.position);
+        // - If within 2 then cancel navigation
+        // - - pf.destroyCurrentBreadCrumbs()
+        // - - exit nav mode
+
     }
 
     public void CancelPathfindConfirmation()
