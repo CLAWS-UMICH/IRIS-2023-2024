@@ -60,7 +60,6 @@ public class WaypointsController : MonoBehaviour
 
     public void onWaypointsAdded(WaypointsAddedEvent e)
     {
-        Debug.Log("test");
         List<Waypoint> addedWaypoints = e.NewAddedWaypoints;
         foreach(Waypoint waypoint in addedWaypoints)
         {

@@ -42,7 +42,6 @@ public class TSScConnection : MonoBehaviour
         this.port = "14141";
         this.team_number = team_number;
         this.url = "http://" + this.host + ":" + this.port;
-        Debug.Log(this.url);
 
         // Test Connection
         StartCoroutine(GetRequest(this.url));
@@ -65,13 +64,19 @@ public class TSScConnection : MonoBehaviour
         this.connected = false;
     }
 
+    public void TSSConnect(string url)
+    {
+        connectionURL = url;
+        StartCoroutine(_LookForConnection());
+    }
+
     // This Function is called when the program begins
 
     void Start()
     {
 
-        this.connected = false;
-        StartCoroutine(_LookForConnection());
+        //this.connected = false;
+        //StartCoroutine(_LookForConnection());
     }
 
     // This Function is called each render frame

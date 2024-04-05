@@ -10,81 +10,121 @@ public class WebSocketClient : MonoBehaviour
     private WebSocket ws;
     private AstronautInstance astroInstance;
     private WebsocketDataHandler dataHandler;
-    [SerializeField] string webSocketUrl = "ws://localhost:8080";
-    [SerializeField] bool autoConnect = false;
+    private string webSocketUrl;
 
     private void Start()
     {
         astroInstance = GetComponent<AstronautInstance>();
         dataHandler = GetComponent<WebsocketDataHandler>();
-
-
-        if (autoConnect)
-        {
-            #if !UNITY_WEBGL
-                ws = new WebSocket(webSocketUrl);
-                ws.OnMessage += OnWebSocketMessage;
-                ws.Connect();
-            #endif
-        }
     }
 
     public void Disconnect()
     {
-        if (ws != null && ws.IsAlive)
+        try
         {
-            #if !UNITY_WEBGL
-                ws.Close();
-            #endif
+            if (ws != null && ws.IsAlive)
+            {
+                #if !UNITY_WEBGL
+                    ws.Close();
+                #endif
+            }
+        }
+        catch (Exception ex)
+        {
+            // Handle or log the exception
+            //Debug.LogError("Error occurred in ReConnect method: " + ex.Message);
         }
 
     }
 
     [ContextMenu("func ReConnect")]
-    public void ReConnect()
+    public bool ReConnect()
     {
-        if (ws != null && ws.IsAlive)
+        try
         {
+            if (ws != null && ws.IsAlive)
+            {
+                #if !UNITY_WEBGL
+                    ws.Close();
+                #endif
+            }
+
             #if !UNITY_WEBGL
-                ws.Close();
+                ws = new WebSocket(webSocketUrl);
+                ws.OnMessage += OnWebSocketMessage;
+                ws.Connect();
+                return ws.IsAlive;
             #endif
+
+            return true;
         }
-        #if !UNITY_WEBGL
-            ws = new WebSocket(webSocketUrl);
-            ws.OnMessage += OnWebSocketMessage;
-            ws.Connect();
-        #endif
+        catch (Exception ex)
+        {
+            // Handle or log the exception
+            //Debug.LogError("Error occurred in ReConnect method: " + ex.Message);
+            return false;
+        }
     }
 
-    public void ReConnect(string connectionString)
+    public bool ReConnect(string connectionString)
     {
-        if (ws != null && ws.IsAlive)
+        try
         {
-            #if !UNITY_WEBGL
-                ws.Close();
-            #endif
-        }
+            if (ws != null && ws.IsAlive)
+            {
+                #if !UNITY_WEBGL
+                    ws.Close();
+                #endif
+            }
 
-        webSocketUrl = connectionString;
-        #if !UNITY_WEBGL
-            ws = new WebSocket(webSocketUrl);
-            ws.OnMessage += OnWebSocketMessage;
-            ws.Connect();
-        #endif
+            webSocketUrl = connectionString;
+            #if !UNITY_WEBGL
+                ws = new WebSocket(webSocketUrl);
+                ws.OnMessage += OnWebSocketMessage;
+                ws.Connect();
+                return ws.IsAlive;
+            #endif
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            // Handle or log the exception
+            //Debug.LogError("Error occurred in ReConnect method: " + ex.Message);
+            return false;
+        }
     }
 
-    public void ReConnect(string connectionString, string color, string name)
-    {
-        if (ws != null && ws.IsAlive)
-        {
-            ws.Close();
-        }
-        webSocketUrl = connectionString;
-        ws = new WebSocket(webSocketUrl);
-        ws.OnMessage += OnWebSocketMessage;
-        ws.Connect();
 
-        dataHandler.SendInitialData(color, name);
+    public bool ReConnect(string connectionString, string color, string name)
+    {
+        try
+        {
+            if (ws != null && ws.IsAlive)
+            {
+                #if !UNITY_WEBGL
+                    ws.Close();
+                #endif
+            }
+
+            webSocketUrl = connectionString;
+            #if !UNITY_WEBGL
+                ws = new WebSocket(webSocketUrl);
+                ws.OnMessage += OnWebSocketMessage;
+                ws.Connect();
+
+                dataHandler.SendInitialData(color, name);
+                return ws.IsAlive;
+            #endif
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            // Handle or log the exception
+            //Debug.LogError("Error occurred in ReConnect method: " + ex.Message);
+            return false;
+        }
     }
 
     private void OnDestroy()
