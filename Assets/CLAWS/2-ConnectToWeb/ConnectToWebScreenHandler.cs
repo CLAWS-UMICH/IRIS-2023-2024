@@ -6,8 +6,6 @@ using Microsoft.MixedReality.Toolkit.Experimental.UI;
 
 public class ConnectToWebScreenHandler : MonoBehaviour
 {
-    public NonNativeKeyboard nameKeyboard;
-    public NonNativeKeyboard linkKeyboard;
 
     GameObject connectScreen;
     GameObject disconnectScreen;
@@ -20,7 +18,6 @@ public class ConnectToWebScreenHandler : MonoBehaviour
 
     WebSocketClient controller;
 
-    string currentKeyboard;
     string hex;
 
     // Start is called before the first frame update
@@ -37,32 +34,18 @@ public class ConnectToWebScreenHandler : MonoBehaviour
         disconnectScreen.SetActive(false);
 
         connected = false;
-        connectionLinkText.text = "";
+        connectionLinkText.text = GameObject.Find("Controller").GetComponent<MainConnections>().getWebsocketURL();
+        Debug.Log("TEsT: " + connectionLinkText.text);
         hex = "";
         nameText.text = "";
         disconnectText.text = "";
 
-        nameKeyboard.OnTextUpdated += OnTextUpdated;
-        linkKeyboard.OnTextUpdated += OnTextUpdated;
-
-    }
-
-    public void ChangeKeyboardName()
-    {
-        currentKeyboard = "name";
-    }
-
-    public void ChangeKeyboardLink()
-    {
-        currentKeyboard = "link";
     }
 
     public void CloseConnectDisconnectScreen()
     {
         connectScreen.SetActive(false);
         disconnectScreen.SetActive(false);
-
-        // Change Screen
     }
 
     public void OpenConnectDisconnectScreen()
@@ -74,7 +57,7 @@ public class ConnectToWebScreenHandler : MonoBehaviour
         } else
         {
             hex = "";
-            connectionLinkText.text = "";
+            //connectionLinkText.text = "";
             nameText.text = "";
             disconnectText.text = "";
             connectScreen.SetActive(true);
@@ -84,16 +67,13 @@ public class ConnectToWebScreenHandler : MonoBehaviour
 
     public void ConnectToWebSocket()
     {
-        /*if (hex != "" && nameText.text != "")
+        if (hex != "" && nameText.text != "")
         {
-            controller.ReConnect(connectionLinkText.text, hex, nameText.text);
+            GameObject.Find("Controller").GetComponent<MainConnections>().ConnectToWebsocket(connectionLinkText.text, hex, nameText.text);
         } else
         {
-            controller.ReConnect(connectionLinkText.text);
-        }*/
-        controller.ReConnect("ws://ec2-52-15-178-2.us-east-2.compute.amazonaws.com/hololens");
-        connected = true;
-        disconnectText.text = connectionLinkText.text;
+            GameObject.Find("Controller").GetComponent<MainConnections>().ConnectToWebsocket(connectionLinkText.text, "", "");
+        }
 
         CloseConnectDisconnectScreen();
     }
@@ -106,30 +86,8 @@ public class ConnectToWebScreenHandler : MonoBehaviour
         OpenConnectDisconnectScreen();
     }
 
-    private void OnTextUpdated(string text)
-    {
-        // Handle the updated text and the reference to the current keyboard
-        UpdateTextMeshProText(text);
-    }
-
-    private void UpdateTextMeshProText(string newText)
-    {
-        // Update the TextMeshPro text of the current keyboard with the entered text
-        if (currentKeyboard == "name")
-        {
-            // Update nameKeyboard's text
-            nameText.text = newText;
-        }
-        else if (currentKeyboard == "link")
-        {
-            // Update linkKeyboard's text
-            connectionLinkText.text = newText;
-        }
-    }
-
     public void SelectColor(string _hex)
     {
-        Debug.Log(_hex);
         hex = _hex;
     }
 

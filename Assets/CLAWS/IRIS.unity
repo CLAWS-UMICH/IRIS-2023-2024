@@ -4756,46 +4756,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1343306739585201578, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
-      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 604298443}
-    - target: {fileID: 1343306739585201578, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
-      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: CancelPathfindConfirmation
-      objectReference: {fileID: 0}
-    - target: {fileID: 1641153364206372246, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
-      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 604298443}
-    - target: {fileID: 1641153364206372246, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
-      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: CancelPathfindConfirmation
-      objectReference: {fileID: 0}
-    - target: {fileID: 3561213367164893782, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
-      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 604298443}
-    - target: {fileID: 3561213367164893782, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
-      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ConfirmPathFind
-      objectReference: {fileID: 0}
     - target: {fileID: 3794289906129230345, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       propertyPath: transformOverride
       value: 
       objectReference: {fileID: 169661752}
-    - target: {fileID: 4622140549207159529, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
-      propertyPath: autoConnect
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4622140549207159529, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
-      propertyPath: webSocketUrl
-      value: ws://ec2-52-15-178-2.us-east-2.compute.amazonaws.com/hololens
-      objectReference: {fileID: 0}
-    - target: {fileID: 5322953305774492675, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
-      propertyPath: cancelRouteBtn
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 6287077056513230634, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       propertyPath: m_Name
       value: SceneComponents
@@ -4945,30 +4909,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1457827553564122018, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 2150769200308059470, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
-      insertIndex: 2
-      addedObject: {fileID: 3794289907722291900}
   m_SourcePrefab: {fileID: 100100000, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
---- !u!1 &3794289907722291899 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2150769200308059470, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
-  m_PrefabInstance: {fileID: 3794289907722291898}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &3794289907722291900
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3794289907722291899}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58b9c6073978d284393c20167deed91c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  webSocketUrl: ws://ec2-52-15-178-2.us-east-2.compute.amazonaws.com/hololens
-  autoConnectWebSocket: 1
-  autoConnectTSS: 0
 --- !u!20 &7096410878509883970
 Camera:
   m_ObjectHideFlags: 0

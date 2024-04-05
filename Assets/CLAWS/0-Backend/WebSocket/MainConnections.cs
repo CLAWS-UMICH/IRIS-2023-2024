@@ -70,6 +70,11 @@ public class MainConnections : MonoBehaviour
         ConnectTSS(tssUrl);
     }
 
+    public string getWebsocketURL()
+    {
+        return webSocketUrl;
+    }
+
 
 
 }
