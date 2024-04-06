@@ -78,6 +78,7 @@ public class ConnectToWebScreenHandler : MonoBehaviour
         } else if (openTSS)
         {
             // TODO Connect TSS
+            GameObject.Find("Controller").GetComponent<MainConnections>().ConnectToTSS();
             CloseConnectDisconnectScreen();
         }
     }
