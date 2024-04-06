@@ -83,5 +83,36 @@ public class GPSUtils : MonoBehaviour
         return GPSEncoder.GPSToUCS(orig);
     }
 
-    
+    static public Vector3 LetterToPosition(int num, char letter)
+    {
+        double bottomRow = 29.564429362;
+        double bottomCol = -95.081985581;
+        int row = letter - 'A';
+        int col = num;
+        double stepR = ((-95.081985581 + 95.080944569) / 28.0);
+        double stepC = ((29.565400966 - 29.564429362) / 26.0);
+
+        Location loc = new Location();
+        loc.longitude = bottomCol + (stepR * col);
+        loc.latitude = bottomRow + (stepC * row);
+
+        return GPSCoordsToAppPosition(loc);
+    }
+
+    static public Location LetterToLocation(int num, char letter)
+    {
+        double bottomRow = 29.564429362;
+        double bottomCol = -95.081985581;
+        int row = letter - 'A';
+        int col = num;
+        double step = 0.00003594;
+
+        Location loc = new Location();
+        loc.longitude = bottomCol + (step * col);
+        loc.latitude = bottomRow + (step * row);
+
+        return loc;
+    }
+
+
 }

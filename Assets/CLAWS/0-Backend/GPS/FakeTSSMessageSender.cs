@@ -16,6 +16,11 @@ public class FakeTSSMessageSender : MonoBehaviour
         Fake_SetGPS();
         Fake_Vitals();
         StartCoroutine(AddFake());
+
+        //Debug.Log((-95.081985581 + 95.080944569) / 28.0);
+        //Debug.Log((29.565400966 - 29.564429362) / 26.0);
+        //Debug.Log(GPSUtils.LetterToLocation(29, 'A').latitude);
+        //Debug.Log(GPSUtils.LetterToLocation(29, 'A').longitude);
     }
    
     public void Fake_SetGPS()
@@ -48,7 +53,7 @@ public class FakeTSSMessageSender : MonoBehaviour
     {
         
 
-        double[,] locationAndTypes = new double[1, 3]
+        /*double[,] locationAndTypes = new double[1, 3]
         {
             {29.5652381, -95.0810671, 0},
         };
@@ -74,14 +79,14 @@ public class FakeTSSMessageSender : MonoBehaviour
             list.Add(way);
         }
 
-        EventBus.Publish(new WaypointsAddedEvent(list));
+        EventBus.Publish(new WaypointsAddedEvent(list));*/
     }
 
     public void FakeWayPoints()
     {
         
 
-        double[,] locationAndTypes = new double[4, 3]
+        /*double[,] locationAndTypes = new double[4, 3]
         {
             {29.565400966, -95.081985581, 0},
             {29.564429362, -95.080944569, 0},
@@ -113,15 +118,65 @@ public class FakeTSSMessageSender : MonoBehaviour
             list.Add(way);
         }
 
+        EventBus.Publish(new WaypointsAddedEvent(list));*/
+    }
+
+    public void InitialWaypoints()
+    {
+
+
+        double[,] locationAndTypes = new double[9, 3] // 0 = station, 1 = POI, 2 = geo, 3 = danger
+        {
+            {29.564654728, -95.081798277, 2}, // A
+            {29.564729706, -95.081647739, 2}, // B
+            {29.564805017, -95.081722925, 2}, // C
+            {29.564880202, -95.081647781, 2}, // D
+            {29.564842422, -95.081459816, 2}, // E
+            {29.564992835, -95.081271769, 2}, // F
+            {29.564992908, -95.081459858, 1}, // G: Rover
+            {29.564617000, -95.081459764, 0}, // UIA
+            {29.564917681, -95.081234165, 0}, // Tower
+        };
+
+        string[,] letters = new string[9, 1]
+        {
+            {"A"},
+            {"B"},
+            {"C"},
+            {"D"},
+            {"E"},
+            {"F"},
+            {"G"},
+            {"H"},
+            {"I"},
+        };
+
+        List<Waypoint> list = new List<Waypoint>();
+
+        for (int i = 0; i < 9; i++)
+        {
+            Waypoint way = new Waypoint();
+            way.waypoint_id = i;
+            way.waypoint_letter = letters[i, 0];
+            Location loc = new Location(locationAndTypes[i, 0], locationAndTypes[i, 1]);
+            way.location = loc;
+            way.type = (int)locationAndTypes[i, 2];
+            way.description = "Way " + way.waypoint_letter;
+            way.author = 1;
+            AstronautInstance.User.WaypointData.AllWaypoints.Add(way);
+            list.Add(way);
+        }
+
         EventBus.Publish(new WaypointsAddedEvent(list));
     }
 
     IEnumerator AddFake()
     {
         yield return new WaitForSeconds(3);
-        FakeWayPoints();
+        InitialWaypoints();
+        /*FakeWayPoints();
         yield return new WaitForSeconds(5);
-        Fake();
+        Fake();*/
     }
 
     IEnumerator UpdateVitals()
