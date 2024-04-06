@@ -9,12 +9,15 @@ public class ConnectToWebScreenHandler : MonoBehaviour
 
     GameObject connectScreen;
     GameObject disconnectScreen;
+    GameObject chooseScreen;
 
     TMP_InputField connectionLinkText;
     TMP_InputField nameText;
     TextMeshPro disconnectText;
 
     bool connected;
+    bool openWeb = false;
+    bool openTSS = false;
 
     WebSocketClient controller;
 
@@ -25,6 +28,7 @@ public class ConnectToWebScreenHandler : MonoBehaviour
     {
         connectScreen = transform.Find("ConnectToWeb").gameObject;
         disconnectScreen = transform.Find("DisconnectScreen").gameObject;
+        chooseScreen = transform.Find("ConnectionChooseScreen").gameObject;
         connectionLinkText = connectScreen.transform.Find("LinkField").transform.Find("TextField").transform.Find("InputField (TMP)").GetComponent<TMP_InputField>();
         nameText = connectScreen.transform.Find("NameField").transform.Find("TextField").transform.Find("InputField (TMP)").GetComponent<TMP_InputField>();
         disconnectText = disconnectScreen.transform.Find("NameField").transform.Find("NameText").GetComponent<TextMeshPro>();
@@ -32,6 +36,7 @@ public class ConnectToWebScreenHandler : MonoBehaviour
 
         connectScreen.SetActive(false);
         disconnectScreen.SetActive(false);
+        chooseScreen.SetActive(false);
 
         connected = false;
         connectionLinkText.text = GameObject.Find("Controller").GetComponent<MainConnections>().getWebsocketURL();
@@ -39,29 +44,62 @@ public class ConnectToWebScreenHandler : MonoBehaviour
         nameText.text = "";
         disconnectText.text = "";
 
+
+
     }
 
     public void CloseConnectDisconnectScreen()
     {
+        openWeb = false;
+        openTSS = false;
         connectScreen.SetActive(false);
         disconnectScreen.SetActive(false);
+        chooseScreen.SetActive(false); 
     }
 
     public void OpenConnectDisconnectScreen()
     {
-        if (connected)
+        if (openWeb)
         {
-            connectScreen.SetActive(false);
-            disconnectScreen.SetActive(true);
-        } else
+            if (connected)
+            {
+                connectScreen.SetActive(false);
+                disconnectScreen.SetActive(true);
+            }
+            else
+            {
+                hex = "";
+                //connectionLinkText.text = "";
+                nameText.text = "";
+                disconnectText.text = "";
+                connectScreen.SetActive(true);
+                disconnectScreen.SetActive(false);
+            }
+        } else if (openTSS)
         {
-            hex = "";
-            //connectionLinkText.text = "";
-            nameText.text = "";
-            disconnectText.text = "";
-            connectScreen.SetActive(true);
-            disconnectScreen.SetActive(false);
+            // TODO Connect TSS
+            CloseConnectDisconnectScreen();
         }
+    }
+
+    public void OpenWebScreen()
+    {
+        openWeb = true;
+        openTSS = false;
+        OpenConnectDisconnectScreen();
+    }
+
+    public void OpenTSSScreen()
+    {
+        openTSS = true;
+        openWeb = false;
+        OpenConnectDisconnectScreen();
+    }
+
+    public void OpenChoiceScreen()
+    {
+        CloseConnectDisconnectScreen();
+        chooseScreen.SetActive(true);
     }
 
     public void ConnectToWebSocket()
