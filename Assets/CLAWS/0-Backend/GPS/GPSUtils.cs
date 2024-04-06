@@ -9,73 +9,79 @@ public class GPSUtils : MonoBehaviour
 {
     static public Location originGPSCoords; // Origin coordinates of our player
 
-    static double earthMajorAxisLengthInMeters = 6378137.0; // Semi-major axis length of the earth. This was the value used last year when assuming the earth was a sphere
-    static double flatteningValue = 1 / 298.257223563; // Value describing the compression of a circle with semi major axis radius to form a ellipse
+    static decimal earthMajorAxisLengthInMeters = 6378137.0m; // Semi-major axis length of the earth. This was the value used last year when assuming the earth was a sphere
+    static decimal flatteningValue = 1 / 298.257223563m; // Value describing the compression of a circle with semi major axis radius to form a ellipse
 
     static public void ChangeOriginGPSCoords(Location newOrigin)
     {
         originGPSCoords = newOrigin;
+        Vector2 orig = new Vector2((float)newOrigin.latitude, (float)newOrigin.longitude);
+        GPSEncoder.SetLocalOrigin(orig);
     }
-
 
     // Function used last year with the haversine formula, not as accurate but is more computationally efficient
     // Ran when Vincenty's algorithm doesn't converge in 1000 iterations.
-    static private (double, double) DistanceAndAngleBetweenCoords(Location coords1, Location coords2)
+    static private (decimal, decimal) DistanceAndAngleBetweenCoords(Location coords1, Location coords2)
     {
         //Debug.Log("Vincenty's failed, running Haversine");
         //Debug.Log(coords2);
 
         // Credit to https://www.movable-type.co.uk/scripts/latlong.html
 
-        double theta_1 = coords1.latitude * Math.PI / 180;
-        double theta_2 = coords2.latitude * Math.PI / 180;
-        double delta_theta = (coords2.latitude - coords1.latitude) * Math.PI / 180;
-        double delta_lambda = (coords2.longitude - coords1.longitude) * Math.PI / 180;
+        decimal theta_1 = (decimal)coords1.latitude * (decimal)Math.PI / 180;
+        decimal theta_2 = (decimal)coords2.latitude * (decimal)Math.PI / 180;
+        decimal delta_theta = ((decimal)coords2.latitude - (decimal)coords1.latitude) * (decimal)Math.PI / 180;
+        decimal delta_lambda = ((decimal)coords2.longitude - (decimal)coords1.longitude) * (decimal)Math.PI / 180;
 
-        double a = Math.Sin(delta_theta / 2) * Math.Sin(delta_theta / 2) +
-                    Math.Cos(theta_1) * Math.Cos(theta_2) *
-                    Math.Sin(delta_lambda / 2) * Math.Sin(delta_lambda / 2);
-        double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+        decimal a = (decimal)Math.Sin((double)(delta_theta / 2)) * (decimal)Math.Sin((double)(delta_theta / 2)) +
+                    (decimal)Math.Cos((double)theta_1) * (decimal)Math.Cos((double)theta_2) *
+                    (decimal)Math.Sin((double)(delta_lambda / 2)) * (decimal)Math.Sin((double)(delta_lambda / 2));
+        decimal c = 2 * (decimal)Math.Atan2(Math.Sqrt((double)a), Math.Sqrt((double)(1 - a)));
 
-        double d = earthMajorAxisLengthInMeters * c;
+        decimal d = earthMajorAxisLengthInMeters * c;
 
-        double y = Math.Sin(delta_lambda) * Math.Cos(theta_2);
-        double x = Math.Cos(theta_1) * Math.Sin(theta_2) -
-                    Math.Sin(theta_1) * Math.Cos(theta_2) * Math.Cos(delta_lambda);
-        double theta = Math.Atan2(y, x);
+        decimal y = (decimal)Math.Sin((double)delta_lambda) * (decimal)Math.Cos((double)theta_2);
+        decimal x = (decimal)Math.Cos((double)theta_1) * (decimal)Math.Sin((double)theta_2) -
+                    (decimal)Math.Sin((double)theta_1) * (decimal)Math.Cos((double)theta_2) * (decimal)Math.Cos((double)delta_lambda);
+        decimal theta = (decimal)Math.Atan2((double)y, (double)x);
 
-        double angle = theta * 180 / Math.PI;
+        decimal angle = theta * 180 / (decimal)Math.PI;
 
         return (d, angle + 180);
     }
 
     static public Location AppPositionToGPSCoords(Vector3 appPosition)
     {
-        double distanceFromOrigin = Math.Sqrt(Math.Pow(appPosition.x, 2) + Math.Pow(appPosition.z, 2));
-        double angleFromOrigin = Math.Atan2(appPosition.z, appPosition.x) * 180 / Math.PI;
+        /*decimal latitude = (decimal)originGPSCoords.latitude * (decimal)Math.PI / 180;  // Assuming originGPSCoords is known
+        decimal longitude = (decimal)originGPSCoords.longitude * (decimal)Math.PI / 180;
 
-        double latitude = originGPSCoords.latitude * Math.PI / 180;  // Assuming originGPSCoords is known
-        double longitude = originGPSCoords.longitude * Math.PI / 180;
+        decimal delta = (decimal)Math.Sqrt(Math.Pow(appPosition.x, 2) + Math.Pow(appPosition.z, 2)) / (decimal)earthMajorAxisLengthInMeters;
+        decimal angle = (decimal)Math.Atan2((double)appPosition.z, (double)appPosition.x) * 180 / (decimal)Math.PI;
 
-        double delta = distanceFromOrigin / earthMajorAxisLengthInMeters;
+        decimal newLatitude = (decimal)Math.Asin((double)(Math.Sin((double)latitude) * Math.Cos((double)delta) + Math.Cos((double)latitude) * Math.Sin((double)delta) * Math.Cos((double)(angle * (decimal)Math.PI / 180))));
+        decimal newLongitude = longitude + (decimal)Math.Atan2(Math.Sin((double)(angle * (decimal)Math.PI / 180)) * Math.Sin((double)delta) * Math.Cos((double)latitude),
+                                                      Math.Cos((double)delta) - Math.Sin((double)latitude) * Math.Sin((double)newLatitude));
 
-        double newLatitude = Math.Asin(Math.Sin(latitude) * Math.Cos(delta) + Math.Cos(latitude) * Math.Sin(delta) * Math.Cos(angleFromOrigin * Math.PI / 180));
-        double newLongitude = longitude + Math.Atan2(Math.Sin(angleFromOrigin * Math.PI / 180) * Math.Sin(delta) * Math.Cos(latitude),
-                                                    Math.Cos(delta) - Math.Sin(latitude) * Math.Sin(newLatitude));
+        newLatitude *= 180 / (decimal)Math.PI;
+        newLongitude *= 180 / (decimal)Math.PI;
 
-        newLatitude *= 180 / Math.PI;
-        newLongitude *= 180 / Math.PI;
-
-        return new Location(newLatitude, newLongitude);
+        return new Location((double)newLatitude, (double)newLongitude);*/
+        Vector2 gpsCoords = GPSEncoder.USCToGPS(appPosition);
+        return new Location((double)gpsCoords.x, (double)gpsCoords.y);
     }
 
     static public Vector3 GPSCoordsToAppPosition(Location coords)
     {
-        // (double distanceFromOrigin, double angleFromOrigin) = GPSCoordsAndAngleBetweenCoords(coords, originGPSCoords);
-        (double distanceFromOrigin, double angleFromOrigin) = DistanceAndAngleBetweenCoords(coords, originGPSCoords);
-        double distanceFromOriginX = distanceFromOrigin * Math.Sin(angleFromOrigin * Math.PI / 180);
-        double distanceFromOriginZ = distanceFromOrigin * Math.Cos(angleFromOrigin * Math.PI / 180);
+        /*// (double distanceFromOrigin, double angleFromOrigin) = GPSCoordsAndAngleBetweenCoords(coords, originGPSCoords);
+        (decimal distanceFromOrigin, decimal angleFromOrigin) = DistanceAndAngleBetweenCoords(coords, originGPSCoords);
+        decimal distanceFromOriginX = distanceFromOrigin * (decimal)Math.Sin((double)(angleFromOrigin * (decimal)Math.PI / 180));
+        decimal distanceFromOriginZ = distanceFromOrigin * (decimal)Math.Cos((double)(angleFromOrigin * (decimal)Math.PI / 180));
 
-        return new Vector3((float)distanceFromOriginX, 0f, (float)distanceFromOriginZ);
+        return new Vector3((float)distanceFromOriginX, 0f, (float)distanceFromOriginZ);*/
+
+        Vector2 orig = new Vector2((float)coords.latitude, (float)coords.longitude);
+        return GPSEncoder.GPSToUCS(orig);
     }
+
+    
 }

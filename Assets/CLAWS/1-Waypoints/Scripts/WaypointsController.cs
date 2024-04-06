@@ -65,7 +65,7 @@ public class WaypointsController : MonoBehaviour
         {
             waypointDict[waypoint.waypoint_id] = waypoint;
             AstronautInstance.User.WaypointData.AllWaypoints.Add(waypoint);
-            SpawnWaypoint(waypoint);
+            SpawnWaypoint(waypoint, waypoint.waypoint_id);
 
             GameObject button = screenHandler.AddButton(waypoint); //Set the function to add button with screen handler
             waypointButtonDic[waypoint.waypoint_id] = button;
@@ -172,7 +172,7 @@ public class WaypointsController : MonoBehaviour
         }
     }
 
-    public void SpawnWaypoint(Waypoint waypoint)
+    public void SpawnWaypoint(Waypoint waypoint, int num)
     {
         GameObject instantiatedObject = new GameObject();
         switch (waypoint.type)
@@ -218,6 +218,8 @@ public class WaypointsController : MonoBehaviour
                 break;
         }
 
+        instantiatedObject.name = num.ToString();
+
 
     }
 
@@ -236,7 +238,7 @@ public class WaypointsController : MonoBehaviour
 
         waypointDict[way.waypoint_id] = way;
         AstronautInstance.User.WaypointData.AllWaypoints.Add(way);
-        SpawnWaypoint(way);
+        SpawnWaypoint(way, way.waypoint_id);
 
         GameObject button = screenHandler.AddButton(way);
         waypointButtonDic[way.waypoint_id] = button;

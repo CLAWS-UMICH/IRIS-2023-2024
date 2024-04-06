@@ -7,12 +7,13 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Map
+  m_Name: MapBack
   m_Shader: {fileID: 4800000, guid: 5bdea20278144b11916d77503ba1467a, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _BORDER_LIGHT
+  - _EMISSION
   - _IRIDESCENCE
   - _ROUND_CORNERS
   m_InvalidKeywords: []
@@ -61,8 +62,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 8400000, guid: b9751a07f138f4b4ca31a0e8ddf76d8c, type: 2}
-        m_Scale: {x: 0.84, y: 0.95}
-        m_Offset: {x: 0.095, y: 0.03}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -92,7 +93,7 @@ Material:
     - _BorderLightReplacesAlbedo: 0
     - _BorderLightUsesHoverColor: 0
     - _BorderMinValue: 0.813
-    - _BorderWidth: 0.106
+    - _BorderWidth: 0.15
     - _BorderWidthHorizontal: 0.1
     - _BorderWidthVertical: 0.1
     - _BumpScale: 1
@@ -112,7 +113,7 @@ Material:
     - _DstBlend: 0
     - _EdgeSmoothingValue: 0.0002
     - _EnableChannelMap: 0
-    - _EnableEmission: 0
+    - _EnableEmission: 1
     - _EnableHoverColorOpaqueOverride: 0
     - _EnableHoverColorOverride: 0
     - _EnableLightMap: 0

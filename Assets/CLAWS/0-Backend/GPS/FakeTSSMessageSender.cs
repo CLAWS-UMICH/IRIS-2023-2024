@@ -44,37 +44,62 @@ public class FakeTSSMessageSender : MonoBehaviour
         StartCoroutine(UpdateVitals());
     }
 
-    public void FakeWayPoints()
+    public void Fake()
     {
-        double[,] locationAndTypes = new double[9, 3]
+        
+
+        double[,] locationAndTypes = new double[1, 3]
         {
-            {29.564810, -95.0817410, 0},
-            {29.5646824, -95.0811564, 0},
-            {29.5650460, -95.0810944, 1},
-            {29.5645430, -95.0516440, 2},
-            {29.5648290, -95.0813750, 3},
-            {29.5647012, -95.0813750, 2},
-            {29.5651359, -95.0807408, 0},
-            {29.5651465, -95.0814092, 1},
-            {29.5648850, -95.0808360, 2}
+            {29.5652381, -95.0810671, 0},
         };
 
-        string[,] letters = new string[9, 1]
+        string[,] letters = new string[1, 1]
+        {
+            {"E"},
+        };
+
+        List<Waypoint> list = new List<Waypoint>();
+
+        for (int i = 0; i < 1; i++)
+        {
+            Waypoint way = new Waypoint();
+            way.waypoint_id = i + 4;
+            way.waypoint_letter = letters[i, 0];
+            Location loc = new Location(locationAndTypes[i, 0], locationAndTypes[i, 1]);
+            way.location = loc;
+            way.type = (int)locationAndTypes[i, 2];
+            way.description = "Way " + way.waypoint_letter;
+            way.author = 1;
+            AstronautInstance.User.WaypointData.AllWaypoints.Add(way);
+            list.Add(way);
+        }
+
+        EventBus.Publish(new WaypointsAddedEvent(list));
+    }
+
+    public void FakeWayPoints()
+    {
+        
+
+        double[,] locationAndTypes = new double[4, 3]
+        {
+            {29.565400966, -95.081985581, 0},
+            {29.564429362, -95.080944569, 0},
+            {29.56459834, -95.08144150, 0},
+            {29.56491516, -95.08146507, 0},
+        };
+
+        string[,] letters = new string[4, 1]
         {
             {"A"},
             {"B"},
             {"C"},
             {"D"},
-            {"E"},
-            {"F"},
-            {"G"},
-            {"H"},
-            {"I"}
         };
 
         List<Waypoint> list = new List<Waypoint>();
 
-        for (int i = 0; i < 9; i++)
+        for (int i = 0; i < 4; i++)
         {
             Waypoint way = new Waypoint();
             way.waypoint_id = i;
@@ -95,6 +120,8 @@ public class FakeTSSMessageSender : MonoBehaviour
     {
         yield return new WaitForSeconds(3);
         FakeWayPoints();
+        yield return new WaitForSeconds(5);
+        Fake();
     }
 
     IEnumerator UpdateVitals()

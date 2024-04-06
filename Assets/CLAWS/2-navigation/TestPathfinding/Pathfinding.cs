@@ -219,6 +219,7 @@ public class Pathfinding : MonoBehaviour {
             instantiatedObject.GetComponent<BreadCrumbController>().UpdateInfo(index);
             // TODO: Should we send the breadcrumb data to web here?
             instantiatedObject.transform.SetParent(empty.transform);
+            instantiatedObject.name = index.ToString();
             index++;
         }
 

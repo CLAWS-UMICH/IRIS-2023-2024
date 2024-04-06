@@ -35,7 +35,6 @@ public class ConnectToWebScreenHandler : MonoBehaviour
 
         connected = false;
         connectionLinkText.text = GameObject.Find("Controller").GetComponent<MainConnections>().getWebsocketURL();
-        Debug.Log("TEsT: " + connectionLinkText.text);
         hex = "";
         nameText.text = "";
         disconnectText.text = "";
