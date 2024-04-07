@@ -23,6 +23,8 @@ public class MessageReceiveHandler : MonoBehaviour
     {
         allMessage = msgList.AllMessages;
         EventBus.Subscribe<MessagesAddedEvent>(appendList);
+
+        
     }
 
     void appendList(MessagesAddedEvent e)
