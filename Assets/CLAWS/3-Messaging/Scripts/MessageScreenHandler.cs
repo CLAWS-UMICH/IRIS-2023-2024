@@ -32,17 +32,17 @@ public class MessageReceiveHandler : MonoBehaviour
         allMessage = e.NewAddedMessages;
         foreach (Message m in allMessage)
         {
-            if ((m.from == fa.astronaut_id && m.sent_to == AstronautInstance.User.id) || m.sent_to == fa.astronaut_id)
+            if (m.sent_to == -2 && m.from != AstronautInstance.User.id)
             {
-                AstroChat.Add(m);
+                GroupChat.Add(m);
             }
-            if (m.from == -1 || m.sent_to == -1)
+            else if (m.from == -1 && m.sent_to == AstronautInstance.User.id)
             {
                 LMCCChat.Add(m);
             }
-            if (m.sent_to == -2)
+            else if (m.sent_to == AstronautInstance.User.id)
             {
-                GroupChat.Add(m);
+                AstroChat.Add(m);
             }
         }
     }
