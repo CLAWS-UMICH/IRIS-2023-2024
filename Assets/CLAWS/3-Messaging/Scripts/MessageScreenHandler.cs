@@ -11,6 +11,8 @@ public class MessageReceiveHandler : MonoBehaviour
     GameObject LMCCScreen;
     GameObject GroupChatScreen;
 
+    [SerializeField] ScreenType currentScreen;
+
     FellowAstronaut fa;
     Messaging msgList;
 
@@ -21,10 +23,12 @@ public class MessageReceiveHandler : MonoBehaviour
 
     void Start()
     {
+        parent = transform.parent.Find("MessagingScreen").gameObject;
+        AstroScreen = parent.transform.Find("AstroScroll").gameObject;
+        LMCCScreen = parent.transform.Find("LMCCScroll").gameObject;
+        GroupChatScreen = parent.transform.Find("GroupChatScroll").gameObject;
         allMessage = msgList.AllMessages;
         EventBus.Subscribe<MessagesAddedEvent>(appendList);
-
-        
     }
 
     void appendList(MessagesAddedEvent e)
@@ -47,18 +51,26 @@ public class MessageReceiveHandler : MonoBehaviour
         }
     }
 
-    void displayAstroMessage()
-    {
+    // Call these functions on button clicks
 
+    public void displayAstroMessage()
+    {
+        AstroScreen.SetActive(true);
+        LMCCScreen.SetActive(false);
+        GroupChatScreen.SetActive(false);
     }
 
-    void displaLMCCMessage()
+    public void displaLMCCMessage()
     {
-
+        AstroScreen.SetActive(false);
+        LMCCScreen.SetActive(true);
+        GroupChatScreen.SetActive(false);
     }
 
-    void displayGroupMessage()
+    public void displayGroupMessage()
     {
-
+        AstroScreen.SetActive(false);
+        LMCCScreen.SetActive(false);
+        GroupChatScreen.SetActive(true);
     }
 }
