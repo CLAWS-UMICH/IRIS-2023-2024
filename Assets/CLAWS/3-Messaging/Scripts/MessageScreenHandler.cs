@@ -60,7 +60,7 @@ public class MessageReceiveHandler : MonoBehaviour
         GroupChatScreen.SetActive(false);
     }
 
-    public void displaLMCCMessage()
+    public void displayLMCCMessage()
     {
         AstroScreen.SetActive(false);
         LMCCScreen.SetActive(true);
