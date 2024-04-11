@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using TMPro;
 
 public class MessageReceiveHandler : MonoBehaviour
 {
@@ -11,6 +13,10 @@ public class MessageReceiveHandler : MonoBehaviour
     GameObject LMCCScreen;
     GameObject GroupChatScreen;
 
+    TMP_Text message;
+
+    private int groupChat;
+
     FellowAstronaut fa;
     Messaging msgList;
 
@@ -19,12 +25,16 @@ public class MessageReceiveHandler : MonoBehaviour
     List<Message> LMCCChat;
     List<Message> GroupChat;
 
+    private WebsocketDataHandler websocket;
+
     void Start()
     {
+        parent = transform.parent.Find("MessagingScreen").gameObject;
+        AstroScreen = parent.transform.Find("AstroScroll").gameObject;
+        LMCCScreen = parent.transform.Find("LMCCScroll").gameObject;
+        GroupChatScreen = parent.transform.Find("GroupChatScroll").gameObject;
         allMessage = msgList.AllMessages;
         EventBus.Subscribe<MessagesAddedEvent>(appendList);
-
-        
     }
 
     void appendList(MessagesAddedEvent e)
@@ -47,18 +57,62 @@ public class MessageReceiveHandler : MonoBehaviour
         }
     }
 
-    void displayAstroMessage()
+    void sendMessage()
     {
+        // Exit if message field is empty
+        if (!string.Equals(message.text, ""))
+        {
+            Message m = new Message(groupChat, message.text, AstronautInstance.User.id);
 
+            // Currently in group chat
+            if (groupChat == -2)
+            {
+                AstronautInstance.User.MessagingData.AllMessages.Add(m);
+                websocket.SendMessageData();
+                GroupChat.Add(m);
+            }
+            // Currently in LMCC chat
+            else if (groupChat == -1)
+            {
+                AstronautInstance.User.MessagingData.AllMessages.Add(m);
+                websocket.SendMessageData();
+                LMCCChat.Add(m);
+            }
+            // Currently in astronaut chat
+            else if (groupChat == fa.astronaut_id)
+            {
+                AstronautInstance.User.MessagingData.AllMessages.Add(m);
+                websocket.SendMessageData();
+                AstroChat.Add(m);
+            }
+
+            message.text = "";
+        }
     }
 
-    void displaLMCCMessage()
-    {
+    // Call these functions on button clicks
 
+    public void displayAstroMessage()
+    {
+        AstroScreen.SetActive(true);
+        LMCCScreen.SetActive(false);
+        GroupChatScreen.SetActive(false);
+        groupChat = fa.astronaut_id;
     }
 
-    void displayGroupMessage()
+    public void displaLMCCMessage()
     {
+        AstroScreen.SetActive(false);
+        LMCCScreen.SetActive(true);
+        GroupChatScreen.SetActive(false);
+        groupChat = -1;
+    }
 
+    public void displayGroupMessage()
+    {
+        AstroScreen.SetActive(false);
+        LMCCScreen.SetActive(false);
+        GroupChatScreen.SetActive(true);
+        groupChat = -2;
     }
 }
