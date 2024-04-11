@@ -60,8 +60,8 @@ Transform:
   m_GameObject: {fileID: 434371724983829934}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.032, y: 0.032, z: 0.15}
+  m_LocalPosition: {x: 0.03799, y: 0, z: 0}
+  m_LocalScale: {x: 0.1079891, y: 0.032, z: 0.15}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6637784189614725800}
@@ -791,9 +791,9 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: NavScreenHandler, Assembly-CSharp
-        m_MethodName: OpenStation
+      - m_Target: {fileID: 5488832843785253585}
+        m_TargetAssemblyTypeName: ButtonHighlight, Assembly-CSharp
+        m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -803,8 +803,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ButtonHighlight, Assembly-CSharp
+      - m_Target: {fileID: 6906398410276783702}
+        m_TargetAssemblyTypeName: GeosamplingDB_SampleButton, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:
@@ -1212,6 +1212,33 @@ MonoBehaviour:
   SampleLabel: {fileID: 4204365864142557592}
   SampleName: {fileID: 9012574454466215826}
   Star: {fileID: 3361474427457856799}
+  geosample:
+    geosample_id: 0
+    zone_id: 92
+    eva_data:
+      name: 
+      id: 0
+      data:
+        SiO2: 0
+        TiO2: 0
+        Al2O3: 0
+        FeO: 0
+        MnO: 0
+        MgO: 0
+        CaO: 0
+        K2O: 0
+        P2O3: 0
+    time: 
+    color: 
+    shape: 
+    starred: 0
+    rock_type: 
+    location:
+      latitude: 0
+      longitude: 0
+    author: 0
+    photo_jpg: 
+    description: 
 --- !u!1 &4127838683313781185
 GameObject:
   m_ObjectHideFlags: 0

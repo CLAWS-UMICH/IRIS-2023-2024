@@ -11,7 +11,7 @@ using UnityEngine.Windows.WebCam;
 
 public class Screenshot : MonoBehaviour
 {
-
+    public static Dictionary<int, Material> SamplePictures; // key is geosample id
     private GameObject button;
 
 
@@ -76,7 +76,7 @@ public class Screenshot : MonoBehaviour
 
     // use this photo button
     [ContextMenu("func UseThisPhoto")]
-    public string UseThisPhoto(GameObject outputQuad)
+    public string UseThisPhoto(GameObject outputQuad, int id)
     {
         Renderer r = outputQuad.GetComponent<Renderer>();
         r.material = new Material(Shader.Find("Unlit/Texture"));
@@ -91,6 +91,12 @@ public class Screenshot : MonoBehaviour
         var jpg = targetTexture.EncodeToJPG();
         File.WriteAllBytes(filePath, jpg);
         Debug.Log(Application.persistentDataPath + fileName);
+
+        if (SamplePictures == null)
+        {
+            SamplePictures = new();
+        }
+        SamplePictures[id] = r.material;
 
         string s = Convert.ToBase64String(jpg); // TODO send to WEB TEAM!!!
         return s;

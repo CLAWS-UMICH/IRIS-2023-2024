@@ -166,6 +166,13 @@ public class GeosampleCreatedEvent
     }
 }
 
+public class GeosampleSentEvent
+{
+    public GeosampleSentEvent()
+    {
+        Debug.Log("GeosampleSentEvent");
+    }
+}
 
 public class GeosampleModeStartedEvent
 {

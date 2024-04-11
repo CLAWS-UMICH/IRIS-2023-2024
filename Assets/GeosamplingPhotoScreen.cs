@@ -45,7 +45,7 @@ public class GeosamplingPhotoScreen : MonoBehaviour
 
     public void UseThisPhoto()
     {
-        string s = GetComponent<Screenshot>().UseThisPhoto(outputQuad);
+        string s = GetComponent<Screenshot>().UseThisPhoto(outputQuad, Geosample.Sample.geosample_id);
         outputQuad.SetActive(true);
 
         if (s != null)

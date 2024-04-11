@@ -45,6 +45,7 @@ public class GeosamplingManager : MonoBehaviour
     public static void SendData()
     {
         GameObject.Find("Controller").GetComponent<WebsocketDataHandler>().SendGeosampleData();
+        EventBus.Publish<GeosampleSentEvent>(new());
     }
 
 

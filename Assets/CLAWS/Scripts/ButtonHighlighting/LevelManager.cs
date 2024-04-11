@@ -11,6 +11,15 @@ public class LevelData
 
 public class LevelManager : MonoBehaviour
 {
+    public static LevelManager Instance { get; private set; }
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
+
     private Subscription<HighlightButton> highlightButtonEvent;
     private Subscription<UnHighlight> unHighlightEvent;
 

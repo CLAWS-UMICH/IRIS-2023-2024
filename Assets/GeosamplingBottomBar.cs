@@ -28,7 +28,7 @@ public class GeosamplingBottomBar : MonoBehaviour
 
     public void OnViewSamplesPressed()
     {
-        Debug.Log("Not implemented yet!");
+        GeosamplingDB_Manager.Toggle();
     }
 
     public void OnExitPressed()
