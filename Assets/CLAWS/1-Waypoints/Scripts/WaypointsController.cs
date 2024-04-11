@@ -132,25 +132,10 @@ public class WaypointsController : MonoBehaviour
                 waypointDict[waypoint.waypoint_id].location = waypoint.location;
                 waypointDict[waypoint.waypoint_id].type = waypoint.type;
                 waypointDict[waypoint.waypoint_id].description = waypoint.description;
-
-                Waypoint newWaypoint = new Waypoint
-                {
-                    waypoint_id = waypoint.waypoint_id,
-                    location = waypoint.location,
-                    type = waypoint.type,
-                    description = waypoint.description,
-                    author = waypoint.author
-                };
-
-                AstronautInstance.User.WaypointData.AllWaypoints.Remove(waypoint);
-                AstronautInstance.User.WaypointData.AllWaypoints.Add(newWaypoint);
-
-                waypointObjDic[waypoint.waypoint_id].transform.Find("Location").gameObject.transform.Find("Lat").gameObject.GetComponent<TextMeshPro>().text = "Lat: " + waypoint.location.latitude.ToString();
-                waypointObjDic[waypoint.waypoint_id].transform.Find("Location").gameObject.transform.Find("Long").gameObject.GetComponent<TextMeshPro>().text = "Long: " + waypoint.location.longitude.ToString();
-                waypointObjDic[waypoint.waypoint_id].transform.Find("Type").gameObject.GetComponent<TextMeshPro>().text = "Type: " + waypoint.type.ToString();
-                waypointObjDic[waypoint.waypoint_id].transform.Find("Description").gameObject.GetComponent<TextMeshPro>().text = "Desc: " + waypoint.description;
-
-                waypointButtonDic[waypoint.waypoint_id].transform.Find("IconAndText").gameObject.transform.Find("Description").gameObject.GetComponent<TextMeshPro>().text = waypoint.description;
+                waypointDict[waypoint.waypoint_id].waypoint_letter = waypoint.waypoint_letter;
+                
+                waypointObjDic[waypoint.waypoint_id].transform.Find("Body").Find("Title").gameObject.transform.Find("IconAndText").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>().text = waypoint.description;
+                waypointObjDic[waypoint.waypoint_id].transform.Find("Body").Find("Quad").gameObject.transform.Find("Text").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>().text = waypoint.waypoint_letter;
             }
         }
     }
