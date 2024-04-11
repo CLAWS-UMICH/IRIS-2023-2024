@@ -12,10 +12,27 @@ public class Messaging
 [System.Serializable]
 public class Message
 {
+    static int global_message_id = 0;
+
     public int message_id; // starting from 0 and going up 1
     public int sent_to; // Astronaut ID it was sent to
     public string message;
     public int from; // Astronaut ID it who sent the message
+
+    public Message()
+    {
+        global_message_id++;
+    }
+
+    public Message(int init_sent_to, string init_message, int init_from)
+    {
+        message_id = global_message_id;
+        sent_to = init_sent_to;
+        message = init_message;
+        from = init_from;
+
+        global_message_id++;
+    }
 
     public override bool Equals(object obj)
     {

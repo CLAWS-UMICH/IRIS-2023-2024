@@ -5,6 +5,9 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
+using System.IO;
+using System;
 
 public class GeosamplingDB_Manager : MonoBehaviour
 {
@@ -22,6 +25,7 @@ public class GeosamplingDB_Manager : MonoBehaviour
     private void OnEnable()
     {
         isOpen = true;
+        RenderZones();
     }
     private void OnDisable()
     {
@@ -36,6 +40,17 @@ public class GeosamplingDB_Manager : MonoBehaviour
     {
         Instance.gameObject.SetActive(false);
     }
+    public static void Toggle()
+    {
+        if (Instance.gameObject.activeSelf)
+        {
+            Instance.gameObject.SetActive(false);
+        }
+        else
+        {
+            Instance.gameObject.SetActive(true);
+        }
+    }
 
     private void Start()
     {
@@ -45,7 +60,21 @@ public class GeosamplingDB_Manager : MonoBehaviour
 
         RenderZones();
         gameObject.SetActive(false);
+        defaultPhotoMaterial = outputQuad.GetComponent<Renderer>().material;
+
+        void _renderOnEvent<T>(T e)
+        {
+            if (isOpen)
+            {
+                RenderZones();
+            }
+        } 
+
+        EventBus.Subscribe<GeosampleCreatedEvent>(_renderOnEvent);
+        EventBus.Subscribe<GeosamplesEditedEvent>(_renderOnEvent);
+        EventBus.Subscribe<GeosampleSentEvent>(_renderOnEvent);
     }
+
 
     // data
     public List<GameObject> ZoneButtons;
@@ -63,6 +92,9 @@ public class GeosamplingDB_Manager : MonoBehaviour
     // XRF things
     public GameObject XRFReadings;
     public List<TextMeshPro> XRFList = new List<TextMeshPro>();
+    public GameObject HiddenSamplesScreen;
+    public GameObject outputQuad;
+    Material defaultPhotoMaterial;
 
     // rendering
     Queue<string> FunctionQueue;
@@ -72,14 +104,15 @@ public class GeosamplingDB_Manager : MonoBehaviour
     [ContextMenu("func RenderZones")]
     public void RenderZones()
     {
+        FunctionQueue.Enqueue("ClearSamples");
         FunctionQueue.Enqueue("ClearZones");
         FunctionQueue.Enqueue("RenderZones");
+        HideSampleDetails();
     }
 
     public void RenderSamples(string zoneLetter)
     {
         currZoneLetter = zoneLetter;
-        Debug.Log("Rendering samples for zone " + zoneLetter);
 
         FunctionQueue.Enqueue("ClearSamples");
         FunctionQueue.Enqueue("RenderSamples");
@@ -204,18 +237,55 @@ public class GeosamplingDB_Manager : MonoBehaviour
 
         // XRF
         // Update XRF Readings
-        XRFList[0].text = g.eva_data.data.SiO2.ToString();
-        XRFList[1].text = g.eva_data.data.FeO.ToString();
-        XRFList[2].text = g.eva_data.data.CaO.ToString();
-        XRFList[3].text = g.eva_data.data.TiO2.ToString();
-        XRFList[4].text = g.eva_data.data.MnO.ToString();
-        XRFList[5].text = g.eva_data.data.K2O.ToString();
-        XRFList[6].text = g.eva_data.data.Al2O3.ToString();
-        XRFList[7].text = g.eva_data.data.MgO.ToString();
-        XRFList[8].text = g.eva_data.data.P2O3.ToString();
+        if (g.eva_data != null)
+        {
+            XRFList[0].text = g.eva_data.data.SiO2.ToString();
+            XRFList[1].text = g.eva_data.data.FeO.ToString();
+            XRFList[2].text = g.eva_data.data.CaO.ToString();
+            XRFList[3].text = g.eva_data.data.TiO2.ToString();
+            XRFList[4].text = g.eva_data.data.MnO.ToString();
+            XRFList[5].text = g.eva_data.data.K2O.ToString();
+            XRFList[6].text = g.eva_data.data.Al2O3.ToString();
+            XRFList[7].text = g.eva_data.data.MgO.ToString();
+            XRFList[8].text = g.eva_data.data.P2O3.ToString();
+        }
 
-        // Show Readings
         XRFReadings.SetActive(true);
+        HiddenSamplesScreen.SetActive(false);
 
+        // NOTE
+        // the current rednering system for photo jpgs only works for 
+        // one astronaut, not multiplayer
+        if (g.photo_jpg != null && g.photo_jpg != "")
+        {
+            ShowPhoto(g);
+        }
+        else
+        {
+            HidePhoto();
+        }
+    }
+
+    public void HideSampleDetails()
+    {
+        HiddenSamplesScreen.SetActive(true);
+        XRFReadings.SetActive(false);
+        HidePhoto();
+    }
+
+    private void ShowPhoto(Geosample g)
+    {
+        if (Screenshot.SamplePictures.ContainsKey(g.geosample_id))
+        {
+            Renderer r = outputQuad.GetComponent<Renderer>();
+            r.material = Screenshot.SamplePictures[g.geosample_id];
+        }
+    }
+    private void HidePhoto()
+    {
+        if (defaultPhotoMaterial != null)
+        {
+            outputQuad.GetComponent<Renderer>().material = defaultPhotoMaterial;
+        }
     }
 }

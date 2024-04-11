@@ -12,7 +12,7 @@ public class GeosamplingDB_SampleButton : MonoBehaviour
     [SerializeField] TextMeshPro SampleName;
     [SerializeField] GameObject Star;
 
-    Geosample geosample;
+    [SerializeField] Geosample geosample;
 
     public void SetSample(Geosample g)
     {
