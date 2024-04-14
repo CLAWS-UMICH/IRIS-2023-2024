@@ -43,7 +43,7 @@ public class RadialProgress : MonoBehaviour
         // Display the percentage as text, if desired
         if (ProgressIndicator != null)
         {
-            ProgressIndicator.text = currentVal.ToString("FO")/*e.vitals.oxy_pri_storage.ToString("F0")*/;
+            ProgressIndicator.text = currentVal.ToString()/*e.vitals.oxy_pri_storage.ToString("F0")*/;
         }
     }
 
@@ -60,7 +60,7 @@ public class RadialProgress : MonoBehaviour
         // Display the percentage as text, if desired
         if (ProgressIndicator != null)
         {
-            ProgressIndicator.text = currentVal.ToString("FO")/*e.vitals.oxy_pri_storage.ToString("F0")*/;
+            ProgressIndicator.text = currentVal.ToString()/*e.vitals.oxy_pri_storage.ToString("F0")*/;
         }
     }
 }

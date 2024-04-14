@@ -43,9 +43,9 @@ public class DummyValueTester : MonoBehaviour
             yield return new WaitForSeconds(updateInterval);
 
             // Decrease the current value by a certain amount (e.g. 5)
-            O2_currentValue -= 5f;
-            hr_currentValue -= 5f;
-            pr_currentValue -= 5f;
+            O2_currentValue -= 3f;
+            hr_currentValue -= 1f;
+            pr_currentValue -= 1f;
 
             // Make sure the current value does not go below 0
             if (O2_currentValue > 0 && hr_currentValue < 0 && pr_currentValue < 0)
