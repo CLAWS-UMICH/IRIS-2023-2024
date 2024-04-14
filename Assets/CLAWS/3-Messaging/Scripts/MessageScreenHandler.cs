@@ -57,6 +57,11 @@ public class MessageReceiveHandler : MonoBehaviour
         }
     }
 
+    public void getMessage(string s)
+    {
+        // Gets the message from text inputs
+    }
+
     void sendMessage()
     {
         // Exit if message field is empty
