@@ -139,6 +139,7 @@ GameObject:
   - component: {fileID: 299625590}
   - component: {fileID: 299625589}
   - component: {fileID: 299625588}
+  - component: {fileID: 299625596}
   m_Layer: 0
   m_Name: bodyBoard
   m_TagString: Untagged
@@ -386,7 +387,7 @@ Transform:
   m_GameObject: {fileID: 299625587}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.347, y: 0.0968, z: 0.771}
+  m_LocalPosition: {x: 0.09, y: 1.06, z: -9.54}
   m_LocalScale: {x: 0.14999999, y: 0.39999998, z: 0.07}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -395,6 +396,21 @@ Transform:
   - {fileID: 318020676}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &299625596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 299625587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d0d01d160e47425cbb3eec4cea9b3aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  O2_percent: {fileID: 677500290}
+  heartRate: {fileID: 499344358}
+  O2_pressure: {fileID: 318020677}
 --- !u!1 &318020675
 GameObject:
   m_ObjectHideFlags: 0
@@ -406,7 +422,7 @@ GameObject:
   - component: {fileID: 318020676}
   - component: {fileID: 318020677}
   m_Layer: 0
-  m_Name: TempRing
+  m_Name: PR_Ring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -444,8 +460,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SR: {fileID: 1539942316}
   ProgressIndicator: {fileID: 2052287154}
-  currentValue: 0
-  speed: 2
 --- !u!1 &441352597
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,6 +470,7 @@ GameObject:
   m_Component:
   - component: {fileID: 441352598}
   - component: {fileID: 441352599}
+  - component: {fileID: 441352600}
   m_Layer: 0
   m_Name: RingFull
   m_TagString: Untagged
@@ -530,6 +545,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &441352600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 441352597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47ccc229b294d4d498720460fc247387, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SR: {fileID: 441352597}
+  ProgressIndicator: {fileID: 1965730643}
 --- !u!1 &499344356
 GameObject:
   m_ObjectHideFlags: 0
@@ -541,7 +570,7 @@ GameObject:
   - component: {fileID: 499344357}
   - component: {fileID: 499344358}
   m_Layer: 0
-  m_Name: HeartRateRing
+  m_Name: HR_Ring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -579,8 +608,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SR: {fileID: 1710317390}
   ProgressIndicator: {fileID: 1930654281}
-  currentValue: 0
-  speed: 2
 --- !u!1 &677500287
 GameObject:
   m_ObjectHideFlags: 0
@@ -591,8 +618,9 @@ GameObject:
   m_Component:
   - component: {fileID: 677500288}
   - component: {fileID: 677500289}
+  - component: {fileID: 677500290}
   m_Layer: 0
-  m_Name: BodyTextRing
+  m_Name: O2_Ring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -625,13 +653,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 677500287}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d0d01d160e47425cbb3eec4cea9b3aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  O2_percent: {fileID: 0}
+  heartRate: {fileID: 0}
+  O2_pressure: {fileID: 0}
+--- !u!114 &677500290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 677500287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 47ccc229b294d4d498720460fc247387, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SR: {fileID: 441352597}
   ProgressIndicator: {fileID: 1965730643}
-  currentValue: 10
-  speed: 2
 --- !u!1 &727966799
 GameObject:
   m_ObjectHideFlags: 0
