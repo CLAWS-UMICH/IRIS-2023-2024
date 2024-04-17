@@ -16,6 +16,10 @@ public class GeosamplingDB_Manager : MonoBehaviour
     {
         if (Instance == null)
         {
+            ZoneButtons = new();
+            FunctionQueue = new();
+            isOpen = true;
+
             Instance = this;
         }
     }
@@ -54,10 +58,6 @@ public class GeosamplingDB_Manager : MonoBehaviour
 
     private void Start()
     {
-        ZoneButtons = new();
-        FunctionQueue = new();
-        isOpen = true;
-
         RenderZones();
         gameObject.SetActive(false);
         defaultPhotoMaterial = outputQuad.GetComponent<Renderer>().material;
