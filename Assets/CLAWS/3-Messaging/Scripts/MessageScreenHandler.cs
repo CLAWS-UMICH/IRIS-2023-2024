@@ -13,6 +13,8 @@ public class MessageReceiveHandler : MonoBehaviour
     GameObject LMCCScreen;
     GameObject GroupChatScreen;
 
+    GameObject textBox;
+
     TMP_Text message;
 
     private int groupChat;
@@ -33,6 +35,9 @@ public class MessageReceiveHandler : MonoBehaviour
         AstroScreen = parent.transform.Find("AstroScroll").gameObject;
         LMCCScreen = parent.transform.Find("LMCCScroll").gameObject;
         GroupChatScreen = parent.transform.Find("GroupChatScroll").gameObject;
+        GameObject textFieldObject = parent.transform.Find("TextField").gameObject;
+        GameObject inputFieldObject = textFieldObject.transform.Find("InputField (TMP)").gameObject;
+        message = inputFieldObject.GetComponent<TMP_Text>();
         allMessage = msgList.AllMessages;
         EventBus.Subscribe<MessagesAddedEvent>(appendList);
     }
@@ -57,12 +62,7 @@ public class MessageReceiveHandler : MonoBehaviour
         }
     }
 
-    public void getMessage(string s)
-    {
-        // Gets the message from text inputs
-    }
-
-    void sendMessage()
+    public void sendMessage()
     {
         // Exit if message field is empty
         if (!string.Equals(message.text, ""))
@@ -95,6 +95,18 @@ public class MessageReceiveHandler : MonoBehaviour
         }
     }
 
+    // Display text boxes
+    void generateBox(List<Message> chat, GameObject screen)
+    {
+        foreach (var c in chat)
+        {
+            GameObject box = Instantiate(textBox, screen.transform);
+            TMP_Text textComponent = box.GetComponentInChildren<TMP_Text>();
+            textComponent.text = c.message;
+        }
+    }
+
+
     // Call these functions on button clicks
 
     public void displayAstroMessage()
@@ -103,6 +115,8 @@ public class MessageReceiveHandler : MonoBehaviour
         LMCCScreen.SetActive(false);
         GroupChatScreen.SetActive(false);
         groupChat = fa.astronaut_id;
+
+        generateBox(AstroChat, AstroScreen);
     }
 
     public void displaLMCCMessage()
@@ -111,6 +125,8 @@ public class MessageReceiveHandler : MonoBehaviour
         LMCCScreen.SetActive(true);
         GroupChatScreen.SetActive(false);
         groupChat = -1;
+
+        generateBox(LMCCChat, LMCCScreen);
     }
 
     public void displayGroupMessage()
@@ -119,5 +135,7 @@ public class MessageReceiveHandler : MonoBehaviour
         LMCCScreen.SetActive(false);
         GroupChatScreen.SetActive(true);
         groupChat = -2;
+
+        generateBox(GroupChat, GroupChatScreen);
     }
 }
