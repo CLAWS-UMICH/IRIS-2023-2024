@@ -15,7 +15,7 @@ public class MessageReceiveHandler : MonoBehaviour
 
     GameObject textBox;
 
-    TMP_Text message;
+    TMP_InputField message;
 
     private int groupChat;
 
@@ -34,11 +34,21 @@ public class MessageReceiveHandler : MonoBehaviour
         parent = transform.parent.Find("MessagingScreen").gameObject;
         AstroScreen = parent.transform.Find("AstroScroll").gameObject;
         LMCCScreen = parent.transform.Find("LMCCScroll").gameObject;
+
         GroupChatScreen = parent.transform.Find("GroupChatScroll").gameObject;
         GameObject textFieldObject = parent.transform.Find("TextField").gameObject;
-        GameObject inputFieldObject = textFieldObject.transform.Find("InputField (TMP)").gameObject;
-        message = inputFieldObject.GetComponent<TMP_Text>();
+        message = textFieldObject.transform.Find("InputField (TMP)").GetComponent<TMP_InputField>();
+
+        msgList = new Messaging();
         allMessage = msgList.AllMessages;
+        AstroChat = new List<Message>();
+        LMCCChat = new List<Message>();
+        GroupChat = new List<Message>();
+
+        fa = AstronautInstance.User.FellowAstronautsData;
+
+        websocket = transform.parent.parent.parent.Find("Controller").GetComponent<WebsocketDataHandler>();
+
         EventBus.Subscribe<MessagesAddedEvent>(appendList);
     }
 
@@ -64,6 +74,8 @@ public class MessageReceiveHandler : MonoBehaviour
 
     public void sendMessage()
     {
+        Debug.Log(message);
+        groupChat = -2;
         // Exit if message field is empty
         if (!string.Equals(message.text, ""))
         {
