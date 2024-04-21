@@ -17,6 +17,9 @@ public class VoiceMessage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        Debug.Log("Started the VM script");
+
         message_TMP = transform.Find("Message_TMP").GetComponent<TextMeshProUGUI>();
         ph_TMP = transform.Find("Placeholder").GetComponent<TextMeshProUGUI>();
         keywordRecognizer = new KeywordRecognizer(new string[] { "Start", "Stop" });
@@ -25,9 +28,8 @@ public class VoiceMessage : MonoBehaviour
 
         dictationRecognizer = new DictationRecognizer();
         dictationRecognizer.DictationResult += DictationRecognizer_DictationResult;
-        dictationRecognizer.Start();
 
-        Debug.Log("Started the VM script");
+        Debug.Log("Made it to the end of the VM script");
     }
 
     // Update is called once per frame
