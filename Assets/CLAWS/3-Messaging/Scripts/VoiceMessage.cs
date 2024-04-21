@@ -26,7 +26,6 @@ public class VoiceMessage : MonoBehaviour
     {
         DictationRecognizer dictationRecognizer = new DictationRecognizer();
         dictationRecognizer.DictationResult += DictationRecognizer_DictationResult;
-
     }
 
     private void DictationRecognizer_DictationResult(string text, ConfidenceLevel confidence)
