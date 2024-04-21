@@ -197,6 +197,7 @@ GameObject:
   m_Component:
   - component: {fileID: 26362014}
   - component: {fileID: 26362015}
+  - component: {fileID: 26362016}
   m_Layer: 0
   m_Name: Text Area
   m_TagString: Untagged
@@ -239,6 +240,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding: {x: 0, y: 0, z: 0, w: 0}
   m_Softness: {x: 0, y: 0}
+--- !u!114 &26362016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26362013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ea446b642122414489113da3338ce0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &42023175
 GameObject:
   m_ObjectHideFlags: 0
@@ -15574,7 +15587,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1511924403}
-  - component: {fileID: 1511924404}
   m_Layer: 0
   m_Name: BackPlate
   m_TagString: Untagged
@@ -15599,18 +15611,6 @@ Transform:
   - {fileID: 1666902117}
   m_Father: {fileID: 1539652348}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1511924404
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1511924402}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ea446b642122414489113da3338ce0e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1527830438
 GameObject:
   m_ObjectHideFlags: 0
