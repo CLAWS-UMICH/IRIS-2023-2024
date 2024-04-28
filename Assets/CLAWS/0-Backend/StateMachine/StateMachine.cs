@@ -26,9 +26,7 @@ public enum Modes
     Normal,
     Sampling,
     Navigation,
-    Route,
     Egress,
-    Airlock
 }
 
 public class StateMachine : MonoBehaviour

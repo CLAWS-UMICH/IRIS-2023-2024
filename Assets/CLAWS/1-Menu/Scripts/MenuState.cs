@@ -58,14 +58,8 @@ public class MenuState : MonoBehaviour
             case Modes.Navigation:
                 ClickIRISNavigation();
                 break;
-            case Modes.Route:
-                ClickIRISRoute();
-                break;
             case Modes.Egress:
                 ClickIRISEgress();
-                break;
-            case Modes.Airlock:
-                ClickIRISAirlock();
                 break;
             default:
                 ClickIRISClose();
@@ -96,6 +90,12 @@ public class MenuState : MonoBehaviour
     {
         transform.parent.Find("Vitals").GetComponent<VitalsSwitcher>().OpenVitals();
         ClickIRISClose();
+    }
+
+    public void ClickUIA()
+    {
+        // TODO: Open Egress
+
     }
 
     public void ClickModes()

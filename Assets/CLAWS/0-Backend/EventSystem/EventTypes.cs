@@ -551,3 +551,16 @@ public class XRFScanEvent
         data = d;
     }
 }
+
+public class VEGASpeechToTextCommand
+{
+    public string command;
+    public bool isTheFinal;
+    public int userID;
+    public VEGASpeechToTextCommand(string _command, bool _isTheFinal, int _userID)
+    {
+        command = _command;
+        isTheFinal = _isTheFinal;
+        userID = _userID;
+    }
+}
