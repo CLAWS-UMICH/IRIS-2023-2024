@@ -564,3 +564,15 @@ public class VEGASpeechToTextCommand
         userID = _userID;
     }
 }
+
+public class WebNavEvent
+{
+    public string title;
+    public Location loc;
+
+    public WebNavEvent(Location _loc)
+    {
+        title = "Web Nav Point";
+        loc = _loc;
+    }
+}

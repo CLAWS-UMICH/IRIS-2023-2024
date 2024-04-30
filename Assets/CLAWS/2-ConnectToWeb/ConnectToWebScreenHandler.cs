@@ -18,6 +18,7 @@ public class ConnectToWebScreenHandler : MonoBehaviour
     bool connected;
     bool openWeb = false;
     bool openTSS = false;
+    int id;
 
     WebSocketClient controller;
 
@@ -26,6 +27,7 @@ public class ConnectToWebScreenHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        id = 0;
         connectScreen = transform.Find("ConnectToWeb").gameObject;
         disconnectScreen = transform.Find("DisconnectScreen").gameObject;
         chooseScreen = transform.Find("ConnectionChooseScreen").gameObject;
@@ -107,10 +109,10 @@ public class ConnectToWebScreenHandler : MonoBehaviour
     {
         if (hex != "" && nameText.text != "")
         {
-            GameObject.Find("Controller").GetComponent<MainConnections>().ConnectToWebsocket(connectionLinkText.text, hex, nameText.text);
+            GameObject.Find("Controller").GetComponent<MainConnections>().ConnectToWebsocket(connectionLinkText.text, hex, nameText.text, id);
         } else
         {
-            GameObject.Find("Controller").GetComponent<MainConnections>().ConnectToWebsocket(connectionLinkText.text, "", "");
+            GameObject.Find("Controller").GetComponent<MainConnections>().ConnectToWebsocket(connectionLinkText.text, "", "", id);
         }
 
         CloseConnectDisconnectScreen();

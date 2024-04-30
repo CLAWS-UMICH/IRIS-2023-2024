@@ -15,12 +15,8 @@ public class FakeTSSMessageSender : MonoBehaviour
         mainCamera = mainCameraHolder.transform.Find("Main Camera").gameObject;
         Fake_SetGPS();
         Fake_Vitals();
-        StartCoroutine(AddFake());
-
-        //Debug.Log((-95.081985581 + 95.080944569) / 28.0);
-        //Debug.Log((29.565400966 - 29.564429362) / 26.0);
-        //Debug.Log(GPSUtils.LetterToLocation(29, 'A').latitude);
-        //Debug.Log(GPSUtils.LetterToLocation(29, 'A').longitude);
+        //StartCoroutine(AddFake());
+        StartCoroutine(WebConnect());
     }
    
     public void Fake_SetGPS()
@@ -47,78 +43,6 @@ public class FakeTSSMessageSender : MonoBehaviour
     {
         //AstronautInstance.User.VitalsData.started_at = DateTime.Now.ToString("HH:mm:ss");
         StartCoroutine(UpdateVitals());
-    }
-
-    public void Fake()
-    {
-        
-
-        /*double[,] locationAndTypes = new double[1, 3]
-        {
-            {29.5652381, -95.0810671, 0},
-        };
-
-        string[,] letters = new string[1, 1]
-        {
-            {"E"},
-        };
-
-        List<Waypoint> list = new List<Waypoint>();
-
-        for (int i = 0; i < 1; i++)
-        {
-            Waypoint way = new Waypoint();
-            way.waypoint_id = i + 4;
-            way.waypoint_letter = letters[i, 0];
-            Location loc = new Location(locationAndTypes[i, 0], locationAndTypes[i, 1]);
-            way.location = loc;
-            way.type = (int)locationAndTypes[i, 2];
-            way.description = "Way " + way.waypoint_letter;
-            way.author = 1;
-            AstronautInstance.User.WaypointData.AllWaypoints.Add(way);
-            list.Add(way);
-        }
-
-        EventBus.Publish(new WaypointsAddedEvent(list));*/
-    }
-
-    public void FakeWayPoints()
-    {
-        
-
-        /*double[,] locationAndTypes = new double[4, 3]
-        {
-            {29.565400966, -95.081985581, 0},
-            {29.564429362, -95.080944569, 0},
-            {29.56459834, -95.08144150, 0},
-            {29.56491516, -95.08146507, 0},
-        };
-
-        string[,] letters = new string[4, 1]
-        {
-            {"A"},
-            {"B"},
-            {"C"},
-            {"D"},
-        };
-
-        List<Waypoint> list = new List<Waypoint>();
-
-        for (int i = 0; i < 4; i++)
-        {
-            Waypoint way = new Waypoint();
-            way.waypoint_id = i;
-            way.waypoint_letter = letters[i, 0];
-            Location loc = new Location(locationAndTypes[i, 0], locationAndTypes[i, 1]);
-            way.location = loc;
-            way.type = (int)locationAndTypes[i, 2];
-            way.description = "Way " + way.waypoint_letter;
-            way.author = 1;
-            AstronautInstance.User.WaypointData.AllWaypoints.Add(way);
-            list.Add(way);
-        }
-
-        EventBus.Publish(new WaypointsAddedEvent(list));*/
     }
 
     public void InitialWaypoints()
@@ -168,6 +92,12 @@ public class FakeTSSMessageSender : MonoBehaviour
         }
 
         EventBus.Publish(new WaypointsAddedEvent(list));
+    }
+
+    IEnumerator WebConnect()
+    {
+        yield return new WaitForSeconds(3);
+        gameObject.GetComponent<MainConnections>().ConnectToWebsocket("ws://ec2-52-15-178-2.us-east-2.compute.amazonaws.com/hololens", "", "Brian", 0);
     }
 
     IEnumerator AddFake()

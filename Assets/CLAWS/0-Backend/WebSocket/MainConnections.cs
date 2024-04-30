@@ -8,6 +8,7 @@ public class MainConnections : MonoBehaviour
     [SerializeField] bool autoConnectWebSocket = false;
     [SerializeField] string tssUrl;
     [SerializeField] bool autoConnectTSS = false;
+    [SerializeField] int id;
 
     private bool websocketConnected;
     private bool TSSConnected;
@@ -17,10 +18,11 @@ public class MainConnections : MonoBehaviour
     {
         websocketConnected = false;
         TSSConnected = false;
+        id = 0;
 
         if (autoConnectWebSocket)
         {
-            StartCoroutine(_ConnectWebSocket(webSocketUrl, "", "", 0));
+            StartCoroutine(_ConnectWebSocket(webSocketUrl, "", "", 0, id));
         }
 
         if (autoConnectTSS)
@@ -29,14 +31,14 @@ public class MainConnections : MonoBehaviour
         }
     }
 
-    private bool ConnectWebsocket(string connectionString, string color, string name, int num)
+    private bool ConnectWebsocket(string connectionString, string color, string name, int num, int _id)
     {
         if (num == 0)
         {
             return transform.GetComponent<WebSocketClient>().ReConnect(connectionString);
         } else
         {
-            return transform.GetComponent<WebSocketClient>().ReConnect(connectionString, color, name);
+            return transform.GetComponent<WebSocketClient>().ReConnect(connectionString, color, name, _id);
         }
     }
 
@@ -45,9 +47,9 @@ public class MainConnections : MonoBehaviour
         transform.GetComponent<TSScConnection>().TSSConnect(url);
     }
 
-    IEnumerator _ConnectWebSocket(string connectionString, string color, string name, int num)
+    IEnumerator _ConnectWebSocket(string connectionString, string color, string name, int num, int _id)
     {
-        while (!ConnectWebsocket(connectionString, color, name, num))
+        while (!ConnectWebsocket(connectionString, color, name, num, _id))
         {
             yield return new WaitForSeconds(5f);
 
@@ -60,9 +62,9 @@ public class MainConnections : MonoBehaviour
         Debug.Log("WebSocket: Connection Successful");
     }
 
-    public void ConnectToWebsocket(string connectionString, string color, string name)
+    public void ConnectToWebsocket(string connectionString, string color, string name, int _id)
     {
-        StartCoroutine(_ConnectWebSocket(connectionString, color, name, 1));
+        StartCoroutine(_ConnectWebSocket(connectionString, color, name, 1, _id));
     }
 
     public void ConnectToTSS()

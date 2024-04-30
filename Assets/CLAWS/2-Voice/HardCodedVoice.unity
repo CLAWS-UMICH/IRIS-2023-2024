@@ -285,7 +285,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 200834927}
-  - component: {fileID: 200834926}
+  - component: {fileID: 200834928}
   m_Layer: 0
   m_Name: Speech
   m_TagString: Untagged
@@ -293,18 +293,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &200834926
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 200834925}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4587ea6c17feed43b6fc3d76660ed24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &200834927
 Transform:
   m_ObjectHideFlags: 0
@@ -320,6 +308,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &200834928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 200834925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ae7ab7eb835a074abbef506551c8510, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  filePath: Assets/CLAWS/Audio/recorded_audio.wav
+  recordingDuration: 3
 --- !u!1 &694318115
 GameObject:
   m_ObjectHideFlags: 0

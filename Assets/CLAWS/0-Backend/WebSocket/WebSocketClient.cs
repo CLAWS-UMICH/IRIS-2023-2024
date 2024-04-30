@@ -25,6 +25,7 @@ public class WebSocketClient : MonoBehaviour
             if (ws != null && ws.IsAlive)
             {
                 #if !UNITY_WEBGL
+                    dataHandler.SendKill();
                     ws.Close();
                 #endif
             }
@@ -45,6 +46,7 @@ public class WebSocketClient : MonoBehaviour
             if (ws != null && ws.IsAlive)
             {
                 #if !UNITY_WEBGL
+                    dataHandler.SendKill();
                     ws.Close();
                 #endif
             }
@@ -73,6 +75,7 @@ public class WebSocketClient : MonoBehaviour
             if (ws != null && ws.IsAlive)
             {
                 #if !UNITY_WEBGL
+                    dataHandler.SendKill();
                     ws.Close();
                 #endif
             }
@@ -96,13 +99,14 @@ public class WebSocketClient : MonoBehaviour
     }
 
 
-    public bool ReConnect(string connectionString, string color, string name)
+    public bool ReConnect(string connectionString, string color, string name, int _id)
     {
         try
         {
             if (ws != null && ws.IsAlive)
             {
                 #if !UNITY_WEBGL
+                    dataHandler.SendKill();
                     ws.Close();
                 #endif
             }
@@ -113,7 +117,7 @@ public class WebSocketClient : MonoBehaviour
                 ws.OnMessage += OnWebSocketMessage;
                 ws.Connect();
 
-                dataHandler.SendInitialData(color, name);
+                dataHandler.SendInitialData(color, name, _id);
                 return ws.IsAlive;
             #endif
 
@@ -131,6 +135,7 @@ public class WebSocketClient : MonoBehaviour
     {
         if (ws != null && ws.IsAlive)
         {
+            dataHandler.SendKill();
             ws.Close();
         }
     }
@@ -164,6 +169,7 @@ public class WebSocketClient : MonoBehaviour
 
     public void HandleJsonMessage(string jsonData)
     {
+        Debug.Log(jsonData);
         // Deserialize the JSON into JsonMessage class
         JsonMessage jsonMessage = JsonUtility.FromJson<JsonMessage>(jsonData);
 
@@ -178,57 +184,57 @@ public class WebSocketClient : MonoBehaviour
             return;
         }
 
-        switch (messageType)
+        switch (messageType.ToUpper())
         {
             case "INITIAL":
                 InitialData initialData = JsonUtility.FromJson<InitialData>(jsonData);
                 dataHandler.HandleInitialData(initialData, "");
                 break;
-            case "Messaging":
+            case "MESSAGING":
                 MessagingData messageData = JsonUtility.FromJson<MessagingData>(jsonData);
                 dataHandler.HandleMessagingData(messageData.data, messageUse);
                 break;
-            case "Vitals":
+            case "VITALS":
                 VitalsData vitalsData = JsonUtility.FromJson<VitalsData>(jsonData);
                 dataHandler.HandleVitalsData(vitalsData.data, messageUse);
                 break;
-            case "Geosamples":
+            case "GEOSAMPLES":
                 GeosamplesData geoData = JsonUtility.FromJson<GeosamplesData>(jsonData);
                 dataHandler.HandleGeosamplesData(geoData.data, geoData.zones, messageUse);
                 break;
-            case "Waypoints":
+            case "WAYPOINTS":
                 WaypointsData waypointsData = JsonUtility.FromJson<WaypointsData>(jsonData);
                 dataHandler.HandleWaypointsData(waypointsData.data, messageUse);
                 break;
-            case "TaskList":
+            case "TASKLIST":
                 TaskListData taskListData = JsonUtility.FromJson<TaskListData>(jsonData);
                 dataHandler.HandleTaskListData(taskListData.data, messageUse);
                 break;
-            case "Alerts":
+            case "ALERTS":
                 AlertsData alertsData = JsonUtility.FromJson<AlertsData>(jsonData);
                 dataHandler.HandleAlertsData(alertsData.data, messageUse);
                 break;
-            case "AllBreadCrumbs":
+            case "ALLBREADCRUMBS":
                 AllBreadCrumbsData breadcrumbsData = JsonUtility.FromJson<AllBreadCrumbsData>(jsonData);
                 dataHandler.HandleAllBreadCrumbsData(breadcrumbsData.data, messageUse);
                 break;
-            case "Location":
+            case "LOCATION":
                 LocationData locationData = JsonUtility.FromJson<LocationData>(jsonData);
                 dataHandler.HandleLocationData(locationData.data, messageUse);
                 break;
-            case "Multiplayer":
+            case "MULTIPLAYER":
                 MultiplayerData multiData = JsonUtility.FromJson<MultiplayerData>(jsonData);
                 dataHandler.HandleMultiplayerData(multiData.data, messageUse, multiData.id, multiData.dataToChange);
                 break;
-            case "Navigation":
+            case "NAVIGATION":
                 NavigationData navData = JsonUtility.FromJson<NavigationData>(jsonData);
                 dataHandler.HandleNavData(navData.location, navData.use);
                 break;
-            case "Picture":
+            case "PICTURE":
                 PictureData picData = JsonUtility.FromJson<PictureData>(jsonData);
                 dataHandler.HandlePicData(picData.binary_img, picData.title, picData.height, picData.width, picData.use);
                 break;
-            case "Highlight":
+            case "HIGHLIGHT":
                 HighlightData highData = JsonUtility.FromJson<HighlightData>(jsonData);
                 dataHandler.HandleHighlightData(highData.button_id, highData.use);
                 break;
@@ -378,4 +384,11 @@ public class HighlightData
     public string type;
     public string use;
     public int button_id;
+}
+
+[Serializable]
+public class KillData
+{
+    public int id;
+    public string type;
 }

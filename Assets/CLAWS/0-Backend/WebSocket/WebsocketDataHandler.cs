@@ -26,10 +26,11 @@ public class WebsocketDataHandler : MonoBehaviour
             // Create a new CombinedData instance
             InitialData combinedData = new InitialData
             {
-                type = "Initial",
+                type = "INITIAL",
                 use = "PUT",
                 color = data.color,
-                name = data.name
+                name = data.name,
+                id = data.id
             };
 
             // Convert the combined data to JSON format and send to WebSocket client
@@ -98,7 +99,7 @@ public class WebsocketDataHandler : MonoBehaviour
             MessagingData combinedData = new MessagingData
             {
                 id = AstronautInstance.User.id,
-                type = "Messaging",
+                type = "MESSAGING",
                 use = "PUT",
                 data = AstronautInstance.User.MessagingData
             };
@@ -199,7 +200,7 @@ public class WebsocketDataHandler : MonoBehaviour
             VitalsData combinedData = new VitalsData
             {
                 id = AstronautInstance.User.id,
-                type = "Vitals",
+                type = "VITALS",
                 use = "PUT",
                 data = AstronautInstance.User.VitalsData,
             };
@@ -233,7 +234,7 @@ public class WebsocketDataHandler : MonoBehaviour
             GeosamplesData combinedData = new GeosamplesData
             {
                 id = AstronautInstance.User.id,
-                type = "Geosamples",
+                type = "GEOSAMPLES",
                 use = "PUT",
                 data = AstronautInstance.User.GeosampleData, 
                 zones = AstronautInstance.User.GeosampleZonesData
@@ -357,7 +358,7 @@ public class WebsocketDataHandler : MonoBehaviour
             WaypointsData combinedData = new WaypointsData
             {
                 id = AstronautInstance.User.id,
-                type = "Waypoints",
+                type = "WAYPOINTS",
                 use = "PUT",
                 data = AstronautInstance.User.WaypointData
             };
@@ -440,6 +441,7 @@ public class WebsocketDataHandler : MonoBehaviour
 
             // Update the list of waypoints with the new data
             AstronautInstance.User.WaypointData.AllWaypoints = data.AllWaypoints;
+            AstronautInstance.User.WaypointData.currentIndex = data.currentIndex;
         }
         else
         {
@@ -457,7 +459,7 @@ public class WebsocketDataHandler : MonoBehaviour
             TaskListData combinedData = new TaskListData
             {
                 id = AstronautInstance.User.id,
-                type = "TaskList",
+                type = "TASKLIST",
                 use = "PUT",
                 data = AstronautInstance.User.TasklistData
             };
@@ -559,7 +561,7 @@ public class WebsocketDataHandler : MonoBehaviour
             AlertsData combinedData = new AlertsData
             {
                 id = AstronautInstance.User.id,
-                type = "Alerts",
+                type = "ALERTS",
                 use = "PUT",
                 data = AstronautInstance.User.AlertData
             };
@@ -592,7 +594,7 @@ public class WebsocketDataHandler : MonoBehaviour
             AllBreadCrumbsData combinedData = new AllBreadCrumbsData
             {
                 id = AstronautInstance.User.id,
-                type = "AllBreadCrumbs",
+                type = "ALLBREADCRUMBS",
                 use = "PUT",
                 data = AstronautInstance.User.BreadCrumbData
             };
@@ -617,7 +619,7 @@ public class WebsocketDataHandler : MonoBehaviour
             LocationData combinedData = new LocationData
             {
                 id = AstronautInstance.User.id,
-                type = "Location",
+                type = "LOCATION",
                 use = "PUT",
                 data = AstronautInstance.User.location
             };
@@ -678,7 +680,7 @@ public class WebsocketDataHandler : MonoBehaviour
         {
             if (debugMode) Debug.Log("(PUT) WebsocketDataHandler.cs: Updating NAVIGATION data");
 
-            EventBus.Publish(new StartPathfinding(location));
+            EventBus.Publish(new WebNavEvent(location));
 
         }
         else
@@ -717,12 +719,32 @@ public class WebsocketDataHandler : MonoBehaviour
         }
     }
 
+    public void HandleKill()
+    {
+        if (debugMode) Debug.Log("WebsocketDataHandler.cs: Killing Astronaut " + AstronautInstance.User.id);
+
+        // Create a new CombinedData instance
+        KillData combinedData = new KillData
+        {
+            id = AstronautInstance.User.id,
+            type = "KILL",
+        };
+
+        // Convert the vitals data to JSON format and send to WebSocket client
+        string jsonData = JsonUtility.ToJson(combinedData);
+
+        wsClient.SendJsonData(jsonData);
+    }
+
     // Public functions for to call to send data
-    public void SendInitialData(string color, string name)
+    public void SendInitialData(string color, string name, int _id)
     {
         InitialData emptyInitials = new InitialData();
+        emptyInitials.use = "PUT";
+        emptyInitials.type = "INITIAL";
         emptyInitials.color = color;
         emptyInitials.name = name;
+        emptyInitials.id = _id;
         HandleInitialData(emptyInitials, "GET");
     }
 
@@ -773,6 +795,12 @@ public class WebsocketDataHandler : MonoBehaviour
     {
         Location emptyLocationData = new Location();
         HandleLocationData(emptyLocationData, "GET");
+    }
+
+    public void SendKill()
+    {
+        Location emptyLocationData = new Location();
+        HandleKill();
     }
 
 }

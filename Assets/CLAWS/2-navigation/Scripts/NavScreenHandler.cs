@@ -67,6 +67,7 @@ public class NavScreenHandler : MonoBehaviour
     // Start is called before the first frame update
 
     private Subscription<ModeChangedEvent> modeChangedSubscription;
+    private Subscription<WebNavEvent> onWebNav;
     void Start()
     {
         player = GameObject.Find("Main Camera").gameObject;
@@ -122,6 +123,7 @@ public class NavScreenHandler : MonoBehaviour
         SwitchCameraCull(-1);
 
         modeChangedSubscription = EventBus.Subscribe<ModeChangedEvent>(SwitchMode);
+        onWebNav = EventBus.Subscribe<WebNavEvent>(OnWebNavigation);
     }
 
     public void CloseScreenStart()
@@ -410,6 +412,13 @@ public class NavScreenHandler : MonoBehaviour
         confirmation_oxy_depletion.text = $"Oxygen Depletion: ({oxyInitialPercentage} to {oxyNewPercentage})";
         OxygenOld.GetComponent<progress_bar_nav>().Update_Progress_bar((float)initialOxyPerc);
         OxygenNew.GetComponent<progress_bar_nav>().Update_Progress_bar((float)newOxyPerc);
+    }
+
+    private void OnWebNavigation(WebNavEvent e)
+    {
+        hasLocation = true;
+        loc = e.loc;
+        InitializePathfind(e.title);
     }
 
     public void InitializePathfind(string letter)

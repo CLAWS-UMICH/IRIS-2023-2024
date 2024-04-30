@@ -2634,6 +2634,14 @@ PrefabInstance:
       propertyPath: transformOverride
       value: 
       objectReference: {fileID: 169661752}
+    - target: {fileID: 6063849297249506148, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: openWaypointCreation
+      objectReference: {fileID: 0}
+    - target: {fileID: 6073258732085576730, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      propertyPath: _user.id
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6287077056513230634, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       propertyPath: m_Name
       value: SceneComponents
