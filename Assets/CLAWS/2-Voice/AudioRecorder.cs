@@ -1,135 +1,142 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using NAudio.Wave;
-using System.IO;
 using System;
+using System.IO;
+using TMPro;
 
 public class AudioRecorder : MonoBehaviour
 {
-    // Settings
-    public string filePath = "Assets/CLAWS/Audio/recorded_audio.wav"; // Path to save the recorded WAV file
-    public float silenceThreshold = 0.01f; // Threshold for detecting silence
-    public float minSilenceDuration = 1.0f; // Minimum duration of silence before stopping recording
+    bool isRecording = false;
+    WaveInEvent waveIn;
+    WaveFileWriter writer;
 
-    private WaveInEvent waveIn;
-    private WaveFileWriter waveWriter;
-    private MemoryStream recordedStream;
-    private bool isRecording = false;
-    private bool isSilent = false;
-    private float silenceDuration = 0f;
+    // List to store recent audio samples
+    List<float> recentSamples = new List<float>();
 
-    // Start is called before the first frame update
+    // Number of recent samples to consider for the moving average
+    [SerializeField] int numRecentSamples = 100;
+
+    // Threshold for silence detection (percentage of the average amplitude)
+    [SerializeField] float silenceThreshold = 0.005f;
+
+    // Duration of silence required to stop recording (in seconds)
+    [SerializeField] float silenceDuration = 3f;
+    [SerializeField] float durationLeft = 3f;
+
+
+    private string destination = "Assets/CLAWS/Audio/recorded_audio.wav";
+
+    WebsocketDataHandler wdh;
+
+
     void Start()
     {
-        // Initialize NAudio for audio recording
-        waveIn = new WaveInEvent();
-        waveIn.DataAvailable += OnDataAvailable;
-
-        // Set wave format (16-bit PCM, 16kHz, Mono)
-        waveIn.WaveFormat = new WaveFormat(16000, 16, 1);
-
-        // Start recording
-        StartRecording();
+        wdh = GameObject.Find("Controller").transform.GetComponent<WebsocketDataHandler>();
+        InitializeRecorder();
     }
 
-    // Start recording
-    void StartRecording()
+    private void InitializeRecorder()
     {
-        isRecording = true;
-        recordedStream = new MemoryStream();
-        waveIn.StartRecording();
+        durationLeft = silenceDuration;
+        waveIn = new WaveInEvent();
+        waveIn.WaveFormat = new WaveFormat(16000, 16, 1);
+        waveIn.DataAvailable += WaveInDataAvailable;
     }
 
-    // Update is called once per frame
-    void Update()
+    void WaveInDataAvailable(object sender, WaveInEventArgs e)
     {
         if (isRecording)
         {
-            // If currently silent, increment silence duration
-            if (isSilent)
+            writer.Write(e.Buffer, 0, e.BytesRecorded);
+            // Convert bytes to floats for amplitude calculation
+            float[] buffer = new float[e.BytesRecorded / 2];
+            for (int i = 0; i < buffer.Length; i++)
             {
-                silenceDuration += Time.deltaTime;
-
-                // Check if silence duration exceeds minimum required silence
-                if (silenceDuration >= minSilenceDuration)
-                {
-                    //StopRecording();
-                    Debug.Log("Test");
-                }
+                buffer[i] = BitConverter.ToInt16(e.Buffer, i * 2) / 32768f;
+            }
+            // Add recent samples to the list
+            recentSamples.AddRange(buffer);
+            // Keep only the most recent samples
+            if (recentSamples.Count > numRecentSamples)
+            {
+                recentSamples.RemoveRange(0, recentSamples.Count - numRecentSamples);
             }
         }
     }
 
-    // Stop recording and save the WAV file
-    void StopRecording()
+    public void StartRecording()
     {
+        InitializeRecorder();
+        Debug.Log("Started Recording...");
+        isRecording = true;
+        waveIn.StartRecording();
+        // Create a new WAV file for recording
+        writer = new WaveFileWriter(destination, waveIn.WaveFormat);
+    }
+
+    public void StopRecording()
+    {
+        Debug.Log("Stopping Recording");
         isRecording = false;
         waveIn.StopRecording();
-        SaveRecording();
+        writer.Close();
+        writer.Dispose();
+
+        // Send recorded audio over websocket
+        SendAudioOverWebsocket();
     }
 
-    // Callback function for audio data availability
-    void OnDataAvailable(object sender, WaveInEventArgs e)
+    void SendAudioOverWebsocket()
     {
-        // Write audio data to stream if recording
-        if (isRecording)
+        if (File.Exists(destination))
         {
-            recordedStream.Write(e.Buffer, 0, e.BytesRecorded);
+            // Read the WAV file as bytes
+            byte[] audioBytes = File.ReadAllBytes(destination);
 
-            // Check for silence
-            float rmsAmplitude = GetRMSAmplitude(e.Buffer, e.BytesRecorded);
-            Debug.Log(rmsAmplitude + " < " + silenceThreshold);
-            isSilent = rmsAmplitude < silenceThreshold;
+            // Encode the audio bytes as Base64 string
+            string base64Audio = Convert.ToBase64String(audioBytes);
 
-            // If not silent, reset silence duration
-            if (!isSilent)
-            {
-                silenceDuration = 0f;
-            }
+            VegaAudio va = new VegaAudio(base64Audio, "");
+
+            wdh.SendAudio(va);
+
         }
     }
 
-    // Calculate RMS amplitude of audio data
-    float GetRMSAmplitude(byte[] buffer, int length)
+    void Update()
     {
-        // Convert byte array to float array
-        float[] samples = new float[length / 2];
-        for (int i = 0; i < length / 2; i++)
+        if (isRecording && IsSilenceDetected())
         {
-            short sample = (short)((buffer[i * 2 + 1] << 8) | buffer[i * 2]);
-            samples[i] = sample / 32768f;
+            StopRecording();
         }
-
-        // Calculate RMS amplitude
-        double sumOfSquares = 0;
-        foreach (float sample in samples)
-        {
-            sumOfSquares += sample * sample;
-        }
-        double rms = Math.Sqrt(sumOfSquares / samples.Length);
-
-        return (float)rms;
     }
 
-    // Save recorded audio to WAV file
-    void SaveRecording()
+    bool IsSilenceDetected()
     {
-        // Create a new WaveFileWriter to write audio data to the specified file path
-        waveWriter = new WaveFileWriter(filePath, waveIn.WaveFormat);
+        // Calculate the average amplitude of recent samples
+        float sum = 0f;
+        foreach (float sample in recentSamples)
+        {
+            sum += Mathf.Abs(sample);
+        }
+        float averageAmplitude = sum / recentSamples.Count;
 
-        // Write audio data from stream to the WAV file
-        recordedStream.Position = 0;
-        recordedStream.CopyTo(waveWriter);
+        //Debug.Log(averageAmplitude);
 
-        // Close writer and stream
-        waveWriter.Dispose();
-        recordedStream.Dispose();
-    }
+        // Check if the amplitude falls below the threshold for the duration
+        if (averageAmplitude < silenceThreshold)
+        {
+            durationLeft -= Time.deltaTime;
+        }
+        else
+        {
+            // Reset silence duration if amplitude is above the threshold
+            durationLeft = silenceDuration;
+        }
 
-    // Cleanup resources
-    void OnDestroy()
-    {
-        waveIn?.Dispose();
-        waveWriter?.Dispose();
-        recordedStream?.Dispose();
+        // If silence duration is met, return true
+        return durationLeft <= 0f;
     }
 }

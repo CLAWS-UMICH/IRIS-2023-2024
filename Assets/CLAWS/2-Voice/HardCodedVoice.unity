@@ -320,8 +320,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ae7ab7eb835a074abbef506551c8510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePath: Assets/CLAWS/Audio/recorded_audio.wav
-  recordingDuration: 3
+  numRecentSamples: 100
+  silenceThreshold: 0.005
+  silenceDuration: 3
 --- !u!1 &694318115
 GameObject:
   m_ObjectHideFlags: 0

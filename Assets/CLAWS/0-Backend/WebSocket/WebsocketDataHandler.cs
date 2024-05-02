@@ -736,6 +736,39 @@ public class WebsocketDataHandler : MonoBehaviour
         wsClient.SendJsonData(jsonData);
     }
 
+    public void HandleAudioData(VegaAudio _data, string use)
+    {
+
+        if (use == "GET")
+        {
+            if (debugMode) Debug.Log("(PUT) WebsocketDataHandler.cs: Sending Audio");
+
+            // Create a new CombinedData instance
+            AudioData combinedData = new AudioData
+            {
+                id = AstronautInstance.User.id,
+                type = "AUDIO",
+                use = "PUT",
+                data = _data
+            };
+
+            // Convert the vitals data to JSON format and send to WebSocket client
+            string jsonData = JsonUtility.ToJson(combinedData);
+
+            wsClient.SendJsonData(jsonData);
+
+        }
+        else if (use == "PUT")
+        {
+            EventBus.Publish(new SpeechToText(_data.text_from_VEGA));
+        } 
+        else
+        {
+            Debug.Log("Invalid use case from server");
+        }
+
+    }
+
     // Public functions for to call to send data
     public void SendInitialData(string color, string name, int _id)
     {
@@ -801,6 +834,11 @@ public class WebsocketDataHandler : MonoBehaviour
     {
         Location emptyLocationData = new Location();
         HandleKill();
+    }
+
+    public void SendAudio(VegaAudio data)
+    {
+        HandleAudioData(data, "GET");
     }
 
 }

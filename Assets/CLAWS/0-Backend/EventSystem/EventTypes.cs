@@ -576,3 +576,13 @@ public class WebNavEvent
         loc = _loc;
     }
 }
+
+public class SpeechToText
+{
+    public string text;
+
+    public SpeechToText(string _text)
+    {
+        text = _text;
+    }
+}

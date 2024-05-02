@@ -238,6 +238,10 @@ public class WebSocketClient : MonoBehaviour
                 HighlightData highData = JsonUtility.FromJson<HighlightData>(jsonData);
                 dataHandler.HandleHighlightData(highData.button_id, highData.use);
                 break;
+            case "AUDIO":
+                AudioData audioData = JsonUtility.FromJson<AudioData>(jsonData);
+                dataHandler.HandleAudioData(audioData.data, audioData.use);
+                break;
             // Handle other message types similarly
             default:
                 Debug.LogWarning("Unknown message type: " + messageType);
@@ -391,4 +395,26 @@ public class KillData
 {
     public int id;
     public string type;
+}
+
+[Serializable]
+public class VegaAudio
+{
+    public string base_64_audio;
+    public string text_from_VEGA;
+
+    public VegaAudio(string a, string s)
+    {
+        base_64_audio = a;
+        text_from_VEGA = s;
+    }
+}
+
+[Serializable]
+public class AudioData
+{
+    public int id;
+    public string type;
+    public string use;
+    public VegaAudio data;
 }

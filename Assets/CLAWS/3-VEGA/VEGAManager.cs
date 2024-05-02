@@ -5,44 +5,32 @@ using TMPro;
 
 public class VEGAManager : MonoBehaviour
 {
-    Subscription<VEGASpeechToTextCommand> vegaCommandEvent;
+    Subscription<SpeechToText> vegaCommandEvent;
     GameObject screen;
     TextMeshPro text;
     // Start is called before the first frame update
     void Start()
     {
-        vegaCommandEvent = EventBus.Subscribe<VEGASpeechToTextCommand>(onNewVEGACommand);
+        vegaCommandEvent = EventBus.Subscribe<SpeechToText>(onNewVEGACommand);
         screen = transform.Find("Screen").gameObject;
         text = transform.Find("Screen").Find("text").transform.GetComponent<TextMeshPro>();
         text.text = "";
         screen.SetActive(false);
     }
 
-    private void onNewVEGACommand(VEGASpeechToTextCommand c)
+    private void onNewVEGACommand(SpeechToText c)
     {
-        if (c.userID == 0)
-        {
-            if (c.isTheFinal == false)
-            {
-                //Debug.Log("Current VEGA Command: " + c.command);
-                text.text = c.command;
-            }
-            else
-            {
-                //Debug.Log("Final VEGA Command: " + c.command);
-                text.text = c.command;
-                StartCoroutine(CloseScreenWithDelay());
-            }
-        }
+        text.text = c.text;
+        StartCoroutine(CloseScreenWithDelay(2));
     }
 
-    private IEnumerator CloseScreenWithDelay()
+    private IEnumerator CloseScreenWithDelay(float delay)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(delay);
         screen.SetActive(false);
     }
 
-    public void StartVEGA()
+    /*public void StartVEGA()
     {
         SpeechRecognitionManager.SwitchToDictation(0);
         text.text = "";
@@ -53,5 +41,5 @@ public class VEGAManager : MonoBehaviour
     {
         SpeechRecognitionManager.SwitchToPhraseRecognition();
         text.text = "";
-    }
+    }*/
 }
