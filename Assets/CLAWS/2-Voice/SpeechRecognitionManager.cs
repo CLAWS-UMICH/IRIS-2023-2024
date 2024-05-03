@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Windows.Speech;
+#if !UNITY_WEBGL
+    using UnityEngine.Windows.Speech; // 
+#endif
 
 public class SpeechRecognitionManager : MonoBehaviour
 {
-    private static DictationRecognizer dictationRecognizer;
+    #if !UNITY_WEBGL
+        private static DictationRecognizer dictationRecognizer; //
+    #endif
     private static bool dictationOn;
     private static bool phraseOn;
     private static int dictationUser;
@@ -20,11 +24,13 @@ public class SpeechRecognitionManager : MonoBehaviour
         dictationUser = -1;
 
         // Initialize speech recognition systems
-        dictationRecognizer = new DictationRecognizer();
-        dictationRecognizer.DictationResult += DictationRecognizer_DictationResult;
-        dictationRecognizer.DictationHypothesis += DictationRecognizer_DictationHypothesis;
-        dictationRecognizer.DictationComplete += DictationRecognizer_DictationComplete;
-        dictationRecognizer.DictationError += DictationRecognizer_DictationError;
+        #if !UNITY_WEBGL
+            dictationRecognizer = new DictationRecognizer();
+            dictationRecognizer.DictationResult += DictationRecognizer_DictationResult;
+            dictationRecognizer.DictationHypothesis += DictationRecognizer_DictationHypothesis;
+            dictationRecognizer.DictationComplete += DictationRecognizer_DictationComplete;
+            dictationRecognizer.DictationError += DictationRecognizer_DictationError;
+        #endif
 
         // Deactivate dictation and enable phrase systems initially
         DeactivateDictation();
@@ -36,7 +42,9 @@ public class SpeechRecognitionManager : MonoBehaviour
     {
         result = "";
         dictationOn = true;
-        dictationRecognizer.Start();
+        #if !UNITY_WEBGL
+            dictationRecognizer.Start();
+        #endif
         // Start or restart the timer coroutine
         if (dictationTimerCoroutine != null)
             instance.StopCoroutine(dictationTimerCoroutine);
@@ -47,7 +55,9 @@ public class SpeechRecognitionManager : MonoBehaviour
     {
         dictationUser = -1;
         dictationOn = false;
-        dictationRecognizer.Stop();
+        #if !UNITY_WEBGL
+            dictationRecognizer.Stop();
+        #endif
         // Stop the timer coroutine
         if (dictationTimerCoroutine != null)
             instance.StopCoroutine(dictationTimerCoroutine);
@@ -56,21 +66,24 @@ public class SpeechRecognitionManager : MonoBehaviour
     // Activate and Deactivate methods for Phrase Recognition
     public static void ActivatePhraseRecognition()
     {
-        if (PhraseRecognitionSystem.Status != SpeechSystemStatus.Running)
-        {
-            PhraseRecognitionSystem.Restart();
-        }
+        #if !UNITY_WEBGL
+            if (PhraseRecognitionSystem.Status != SpeechSystemStatus.Running)
+            {
+                PhraseRecognitionSystem.Restart();
+            }
+        #endif
 
         phraseOn = true;
     }
 
     public static void DeactivatePhraseRecognition()
     {
-        if (PhraseRecognitionSystem.Status == SpeechSystemStatus.Running)
-        {
-            PhraseRecognitionSystem.Shutdown();
-        }
-
+        #if !UNITY_WEBGL
+            if (PhraseRecognitionSystem.Status == SpeechSystemStatus.Running)
+            {
+                PhraseRecognitionSystem.Shutdown();
+            }
+        #endif
         phraseOn = false;
     }
 
@@ -89,12 +102,14 @@ public class SpeechRecognitionManager : MonoBehaviour
         //ActivatePhraseRecognition();
     }
 
-    private void DictationRecognizer_DictationResult(string text, ConfidenceLevel confidence)
-    {
-        //Debug.Log("Dictation Result: " + text);
-        result += " " + text;
-        EventBus.Publish(new VEGASpeechToTextCommand(result, false, dictationUser));
-    }
+    #if !UNITY_WEBGL
+        private void DictationRecognizer_DictationResult(string text, ConfidenceLevel confidence) //
+        {
+            //Debug.Log("Dictation Result: " + text);
+            result += " " + text;
+            EventBus.Publish(new VEGASpeechToTextCommand(result, false, dictationUser));
+        }
+    #endif
 
     private void DictationRecognizer_DictationHypothesis(string text)
     {
@@ -108,10 +123,13 @@ public class SpeechRecognitionManager : MonoBehaviour
         //Debug.Log("Dictation Hypothesis: " + text);
     }
 
-    private void DictationRecognizer_DictationComplete(DictationCompletionCause cause)
-    {
-        //Debug.Log("Dictation Complete: " + cause.ToString());
-    }
+    #if !UNITY_WEBGL
+
+        private void DictationRecognizer_DictationComplete(DictationCompletionCause cause) //
+        {
+            //Debug.Log("Dictation Complete: " + cause.ToString());
+        }
+    #endif
 
     private void DictationRecognizer_DictationError(string error, int hresult)
     {
@@ -146,14 +164,16 @@ public class SpeechRecognitionManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (dictationRecognizer != null)
-        {
-            dictationRecognizer.DictationResult -= DictationRecognizer_DictationResult;
-            dictationRecognizer.DictationHypothesis -= DictationRecognizer_DictationHypothesis;
-            dictationRecognizer.DictationComplete -= DictationRecognizer_DictationComplete;
-            dictationRecognizer.DictationError -= DictationRecognizer_DictationError;
+        #if !UNITY_WEBGL
+            if (dictationRecognizer != null)
+            {
+                dictationRecognizer.DictationResult -= DictationRecognizer_DictationResult;
+                dictationRecognizer.DictationHypothesis -= DictationRecognizer_DictationHypothesis;
+                dictationRecognizer.DictationComplete -= DictationRecognizer_DictationComplete;
+                dictationRecognizer.DictationError -= DictationRecognizer_DictationError;
 
-            dictationRecognizer.Dispose();
-        }
+                dictationRecognizer.Dispose();
+            }
+        #endif
     }
 }

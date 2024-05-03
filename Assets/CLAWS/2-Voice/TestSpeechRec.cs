@@ -1,15 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Windows.Speech;
+#if !UNITY_WEBGL
+    using UnityEngine.Windows.Speech; // 
+#endif
 
 public class TestSpeechRec : MonoBehaviour
 {
-    private DictationRecognizer dictationRecognizer;
-
+    #if !UNITY_WEBGL
+        private DictationRecognizer dictationRecognizer; //
+    #endif
     // Start is called before the first frame update
     void Start()
     {
+    #if !UNITY_WEBGL
         // Stop any existing phrase recognition system
         if (PhraseRecognitionSystem.Status == SpeechSystemStatus.Running)
         {
@@ -24,24 +28,25 @@ public class TestSpeechRec : MonoBehaviour
         dictationRecognizer.DictationError += DictationRecognizer_DictationError;
 
         dictationRecognizer.Start();
+    #endif
     }
 
-
-    private void DictationRecognizer_DictationResult(string text, ConfidenceLevel confidence)
-    {
-        Debug.Log("Dictation Result: " + text);
-    }
-
+    #if !UNITY_WEBGL
+        private void DictationRecognizer_DictationResult(string text, ConfidenceLevel confidence) //
+        {
+            Debug.Log("Dictation Result: " + text);
+        }
+    #endif
     private void DictationRecognizer_DictationHypothesis(string text)
     {
         //Debug.Log("Dictation Hypothesis: " + text);
     }
-
-    private void DictationRecognizer_DictationComplete(DictationCompletionCause cause)
-    {
-        //Debug.Log("Dictation Complete: " + cause.ToString());
-    }
-
+    #if !UNITY_WEBGL
+        private void DictationRecognizer_DictationComplete(DictationCompletionCause cause) //
+        {
+            //Debug.Log("Dictation Complete: " + cause.ToString());
+        }
+    #endif
     private void DictationRecognizer_DictationError(string error, int hresult)
     {
         //Debug.LogError("Dictation Error: " + error);
@@ -49,14 +54,16 @@ public class TestSpeechRec : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (dictationRecognizer != null)
-        {
-            dictationRecognizer.DictationResult -= DictationRecognizer_DictationResult;
-            dictationRecognizer.DictationHypothesis -= DictationRecognizer_DictationHypothesis;
-            dictationRecognizer.DictationComplete -= DictationRecognizer_DictationComplete;
-            dictationRecognizer.DictationError -= DictationRecognizer_DictationError;
+        #if !UNITY_WEBGL
+            if (dictationRecognizer != null)
+            {
+                dictationRecognizer.DictationResult -= DictationRecognizer_DictationResult;
+                dictationRecognizer.DictationHypothesis -= DictationRecognizer_DictationHypothesis;
+                dictationRecognizer.DictationComplete -= DictationRecognizer_DictationComplete;
+                dictationRecognizer.DictationError -= DictationRecognizer_DictationError;
 
-            dictationRecognizer.Dispose();
-        }
+                dictationRecognizer.Dispose();
+            }
+        #endif
     }
 }
