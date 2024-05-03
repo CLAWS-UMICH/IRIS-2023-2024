@@ -27,7 +27,7 @@ public class MainConnections : MonoBehaviour
 
         if (autoConnectWebSocket)
         {
-            StartCoroutine(_ConnectWebSocket(webSocketUrl, "", "Brian2", 1, id));
+            StartCoroutine(_ConnectWebSocket(webSocketUrl, "", "Brian2", 1, id - 1));
         }
     }
 
