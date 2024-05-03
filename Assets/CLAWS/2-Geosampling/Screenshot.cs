@@ -137,6 +137,10 @@ public class Screenshot : MonoBehaviour
         return "";
     }
 
+    public string UseThisPhoto(GameObject outputQuad, int id) {
+        return "";
+    }
+
     public void TogglePanel(GameObject panel)
     {
         panel.SetActive(!button.activeSelf);

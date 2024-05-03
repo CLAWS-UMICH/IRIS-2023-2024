@@ -275,11 +275,13 @@ public class GeosamplingDB_Manager : MonoBehaviour
 
     private void ShowPhoto(Geosample g)
     {
+#if !UNITY_WEBGL
         if (Screenshot.SamplePictures.ContainsKey(g.geosample_id))
         {
             Renderer r = outputQuad.GetComponent<Renderer>();
             r.material = Screenshot.SamplePictures[g.geosample_id];
-        }
+        }  
+#endif
     }
     private void HidePhoto()
     {
