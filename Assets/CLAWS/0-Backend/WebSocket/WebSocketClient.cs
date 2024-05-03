@@ -103,6 +103,7 @@ public class WebSocketClient : MonoBehaviour
     {
         try
         {
+            
             if (ws != null && ws.IsAlive)
             {
                 #if !UNITY_WEBGL
@@ -120,7 +121,6 @@ public class WebSocketClient : MonoBehaviour
                 dataHandler.SendInitialData(color, name, _id);
                 return ws.IsAlive;
             #endif
-
             return true;
         }
         catch (Exception ex)

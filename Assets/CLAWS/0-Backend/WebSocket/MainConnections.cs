@@ -18,16 +18,16 @@ public class MainConnections : MonoBehaviour
     {
         websocketConnected = false;
         TSSConnected = false;
-        id = 0;
-
-        if (autoConnectWebSocket)
-        {
-            StartCoroutine(_ConnectWebSocket(webSocketUrl, "", "", 0, id));
-        }
 
         if (autoConnectTSS)
         {
             ConnectTSS(tssUrl);
+            AstronautInstance.User.id = id;
+        }
+
+        if (autoConnectWebSocket)
+        {
+            StartCoroutine(_ConnectWebSocket(webSocketUrl, "", "Brian2", 1, id));
         }
     }
 

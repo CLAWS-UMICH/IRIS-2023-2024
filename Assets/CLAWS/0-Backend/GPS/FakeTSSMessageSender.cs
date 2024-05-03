@@ -16,7 +16,7 @@ public class FakeTSSMessageSender : MonoBehaviour
         Fake_SetGPS();
         Fake_Vitals();
         //StartCoroutine(AddFake());
-        StartCoroutine(WebConnect());
+        //StartCoroutine(WebConnect());
     }
    
     public void Fake_SetGPS()

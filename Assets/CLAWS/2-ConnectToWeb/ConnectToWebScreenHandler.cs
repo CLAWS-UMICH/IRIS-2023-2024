@@ -10,6 +10,7 @@ public class ConnectToWebScreenHandler : MonoBehaviour
     GameObject connectScreen;
     GameObject disconnectScreen;
     GameObject chooseScreen;
+    GameObject TSSScreen;
 
     TMP_InputField connectionLinkText;
     TMP_InputField nameText;
@@ -31,6 +32,7 @@ public class ConnectToWebScreenHandler : MonoBehaviour
         connectScreen = transform.Find("ConnectToWeb").gameObject;
         disconnectScreen = transform.Find("DisconnectScreen").gameObject;
         chooseScreen = transform.Find("ConnectionChooseScreen").gameObject;
+        TSSScreen = transform.Find("ConnectToTSS").gameObject;
         connectionLinkText = connectScreen.transform.Find("LinkField").transform.Find("TextField").transform.Find("InputField (TMP)").GetComponent<TMP_InputField>();
         nameText = connectScreen.transform.Find("NameField").transform.Find("TextField").transform.Find("InputField (TMP)").GetComponent<TMP_InputField>();
         disconnectText = disconnectScreen.transform.Find("NameField").transform.Find("NameText").GetComponent<TextMeshPro>();
@@ -39,6 +41,7 @@ public class ConnectToWebScreenHandler : MonoBehaviour
         connectScreen.SetActive(false);
         disconnectScreen.SetActive(false);
         chooseScreen.SetActive(false);
+        TSSScreen.SetActive(false);
 
         connected = false;
         connectionLinkText.text = GameObject.Find("Controller").GetComponent<MainConnections>().getWebsocketURL();
@@ -56,7 +59,8 @@ public class ConnectToWebScreenHandler : MonoBehaviour
         openTSS = false;
         connectScreen.SetActive(false);
         disconnectScreen.SetActive(false);
-        chooseScreen.SetActive(false); 
+        chooseScreen.SetActive(false);
+        TSSScreen.SetActive(false);
     }
 
     public void OpenConnectDisconnectScreen()
@@ -66,6 +70,8 @@ public class ConnectToWebScreenHandler : MonoBehaviour
             if (connected)
             {
                 connectScreen.SetActive(false);
+                TSSScreen.SetActive(false);
+                chooseScreen.SetActive(false);
                 disconnectScreen.SetActive(true);
             }
             else
@@ -75,14 +81,34 @@ public class ConnectToWebScreenHandler : MonoBehaviour
                 nameText.text = "";
                 disconnectText.text = "";
                 connectScreen.SetActive(true);
+                TSSScreen.SetActive(false);
+                chooseScreen.SetActive(false);
                 disconnectScreen.SetActive(false);
             }
         } else if (openTSS)
         {
-            // TODO Connect TSS
-            GameObject.Find("Controller").GetComponent<MainConnections>().ConnectToTSS();
-            CloseConnectDisconnectScreen();
+            TSSScreen.SetActive(true);
+            connectScreen.SetActive(false);
+            disconnectScreen.SetActive(false);
+            chooseScreen.SetActive(false);
         }
+    }
+
+    public void EVA1()
+    {
+        ConnectToTSS(1);
+    }
+
+    public void EVA2()
+    {
+        ConnectToTSS(2);
+    }
+
+    public void ConnectToTSS(int evaNumber)
+    {
+        GameObject.Find("Controller").GetComponent<MainConnections>().ConnectToTSS();
+        AstronautInstance.User.id = evaNumber;
+        CloseConnectDisconnectScreen();
     }
 
     public void OpenWebScreen()
