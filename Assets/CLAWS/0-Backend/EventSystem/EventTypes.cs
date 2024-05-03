@@ -586,3 +586,55 @@ public class SpeechToText
         text = _text;
     }
 }
+
+public class RoverChanged
+{
+    public RoverDetails data { get; private set; }
+
+    public RoverChanged(RoverDetails d)
+    {
+        data = d;
+    }
+}
+
+public class DCUChanged
+{
+    public EvaDetails data { get; private set; }
+
+    public DCUChanged(EvaDetails d)
+    {
+        data = d;
+    }
+}
+
+public class UIAChanged
+{
+    public UiDetails data { get; private set; }
+
+    public UIAChanged(UiDetails d)
+    {
+        data = d;
+    }
+}
+
+public class CommChanged
+{
+    public CommDetails data { get; private set; }
+
+    public CommChanged(CommDetails d)
+    {
+        data = d;
+    }
+}
+
+public class IMUChanged
+{
+    public IMUData data { get; private set; }
+
+    public IMUChanged(IMUData d)
+    {
+        data = d;
+    }
+}
+
+

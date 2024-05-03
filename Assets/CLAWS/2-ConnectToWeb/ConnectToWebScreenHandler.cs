@@ -107,7 +107,7 @@ public class ConnectToWebScreenHandler : MonoBehaviour
     public void ConnectToTSS(int evaNumber)
     {
         GameObject.Find("Controller").GetComponent<MainConnections>().ConnectToTSS();
-        AstronautInstance.User.id = evaNumber;
+        AstronautInstance.User.id = evaNumber - 1;
         CloseConnectDisconnectScreen();
     }
 
