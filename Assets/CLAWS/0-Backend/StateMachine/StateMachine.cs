@@ -10,7 +10,7 @@ public enum Screens
     SelectStationNav,
     SelectPOINav,
     SelectGeoNav,
-    SelectDangerNav,
+    SelectCompNav,
     CreatingWaypoint,
     NavConfirmation,
     Vitals_1,

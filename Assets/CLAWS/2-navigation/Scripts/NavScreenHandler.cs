@@ -9,7 +9,7 @@ public enum ScreenType
     Station,
     POI,
     GeoSample,
-    Danger
+    Comp
 }
 
 public class NavScreenHandler : MonoBehaviour
@@ -19,8 +19,9 @@ public class NavScreenHandler : MonoBehaviour
     GameObject stationScreen;
     GameObject POIScreen;
     GameObject geoScreen;
-    GameObject dangerScreen;
+    GameObject compScreen;
     GameObject pathfindingScreen;
+    GameObject compButton;
     public GameObject cancelRouteBtn;
 
     GameObject confirmationScreen;
@@ -42,7 +43,7 @@ public class NavScreenHandler : MonoBehaviour
     ScrollHandler stationScrollHandler;
     ScrollHandler POIScrollHandler;
     ScrollHandler geoScrollHandler;
-    ScrollHandler dangerScrollHandler;
+    ScrollHandler compScrollHandler;
 
     [SerializeField] ScreenType currentScreen;
 
@@ -57,7 +58,7 @@ public class NavScreenHandler : MonoBehaviour
     List<string> stationLetters = new List<string>();
     List<string> poiLetters = new List<string>();
     List<string> geoLetters = new List<string>();
-    List<string> dangerLetters = new List<string>();
+    List<string> compLetters = new List<string>();
 
     private float BATT_TIME_CAP = 21600;
     private float OXY_TIME_CAP = 10800;
@@ -82,7 +83,7 @@ public class NavScreenHandler : MonoBehaviour
         stationScreen = parentScreen.transform.Find("StationScroll").gameObject;
         POIScreen = parentScreen.transform.Find("POIScroll").gameObject;
         geoScreen = parentScreen.transform.Find("GeoScroll").gameObject;
-        dangerScreen = parentScreen.transform.Find("DangerScroll").gameObject;
+        compScreen = parentScreen.transform.Find("CompScroll").gameObject;
         title = parentScreen.transform.Find("Title").GetComponent<TextMeshPro>();
         confirmationScreen = transform.parent.Find("NavConfirmation").gameObject;
 
@@ -94,17 +95,18 @@ public class NavScreenHandler : MonoBehaviour
 
         stationScrollHandler = stationScreen.GetComponent<ScrollHandler>();
         POIScrollHandler = POIScreen.GetComponent<ScrollHandler>();
-        dangerScrollHandler = dangerScreen.GetComponent<ScrollHandler>();
+        compScrollHandler = compScreen.GetComponent<ScrollHandler>();
         geoScrollHandler = geoScreen.GetComponent<ScrollHandler>();
 
-        title.text = "Station";
+        title.text = "Comp";
         hasLocation = false;
-        currentScreen = ScreenType.Station;
+        currentScreen = ScreenType.Comp;
         parentScreen.SetActive(false);
-        stationScreen.SetActive(true);
+        compScreen.SetActive(true);
         POIScreen.SetActive(false);
         geoScreen.SetActive(false);
         parentScreen.SetActive(false);
+        stationScreen.SetActive(false);
         confirmationScreen.SetActive(false);
 
         confirmation_title = confirmationScreen.transform.Find("Title").GetComponent<TextMeshPro>();
@@ -124,6 +126,8 @@ public class NavScreenHandler : MonoBehaviour
 
         modeChangedSubscription = EventBus.Subscribe<ModeChangedEvent>(SwitchMode);
         onWebNav = EventBus.Subscribe<WebNavEvent>(OnWebNavigation);
+
+        compButton = parentScreen.transform.Find("CompButton").gameObject;
     }
 
     public void CloseScreenStart()
@@ -141,29 +145,22 @@ public class NavScreenHandler : MonoBehaviour
 
     public void OpenNavScreen()
     {
-        EventBus.Publish(new ScreenChangedEvent(Screens.SelectStationNav));
-        title.text = "Station";
-        hasLocation = false;
-        currentScreen = ScreenType.Station;
-        stationScreen.SetActive(true);
-        POIScreen.SetActive(false);
-        geoScreen.SetActive(false);
+        OpenCompanions();
         parentScreen.SetActive(true);
         confirmationScreen.SetActive(false);
-
-        // Update to see ONLY station icons on map (ASK UX IF THIS SHOULD BE ALL OR ONLY STATION)
-        SwitchCameraCull(23);
+        compButton.GetComponent<ButtonHighlight>().OnClick();
     }
 
     public void CloseNavScreen()
     {
         EventBus.Publish(new ScreenChangedEvent(Screens.Menu));
-        title.text = "Station";
+        title.text = "Companions";
         hasLocation = false;
-        currentScreen = ScreenType.Station;
-        stationScreen.SetActive(true);
+        currentScreen = ScreenType.Comp;
+        compScreen.SetActive(true);
         POIScreen.SetActive(false);
         geoScreen.SetActive(false);
+        stationScreen.SetActive(false);
         parentScreen.SetActive(false);
         confirmationScreen.SetActive(false);
 
@@ -180,7 +177,7 @@ public class NavScreenHandler : MonoBehaviour
         currentScreen = ScreenType.Station;
         POIScreen.SetActive(false);
         geoScreen.SetActive(false);
-        dangerScreen.SetActive(false);
+        compScreen.SetActive(false);
         stationScreen.SetActive(true);
         confirmationScreen.SetActive(false);
 
@@ -195,7 +192,7 @@ public class NavScreenHandler : MonoBehaviour
         hasLocation = false;
         currentScreen = ScreenType.GeoSample;
         geoScreen.SetActive(false);
-        dangerScreen.SetActive(false);
+        compScreen.SetActive(false);
         stationScreen.SetActive(false);
         confirmationScreen.SetActive(false);
         POIScreen.SetActive(true);
@@ -211,7 +208,7 @@ public class NavScreenHandler : MonoBehaviour
         hasLocation = false;
         currentScreen = ScreenType.GeoSample;
         POIScreen.SetActive(false);
-        dangerScreen.SetActive(false);
+        compScreen.SetActive(false);
         stationScreen.SetActive(false);
         confirmationScreen.SetActive(false);
         geoScreen.SetActive(true);
@@ -220,19 +217,19 @@ public class NavScreenHandler : MonoBehaviour
         SwitchCameraCull(25);
     }
 
-    public void OpenDanger()
+    public void OpenCompanions()
     {
-        EventBus.Publish(new ScreenChangedEvent(Screens.SelectDangerNav));
-        title.text = "Danger";
+        EventBus.Publish(new ScreenChangedEvent(Screens.SelectCompNav));
+        title.text = "Companions";
         hasLocation = false;
-        currentScreen = ScreenType.Danger;
+        currentScreen = ScreenType.Comp;
         POIScreen.SetActive(false);
         geoScreen.SetActive(false);
         stationScreen.SetActive(false);
         confirmationScreen.SetActive(false);
-        dangerScreen.SetActive(true);
+        compScreen.SetActive(true);
 
-        // Update to see ONLY danger icons on map
+        // Update to see ONLY comp icons on map
         SwitchCameraCull(26);
     }
 
@@ -248,8 +245,8 @@ public class NavScreenHandler : MonoBehaviour
                 POIScrollHandler.ScrollUpOrLeft();
                 break;
 
-            case ScreenType.Danger:
-                dangerScrollHandler.ScrollUpOrLeft();
+            case ScreenType.Comp:
+                compScrollHandler.ScrollUpOrLeft();
                 break;
 
             case ScreenType.GeoSample:
@@ -273,8 +270,8 @@ public class NavScreenHandler : MonoBehaviour
                 POIScrollHandler.ScrollDownOrRight();
                 break;
 
-            case ScreenType.Danger:
-                dangerScrollHandler.ScrollDownOrRight();
+            case ScreenType.Comp:
+                compScrollHandler.ScrollDownOrRight();
                 break;
 
             case ScreenType.GeoSample:
@@ -286,7 +283,7 @@ public class NavScreenHandler : MonoBehaviour
         }
     }
 
-    // 0 = station, 1 = nav, 2 = geo, 3 = danger
+    // 0 = station, 1 = nav, 2 = geo, 3 = danger, 4 = companion
     public GameObject AddButton(Waypoint way)
     {
         GameObject go = new GameObject();
@@ -309,9 +306,9 @@ public class NavScreenHandler : MonoBehaviour
                 geoLetters.Add(way.waypoint_letter);
                 break;
 
-            case 3:
-                go = dangerScrollHandler.HandleAddingButton(buttonPrefab);
-                dangerLetters.Add(way.waypoint_letter);
+            case 4:
+                go = compScrollHandler.HandleAddingButton(buttonPrefab);
+                compLetters.Add(way.waypoint_letter);
                 break;
 
             default:
@@ -341,9 +338,9 @@ public class NavScreenHandler : MonoBehaviour
                 geoLetters.Remove(letter);
                 break;
 
-            case 3:
-                dangerScrollHandler.HandleButtonDeletion(button);
-                dangerLetters.Remove(letter);
+            case 4:
+                compScrollHandler.HandleButtonDeletion(button);
+                compLetters.Remove(letter);
                 break;
 
             default:
@@ -509,7 +506,7 @@ public class NavScreenHandler : MonoBehaviour
     {
         int mainCullingMask = mainMapCamera.cullingMask;
         int miniCullingMask = miniMapCamera.cullingMask;
-        // 23: Station, 24: Nav, 25: Geo, 26: Danger
+        // 23: Station, 24: Nav, 25: Geo, 26: Comp
         if (num == -1)
         {
             for (int i = 23; i < 27; i++)

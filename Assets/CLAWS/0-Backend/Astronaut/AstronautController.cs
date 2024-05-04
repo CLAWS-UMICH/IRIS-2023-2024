@@ -215,7 +215,7 @@ public class Waypoint
     public int waypoint_id; // starting from 0 and going up 1
     public string waypoint_letter;
     public Location location;
-    public int type; // 0 = station, 1 = POI, 2 = geo, 3 = danger
+    public int type; // 0 = station, 1 = POI, 2 = geo, 3 = danger, 4 = Companions
     public string description;
     public int author;
 

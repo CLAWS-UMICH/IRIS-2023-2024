@@ -8,7 +8,7 @@ public class ButtonHighlight : MonoBehaviour
     GameObject highLightQuad;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         regularQuad = transform.Find("Button").transform.Find("BackPlate").transform.Find("Quad").gameObject;
         highLightQuad = transform.Find("Button").transform.Find("BackPlate").transform.Find("HighlightQuad").gameObject;

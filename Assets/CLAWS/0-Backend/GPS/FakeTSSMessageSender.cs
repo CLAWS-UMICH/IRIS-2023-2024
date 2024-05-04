@@ -15,7 +15,7 @@ public class FakeTSSMessageSender : MonoBehaviour
         mainCamera = mainCameraHolder.transform.Find("Main Camera").gameObject;
         Fake_SetGPS();
         Fake_Vitals();
-        //StartCoroutine(AddFake());
+        StartCoroutine(AddFake());
         //StartCoroutine(WebConnect());
     }
    
@@ -49,30 +49,16 @@ public class FakeTSSMessageSender : MonoBehaviour
     {
 
 
-        double[,] locationAndTypes = new double[9, 3] // 0 = station, 1 = POI, 2 = geo, 3 = danger
+        /*double[,] locationAndTypes = new double[2, 3] // 0 = station, 1 = POI, 2 = geo, 3 = danger
         {
-            {29.564654728, -95.081798277, 2}, // A
-            {29.564729706, -95.081647739, 2}, // B
-            {29.564805017, -95.081722925, 2}, // C
-            {29.564880202, -95.081647781, 2}, // D
-            {29.564842422, -95.081459816, 2}, // E
-            {29.564992835, -95.081271769, 2}, // F
-            {29.564992908, -95.081459858, 1}, // G: Rover
-            {29.564617000, -95.081459764, 0}, // UIA
-            {29.564917681, -95.081234165, 0}, // Tower
+            {29.564654728, -95.081798277, 2}, // J Rover
+            {29.564654728, -95.081798277, 2}, // K Astronaut 2
         };
 
-        string[,] letters = new string[9, 1]
+        string[,] letters = new string[2, 1]
         {
-            {"A"},
-            {"B"},
-            {"C"},
-            {"D"},
-            {"E"},
-            {"F"},
-            {"G"},
-            {"H"},
-            {"I"},
+            {"J"},
+            {"K"},
         };
 
         List<Waypoint> list = new List<Waypoint>();
@@ -91,7 +77,8 @@ public class FakeTSSMessageSender : MonoBehaviour
             list.Add(way);
         }
 
-        EventBus.Publish(new WaypointsAddedEvent(list));
+        EventBus.Publish(new WaypointsAddedEvent(list));*/
+
     }
 
     IEnumerator WebConnect()
