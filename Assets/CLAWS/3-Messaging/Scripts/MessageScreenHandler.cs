@@ -8,12 +8,12 @@ public class MessageReceiveHandler : MonoBehaviour
 {
 
     GameObject parent;
-    GameObject textBubble;
+    GameObject chatScreen;
     GameObject AstroScreen;
     GameObject LMCCScreen;
     GameObject GroupChatScreen;
 
-    GameObject textBox;
+    [SerializeField] private GameObject textBox;
 
     TMP_InputField message;
 
@@ -26,6 +26,10 @@ public class MessageReceiveHandler : MonoBehaviour
     List<Message> AstroChat;
     List<Message> LMCCChat;
     List<Message> GroupChat;
+
+    private int astroCounter = 0;
+    private int LMCCCounter = 0;
+    private int groupChatCounter = 0;
 
     private WebsocketDataHandler websocket;
 
@@ -50,6 +54,8 @@ public class MessageReceiveHandler : MonoBehaviour
         websocket = transform.parent.parent.parent.Find("Controller").GetComponent<WebsocketDataHandler>();
 
         EventBus.Subscribe<MessagesAddedEvent>(appendList);
+
+        StartCoroutine(GenerateAstroBox());
     }
 
     void appendList(MessagesAddedEvent e)
@@ -75,7 +81,7 @@ public class MessageReceiveHandler : MonoBehaviour
     public void sendMessage()
     {
         Debug.Log(message);
-        groupChat = -2;
+        groupChat = 0;         // temporary set groupchat to -2 for testing
         // Exit if message field is empty
         if (!string.Equals(message.text, ""))
         {
@@ -96,7 +102,8 @@ public class MessageReceiveHandler : MonoBehaviour
                 LMCCChat.Add(m);
             }
             // Currently in astronaut chat
-            else if (groupChat == fa.astronaut_id)
+            //else if (groupChat == fa.astronaut_id)
+            else if (groupChat == 0)
             {
                 AstronautInstance.User.MessagingData.AllMessages.Add(m);
                 websocket.SendMessageData();
@@ -108,14 +115,30 @@ public class MessageReceiveHandler : MonoBehaviour
     }
 
     // Display text boxes
-    void generateBox(List<Message> chat, GameObject screen)
+    void generateBox(List<Message> chat, GameObject screen, int size)
     {
-        foreach (var c in chat)
+        for (int i = size; i < chat.Count(); i++)
         {
             GameObject box = Instantiate(textBox, screen.transform);
             TMP_Text textComponent = box.GetComponentInChildren<TMP_Text>();
-            textComponent.text = c.message;
+            textComponent.text = chat[i].message;
+
         }
+    }
+
+    IEnumerator GenerateAstroBox()
+    {
+        Debug.Log(astroCounter);
+        while (true)
+        {
+            if (astroCounter < AstroChat.Count())
+            {
+                generateBox(AstroChat, AstroScreen, astroCounter);
+                astroCounter = AstroChat.Count();
+            }
+            yield return null;
+        }
+        
     }
 
 
@@ -127,8 +150,6 @@ public class MessageReceiveHandler : MonoBehaviour
         LMCCScreen.SetActive(false);
         GroupChatScreen.SetActive(false);
         groupChat = fa.astronaut_id;
-
-        generateBox(AstroChat, AstroScreen);
     }
 
     public void displaLMCCMessage()
@@ -137,8 +158,6 @@ public class MessageReceiveHandler : MonoBehaviour
         LMCCScreen.SetActive(true);
         GroupChatScreen.SetActive(false);
         groupChat = -1;
-
-        generateBox(LMCCChat, LMCCScreen);
     }
 
     public void displayGroupMessage()
@@ -147,7 +166,20 @@ public class MessageReceiveHandler : MonoBehaviour
         LMCCScreen.SetActive(false);
         GroupChatScreen.SetActive(true);
         groupChat = -2;
+    }
 
-        generateBox(GroupChat, GroupChatScreen);
+    public void ClickConfirmed()
+    {
+        message.text = "Confirmed";
+    }
+
+    public void ClickRejected()
+    {
+        message.text = "Rejected";
+    }
+
+    public void ClickNotReady()
+    {
+        message.text = "Not Ready";
     }
 }
