@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting.Dependencies.Sqlite;
 
 public class UIAPanel : MonoBehaviour
 {
@@ -10,8 +11,14 @@ public class UIAPanel : MonoBehaviour
 
     public List<Transform> Cubes;
 
+    public TextMeshPro CenterTMP;
+    public TextMeshPro LowerTMP;
+    public UIAProgressBar ProgressBar;
+
     float extents_x;
     float extents_y;
+
+    public List<UIA_Button> Buttons;
 
     private void Start()
     {
@@ -28,6 +35,26 @@ public class UIAPanel : MonoBehaviour
             spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
+#if UNITY_EDITOR
+        spriteRenderer.enabled = true;
+#endif
+
+        var topy = (corner1_f.y + corner2_f.y) / 2;
+        var bottomy = (corner3_f.y + corner4_f.y) / 2;
+
+        var left = (corner1_f + corner4_f) / 2;
+        var right = (corner2_f + corner3_f) / 2;
+
+        corner1_f = new Vector3(left.x, topy, left.z);
+        corner2_f = new Vector3(right.x, topy, right.z);
+        corner3_f = new Vector3(right.x, bottomy, right.z);
+        corner4_f = new Vector3(left.x, bottomy, left.z);
+
+        Cubes[0].position = corner1_f;
+        Cubes[1].position = corner2_f;
+        Cubes[2].position = corner3_f;
+        Cubes[3].position = corner4_f;
+
         // Calculate position
         Vector3 position = (corner1_f + corner2_f + corner3_f + corner4_f) / 4f;
 
@@ -38,7 +65,7 @@ public class UIAPanel : MonoBehaviour
             0.1f);
 
         // Calculate rotation (assumes first corner to last corner)
-        Vector3 thirdOrthogonalVector = Vector3.Cross(corner2_f - corner1_f, corner4_f - corner1_f);
+        Vector3 thirdOrthogonalVector = Vector3.Cross(corner1_f - corner2_f, corner4_f - corner1_f);
         Quaternion rotation = Quaternion.LookRotation(thirdOrthogonalVector, Vector3.up);
 
         // Apply transformations
@@ -48,7 +75,7 @@ public class UIAPanel : MonoBehaviour
     }
 
     [ContextMenu("func rescale")]
-    public void debug_rescale()
+    public void SetPanelPosition()
     {
         List<Vector3> Positions = new();
         foreach (Transform c in Cubes)
@@ -56,27 +83,57 @@ public class UIAPanel : MonoBehaviour
             Positions.Add(c.position);
         }
 
-        var topy = (Positions[0].y + Positions[1].y) / 2;
-        var bottomy = (Positions[2].y + Positions[3].y) / 2;
-
-        var left = (Positions[0] + Positions[3]) / 2;
-        var right = (Positions[1] + Positions[2]) / 2;
-
-        Positions[0] = new Vector3(left.x, topy, left.z);
-        Positions[1] = new Vector3(right.x, topy, right.z);
-        Positions[2] = new Vector3(right.x, bottomy, right.z);
-        Positions[3] = new Vector3(left.x, bottomy, left.z);
-
-        Cubes[0].position = Positions[0];
-        Cubes[1].position = Positions[1];
-        Cubes[2].position = Positions[2];
-        Cubes[3].position = Positions[3];
-
         Rescale(
             Positions[0],
             Positions[1],
             Positions[2],
             Positions[3]
         );
+    }
+
+    /// <summary>
+    /// sets the tex, location_f is either "center" or "lower"
+    /// </summary>
+    /// <param name="text_f"></param>
+    /// <param name="location_f"></param> 
+    public void SetText(string text_f, string location_f)
+    {
+        if (location_f == "center")
+        {
+            CenterTMP.gameObject.SetActive(true);
+            LowerTMP.gameObject.SetActive(false);
+            ProgressBar.gameObject.SetActive(false);
+            CenterTMP.text = text_f;
+        }
+        else
+        {
+            CenterTMP.gameObject.SetActive(false);
+            LowerTMP.gameObject.SetActive(true);
+            ProgressBar.gameObject.SetActive(true);
+            LowerTMP.text = text_f;
+        }
+    }
+
+    public void HideAllButtons()
+    {
+        foreach (var button in Buttons)
+        {
+            button.HideButton();
+        }
+    }
+
+    public void SetButton(int num, bool up)
+    {
+        HideAllButtons();
+
+        // show the correct button
+        if (up)
+        {
+            Buttons[num].ShowButton_Up();
+        }
+        else
+        {
+            Buttons[num].ShowButton_Down();
+        }
     }
 }

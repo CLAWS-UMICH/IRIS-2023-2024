@@ -607,6 +607,22 @@ public class DCUChanged
     }
 }
 
+public class StartEgress
+{
+    public StartEgress()
+    {
+        Debug.Log("Start Egress Event");
+    }
+}
+public class StartIngress
+{
+    public StartIngress()
+    {
+        Debug.Log("Start Ingress Event");
+    }
+}
+
+
 public class UIAChanged
 {
     public UiDetails data { get; private set; }
