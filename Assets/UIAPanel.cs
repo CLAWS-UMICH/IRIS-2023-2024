@@ -6,7 +6,6 @@ using Unity.VisualScripting.Dependencies.Sqlite;
 
 public class UIAPanel : MonoBehaviour
 {
-    public TextMeshPro UIA_tmp;
     public SpriteRenderer spriteRenderer;
 
     public List<Transform> Cubes;
