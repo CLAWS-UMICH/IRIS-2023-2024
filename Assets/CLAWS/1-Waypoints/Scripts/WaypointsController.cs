@@ -241,7 +241,17 @@ public class WaypointsController : MonoBehaviour
         GameObject button = screenHandler.AddButton(way);
         waypointButtonDic[way.waypoint_id] = button;
 
-        AstronautInstance.User.WaypointData.currentIndex += 1;
+        while (true)
+        {
+            AstronautInstance.User.WaypointData.currentIndex += 1;
+
+            if (AstronautInstance.User.WaypointData.currentIndex != 17 &&
+                AstronautInstance.User.WaypointData.currentIndex != 23 &&
+                AstronautInstance.User.WaypointData.currentIndex != 24)
+            {
+                break;
+            }
+        }
 
         wd.SendWaypointData();
     }
