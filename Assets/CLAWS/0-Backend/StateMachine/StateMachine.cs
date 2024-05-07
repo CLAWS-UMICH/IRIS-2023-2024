@@ -32,8 +32,8 @@ public enum Modes
 public class StateMachine : MonoBehaviour
 {
 
-    public Screens CurrScreen = Screens.Menu;
-    public Modes CurrMode = Modes.Normal;
+    public static Screens CurrScreen = Screens.Menu;
+    public static Modes CurrMode = Modes.Normal;
     private Subscription<ScreenChangedEvent> screenChangedSubscription; // Store the subscription
     private Subscription<ModeChangedEvent> modeChangedSubscription;
 

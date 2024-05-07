@@ -587,6 +587,19 @@ public class SpeechToText
     }
 }
 
+public class VEGACommand
+{
+    public string command_name;
+    public List<string> arguments;
+
+
+    public VEGACommand(string _command_name, List<string> _arguments)
+    {
+        command_name = _command_name;
+        arguments = _arguments;
+    }
+}
+
 public class RoverChanged
 {
     public RoverDetails data { get; private set; }
