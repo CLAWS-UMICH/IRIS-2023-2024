@@ -131,7 +131,6 @@ public class SuitsControlController : MonoBehaviour
         {
             // display PrimaryBattery notif
         }
-        if ()
     }
 
     private string FloatToTimeString(float timeInSeconds)
