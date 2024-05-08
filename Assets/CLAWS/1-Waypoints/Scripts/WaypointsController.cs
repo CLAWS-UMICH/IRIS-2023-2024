@@ -11,6 +11,12 @@ public class WaypointsController : MonoBehaviour
     [SerializeField] private GameObject poiPrefab;
     [SerializeField] private GameObject companionPrefab;
 
+    [SerializeField] private GameObject dangerPrefab_3D;
+    [SerializeField] private GameObject geoPrefab_3D;
+    [SerializeField] private GameObject stationPrefab_3D;
+    [SerializeField] private GameObject poiPrefab_3D;
+    [SerializeField] private GameObject companionPrefab_3D;
+
     private GameObject parentObject;
 
     private Subscription<WaypointsAddedEvent> waypointsAddedEvent;
@@ -21,9 +27,11 @@ public class WaypointsController : MonoBehaviour
 
     private Dictionary<int, Waypoint> waypointDict = new Dictionary<int, Waypoint>();
     private Dictionary<int, GameObject> waypointObjDic = new Dictionary<int, GameObject>();
+    private Dictionary<int, GameObject> waypointObjDic_3D = new Dictionary<int, GameObject>();
     private Dictionary<int, GameObject> waypointButtonDic = new Dictionary<int, GameObject>();
 
     private TextMeshPro _danger_title, _danger_letter, _danger_minimap_letter, _geo_title, _geo_letter, _geo_minimap_letter, _nav_title, _nav_letter, _nav_minimap_letter, _station_title, _station_letter, _station_minimap_letter, _comp_title, _comp_letter, _comp_minimap_letter;
+    private TextMeshPro _danger_title_3D, _danger_letter_3D, _geo_title_3D, _geo_letter_3D, _nav_title_3D, _nav_letter_3D, _station_title_3D, _station_letter_3D, _comp_title_3D, _comp_letter_3D;
 
     private WebsocketDataHandler wd;
     private NavScreenHandler screenHandler;
@@ -34,6 +42,7 @@ public class WaypointsController : MonoBehaviour
         parentObject = GameObject.Find("WaypointParent").gameObject;
         wd = GameObject.Find("Controller").GetComponent<WebsocketDataHandler>();
 
+        // Main Waypoints
         _danger_title = dangerPrefab.transform.Find("Body").Find("Title").gameObject.transform.Find("IconAndText").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
         _danger_letter = dangerPrefab.transform.Find("Body").Find("Quad").gameObject.transform.Find("Text").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
         _danger_minimap_letter = dangerPrefab.transform.Find("MiniMap").Find("Letter").gameObject.GetComponent<TextMeshPro>();
@@ -53,6 +62,23 @@ public class WaypointsController : MonoBehaviour
         _comp_title = stationPrefab.transform.Find("Body").Find("Title").gameObject.transform.Find("IconAndText").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
         _comp_letter = stationPrefab.transform.Find("Body").Find("Quad").gameObject.transform.Find("Text").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
         _comp_minimap_letter = stationPrefab.transform.Find("MiniMap").Find("Letter").gameObject.GetComponent<TextMeshPro>();
+
+        // 3D Map Waypoints
+        _danger_title_3D = dangerPrefab_3D.transform.Find("Body").Find("Title").gameObject.transform.Find("IconAndText").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
+        _danger_letter_3D = dangerPrefab_3D.transform.Find("Body").Find("Quad").gameObject.transform.Find("Text").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
+
+        _geo_title_3D = geoPrefab_3D.transform.Find("Body").Find("Title").gameObject.transform.Find("IconAndText").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
+        _geo_letter_3D = geoPrefab_3D.transform.Find("Body").Find("Quad").gameObject.transform.Find("Text").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
+
+        _nav_title_3D = poiPrefab_3D.transform.Find("Body").Find("Title").gameObject.transform.Find("IconAndText").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
+        _nav_letter_3D = poiPrefab_3D.transform.Find("Body").Find("Quad").gameObject.transform.Find("Text").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
+
+        _station_title_3D = stationPrefab_3D.transform.Find("Body").Find("Title").gameObject.transform.Find("IconAndText").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
+        _station_letter_3D = stationPrefab_3D.transform.Find("Body").Find("Quad").gameObject.transform.Find("Text").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
+
+        _comp_title_3D = stationPrefab_3D.transform.Find("Body").Find("Title").gameObject.transform.Find("IconAndText").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
+        _comp_letter_3D = stationPrefab_3D.transform.Find("Body").Find("Quad").gameObject.transform.Find("Text").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
+
 
         waypointsAddedEvent = EventBus.Subscribe<WaypointsAddedEvent>(onWaypointsAdded);
         waypointsDeletedEvent = EventBus.Subscribe<WaypointsDeletedEvent>(onWaypointsDeleted);
@@ -93,11 +119,15 @@ public class WaypointsController : MonoBehaviour
                 GameObject gm = waypointObjDic[waypoint.waypoint_id];
                 waypointObjDic.Remove(waypoint.waypoint_id);
 
+                GameObject gm_3D = waypointObjDic_3D[waypoint.waypoint_id];
+                waypointObjDic_3D.Remove(waypoint.waypoint_id);
+
                 GameObject gmButton = waypointButtonDic[waypoint.waypoint_id];
                 screenHandler.DeleteButton(gmButton, waypoint.type);
                 waypointButtonDic.Remove(waypoint.waypoint_id);
 
                 Destroy(gm);
+                Destroy(gm_3D);
             }
             
             AstronautInstance.User.WaypointData.AllWaypoints.Remove(waypoint);
@@ -116,11 +146,15 @@ public class WaypointsController : MonoBehaviour
             GameObject gm = waypointObjDic[indexToDelete];
             waypointObjDic.Remove(indexToDelete);
 
+            GameObject gm_3D = waypointObjDic_3D[indexToDelete];
+            waypointObjDic_3D.Remove(indexToDelete);
+
             GameObject gmButton = waypointButtonDic[indexToDelete];
             screenHandler.DeleteButton(gmButton, w.type);
             waypointButtonDic.Remove(indexToDelete);
 
             Destroy(gm);
+            Destroy(gm_3D);
             AstronautInstance.User.WaypointData.AllWaypoints.Remove(w);
 
             wd.SendWaypointData();
@@ -141,6 +175,9 @@ public class WaypointsController : MonoBehaviour
                 
                 waypointObjDic[waypoint.waypoint_id].transform.Find("Body").Find("Title").gameObject.transform.Find("IconAndText").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>().text = waypoint.description;
                 waypointObjDic[waypoint.waypoint_id].transform.Find("Body").Find("Quad").gameObject.transform.Find("Text").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>().text = waypoint.waypoint_letter;
+
+                waypointObjDic_3D[waypoint.waypoint_id].transform.Find("Body").Find("Title").gameObject.transform.Find("IconAndText").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>().text = waypoint.description;
+                waypointObjDic_3D[waypoint.waypoint_id].transform.Find("Body").Find("Quad").gameObject.transform.Find("Text").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>().text = waypoint.waypoint_letter;
             }
         }
     }
@@ -165,6 +202,7 @@ public class WaypointsController : MonoBehaviour
     public void SpawnWaypoint(Waypoint waypoint, int num)
     {
         GameObject instantiatedObject = new GameObject();
+        GameObject instantiatedObject_3D = new GameObject();
         switch (waypoint.type)
         {
             case 0: // station
@@ -174,6 +212,11 @@ public class WaypointsController : MonoBehaviour
                 instantiatedObject = Instantiate(stationPrefab, GPSUtils.GPSCoordsToAppPosition(waypoint.location), Quaternion.identity);
                 instantiatedObject.transform.parent = parentObject.transform;
                 waypointObjDic[waypoint.waypoint_id] = instantiatedObject;
+
+                _station_letter_3D.text = waypoint.waypoint_letter.ToString();
+                _station_title_3D.text = waypoint.description.ToString();
+                instantiatedObject_3D = Map3DController.SpawnWaypoint(stationPrefab_3D, GPSUtils.GPSCoordsToAppPosition(waypoint.location));
+                waypointObjDic_3D[waypoint.waypoint_id] = instantiatedObject_3D;
                 break;
 
             case 1: // poi
@@ -183,6 +226,11 @@ public class WaypointsController : MonoBehaviour
                 instantiatedObject = Instantiate(poiPrefab, GPSUtils.GPSCoordsToAppPosition(waypoint.location), Quaternion.identity);
                 instantiatedObject.transform.parent = parentObject.transform;
                 waypointObjDic[waypoint.waypoint_id] = instantiatedObject;
+
+                _nav_letter_3D.text = waypoint.waypoint_letter.ToString();
+                _nav_title_3D.text = waypoint.description.ToString();
+                instantiatedObject_3D = Map3DController.SpawnWaypoint(poiPrefab_3D, GPSUtils.GPSCoordsToAppPosition(waypoint.location));
+                waypointObjDic_3D[waypoint.waypoint_id] = instantiatedObject_3D;
                 break;
 
             case 2: // geo
@@ -192,6 +240,11 @@ public class WaypointsController : MonoBehaviour
                 instantiatedObject = Instantiate(geoPrefab, GPSUtils.GPSCoordsToAppPosition(waypoint.location), Quaternion.identity);
                 instantiatedObject.transform.parent = parentObject.transform;
                 waypointObjDic[waypoint.waypoint_id] = instantiatedObject;
+
+                _geo_letter_3D.text = waypoint.waypoint_letter.ToString();
+                _geo_title_3D.text = waypoint.description.ToString();
+                instantiatedObject_3D = Map3DController.SpawnWaypoint(geoPrefab_3D, GPSUtils.GPSCoordsToAppPosition(waypoint.location));
+                waypointObjDic_3D[waypoint.waypoint_id] = instantiatedObject_3D;
                 break;
 
             case 3: // danger
@@ -201,6 +254,11 @@ public class WaypointsController : MonoBehaviour
                 instantiatedObject = Instantiate(dangerPrefab, GPSUtils.GPSCoordsToAppPosition(waypoint.location), Quaternion.identity);
                 instantiatedObject.transform.parent = parentObject.transform;
                 waypointObjDic[waypoint.waypoint_id] = instantiatedObject;
+
+                _danger_letter_3D.text = waypoint.waypoint_letter.ToString();
+                _danger_title_3D.text = waypoint.description.ToString();
+                instantiatedObject_3D = Map3DController.SpawnWaypoint(dangerPrefab_3D, GPSUtils.GPSCoordsToAppPosition(waypoint.location));
+                waypointObjDic_3D[waypoint.waypoint_id] = instantiatedObject_3D;
                 break;
             case 4: // companions
                 _comp_letter.text = waypoint.waypoint_letter.ToString();
@@ -209,6 +267,11 @@ public class WaypointsController : MonoBehaviour
                 instantiatedObject = Instantiate(companionPrefab, GPSUtils.GPSCoordsToAppPosition(waypoint.location), Quaternion.identity);
                 instantiatedObject.transform.parent = parentObject.transform;
                 waypointObjDic[waypoint.waypoint_id] = instantiatedObject;
+
+                _comp_letter_3D.text = waypoint.waypoint_letter.ToString();
+                _comp_title_3D.text = waypoint.description.ToString();
+                instantiatedObject_3D = Map3DController.SpawnWaypoint(companionPrefab_3D, GPSUtils.GPSCoordsToAppPosition(waypoint.location));
+                waypointObjDic_3D[waypoint.waypoint_id] = instantiatedObject_3D;
                 break;
 
             default:
@@ -216,7 +279,8 @@ public class WaypointsController : MonoBehaviour
                 break;
         }
 
-        instantiatedObject.name = num.ToString();
+        instantiatedObject.name = "Way_" + num.ToString();
+        instantiatedObject_3D.name = "Way_" + num.ToString() +"_3D";
 
 
     }
