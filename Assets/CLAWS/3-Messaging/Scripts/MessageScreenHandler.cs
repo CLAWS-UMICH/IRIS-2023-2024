@@ -121,8 +121,21 @@ public class MessageReceiveHandler : MonoBehaviour
         {
             GameObject box = Instantiate(textBox, screen.transform);
             TMP_Text textComponent = box.GetComponentInChildren<TMP_Text>();
-            textComponent.text = chat[i].message;
-
+            textComponent.text = chat[i].message; Vector3 newPosition = box.transform.position;
+            newPosition.y -= 0.25f * i;
+            box.transform.position = newPosition;
+            if (chat[i].from == AstronautInstance.User.id)
+            {
+                Vector3 chatPosition = box.transform.position;
+                chatPosition.x += 0.25f;
+                box.transform.position = chatPosition;
+            }
+            else
+            {
+                Vector3 chatPosition = box.transform.position;
+                chatPosition.x -= 0.25f;
+                box.transform.position = chatPosition;
+            }
         }
     }
 

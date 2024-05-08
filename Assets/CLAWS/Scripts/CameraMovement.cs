@@ -7,8 +7,11 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     [SerializeField] GameObject playerCam;
-    public float offset = 0f;
-    float zeroValue = 0f;
+    public float currentRotation = 0f;
+    public float heading = 0f;
+    float rotation = 0f;
+    float offset = 0f;
+    public float maxViewDistance;
 
     private UdpClient serverSocket;
     void Start()
@@ -16,7 +19,7 @@ public class CameraMovement : MonoBehaviour
         try
         {
             // Create a UDP socket
-            serverSocket = new UdpClient(8888);
+            serverSocket = new UdpClient(10001);
             Debug.Log("UDP socket created, waiting for messages...");
             // Start listening in a separate thread
             StartListening();
@@ -48,7 +51,8 @@ public class CameraMovement : MonoBehaviour
             // Convert the byte array to a string
             string message = Encoding.ASCII.GetString(receivedData);
             // Print the received message
-            offset = (float)Convert.ToDouble(message) + zeroValue;
+            heading = (float)Convert.ToDouble(message);
+            currentRotation = heading + offset;
             Debug.Log("Received message: " +message);
             // Continue listening for more messages
             StartListening();
@@ -70,16 +74,20 @@ public class CameraMovement : MonoBehaviour
     [ContextMenu("COR Sync")]
     public void CorSync()
     {
-        zeroValue = offset * -1;
+       offset = (float)playerCam.transform.eulerAngles.y - heading;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Math.Abs(rotation - currentRotation) > maxViewDistance)
+        {
+            rotation = currentRotation;
+        }
         gameObject.transform.position = playerCam.transform.position;
         gameObject.transform.eulerAngles = new Vector3(
             gameObject.transform.eulerAngles.x,
-            offset,
+            rotation,
             gameObject.transform.eulerAngles.z
         );
     }

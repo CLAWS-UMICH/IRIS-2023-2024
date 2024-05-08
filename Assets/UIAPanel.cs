@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using Unity.VisualScripting.Dependencies.Sqlite;
+
 
 public class UIAPanel : MonoBehaviour
 {
@@ -60,7 +60,7 @@ public class UIAPanel : MonoBehaviour
         // Calculate scale (assumes two adjacent corners)
         Vector3 scale = new Vector3(
             Vector3.Distance(corner1_f, corner2_f) / extents_x,
-            Vector3.Distance(corner1_f, corner4_f) / extents_y, 
+            Vector3.Distance(corner1_f, corner4_f) / extents_y,
             0.1f);
 
         // Calculate rotation (assumes first corner to last corner)
