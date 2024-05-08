@@ -507,6 +507,7 @@ GameObject:
   m_Component:
   - component: {fileID: 169661752}
   - component: {fileID: 169661753}
+  - component: {fileID: 169661754}
   m_Layer: 0
   m_Name: TranformController
   m_TagString: Untagged
@@ -542,7 +543,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCam: {fileID: 127777994}
-  offset: 0
+  currentRotation: 0
+  heading: 0
+  maxViewDistance: 15
+--- !u!114 &169661754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169661751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45b3eff181cc4244a8a14234096e62fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isFocusRequired: 1
+  keywords:
+  - keyword: COR Sync
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 169661753}
+          m_TargetAssemblyTypeName: CameraMovement, Assembly-CSharp
+          m_MethodName: CorSync
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  persistentKeywords: 0
+  speechConfirmationTooltipPrefab: {fileID: 0}
 --- !u!1 &405464337
 GameObject:
   m_ObjectHideFlags: 0
@@ -2724,6 +2759,18 @@ PrefabInstance:
     - target: {fileID: 1140557360592300880, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3794289906129230344, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      propertyPath: moveLerpTime
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3794289906129230344, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      propertyPath: maxViewDegrees
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3794289906129230344, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      propertyPath: rotateLerpTime
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 3794289906129230345, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       propertyPath: transformOverride
