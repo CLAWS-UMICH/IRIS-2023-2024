@@ -16,7 +16,7 @@ public class CameraMovement : MonoBehaviour
         try
         {
             // Create a UDP socket
-            serverSocket = new UdpClient(8888);
+            serverSocket = new UdpClient(10001);
             Debug.Log("UDP socket created, waiting for messages...");
             // Start listening in a separate thread
             StartListening();

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using Unity.VisualScripting.Dependencies.Sqlite;
+
 
 public class UIAPanel : MonoBehaviour
 {
