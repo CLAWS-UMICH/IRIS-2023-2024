@@ -5,13 +5,15 @@ using TMPro;
 
 public enum AlertEnum
 {
-    LLMC,
-    Vital,
-    Task,
-    NewStation,
-    NewSample,
-    NewInterest,
-    NewDanger
+    Vital_Heart,
+    Vital_O2,
+    Vital_Battery,
+    Vital_Coolant,
+    Vital_Scrubber,
+    Vital_CO2,
+    Vital_Temp,
+    Vital_Pressure,
+    Vital_Fan
 }
 
 public class NotificationController : MonoBehaviour
@@ -27,19 +29,16 @@ public class NotificationController : MonoBehaviour
         scroll = transform.Find("Scroll").GetComponent<NewScroll>();
         alertEvent = EventBus.Subscribe<CreateAlert>(Alert);
 
-        //StartCoroutine(_AddAlert());
+        StartCoroutine(_Test());
     }
 
-    /*IEnumerator _AddAlert()
+    IEnumerator _Test()
     {
-
-        yield return new WaitForSeconds(2);
-        EventBus.Publish(new CreateAlert(AlertEnum.Task, "New Task", "Equipment Repair"));
-        yield return new WaitForSeconds(4);
-        EventBus.Publish(new CreateAlert(AlertEnum.NewDanger, "New Danger Point C", "Crater", "C"));
-        yield return new WaitForSeconds(3);
-        EventBus.Publish(new CreateAlert(AlertEnum.Vital, "Vital Warning", "Heart Rate: 120 BPM"));
-    }*/
+        yield return new WaitForSeconds(2f);
+        EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Battery, "Heart Rate High", "160 BPM, slow down"));
+        yield return new WaitForSeconds(2f);
+        EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Pressure, "O2 Sec Pressure High", "4.1 PSI"));
+    }
 
     public void AddAlert(GameObject prefab)
     {
@@ -63,42 +62,58 @@ public class NotificationController : MonoBehaviour
 
         GameObject icon = pre.transform.Find("Icon").gameObject;
         switch (e.alertType) {
-            case AlertEnum.LLMC:
-                icon.transform.Find("LMCC").gameObject.SetActive(true);
-                break;
-
-            case AlertEnum.Vital:
-                icon.transform.Find("Vital").gameObject.SetActive(true);
+            case AlertEnum.Vital_Heart:
+                icon.transform.Find("Vital_Heart").gameObject.SetActive(true);
                 pre.transform.Find("Warning").gameObject.SetActive(true);
                 pre.transform.Find("Quad").gameObject.SetActive(false);
                 break;
 
-            case AlertEnum.Task:
-                icon.transform.Find("Task").gameObject.SetActive(true);
+            case AlertEnum.Vital_O2:
+                icon.transform.Find("Vital_O2").gameObject.SetActive(true);
+                pre.transform.Find("Warning").gameObject.SetActive(true);
+                pre.transform.Find("Quad").gameObject.SetActive(false);
                 break;
 
-            case AlertEnum.NewStation:
-                icon.transform.Find("Station").gameObject.SetActive(true);
-                icon.transform.Find("Letter").GetComponent<TextMeshPro>().text = e.letter;
-                icon.transform.Find("Letter").gameObject.SetActive(true);
+            case AlertEnum.Vital_Battery:
+                icon.transform.Find("Vital_Battery").gameObject.SetActive(true);
+                pre.transform.Find("Warning").gameObject.SetActive(true);
+                pre.transform.Find("Quad").gameObject.SetActive(false);
                 break;
 
-            case AlertEnum.NewSample:
-                icon.transform.Find("Sample").gameObject.SetActive(true);
-                icon.transform.Find("Letter").GetComponent<TextMeshPro>().text = e.letter;
-                icon.transform.Find("Letter").gameObject.SetActive(true);
+            case AlertEnum.Vital_Coolant:
+                icon.transform.Find("Vital_Coolant").gameObject.SetActive(true);
+                pre.transform.Find("Warning").gameObject.SetActive(true);
+                pre.transform.Find("Quad").gameObject.SetActive(false);
                 break;
 
-            case AlertEnum.NewInterest:
-                icon.transform.Find("Interest").gameObject.SetActive(true);
-                icon.transform.Find("Letter").GetComponent<TextMeshPro>().text = e.letter;
-                icon.transform.Find("Letter").gameObject.SetActive(true);
+            case AlertEnum.Vital_Scrubber:
+                icon.transform.Find("Vital_Scrubber").gameObject.SetActive(true);
+                pre.transform.Find("Warning").gameObject.SetActive(true);
+                pre.transform.Find("Quad").gameObject.SetActive(false);
                 break;
 
-            case AlertEnum.NewDanger:
-                icon.transform.Find("Danger").gameObject.SetActive(true);
-                icon.transform.Find("Letter").GetComponent<TextMeshPro>().text = e.letter;
-                icon.transform.Find("Letter").gameObject.SetActive(true);
+            case AlertEnum.Vital_CO2:
+                icon.transform.Find("Vital_CO2").gameObject.SetActive(true);
+                pre.transform.Find("Warning").gameObject.SetActive(true);
+                pre.transform.Find("Quad").gameObject.SetActive(false);
+                break;
+
+            case AlertEnum.Vital_Temp:
+                icon.transform.Find("Vital_Temp").gameObject.SetActive(true);
+                pre.transform.Find("Warning").gameObject.SetActive(true);
+                pre.transform.Find("Quad").gameObject.SetActive(false);
+                break;
+
+            case AlertEnum.Vital_Pressure:
+                icon.transform.Find("Vital_Pressure").gameObject.SetActive(true);
+                pre.transform.Find("Warning").gameObject.SetActive(true);
+                pre.transform.Find("Quad").gameObject.SetActive(false);
+                break;
+
+            case AlertEnum.Vital_Fan:
+                icon.transform.Find("Vital_Fan").gameObject.SetActive(true);
+                pre.transform.Find("Warning").gameObject.SetActive(true);
+                pre.transform.Find("Quad").gameObject.SetActive(false);
                 break;
 
             default:
@@ -117,15 +132,13 @@ public class NotificationController : MonoBehaviour
         pre.transform.Find("Quad").gameObject.SetActive(true);
 
         GameObject icon = pre.transform.Find("Icon").gameObject;
-        icon.transform.Find("Letter").GetComponent<TextMeshPro>().text = "";
-        icon.transform.Find("Letter").gameObject.SetActive(false);
-        icon.transform.Find("LMCC").gameObject.SetActive(false);
-        icon.transform.Find("Vital").gameObject.SetActive(false);
-        icon.transform.Find("Task").gameObject.SetActive(false);
-        icon.transform.Find("Station").gameObject.SetActive(false);
-        icon.transform.Find("Sample").gameObject.SetActive(false);
-        icon.transform.Find("Interest").gameObject.SetActive(false);
-        icon.transform.Find("Danger").gameObject.SetActive(false);
+
+        // Loop through all icons of this GameObject
+        foreach (Transform i in icon.transform)
+        {
+            // Deactivate each icon
+            i.gameObject.SetActive(false);
+        }
     }
 
 }
