@@ -17,12 +17,28 @@ public class UIAPanel : MonoBehaviour
     float extents_x;
     float extents_y;
 
+    Vector3 centerpos = new Vector3(0, 0, -0.62f);
+    Vector3 lowerpos = new Vector3(0, -0.1706f, -0.62f);
+
     public List<UIA_Button> Buttons;
+
+    public void FixTextBounds()
+    {
+        IEnumerator _delay()
+        {
+            yield return new WaitForSeconds(0.1f);
+            CenterTMP.rectTransform.anchoredPosition3D = centerpos;
+            LowerTMP.rectTransform.anchoredPosition3D = lowerpos;
+        }
+        StartCoroutine(_delay());
+    }
 
     private void Start()
     {
         extents_x = spriteRenderer.bounds.extents.x * 2;
         extents_y = spriteRenderer.bounds.extents.y * 2;
+        CenterTMP.rectTransform.anchoredPosition3D = centerpos;
+        LowerTMP.rectTransform.anchoredPosition3D = lowerpos;
     }
 
     // 1 2
@@ -71,6 +87,8 @@ public class UIAPanel : MonoBehaviour
         transform.position = position;
         transform.rotation = rotation;
         transform.localScale = scale;
+
+        FixTextBounds();
     }
 
     [ContextMenu("func rescale")]
@@ -111,6 +129,7 @@ public class UIAPanel : MonoBehaviour
             ProgressBar.gameObject.SetActive(true);
             LowerTMP.text = text_f;
         }
+        FixTextBounds();
     }
 
     public void HideAllButtons()

@@ -1,3 +1,9 @@
+using UnityEngine;
+
+public class imageCapture : MonoBehaviour
+{
+}
+/*
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -183,7 +189,6 @@ public class imageCapture : MonoBehaviour
 
             GetComponent<UIAManager>().SetUIAPanel();
             
-            /*
             Vector3 diag1 = hits[0] - hits[3];
             Vector3 diag2 = hits[1] - hits[2];
             Vector3 normal = Vector3.Cross(diag1, diag2);
@@ -199,7 +204,6 @@ public class imageCapture : MonoBehaviour
             // Set the rotation of the plane to the target rotation
             UIA_backplate.transform.localScale = scale;
             UIA_backplate.transform.rotation = targetRotation;
-            */
 
             // raycast_textbox.text = "Placed UIA panel";
         }
@@ -556,3 +560,4 @@ public class imageCapture : MonoBehaviour
         return corners;
     }
 }
+*/
