@@ -74,7 +74,9 @@ public class CameraMovement : MonoBehaviour
     [ContextMenu("COR Sync")]
     public void CorSync()
     {
-       offset = (float)playerCam.transform.eulerAngles.y - heading;
+        offset = (float)playerCam.transform.eulerAngles.y - heading;
+        currentRotation = heading + offset;
+        Debug.Log("Cor Sync");
     }
 
     // Update is called once per frame
