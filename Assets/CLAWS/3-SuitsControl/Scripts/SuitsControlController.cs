@@ -92,10 +92,12 @@ public class SuitsControlController : MonoBehaviour
 
     // add whatever progress bar stuff needed
 
-    // astro1 + astro2 (idk if these are right)
-    TextMeshPro primary_oxygen, secondary_oxygen, suit_pressure, sub_pressure, o2_pressure, o2_rate, h20_gas_pressure, sop_pressure, sop_rate, heart_rate, fan_tachometer,
-        battery_capacity, temperature, battery_time_left, o2_time_left, h2o_time_left, battery_percentage, battery_output, oxygen_primary_time, oxygen_secondary_time, water_capacity;
-    
+    //1st astronaut
+    GameObject heartRate, temp, oxyCons, co2Prod, priOxy, batt, suitPresOxy, suitTotPres, suitPresCO2, secOxyStor, secOxyPres, priFan, coolLiquidPres, coolGasPres, powerTime, oxyTime;
+
+    //2nd astronaut
+    GameObject heartRate2, temp2, oxyCons2, co2Prod2, priOxy2, batt2, suitPresOxy2, suitTotPres2, suitPresCO22, secOxyStor2, secOxyPres2, priFan2, coolLiquidPres2, coolGasPres2, powerTime2, oxyTime2;
+
 
     private void Start()
     {
@@ -103,19 +105,53 @@ public class SuitsControlController : MonoBehaviour
         fellowVitalsUpdateEvent = EventBus.Subscribe<FellowAstronautVitalsDataChangeEvent>(onFellowVitalsUpdate);
 
         // Astr 1
-        astr1Board = transform.Find("MainVitalBoard").gameObject;
-        astr1CritBoard = astr1Board.transform.Find("CritBoard").gameObject;
+        astr1Board = transform.Find("SuitsControlScreen").gameObject;
+        astr1CritBoard = astr1Board.transform.Find("ScreenCrit").gameObject;
         astr1SuitBoard = astr1Board.transform.Find("SuitBoard").gameObject;
         astr1PressureBoard = astr1Board.transform.Find("PressureBoard").gameObject;
         astr1TimeBoard = astr1Board.transform.Find("RemainingBoard").gameObject;
 
         // assign all vitals based on gameobjects
 
+        //HR
+        heartRate = astr1CritBoard.transform.Find("HeartRate").gameObject;
+        heartRate.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc2", 0f);
+        heartRate.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", 302f);
+        heartRate.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Angle", 241f);
+
+        //O2cons
+        oxyCons = astr1CritBoard.transform.Find("O2cons").gameObject;
+        oxyCons.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc2", 0f);
+        oxyCons.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", 302f);
+        oxyCons.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Angle", 241f);
+
+        //co2prod
+        co2Prod = astr1CritBoard.transform.Find("CO2prod").gameObject;
+        co2Prod.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc2", 0f);
+        co2Prod.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", 302f);
+        co2Prod.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Angle", 241f);
+
+        //temp
+        temp = astr1CritBoard.transform.Find("Temp").gameObject;
+        temp.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc2", 0f);
+        temp.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", 302f);
+        temp.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Angle", 241f);
     }
 
     private void onVitalsUpdate(VitalsUpdatedEvent e)
     {
         // update all the board stuff
+        heartRate.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.heart_rate / 100) * 302));
+        heartRate.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.heart_rate.ToString("F0");
+
+        oxyCons.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.heart_rate) * 302));
+        oxyCons.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.heart_rate.ToString("F0");
+
+        co2Prod.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.heart_rate) * 302));
+        co2Prod.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.heart_rate.ToString("F0");
+
+        temp.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.heart_rate / 100) * 302));
+        temp.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.heart_rate.ToString("F0");
 
         checkVitals(e);
     }
