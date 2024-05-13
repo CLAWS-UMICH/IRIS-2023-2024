@@ -171,7 +171,7 @@ public class NavScreenHandler : MonoBehaviour
 
     public void OpenStation()
     {
-        EventBus.Publish(new ScreenChangedEvent(Screens.SelectStationNav));
+        EventBus.Publish(new ScreenChangedEvent(Screens.Navigation_SelectStationNav));
         title.text = "Station";
         hasLocation = false;
         currentScreen = ScreenType.Station;
@@ -187,7 +187,7 @@ public class NavScreenHandler : MonoBehaviour
 
     public void OpenPOI()
     {
-        EventBus.Publish(new ScreenChangedEvent(Screens.SelectPOINav));
+        EventBus.Publish(new ScreenChangedEvent(Screens.Navigation_SelectPOINav));
         title.text = "Points of Interest";
         hasLocation = false;
         currentScreen = ScreenType.GeoSample;
@@ -203,7 +203,7 @@ public class NavScreenHandler : MonoBehaviour
 
     public void OpenGeo()
     {
-        EventBus.Publish(new ScreenChangedEvent(Screens.SelectGeoNav));
+        EventBus.Publish(new ScreenChangedEvent(Screens.Navigation_SelectGeoNav));
         title.text = "Geosamples";
         hasLocation = false;
         currentScreen = ScreenType.GeoSample;
@@ -219,7 +219,7 @@ public class NavScreenHandler : MonoBehaviour
 
     public void OpenCompanions()
     {
-        EventBus.Publish(new ScreenChangedEvent(Screens.SelectCompNav));
+        EventBus.Publish(new ScreenChangedEvent(Screens.Navigation_SelectCompNav));
         title.text = "Companions";
         hasLocation = false;
         currentScreen = ScreenType.Comp;
@@ -422,7 +422,7 @@ public class NavScreenHandler : MonoBehaviour
     {
         if (hasLocation)
         {
-            EventBus.Publish(new ScreenChangedEvent(Screens.NavConfirmation));
+            EventBus.Publish(new ScreenChangedEvent(Screens.Navigation_Confirmation));
             EventBus.Publish(new StartPathfinding(loc));
             destinationVector = GPSUtils.GPSCoordsToAppPosition(loc);
   

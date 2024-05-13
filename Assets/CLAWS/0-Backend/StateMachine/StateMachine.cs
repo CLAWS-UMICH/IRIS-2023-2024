@@ -7,18 +7,37 @@ using UnityEngine;
 public enum Screens
 {
     Menu,
-    SelectStationNav,
-    SelectPOINav,
-    SelectGeoNav,
-    SelectCompNav,
-    CreatingWaypoint,
-    NavConfirmation,
+
+    Tasklist,
+    Tasklist_SubOpen,
+    Tasklist_Emergency,
+
+    Navigation,
+    Navigation_SelectStationNav,
+    Navigation_SelectPOINav,
+    Navigation_SelectGeoNav,
+    Navigation_SelectCompNav,
+    Navigation_Confirmation,
+    Navigation_CreatingWaypoint,
+
+    Messaging_Astro_BlankMessage,
+    Messaging_Astro_Quick,
+    Messaging_Astro_FullMessage,
+    Messaging_LLMC_BlankMessage,
+    Messaging_LLMC_Quick,
+    Messaging_LLMC_FullMessage,
+    Messaging_GroupChat_BlankMessage,
+    Messaging_GroupChat_Quick,
+    Messaging_GroupChat_FullMessage,
+
+    Geo,
+
+
     Vitals_1,
     Vitals_2,
     Map_3D,
     Map_2D,
-    Navigation,
-    Tasklist,
+
 }
 
 public enum Modes
@@ -73,7 +92,7 @@ public class StateMachine : MonoBehaviour
     [ContextMenu("CloseAll")]
     public void CloseAll()
     {
-        EventBus.Publish(new CloseEvent(Screens.CreatingWaypoint));
+        /*EventBus.Publish(new CloseEvent(Screens.CreatingWaypoint));
         EventBus.Publish(new CloseEvent(Screens.Vitals_1));
         EventBus.Publish(new CloseEvent(Screens.Vitals_2));
         EventBus.Publish(new CloseEvent(Screens.Map_3D));
@@ -81,7 +100,7 @@ public class StateMachine : MonoBehaviour
         EventBus.Publish(new CloseEvent(Screens.Navigation));
         EventBus.Publish(new CloseEvent(Screens.Tasklist));
         CurrMode = Modes.Normal;
-        CurrScreen = Screens.Menu;
+        CurrScreen = Screens.Menu;*/
     }
 }
 

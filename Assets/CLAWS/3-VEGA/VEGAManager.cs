@@ -18,8 +18,19 @@ public class VEGAManager : MonoBehaviour
         // Initialize screen-associated commands
         screenAssociatedCommands = new Dictionary<Screens, List<string>>
         {
-            { Screens.Navigation, new List<string> { "apple", "banana", "orange" } },
-            { Screens.NavConfirmation, new List<string> { "car", "bike", "bus" } },
+            { Screens.Menu, new List<string> { "Open_Tasks", "Open_Navigation", "Open_Messaging", "Open_Geo", "Open_Vitals", "Open_UIA", "Complete", "Check", "Open_Details" } },
+
+            { Screens.Tasklist, new List<string> { "Complete", "Open_Details", "Scroll_Down", "Scroll_Up", "Close", "Close_Details" } },
+            { Screens.Tasklist_SubOpen, new List<string> { "Close" } },
+            { Screens.Tasklist_Emergency, new List<string> { "Complete", "Open_Details", "Scroll_Down", "Scroll_Up", "Close", "Close_Details" } },
+
+            { Screens.Navigation, new List<string> { "Select_Companions", "Select_Stations", "Select_Interest", "Select_Geo", "Select_Letter", "Select_Waypoint", "Add_New", "Open_3D_Map", "Close" } },
+            { Screens.Navigation_SelectStationNav, new List<string> { "Select_Companions", "Select_Stations", "Select_Interest", "Select_Geo", "Select_Letter", "Select_Waypoint", "Add_New", "Open_3D_Map", "Close" } },
+            { Screens.Navigation_SelectPOINav, new List<string> { "Select_Companions", "Select_Stations", "Select_Interest", "Select_Geo", "Select_Letter", "Select_Waypoint", "Add_New", "Open_3D_Map", "Close" } },
+            { Screens.Navigation_SelectGeoNav, new List<string> { "Select_Companions", "Select_Stations", "Select_Interest", "Select_Geo", "Select_Letter", "Select_Waypoint", "Add_New", "Open_3D_Map", "Close" } },
+            { Screens.Navigation_SelectCompNav, new List<string> { "Select_Companions", "Select_Stations", "Select_Interest", "Select_Geo", "Select_Letter", "Select_Waypoint", "Add_New", "Open_3D_Map", "Close" } },
+            { Screens.Navigation_Confirmation, new List<string> { "Navigate", "Cancel", "Close", "Scroll_Up", "Close", "Close_Details" } },
+            { Screens.Navigation_CreatingWaypoint, new List<string> { "Enter_Name", "Select_Station", "Select_Interest", "Select_Danger", "Select_Sample", "Create", "Cancel", "Close" } },
         };
 
         // Initialize mode-associated commands
@@ -32,12 +43,15 @@ public class VEGAManager : MonoBehaviour
         // Initialize function dictionary with function name and parameter count
         functionDictionary = new Dictionary<string, (Action<List<string>>, int)>
         {
-            { "apple", (FunctionForApple, 0) },
-            { "banana", (FunctionForBanana, 0) },
-            { "orange", (FunctionForOrange, 3) },
-            { "car", (FunctionForCar, 0) },
-            { "bike", (FunctionForBike, 0) },
-            { "bus", (FunctionForBus, 1) },
+            { "Open_Tasks", (Menu_Open_Tasks, 0) },
+            { "Open_Navigation", (Menu_Open_Navigation, 0) },
+            { "Open_Messaging", (Menu_Open_Messaging, 0) },
+            { "Open_Geo", (Menu_Open_Geo, 0) },
+            { "Open_Vitals", (Menu_Open_Vitals, 0) },
+            { "Open_UIA", (Menu_Open_UIA, 0) },
+            { "Complete", (Menu_Complete, 0) },
+            { "Check", (Menu_Check, 0) },
+            { "Open_Sub_Details", (Menu_Open_Sub_Details, 1) },
         };
     }
 
@@ -81,34 +95,46 @@ public class VEGAManager : MonoBehaviour
         }
     }
 
-    // Example functions without parameters
-    private void FunctionForApple(List<string> parameters)
+    // Menu Functions
+    private void Menu_Open_Tasks(List<string> parameters)
     {
-        Debug.Log("Function for apple called.");
+        // TODO: Call Function
     }
 
-    private void FunctionForBanana(List<string> parameters)
+    private void Menu_Open_Navigation(List<string> parameters)
     {
-        Debug.Log("Function for banana called.");
+        // TODO: Call Function
     }
 
-    private void FunctionForOrange(List<string> parameters)
+    private void Menu_Open_Messaging(List<string> parameters)
     {
-        Debug.Log("Function for orange called.");
+        // TODO: Call Function
     }
 
-    private void FunctionForCar(List<string> parameters)
+    private void Menu_Open_Geo(List<string> parameters)
     {
-        Debug.Log("Function for car called.");
+        // TODO: Call Function
     }
 
-    private void FunctionForBike(List<string> parameters)
+    private void Menu_Open_Vitals(List<string> parameters)
     {
-        Debug.Log("Function for bike called.");
+        // TODO: Call Function
     }
 
-    private void FunctionForBus(List<string> parameters)
+    private void Menu_Open_UIA(List<string> parameters)
     {
-        Debug.Log("Function for bus called.");
+        // TODO: Call Function
+    }
+    private void Menu_Complete(List<string> parameters)
+    {
+        // TODO: Call Function
+    }
+    private void Menu_Check(List<string> parameters)
+    {
+        // TODO: Call Function
+    }
+    private void Menu_Open_Sub_Details(List<string> parameters)
+    {
+       // TODO: Call Function
     }
 }
