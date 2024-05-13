@@ -13,12 +13,13 @@ public class RadialProgress : MonoBehaviour
     {
         //vitalsRadialEvent = EventBus.Subscribe<VitalsUpdatedEvent>(UpdateRadialProgress);
         SR.GetComponent<SpriteRenderer>().material.SetFloat("_Arc2", 0f);
-        SR.GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", 0f);
+        SR.GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", 302f);
+        SR.GetComponent<SpriteRenderer>().material.SetFloat("_Angle", 241f);
     }
 
     public void UpdatePercent(float currentVal/*VitalsUpdatedEvent e*/)
     {
-        float degrees = 360 - currentVal/*(float)e.vitals.oxy_percentage*/ * 3.6f;
+        float degrees = (1 - currentVal / 100) * 302;
 
         // Update the material's properties for the circle
         SR.GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", degrees);
@@ -35,7 +36,7 @@ public class RadialProgress : MonoBehaviour
         float normalizedValue = (currentVal - 50) / (160 - 50);
 
         // Convert the normalized value to degrees on a 360 scale
-        float degrees = 360 * normalizedValue;
+        float degrees = (1 - currentVal / 100) * 302;
 
         // Update the material's properties for the circle
         SR.GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", degrees);
@@ -52,7 +53,7 @@ public class RadialProgress : MonoBehaviour
         float normalizedValue = (currentVal - 600) / (3000 - 600);
 
         // Convert the normalized value to degrees on a 360 scale
-        float degrees = normalizedValue * 360;
+        float degrees = (1 - currentVal / 100) * 302;
 
         // Update the material's properties for the circle
         SR.GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", degrees);
