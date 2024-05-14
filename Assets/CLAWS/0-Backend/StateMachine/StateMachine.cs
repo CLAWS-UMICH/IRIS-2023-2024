@@ -19,6 +19,7 @@ public enum Screens
     Navigation_SelectCompNav,
     Navigation_Confirmation,
     Navigation_CreatingWaypoint,
+    Navigation_3D,
 
     Messaging_Astro_BlankMessage,
     Messaging_Astro_Quick,
@@ -32,11 +33,10 @@ public enum Screens
 
     Geo,
 
+    Vitals_Main,
+    Vitals_Fellow,
 
-    Vitals_1,
-    Vitals_2,
-    Map_3D,
-    Map_2D,
+    Screen_Sent,
 
 }
 

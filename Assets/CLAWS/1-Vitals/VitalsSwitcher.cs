@@ -38,7 +38,7 @@ public class VitalsSwitcher : MonoBehaviour
 
         buttonText.text = "Astronaut 2";
 
-        EventBus.Publish(new ScreenChangedEvent(Screens.Vitals_1));
+        EventBus.Publish(new ScreenChangedEvent(Screens.Vitals_Main));
 
     }
 
@@ -51,7 +51,7 @@ public class VitalsSwitcher : MonoBehaviour
             secondAst.SetActive(true);
             buttonText.text = "Astronaut 1";
 
-            EventBus.Publish(new ScreenChangedEvent(Screens.Vitals_1));
+            EventBus.Publish(new ScreenChangedEvent(Screens.Vitals_Main));
         }
         else
         {
@@ -59,7 +59,7 @@ public class VitalsSwitcher : MonoBehaviour
             secondAst.SetActive(false);
             buttonText.text = "Astronaut 2";
 
-            EventBus.Publish(new ScreenChangedEvent(Screens.Vitals_2));
+            EventBus.Publish(new ScreenChangedEvent(Screens.Vitals_Fellow));
         }
     }
 }
