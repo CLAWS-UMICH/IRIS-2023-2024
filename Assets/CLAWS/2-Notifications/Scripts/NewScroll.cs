@@ -23,13 +23,13 @@ public class NewScroll : MonoBehaviour
     private IEnumerator SmoothMove(GameObject obj, Vector3 targetPosition, float duration)
     {
         float elapsedTime = 0f;
-        Vector3 startingPosition = obj.transform.position;
+        Vector3 startingPosition = obj.transform.localPosition;
 
         if (gameObjectMap.ContainsKey(obj) && gameObjectMap[obj])
         {
             while (elapsedTime < duration && obj != null && !ReferenceEquals(obj, null))
             {
-                obj.transform.position = Vector3.Lerp(startingPosition, targetPosition, elapsedTime / duration);
+                obj.transform.localPosition = Vector3.Lerp(startingPosition, targetPosition, elapsedTime / duration);
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
@@ -38,7 +38,7 @@ public class NewScroll : MonoBehaviour
         {
             gameObjectMap[obj] = true;
 
-            obj.transform.position = targetPosition;
+            obj.transform.localPosition = targetPosition;
         }
     }
 
@@ -73,7 +73,7 @@ public class NewScroll : MonoBehaviour
                     float xOffset = (currentCollider.size.x * obj.transform.localScale.x) / 2f;
 
 
-                    Vector3 newPosition = transform.position + new Vector3(xOffset, yOffset, 0f);
+                    Vector3 newPosition = transform.localPosition + new Vector3(xOffset, yOffset, 0f);
 
                     // Use Coroutine for smooth movement
                     StartCoroutine(SmoothMove(obj, newPosition, 0.5f));

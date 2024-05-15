@@ -9,7 +9,7 @@ public class VEGAManager : MonoBehaviour
     [System.Serializable]
     public class FunctionEvent : UnityEvent<List<string>> { }
 
-    // MENU Events
+    // Menu Events
     public FunctionEvent menuOpenTasks = new FunctionEvent();
     public FunctionEvent menuOpenNavigation = new FunctionEvent();
     public FunctionEvent menuOpenMessaging = new FunctionEvent();
@@ -19,6 +19,9 @@ public class VEGAManager : MonoBehaviour
     public FunctionEvent menuComplete = new FunctionEvent();
     public FunctionEvent menuCheck = new FunctionEvent();
     public FunctionEvent menuOpenSubDetails = new FunctionEvent();
+
+    // Geo Events
+
 
     // Tasklist Events
     public FunctionEvent tasklistComplete = new FunctionEvent();
@@ -93,6 +96,8 @@ public class VEGAManager : MonoBehaviour
         screenAssociatedCommands = new Dictionary<Screens, List<string>>
         {
             { Screens.Menu, new List<string> { "Open_Tasks", "Open_Navigation", "Open_Messaging", "Open_Geo", "Open_Vitals", "Open_UIA", "Complete", "Check", "Open_Details" } },
+
+            // TODO: Add Geosampling
 
             { Screens.Tasklist, new List<string> { "Complete", "Open_Details", "Scroll_Down", "Scroll_Up", "Close", "Close_Details" } },
             { Screens.Tasklist_SubOpen, new List<string> { "Close" } },
