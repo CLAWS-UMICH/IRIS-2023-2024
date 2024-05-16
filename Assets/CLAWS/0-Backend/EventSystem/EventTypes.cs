@@ -407,11 +407,11 @@ public class FellowAstronautLocationDataChangeEvent
 
 public class FellowAstronautVitalsDataChangeEvent
 {
-    public Vitals vital { get; private set; }
+    public Vitals vitals { get; private set; }
 
     public FellowAstronautVitalsDataChangeEvent(Vitals v)
     {
-        vital = v;
+        vitals = v;
     }
 }
 
