@@ -81,10 +81,7 @@ public class Map3DController : MonoBehaviour
         GameObject newWaypoint = Instantiate(prefab, TranslatePosition(location), Quaternion.identity);
         newWaypoint.transform.position += new Vector3(0f, 0.01625f, 0f);
 
-        // Calculate the conversion factors for each axis
-        float conversionFactorScale = smallMapScale.x / bigMapScale.x * 7;
-
-        newWaypoint.transform.localScale *= conversionFactorScale;
+        newWaypoint.transform.localScale = new Vector3(0.02f, 0.02f, 0.02f);
 
         // Set the parent of the instantiated waypoint to the waypoints object
         newWaypoint.transform.parent = waypoints.transform;
