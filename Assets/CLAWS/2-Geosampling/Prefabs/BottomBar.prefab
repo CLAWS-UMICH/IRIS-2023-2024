@@ -1603,7 +1603,6 @@ GameObject:
   - component: {fileID: 6197522167855598861}
   - component: {fileID: 5221800105288618692}
   - component: {fileID: 5601335202572075055}
-  - component: {fileID: 9028781817256772902}
   m_Layer: 0
   m_Name: BottomBar
   m_TagString: Untagged
@@ -1621,7 +1620,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.042465203, y: -0.22141054, z: 0.20626786}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5573860579986510582}
@@ -1668,35 +1667,16 @@ MonoBehaviour:
   smoothing: 1
   lifetime: 0
   referenceDirection: 1
-  minDistance: 0.4
-  maxDistance: 0.4
+  minDistance: 0.3
+  maxDistance: 0.3
   minViewDegrees: 0
   maxViewDegrees: 0
   aspectV: 1
   ignoreAngleClamp: 0
   ignoreDistanceClamp: 0
   useFixedVerticalPosition: 1
-  fixedVerticalPosition: -0.27
+  fixedVerticalPosition: -0.19
   orientToReferenceDirection: 0
---- !u!114 &9028781817256772902
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4081066026014102382}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b55691ad5b034fe6966763a6e23818d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  trackedTargetType: 0
-  trackedHandedness: 3
-  trackedHandJoint: 2
-  transformOverride: {fileID: 0}
-  additionalOffset: {x: 0.06, y: 0, z: 0}
-  additionalRotation: {x: 0, y: 0, z: 0}
-  updateSolvers: 1
 --- !u!1 &4470688164324477241
 GameObject:
   m_ObjectHideFlags: 0
