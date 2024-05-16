@@ -93,10 +93,10 @@ public class SuitsControlController : MonoBehaviour
     // add whatever progress bar stuff needed
 
     //1st astronaut
-    GameObject heartRate, temp, oxyCons, co2Prod, priOxy, batt, suitPresOxy, suitTotPres, suitPresCO2, secOxyStor, secOxyPres, priFan, coolLiquidPres, coolGasPres, powerTime, oxyTime;
+    GameObject heartRate, temp, oxyCons, co2Prod, priOxyPres, priOxyStor, secOxyPres, helmetCO2Pres, otherSuitPres, batt, scrubberA, secFan, scrubberB, coolant, suitPresOxy, suitTotPres, suitPresCO2, secOxyStor, priFan, coolLiquidPres, coolGasPres, powerTime, oxyTime;
 
     //2nd astronaut
-    GameObject heartRate2, temp2, oxyCons2, co2Prod2, priOxy2, batt2, suitPresOxy2, suitTotPres2, suitPresCO22, secOxyStor2, secOxyPres2, priFan2, coolLiquidPres2, coolGasPres2, powerTime2, oxyTime2;
+    GameObject heartRate2, temp2, oxyCons2, co2Prod2, priOxyPres2, helmetCO2Pres2, secOxyPres2, priOxyStor2, secFan2, otherSuitPres2, batt2, scrubberA2, scrubberB2, coolant2, suitPresOxy2, suitTotPres2, suitPresCO22, secOxyStor2, priFan2, coolLiquidPres2, coolGasPres2, powerTime2, oxyTime2;
 
 
     private void Start()
@@ -112,46 +112,112 @@ public class SuitsControlController : MonoBehaviour
         astr1TimeBoard = astr1Board.transform.Find("RemainingBoard").gameObject;
 
         // assign all vitals based on gameobjects
-
-        //HR
+        oxyTime = transform.Find("O2priOxygen").gameObject;
+        powerTime = transform.Find("PriBattery").gameObject;
         heartRate = astr1CritBoard.transform.Find("HeartRate").gameObject;
-        heartRate.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc2", 0f);
-        heartRate.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", 302f);
-        heartRate.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Angle", 241f);
-
-        //O2cons
         oxyCons = astr1CritBoard.transform.Find("O2cons").gameObject;
-        oxyCons.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc2", 0f);
-        oxyCons.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", 302f);
-        oxyCons.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Angle", 241f);
-
-        //co2prod
         co2Prod = astr1CritBoard.transform.Find("CO2prod").gameObject;
-        co2Prod.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc2", 0f);
-        co2Prod.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", 302f);
-        co2Prod.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Angle", 241f);
-
-        //temp
         temp = astr1CritBoard.transform.Find("Temp").gameObject;
-        temp.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc2", 0f);
-        temp.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", 302f);
-        temp.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Angle", 241f);
+        priOxyStor = astr1Board.transform.Find("O2priStor").gameObject;
+        secOxyStor = astr1Board.transform.Find("O2secStor").gameObject;
+        batt = astr1Board.transform.Find("Battery").gameObject;
+        coolant = astr1Board.transform.Find("Coolant").gameObject;
+        scrubberA = astr1Board.transform.Find("ScrubberA").gameObject;
+        scrubberB = astr1Board.transform.Find("ScrubberB").gameObject;
+        priOxyPres = astr1Board.transform.Find("O2priPress").gameObject;
+        secOxyPres = astr1Board.transform.Find("O2secPress").gameObject;
+        suitPresOxy = astr1Board.transform.Find("O2suitPress").gameObject;
+        suitTotPres = astr1Board.transform.Find("SuitTotPress").gameObject;
+        suitPresCO2 = astr1Board.transform.Find("CO2priPress").gameObject;
+        otherSuitPres = astr1Board.transform.Find("OtherSuitPress").gameObject;
+        priFan = astr1Board.transform.Find("FanPri").gameObject;
+        secFan = astr1Board.transform.Find("FanPri").gameObject;
+        helmetCO2Pres = astr1Board.transform.Find("HelCO2press").gameObject;
+        coolLiquidPres = astr1Board.transform.Find("CoolLiqPress").gameObject;
+        coolGasPres = astr1Board.transform.Find("CoolGasPress").gameObject;
+
+        // Astr 2
+        astr2Board = transform.Find("SuitsControlScreen").gameObject;
+        astr2CritBoard = astr2Board.transform.Find("ScreenCrit").gameObject;
+        astr2SuitBoard = astr2Board.transform.Find("SuitBoard").gameObject;
+        astr2PressureBoard = astr2Board.transform.Find("PressureBoard").gameObject;
+        astr2TimeBoard = astr2Board.transform.Find("RemainingBoard").gameObject;
+
+        // assign all vitals based on gameobjects
+        oxyTime2 = transform.Find("O2priOxygen").gameObject;
+        powerTime2 = transform.Find("PriBattery").gameObject;
+        heartRate2 = astr2CritBoard.transform.Find("HeartRate").gameObject;
+        oxyCons2 = astr2CritBoard.transform.Find("O2cons").gameObject;
+        co2Prod2 = astr2CritBoard.transform.Find("CO2prod").gameObject;
+        temp2 = astr2CritBoard.transform.Find("Temp").gameObject;
+        priOxyStor2 = astr2Board.transform.Find("O2priStor").gameObject;
+        secOxyStor2 = astr2Board.transform.Find("O2secStor").gameObject;
+        batt2 = astr2Board.transform.Find("Battery").gameObject;
+        coolant2 = astr2Board.transform.Find("Coolant").gameObject;
+        scrubberA2 = astr2Board.transform.Find("ScrubberA").gameObject;
+        scrubberB2 = astr2Board.transform.Find("ScrubberB").gameObject;
+        priOxyPres2 = astr2Board.transform.Find("O2priPress").gameObject;
+        suitPresOxy2 = astr2Board.transform.Find("O2suitPress").gameObject;
+        suitTotPres2 = astr2Board.transform.Find("SuitTotPress").gameObject;
+        suitPresCO22 = astr2Board.transform.Find("CO2priPress").gameObject;
+        otherSuitPres2 = astr2Board.transform.Find("OtherSuitPress").gameObject;
+        priFan2 = astr2Board.transform.Find("FanPri").gameObject;
+        secFan2 = astr2Board.transform.Find("FanPri").gameObject;
+        helmetCO2Pres2 = astr2Board.transform.Find("HelCO2press").gameObject;
+        coolLiquidPres2 = astr2Board.transform.Find("CoolLiqPress").gameObject;
+        coolGasPres2 = astr2Board.transform.Find("CoolGasPress").gameObject;
+
     }
 
     private void onVitalsUpdate(VitalsUpdatedEvent e)
     {
         // update all the board stuff
+
+        //uses a 100 based scale rn, not specific to each threshhold, kinda confused on how to do that
+        oxyTime.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.oxy_time_left.ToString("F0");
+        powerTime.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.batt_time_left.ToString("F0");
         heartRate.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.heart_rate / 100) * 302));
         heartRate.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.heart_rate.ToString("F0");
-
-        oxyCons.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.heart_rate) * 302));
-        oxyCons.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.heart_rate.ToString("F0");
-
-        co2Prod.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.heart_rate) * 302));
-        co2Prod.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.heart_rate.ToString("F0");
-
-        temp.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.heart_rate / 100) * 302));
-        temp.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.heart_rate.ToString("F0");
+        oxyCons.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.oxy_consumption) * 302));
+        oxyCons.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.oxy_consumption.ToString("F0");
+        co2Prod.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.co2_production) * 302));
+        co2Prod.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.co2_production.ToString("F0");
+        temp.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.temperature / 100) * 302));
+        temp.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.temperature.ToString("F0");
+        priOxyStor.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.oxy_pri_storage / 100) * 302));
+        priOxyStor.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.oxy_pri_storage.ToString("F0");
+        secOxyStor.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.oxy_sec_storage / 100) * 302));
+        priOxyStor.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.oxy_sec_storage.ToString("F0");
+        batt.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.batt_percentage / 100) * 302));
+        batt.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.batt_percentage.ToString("F0");
+        coolant.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.coolant_m / 100) * 302));
+        coolant.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.coolant_m.ToString("F0");
+        scrubberA.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.scrubber_a_co2_storage / 100) * 302));
+        scrubberA.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.scrubber_a_co2_storage.ToString("F0");
+        scrubberB.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.scrubber_b_co2_storage / 100) * 302));
+        scrubberB.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.scrubber_b_co2_storage.ToString("F0");
+        priFan.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.fan_pri_rpm / 10000) * 302));
+        priFan.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.fan_pri_rpm.ToString("F0" + "k");
+        secFan.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.fan_sec_rpm / 10000) * 302));
+        secFan.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.fan_sec_rpm.ToString("F0" + "k");
+        priOxyPres.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.oxy_pri_pressure / 1000) * 302));
+        priOxyPres.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.oxy_pri_pressure.ToString("F0");
+        secOxyPres.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.oxy_sec_pressure / 1000) * 302));
+        secOxyPres.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.oxy_sec_pressure.ToString("F0");
+        suitTotPres.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.suit_pressure_total) * 302));
+        suitTotPres.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.suit_pressure_total.ToString("F0");
+        suitPresOxy.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.suit_pressure_oxy) * 302));
+        suitPresOxy.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.suit_pressure_oxy.ToString("F0");
+        suitPresCO2.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.suit_pressure_co2) * 302));
+        suitPresCO2.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.suit_pressure_co2.ToString("F0");
+        otherSuitPres.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.suit_pressure_other) * 302));
+        otherSuitPres.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.suit_pressure_other.ToString("F0");
+        helmetCO2Pres.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.helmet_pressure_co2) * 302));
+        helmetCO2Pres.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.helmet_pressure_co2.ToString("F0");
+        coolLiquidPres.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.coolant_liquid_pressure / 100) * 302));
+        coolLiquidPres.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.coolant_liquid_pressure.ToString("F0");
+        coolGasPres.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.coolant_gas_pressure / 100) * 302));
+        coolGasPres.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.coolant_gas_pressure.ToString("F0");
 
         checkVitals(e);
     }
@@ -159,6 +225,51 @@ public class SuitsControlController : MonoBehaviour
     private void onFellowVitalsUpdate(FellowAstronautVitalsDataChangeEvent e)
     {
         // update fellow board stuff
+        oxyTime2.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.oxy_time_left.ToString("F0");
+        powerTime2.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.batt_time_left.ToString("F0");
+        heartRate2.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.heart_rate / 100) * 302));
+        heartRate2.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.heart_rate.ToString("F0");
+        oxyCons2.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.oxy_consumption) * 302));
+        oxyCons2.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.oxy_consumption.ToString("F0");
+        co2Prod2.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.co2_production) * 302));
+        co2Prod2.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.co2_production.ToString("F0");
+        temp2.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.temperature / 100) * 302));
+        temp2.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.temperature.ToString("F0");
+        priOxyStor2.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.oxy_pri_storage / 100) * 302));
+        priOxyStor2.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.oxy_pri_storage.ToString("F0");
+        secOxyStor2.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.oxy_sec_storage / 100) * 302));
+        priOxyStor2.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.oxy_sec_storage.ToString("F0");
+        batt2.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.batt_percentage / 100) * 302));
+        batt2.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.batt_percentage.ToString("F0");
+        coolant2.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.coolant_m / 100) * 302));
+        coolant2.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.coolant_m.ToString("F0");
+        scrubberA2.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.scrubber_a_co2_storage / 100) * 302));
+        scrubberA2.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.scrubber_a_co2_storage.ToString("F0");
+        scrubberB2.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.scrubber_b_co2_storage / 100) * 302));
+        scrubberB2.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.scrubber_b_co2_storage.ToString("F0");
+        priFan2.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.fan_pri_rpm / 10000) * 302));
+        priFan2.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.fan_pri_rpm.ToString("F0" + "k");
+        secFan2.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.fan_sec_rpm / 10000) * 302));
+        secFan2.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.fan_sec_rpm.ToString("F0" + "k");
+        priOxyPres2.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.oxy_pri_pressure / 1000) * 302));
+        priOxyPres2.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.oxy_pri_pressure.ToString("F0");
+        secOxyPres2.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.oxy_sec_pressure / 1000) * 302));
+        secOxyPres2.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.oxy_sec_pressure.ToString("F0");
+        suitTotPres2.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.suit_pressure_total) * 302));
+        suitTotPres2.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.suit_pressure_total.ToString("F0");
+        suitPresOxy2.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.suit_pressure_oxy) * 302));
+        suitPresOxy2.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.suit_pressure_oxy.ToString("F0");
+        suitPresCO22.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.suit_pressure_co2) * 302));
+        suitPresCO22.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.suit_pressure_co2.ToString("F0");
+        otherSuitPres2.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.suit_pressure_other) * 302));
+        otherSuitPres2.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.suit_pressure_other.ToString("F0");
+        helmetCO2Pres2.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.helmet_pressure_co2) * 302));
+        helmetCO2Pres2.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.helmet_pressure_co2.ToString("F0");
+        coolLiquidPres2.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.coolant_liquid_pressure / 100) * 302));
+        coolLiquidPres2.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.coolant_liquid_pressure.ToString("F0");
+        coolGasPres2.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.coolant_gas_pressure / 100) * 302));
+        coolGasPres2.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.coolant_gas_pressure.ToString("F0");
+
     }
 
     private void checkVitals(VitalsUpdatedEvent e)
@@ -227,7 +338,7 @@ public class SuitsControlController : MonoBehaviour
         // Temperature
         if (e.vitals.temperature > TEMP_MAX)
         {
-            EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Temp, "Temperature High", $"{e.vitals.helmet_pressure_co2.ToString()} °F. Slow Down"));
+            EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Temp, "Temperature High", $"{e.vitals.helmet_pressure_co2.ToString()} ?F. Slow Down"));
         }
 
         // Battery
