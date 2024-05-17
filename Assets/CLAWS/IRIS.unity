@@ -1739,17 +1739,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1047388321}
   m_CullTransparentMesh: 1
---- !u!114 &1136327287 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 249576575015632898, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
-  m_PrefabInstance: {fileID: 3794289907722291898}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a98de877dee5fc341b4eb59dfdab266c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1203092812
 GameObject:
   m_ObjectHideFlags: 0
@@ -2829,26 +2818,10 @@ PrefabInstance:
       propertyPath: transformOverride
       value: 
       objectReference: {fileID: 169661752}
-    - target: {fileID: 5468004605250304877, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
-      propertyPath: constraintsManager
-      value: 
-      objectReference: {fileID: 1136327287}
-    - target: {fileID: 6262810648356258576, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
-      propertyPath: constraintsManager
-      value: 
-      objectReference: {fileID: 1136327287}
     - target: {fileID: 6287077056513230634, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       propertyPath: m_Name
       value: SceneComponents
       objectReference: {fileID: 0}
-    - target: {fileID: 6792915319302084211, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7195334360917196299, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
-      propertyPath: constraintsManager
-      value: 
-      objectReference: {fileID: 1136327287}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

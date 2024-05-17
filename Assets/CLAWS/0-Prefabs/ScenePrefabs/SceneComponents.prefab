@@ -21413,7 +21413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f04d6f7f58cb434a9347ff94fb54645, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spacing: 0.0477
+  spacing: 0.0285
   buttonsEnabledCount: 4
   layoutType: 0
   highlightsOn: 1
@@ -33605,7 +33605,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f04d6f7f58cb434a9347ff94fb54645, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spacing: 0.0477
+  spacing: 0.0285
   buttonsEnabledCount: 4
   layoutType: 0
   highlightsOn: 1
@@ -56462,7 +56462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f04d6f7f58cb434a9347ff94fb54645, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spacing: 0.0477
+  spacing: 0.0285
   buttonsEnabledCount: 4
   layoutType: 0
   highlightsOn: 1
@@ -60052,7 +60052,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8046663181421524670, guid: 38b132371af016d418e272766eaae883, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8257660086064310268, guid: 38b132371af016d418e272766eaae883, type: 3}
       propertyPath: m_Name
@@ -60168,7 +60168,7 @@ MonoBehaviour:
   rotateLerpTime: 0.001
   scaleLerpTime: 0.001
   enableConstraints: 1
-  constraintsManager: {fileID: 6775220887938214158}
+  constraintsManager: {fileID: 249576575015632898}
   elasticsManager: {fileID: 0}
   onManipulationStarted:
     m_PersistentCalls:
@@ -60256,7 +60256,7 @@ MonoBehaviour:
   rotateLerpTime: 0.001
   scaleLerpTime: 0.001
   enableConstraints: 1
-  constraintsManager: {fileID: 6453289394760052513}
+  constraintsManager: {fileID: 249576575015632898}
   elasticsManager: {fileID: 0}
   onManipulationStarted:
     m_PersistentCalls:
@@ -60432,7 +60432,7 @@ MonoBehaviour:
   rotateLerpTime: 0.001
   scaleLerpTime: 0.001
   enableConstraints: 1
-  constraintsManager: {fileID: 6775220887938214158}
+  constraintsManager: {fileID: 249576575015632898}
   elasticsManager: {fileID: 0}
   onManipulationStarted:
     m_PersistentCalls:
@@ -60833,7 +60833,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8149106640677727863, guid: 452436fb6746e8449908ca0a63732d5d, type: 3}
       propertyPath: spacing
-      value: 0.0477
+      value: 0.0285
       objectReference: {fileID: 0}
     - target: {fileID: 8149106640959642012, guid: 452436fb6746e8449908ca0a63732d5d, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
