@@ -865,6 +865,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 785fe5e2e899d41c5a75b2b9a4e458b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  emojiParent: {fileID: 613003691}
   textBox: {fileID: 5314939477116572250, guid: 547dd89622f6f7d43b8a84cce97f454b, type: 3}
 --- !u!1 &127777994
 GameObject:
@@ -10856,9 +10857,9 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1396289634}
-        m_TargetAssemblyTypeName: GeosamplingBottomBar, Assembly-CSharp
-        m_MethodName: OnAddSamplePressed
+      - m_Target: {fileID: 119991688}
+        m_TargetAssemblyTypeName: MessageReceiveHandler, Assembly-CSharp
+        m_MethodName: ClickRejected
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -17952,9 +17953,9 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1396289634}
-        m_TargetAssemblyTypeName: GeosamplingBottomBar, Assembly-CSharp
-        m_MethodName: OnAddSamplePressed
+      - m_Target: {fileID: 119991688}
+        m_TargetAssemblyTypeName: MessageReceiveHandler, Assembly-CSharp
+        m_MethodName: ClickWarning
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -20369,6 +20370,18 @@ PrefabInstance:
       propertyPath: Children.Array.data[2]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 3177918902595534839, guid: 65a4e85d2e07cfc449f35d9c10e835be, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 119991688}
+    - target: {fileID: 3177918902595534839, guid: 65a4e85d2e07cfc449f35d9c10e835be, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CloseEmoji
+      objectReference: {fileID: 0}
+    - target: {fileID: 3177918902595534839, guid: 65a4e85d2e07cfc449f35d9c10e835be, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: MessageReceiveHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 4081066026014102382, guid: 65a4e85d2e07cfc449f35d9c10e835be, type: 3}
       propertyPath: m_Name
       value: emojiScreen
@@ -20437,6 +20450,22 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 0.0284
       objectReference: {fileID: 0}
+    - target: {fileID: 8398929170430527949, guid: 65a4e85d2e07cfc449f35d9c10e835be, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 119991688}
+    - target: {fileID: 8398929170430527949, guid: 65a4e85d2e07cfc449f35d9c10e835be, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ClickConfirmed
+      objectReference: {fileID: 0}
+    - target: {fileID: 8398929170430527949, guid: 65a4e85d2e07cfc449f35d9c10e835be, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: MessageReceiveHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8914956895801769324, guid: 65a4e85d2e07cfc449f35d9c10e835be, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.014
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 5889253204660386396, guid: 65a4e85d2e07cfc449f35d9c10e835be, type: 3}
@@ -20469,17 +20498,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1031268572776379670, guid: 65a4e85d2e07cfc449f35d9c10e835be, type: 3}
   m_PrefabInstance: {fileID: 1396289631}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1396289634 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2197744034400889205, guid: 65a4e85d2e07cfc449f35d9c10e835be, type: 3}
-  m_PrefabInstance: {fileID: 1396289631}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79566dbae4add6f4f8f0b8350db99e2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1416514331
 GameObject:
   m_ObjectHideFlags: 0
@@ -29093,9 +29111,9 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1396289634}
-        m_TargetAssemblyTypeName: GeosamplingBottomBar, Assembly-CSharp
-        m_MethodName: OnAddSamplePressed
+      - m_Target: {fileID: 119991688}
+        m_TargetAssemblyTypeName: MessageReceiveHandler, Assembly-CSharp
+        m_MethodName: ClickReady
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -12,7 +12,8 @@ public class MessageReceiveHandler : MonoBehaviour
     GameObject AstroScreen;
     GameObject LMCCScreen;
     GameObject GroupChatScreen;
-    GameObject emojiParent;
+
+    [SerializeField] GameObject emojiParent;
     GameObject emojiScreen;
 
     [SerializeField] private GameObject textBox;
@@ -42,7 +43,6 @@ public class MessageReceiveHandler : MonoBehaviour
         LMCCScreen = parent.transform.Find("LMCCScroll").gameObject;
         GroupChatScreen = parent.transform.Find("GroupChatScroll").gameObject;
 
-        emojiParent = transform.parent.Find("Messaging").gameObject;
         emojiScreen = emojiParent.transform.Find("emojiScreen").gameObject;
 
         GameObject textFieldObject = parent.transform.Find("TextField").gameObject;
