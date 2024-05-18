@@ -12,6 +12,8 @@ public class MessageReceiveHandler : MonoBehaviour
     GameObject AstroScreen;
     GameObject LMCCScreen;
     GameObject GroupChatScreen;
+    GameObject emojiParent;
+    GameObject emojiScreen;
 
     [SerializeField] private GameObject textBox;
 
@@ -38,8 +40,11 @@ public class MessageReceiveHandler : MonoBehaviour
         parent = transform.parent.Find("MessagingScreen").gameObject;
         AstroScreen = parent.transform.Find("AstroScroll").gameObject;
         LMCCScreen = parent.transform.Find("LMCCScroll").gameObject;
-
         GroupChatScreen = parent.transform.Find("GroupChatScroll").gameObject;
+
+        emojiParent = transform.parent.Find("Messaging").gameObject;
+        emojiScreen = emojiParent.transform.Find("emojiScreen").gameObject;
+
         GameObject textFieldObject = parent.transform.Find("TextField").gameObject;
         message = textFieldObject.transform.Find("InputField (TMP)").GetComponent<TMP_InputField>();
 
@@ -56,6 +61,7 @@ public class MessageReceiveHandler : MonoBehaviour
         EventBus.Subscribe<MessagesAddedEvent>(appendList);
 
         AstroScreen.SetActive(true);
+        emojiScreen.SetActive(false);
 
         StartCoroutine(GenerateAstroBox());
         StartCoroutine(GenerateLMCCBox());
@@ -221,8 +227,18 @@ public class MessageReceiveHandler : MonoBehaviour
         message.text = "Rejected";
     }
 
-    public void ClickNotReady()
+    public void ClickReady()
     {
-        message.text = "Not Ready";
+        message.text = "Ready";
+    }
+
+    public void ClickWarning()
+    {
+        message.text = "Warning";
+    }
+
+    public void CloseEmoji()
+    {
+        emojiScreen.SetActive(false);
     }
 }
