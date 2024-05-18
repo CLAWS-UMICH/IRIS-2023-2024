@@ -55,7 +55,11 @@ public class MessageReceiveHandler : MonoBehaviour
 
         EventBus.Subscribe<MessagesAddedEvent>(appendList);
 
+        AstroScreen.SetActive(true);
+
         StartCoroutine(GenerateAstroBox());
+        StartCoroutine(GenerateLMCCBox());
+        StartCoroutine(GenerateGroupChatBox());
     }
 
     void appendList(MessagesAddedEvent e)
@@ -122,18 +126,18 @@ public class MessageReceiveHandler : MonoBehaviour
             GameObject box = Instantiate(textBox, screen.transform);
             TMP_Text textComponent = box.GetComponentInChildren<TMP_Text>();
             textComponent.text = chat[i].message; Vector3 newPosition = box.transform.position;
-            newPosition.y -= 0.25f * i;
+            newPosition.y -= 0.02f * i + 0.05f;
             box.transform.position = newPosition;
             if (chat[i].from == AstronautInstance.User.id)
             {
                 Vector3 chatPosition = box.transform.position;
-                chatPosition.x += 0.25f;
+                chatPosition.x += 0.07f;
                 box.transform.position = chatPosition;
             }
             else
             {
                 Vector3 chatPosition = box.transform.position;
-                chatPosition.x -= 0.25f;
+                chatPosition.x -= 0.07f;
                 box.transform.position = chatPosition;
             }
         }
@@ -152,6 +156,32 @@ public class MessageReceiveHandler : MonoBehaviour
             yield return null;
         }
         
+    }
+
+    IEnumerator GenerateLMCCBox()
+    {
+        while (true)
+        {
+            if (LMCCCounter < LMCCChat.Count())
+            {
+                generateBox(LMCCChat, LMCCScreen, LMCCCounter);
+                LMCCCounter = LMCCChat.Count();
+            }
+            yield return null;
+        }
+    }
+
+    IEnumerator GenerateGroupChatBox()
+    {
+        while (true)
+        {
+            if (groupChatCounter < GroupChat.Count())
+            {
+                generateBox(GroupChat, GroupChatScreen, groupChatCounter);
+                groupChatCounter = GroupChat.Count();
+            }
+            yield return null;
+        }
     }
 
 
