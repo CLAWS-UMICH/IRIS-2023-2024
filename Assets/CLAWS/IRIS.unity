@@ -2230,6 +2230,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BottomBar
       objectReference: {fileID: 0}
+    - target: {fileID: 4540993658604185352, guid: 65a4e85d2e07cfc449f35d9c10e835be, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5221800105288618692, guid: 65a4e85d2e07cfc449f35d9c10e835be, type: 3}
       propertyPath: trackedTargetType
       value: 7
@@ -2818,6 +2822,18 @@ PrefabInstance:
       propertyPath: transformOverride
       value: 
       objectReference: {fileID: 169661752}
+    - target: {fileID: 5699065205488624256, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      propertyPath: m_Name
+      value: StartGeosamplingModeButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 6242078251086314356, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6252579717711038638, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      propertyPath: iconQuadTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: 7775d7b504add441fb8e5badb84813b1, type: 3}
     - target: {fileID: 6287077056513230634, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       propertyPath: m_Name
       value: SceneComponents
@@ -2896,6 +2912,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
     - targetCorrespondingSourceObject: {fileID: 1330831683498648729, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 7670766157179209356, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
     - targetCorrespondingSourceObject: {fileID: 3288053500239820116, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
