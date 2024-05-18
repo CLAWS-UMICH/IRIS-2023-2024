@@ -217,6 +217,11 @@ public class MessageReceiveHandler : MonoBehaviour
         groupChat = -2;
     }
 
+    public void displayEmojiScreen()
+    {
+        emojiScreen.SetActive(true);
+    }
+
     public void ClickConfirmed()
     {
         message.text = "Confirmed";
