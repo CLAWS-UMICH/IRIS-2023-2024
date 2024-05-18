@@ -36,6 +36,11 @@ public class GeosamplingDB_Manager : MonoBehaviour
         isOpen = false;
     }
 
+    public static void StartGeosmaplingMode()
+    {
+        GeosamplingManager.StartGeosamplingMode();
+    }
+
     public static void OpenScreen()
     {
         Instance.gameObject.SetActive(true);
