@@ -61,9 +61,9 @@ public class Map3DController : MonoBehaviour
     public static Vector3 TranslatePosition(Vector3 originalPos)
     {
         // Calculate the conversion factors for each axis
-        float xConversionFactor = smallMapScale.x / bigMapScale.x;
+        float xConversionFactor = smallMapScale.x / (bigMapScale.x * 30);
         //float yConversionFactor = smallMapScale.y / bigMapScale.y;
-        float zConversionFactor = smallMapScale.y / bigMapScale.y;
+        float zConversionFactor = smallMapScale.y / (bigMapScale.y * 30);
 
         // Apply the conversion factors to translate the position to new pos
         Vector3 newPos = new Vector3(
@@ -79,12 +79,13 @@ public class Map3DController : MonoBehaviour
     public static GameObject SpawnWaypoint(GameObject prefab, Vector3 location)
     {
         GameObject newWaypoint = Instantiate(prefab, TranslatePosition(location), Quaternion.identity);
-        newWaypoint.transform.position += new Vector3(0f, 0.01625f, 0f);
-
+        newWaypoint.transform.position += new Vector3(0.071f, 0.03f, 0.102f);
+        
         newWaypoint.transform.localScale = new Vector3(0.02f, 0.02f, 0.02f);
 
         // Set the parent of the instantiated waypoint to the waypoints object
         newWaypoint.transform.parent = waypoints.transform;
+
 
         return newWaypoint;
     }
