@@ -15,14 +15,14 @@ public class SuitsControlController : MonoBehaviour
     private GameObject astr1SuitBoard;
     private GameObject astr1PressureBoard;
     private GameObject astr1TimeBoard;
-    private GameObject astr1DCUBoard;
+
+    private GameObject astrDCUBoard;
 
     private GameObject astr2Board;
     private GameObject astr2CritBoard;
     private GameObject astr2SuitBoard;
     private GameObject astr2PressureBoard;
     private GameObject astr2TimeBoard;
-    private GameObject astr2DCUBoard;
 
     // Battery Parameters
     private float BATT_TIME_MAX = 10800.0f; // sec
@@ -133,7 +133,6 @@ public class SuitsControlController : MonoBehaviour
         astr2SuitBoard = astr2Board.transform.Find("SuitBoard").gameObject;
         astr2PressureBoard = astr2Board.transform.Find("PressureBoard").gameObject;
         astr2TimeBoard = astr2Board.transform.Find("RemainingBoard").gameObject;
-        astr2DCUBoard = astr1Board.transform.Find("DCU").gameObject;
 
         // assign all vitals based on gameobjects
         oxyTime2 = transform.Find("O2priOxygen").gameObject;
@@ -268,86 +267,67 @@ public class SuitsControlController : MonoBehaviour
 
     private void onDCUChanged(DCUChanged e)
     {
-        astr1DCUBoard = astr1Board.transform.Find("DCU").gameObject;
-        astr2DCUBoard = astr1Board.transform.Find("DCU").gameObject;
+        astrDCUBoard = astr1Board.transform.Find("DCU").gameObject;
 
-        GameObject oxyBox1 = astr1DCUBoard.transform.Find("OxyBox").gameObject;
-        GameObject oxyBox2 = astr2DCUBoard.transform.Find("OxyBox").gameObject;
-        GameObject co2Box1 = astr1DCUBoard.transform.Find("CO2Box").gameObject;
-        GameObject co2Box2 = astr2DCUBoard.transform.Find("CO2Box").gameObject;
-        GameObject PumpBox1 = astr1DCUBoard.transform.Find("PumpBox").gameObject;
-        GameObject PumpBox2 = astr2DCUBoard.transform.Find("PumpBox").gameObject;
-        GameObject FanBox1 = astr1DCUBoard.transform.Find("FanBox").gameObject;
-        GameObject FanBox2 = astr2DCUBoard.transform.Find("FanBox").gameObject;
-        GameObject BattBox1 = astr1DCUBoard.transform.Find("BattBox").gameObject;
-        GameObject BattBox2 = astr2DCUBoard.transform.Find("BattBox").gameObject;
-        GameObject CommsBox1 = astr1DCUBoard.transform.Find("CommsBox").gameObject;
-        GameObject CommsBox2 = astr2DCUBoard.transform.Find("CommsBox").gameObject;
+        GameObject oxyBox = astrDCUBoard.transform.Find("OxyBox").gameObject;
+        GameObject co2Box = astrDCUBoard.transform.Find("CO2Box").gameObject;
+        GameObject PumpBox = astrDCUBoard.transform.Find("PumpBox").gameObject;
+        GameObject FanBox = astrDCUBoard.transform.Find("FanBox").gameObject;
+        GameObject BattBox = astrDCUBoard.transform.Find("BattBox").gameObject;
+        GameObject CommsBox = astrDCUBoard.transform.Find("CommsBox").gameObject;
 
         if (e.data.oxy)
         {
-            oxyBox1.transform.Find("OxyStats").GetComponent<TextMeshPro>().text = "PRI";
-            oxyBox2.transform.Find("OxyStats").GetComponent<TextMeshPro>().text = "PRI";
+            oxyBox.transform.Find("OxyStats").GetComponent<TextMeshPro>().text = "PRI";
         }
         else
         {
-            oxyBox1.transform.Find("OxyStats").GetComponent<TextMeshPro>().text = "SEC";
-            oxyBox2.transform.Find("OxyStats").GetComponent<TextMeshPro>().text = "SEC";
+            oxyBox.transform.Find("OxyStats").GetComponent<TextMeshPro>().text = "SEC";
         }
 
         if (e.data.batt)
         {
-            BattBox1.transform.Find("BattStats").GetComponent<TextMeshPro>().text = "LOCAL";
-            BattBox2.transform.Find("BattStats").GetComponent<TextMeshPro>().text = "LOCAL";
+            BattBox.transform.Find("BattStats").GetComponent<TextMeshPro>().text = "LOCAL";
         }
         else
         {
-            BattBox1.transform.Find("BattStats").GetComponent<TextMeshPro>().text = "UIA";
-            BattBox2.transform.Find("BattStats").GetComponent<TextMeshPro>().text = "UIA";
+            BattBox.transform.Find("BattStats").GetComponent<TextMeshPro>().text = "UIA";
         }
 
         if (e.data.comm)
         {
-            CommsBox1.transform.Find("CommsStats").GetComponent<TextMeshPro>().text = "A";
-            CommsBox2.transform.Find("CommsStats").GetComponent<TextMeshPro>().text = "A";
+            CommsBox.transform.Find("CommsStats").GetComponent<TextMeshPro>().text = "A";
         }
         else
         {
-            CommsBox1.transform.Find("CommsStats").GetComponent<TextMeshPro>().text = "B";
-            CommsBox2.transform.Find("CommsStats").GetComponent<TextMeshPro>().text = "B";
+            CommsBox.transform.Find("CommsStats").GetComponent<TextMeshPro>().text = "B";
         }
 
         if (e.data.fan)
         {
-            FanBox1.transform.Find("FanStats").GetComponent<TextMeshPro>().text = "PRI";
-            FanBox2.transform.Find("FanStats").GetComponent<TextMeshPro>().text = "PRI";
+            FanBox.transform.Find("FanStats").GetComponent<TextMeshPro>().text = "PRI";
         }
         else
         {
-            FanBox1.transform.Find("FanStats").GetComponent<TextMeshPro>().text = "SEC";
-            FanBox2.transform.Find("FanStats").GetComponent<TextMeshPro>().text = "SEC";
+            FanBox.transform.Find("FanStats").GetComponent<TextMeshPro>().text = "SEC";
         }
         
         if (e.data.pump)
         {
-            PumpBox1.transform.Find("PumpStats").GetComponent<TextMeshPro>().text = "OPEN";
-            PumpBox2.transform.Find("PumpStats").GetComponent<TextMeshPro>().text = "OPEN";
+            PumpBox.transform.Find("PumpStats").GetComponent<TextMeshPro>().text = "OPEN";
         }
         else
         {
-            PumpBox1.transform.Find("PumpStats").GetComponent<TextMeshPro>().text = "CLOSED";
-            PumpBox2.transform.Find("PumpStats").GetComponent<TextMeshPro>().text = "CLOSED";
+            PumpBox.transform.Find("PumpStats").GetComponent<TextMeshPro>().text = "CLOSED";
         }
 
         if (e.data.co2)
         {
-            co2Box1.transform.Find("CO2Stats").GetComponent<TextMeshPro>().text = "A";
-            co2Box2.transform.Find("CO2Stats").GetComponent<TextMeshPro>().text = "A";
+            co2Box.transform.Find("CO2Stats").GetComponent<TextMeshPro>().text = "A";
         }
         else
         {
-            co2Box1.transform.Find("CO2Stats").GetComponent<TextMeshPro>().text = "B";
-            co2Box2.transform.Find("CO2Stats").GetComponent<TextMeshPro>().text = "B";
+            co2Box.transform.Find("CO2Stats").GetComponent<TextMeshPro>().text = "B";
         }
     }
 
