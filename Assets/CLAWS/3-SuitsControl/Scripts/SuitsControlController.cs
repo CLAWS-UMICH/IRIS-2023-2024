@@ -17,6 +17,7 @@ public class SuitsControlController : MonoBehaviour
     private GameObject astr1BottomBoard;
 
     private GameObject astrDCUBoard;
+    private GameObject astr2DCUBoard;
 
     private GameObject astr2Board;
     private GameObject astr2Name;
@@ -101,6 +102,7 @@ public class SuitsControlController : MonoBehaviour
         astr1CritBoard = astr1Board.transform.Find("ScreenCrit").gameObject;
         astr1SuitBoard = astr1Board.transform.Find("Screen1").gameObject;
         astr1BottomBoard = astr1Board.transform.Find("Screen2").gameObject;
+        astrDCUBoard = astr1Board.transform.Find("DCU").gameObject;
 
         // assign all vitals based on gameobjects
         oxyTime = transform.Find("O2priOxygen").gameObject;
@@ -332,7 +334,6 @@ public class SuitsControlController : MonoBehaviour
 
     private void onDCUChanged(DCUChanged e)
     {
-        astrDCUBoard = astr1Board.transform.Find("DCU").gameObject;
 
         GameObject oxyBox = astrDCUBoard.transform.Find("OxyBox").gameObject;
         GameObject co2Box = astrDCUBoard.transform.Find("CO2Box").gameObject;
@@ -341,58 +342,77 @@ public class SuitsControlController : MonoBehaviour
         GameObject BattBox = astrDCUBoard.transform.Find("BattBox").gameObject;
         GameObject CommsBox = astrDCUBoard.transform.Find("CommsBox").gameObject;
 
+        GameObject oxyBox2 = astr2DCUBoard.transform.Find("OxyBox").gameObject;
+        GameObject co2Box2 = astr2DCUBoard.transform.Find("CO2Box").gameObject;
+        GameObject PumpBox2 = astr2DCUBoard.transform.Find("PumpBox").gameObject;
+        GameObject FanBox2 = astr2DCUBoard.transform.Find("FanBox").gameObject;
+        GameObject BattBox2 = astr2DCUBoard.transform.Find("BattBox").gameObject;
+        GameObject CommsBox2 = astr2DCUBoard.transform.Find("CommsBox").gameObject;
+
         if (e.data.oxy)
         {
             oxyBox.transform.Find("OxyStats").GetComponent<TextMeshPro>().text = "PRI";
+            oxyBox2.transform.Find("OxyStats").GetComponent<TextMeshPro>().text = "PRI";
         }
         else
         {
             oxyBox.transform.Find("OxyStats").GetComponent<TextMeshPro>().text = "SEC";
+            oxyBox2.transform.Find("OxyStats").GetComponent<TextMeshPro>().text = "SEC";
         }
 
         if (e.data.batt)
         {
             BattBox.transform.Find("BattStats").GetComponent<TextMeshPro>().text = "LOCAL";
+            BattBox2.transform.Find("BattStats").GetComponent<TextMeshPro>().text = "LOCAL";
         }
         else
         {
             BattBox.transform.Find("BattStats").GetComponent<TextMeshPro>().text = "UIA";
+            BattBox2.transform.Find("BattStats").GetComponent<TextMeshPro>().text = "UIA";
         }
 
         if (e.data.comm)
         {
             CommsBox.transform.Find("CommsStats").GetComponent<TextMeshPro>().text = "A";
+            CommsBox2.transform.Find("CommsStats").GetComponent<TextMeshPro>().text = "A";
         }
         else
         {
             CommsBox.transform.Find("CommsStats").GetComponent<TextMeshPro>().text = "B";
+            CommsBox2.transform.Find("CommsStats").GetComponent<TextMeshPro>().text = "B";
         }
 
         if (e.data.fan)
         {
             FanBox.transform.Find("FanStats").GetComponent<TextMeshPro>().text = "PRI";
+            FanBox2.transform.Find("FanStats").GetComponent<TextMeshPro>().text = "PRI";
         }
         else
         {
             FanBox.transform.Find("FanStats").GetComponent<TextMeshPro>().text = "SEC";
+            FanBox2.transform.Find("FanStats").GetComponent<TextMeshPro>().text = "SEC";
         }
         
         if (e.data.pump)
         {
             PumpBox.transform.Find("PumpStats").GetComponent<TextMeshPro>().text = "OPEN";
+            PumpBox2.transform.Find("PumpStats").GetComponent<TextMeshPro>().text = "OPEN";
         }
         else
         {
             PumpBox.transform.Find("PumpStats").GetComponent<TextMeshPro>().text = "CLOSED";
+            PumpBox2.transform.Find("PumpStats").GetComponent<TextMeshPro>().text = "CLOSED";
         }
 
         if (e.data.co2)
         {
             co2Box.transform.Find("CO2Stats").GetComponent<TextMeshPro>().text = "A";
+            co2Box2.transform.Find("CO2Stats").GetComponent<TextMeshPro>().text = "A";
         }
         else
         {
             co2Box.transform.Find("CO2Stats").GetComponent<TextMeshPro>().text = "B";
+            co2Box2.transform.Find("CO2Stats").GetComponent<TextMeshPro>().text = "B";
         }
     }
 
@@ -489,14 +509,14 @@ public class SuitsControlController : MonoBehaviour
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Coolant, "Coolant Low", $"{e.vitals.coolant_m.ToString()}%"));
         }
-        /* if (e.vitals.scrubber_a_co2_storage > SCRUBBER_CO2_STOR_MAX)
+        if (e.vitals.scrubber_a_co2_storage > SCRUBBER_CO2_STOR_MAX)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Scrubber, "Scrubber A High", $"{e.vitals.scrubber_a_co2_storage.ToString()}%"));
         }
         if (e.vitals.scrubber_b_co2_storage > SCRUBBER_CO2_STOR_MAX)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Scrubber, "Scrubber B High", $"{e.vitals.scrubber_b_co2_storage.ToString()}%"));
-        } */
+        } 
         if (e.vitals.co2_production > CO2_PROD_MAX)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_CO2, "CO2 Production High", $"{e.vitals.co2_production.ToString()} PSI/m"));
@@ -529,7 +549,7 @@ public class SuitsControlController : MonoBehaviour
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Pressure, "O2 Sec Pressure Low", $"{e.vitals.oxy_sec_pressure.ToString()} PSI"));
         }
-        /* if (e.vitals.suit_pressure_oxy > SUIT_PRES_OXY_MAX)
+        if (e.vitals.suit_pressure_oxy > SUIT_PRES_OXY_MAX)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Pressure, "O2 Suit Pressure High", $"{e.vitals.suit_pressure_oxy.ToString()} PSI"));
         } 
@@ -541,10 +561,10 @@ public class SuitsControlController : MonoBehaviour
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Pressure, "CO2 Suit Pressure High", $"{e.vitals.suit_pressure_co2.ToString()} PSI"));
         }
-        /* if (e.vitals.helmet_pressure_co2 > HELMET_PRES_CO2_MAX)
+        if (e.vitals.helmet_pressure_co2 > HELMET_PRES_CO2_MAX)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Pressure, "Helmet CO2 Pressure High", $"{e.vitals.helmet_pressure_co2.ToString()} PSI"));
-        } */
+        } 
         if (e.vitals.coolant_liquid_pressure > COOL_LIQ_MAX)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Pressure, "Coolant Liquid Pressure High", $"{e.vitals.coolant_liquid_pressure.ToString()} PSI"));
@@ -558,7 +578,7 @@ public class SuitsControlController : MonoBehaviour
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Pressure, "Coolant Gas Pressure High", $"{e.vitals.coolant_gas_pressure.ToString()} PSI"));
         }
 
-        /* if (e.vitals.fan_pri_rpm > FAN_SPEED_MAX)
+        if (e.vitals.fan_pri_rpm > FAN_SPEED_MAX)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Fan, "Fan Pri Speed High", $"{e.vitals.fan_pri_rpm.ToString()} PSI"));
         }
@@ -573,7 +593,7 @@ public class SuitsControlController : MonoBehaviour
         if (e.vitals.fan_sec_rpm < FAN_SPEED_MIN)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Fan, "Fan Sec Speed Low", $"{e.vitals.fan_sec_rpm.ToString()} PSI"));
-        } */
+        } 
     }
 
 //    private string FloatToTimeString(float timeInSeconds)
