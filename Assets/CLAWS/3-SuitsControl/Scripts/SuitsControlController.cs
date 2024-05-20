@@ -96,7 +96,7 @@ public class SuitsControlController : MonoBehaviour
         vitalsUpdateEvent = EventBus.Subscribe<VitalsUpdatedEvent>(onVitalsUpdate);
         fellowVitalsUpdateEvent = EventBus.Subscribe<FellowAstronautVitalsDataChangeEvent>(onFellowVitalsUpdate);
         dcuChanged = EventBus.Subscribe<DCUChanged>(onDCUChanged);
-
+        Debug.Log("hello");
         // Astr 1
         astr1Board = transform.Find("SuitsControlScreen1").gameObject;
         astr1CritBoard = astr1Board.transform.Find("ScreenCrit").gameObject;
@@ -114,6 +114,15 @@ public class SuitsControlController : MonoBehaviour
         priOxyStor = astr1SuitBoard.transform.Find("O2priStor").gameObject;
         secOxyStor = astr1SuitBoard.transform.Find("O2secStor").gameObject;
         batt = astr1SuitBoard.transform.Find("Battery").gameObject; //****
+        if (batt != null)
+        {
+            Debug.Log("false");
+        }
+        else
+        {
+            Debug.Log("true");
+        }
+        
         coolant = astr1SuitBoard.transform.Find("Coolant").gameObject;
         scrubberA = astr1SuitBoard.transform.Find("ScrubberA").gameObject;
         scrubberB = astr1SuitBoard.transform.Find("ScrubberB").gameObject;
@@ -132,37 +141,35 @@ public class SuitsControlController : MonoBehaviour
         astr1Board.transform.Find("Name").GetComponent<TextMeshPro>().text = $" {AstronautInstance.User.id.ToString("F0")} 's Vitals";
  
         // Astr 2
-        astr2Board = transform.Find("SuitsControlScreen").gameObject;
-        astr2CritBoard = astr2Board.transform.Find("ScreenCrit").gameObject;
-        astr2SuitBoard = astr2Board.transform.Find("SuitBoard").gameObject;
-        astr2PressureBoard = astr2Board.transform.Find("PressureBoard").gameObject;
-        astr2TimeBoard = astr2Board.transform.Find("RemainingBoard").gameObject;
-        astr2DCUBoard = astr2Board.transform.Find("DCU").gameObject;
-
+        //astr2Board = transform.Find("SuitsControlScreen").gameObject;
+        //astr2CritBoard = astr2Board.transform.Find("ScreenCrit").gameObject;
+        //astr2SuitBoard = astr2Board.transform.Find("SuitBoard").gameObject;
+        //astr2PressureBoard = astr2Board.transform.Find("PressureBoard").gameObject;
+        //astr2TimeBoard = astr2Board.transform.Find("RemainingBoard").gameObject;
 
         // assign all vitals based on gameobjects
-        oxyTime2 = transform.Find("O2priOxygen").gameObject;
-        powerTime2 = transform.Find("PriBattery").gameObject;
-        heartRate2 = astr2CritBoard.transform.Find("HeartRate").gameObject;
-        oxyCons2 = astr2CritBoard.transform.Find("O2cons").gameObject;
-        co2Prod2 = astr2CritBoard.transform.Find("CO2prod").gameObject;
-        temp2 = astr2CritBoard.transform.Find("Temp").gameObject;
-        priOxyStor2 = astr2Board.transform.Find("O2priStor").gameObject;
-        secOxyStor2 = astr2Board.transform.Find("O2secStor").gameObject;
-        batt2 = astr2Board.transform.Find("Battery").gameObject;
-        coolant2 = astr2Board.transform.Find("Coolant").gameObject;
-        scrubberA2 = astr2Board.transform.Find("ScrubberA").gameObject;
-        scrubberB2 = astr2Board.transform.Find("ScrubberB").gameObject;
-        priOxyPres2 = astr2Board.transform.Find("O2priPress").gameObject;
-        suitPresOxy2 = astr2Board.transform.Find("O2suitPress").gameObject;
-        suitTotPres2 = astr2Board.transform.Find("SuitTotPress").gameObject;
-        suitPresCO22 = astr2Board.transform.Find("CO2priPress").gameObject;
-        otherSuitPres2 = astr2Board.transform.Find("OtherSuitPress").gameObject;
-        priFan2 = astr2Board.transform.Find("FanPri").gameObject;
-        secFan2 = astr2Board.transform.Find("FanPri").gameObject;
-        helmetCO2Pres2 = astr2Board.transform.Find("HelCO2press").gameObject;
-        coolLiquidPres2 = astr2Board.transform.Find("CoolLiqPress").gameObject;
-        coolGasPres2 = astr2Board.transform.Find("CoolGasPress").gameObject;
+        //oxyTime2 = transform.Find("O2priOxygen").gameObject;
+        //powerTime2 = transform.Find("PriBattery").gameObject;
+        //heartRate2 = astr2CritBoard.transform.Find("HeartRate").gameObject;
+        //oxyCons2 = astr2CritBoard.transform.Find("O2cons").gameObject;
+        //co2Prod2 = astr2CritBoard.transform.Find("CO2prod").gameObject;
+        //temp2 = astr2CritBoard.transform.Find("Temp").gameObject;
+        //priOxyStor2 = astr2Board.transform.Find("O2priStor").gameObject;
+        //secOxyStor2 = astr2Board.transform.Find("O2secStor").gameObject;
+        //batt2 = astr2Board.transform.Find("Battery").gameObject;
+        //coolant2 = astr2Board.transform.Find("Coolant").gameObject;
+        //scrubberA2 = astr2Board.transform.Find("ScrubberA").gameObject;
+        //scrubberB2 = astr2Board.transform.Find("ScrubberB").gameObject;
+        //priOxyPres2 = astr2Board.transform.Find("O2priPress").gameObject;
+        //suitPresOxy2 = astr2Board.transform.Find("O2suitPress").gameObject;
+        //suitTotPres2 = astr2Board.transform.Find("SuitTotPress").gameObject;
+        //suitPresCO22 = astr2Board.transform.Find("CO2priPress").gameObject;
+        //otherSuitPres2 = astr2Board.transform.Find("OtherSuitPress").gameObject;
+        //priFan2 = astr2Board.transform.Find("FanPri").gameObject;
+        //secFan2 = astr2Board.transform.Find("FanPri").gameObject;
+        //helmetCO2Pres2 = astr2Board.transform.Find("HelCO2press").gameObject;
+        //coolLiquidPres2 = astr2Board.transform.Find("CoolLiqPress").gameObject;
+        //coolGasPres2 = astr2Board.transform.Find("CoolGasPress").gameObject;
 
         astr2Board.transform.Find("Name").GetComponent<TextMeshPro>().text = $" {AstronautInstance.User.FellowAstronautsData.astronaut_id.ToString("F0")} 's Vitals";
 

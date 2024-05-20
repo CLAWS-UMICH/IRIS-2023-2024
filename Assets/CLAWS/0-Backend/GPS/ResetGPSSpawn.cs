@@ -15,6 +15,7 @@ public class ResetGPSSpawn : MonoBehaviour
     {
         player.transform.position = new Vector3(0f, 0f, 0f);
         GPSUtils.ChangeOriginGPSCoords(loc);
+        transform.parent.transform.Find("AllScreens").Find("Navigation").Find("WaypointController").GetComponent<WaypointsController>().UpdateLocationsOfWaypoints();
     }
 
 }
