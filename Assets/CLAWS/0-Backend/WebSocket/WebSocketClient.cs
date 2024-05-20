@@ -4,7 +4,6 @@ using UnityEngine;
 using WebSocketSharp;
 using System;
 using PimDeWitte.UnityMainThreadDispatcher;
-using JetBrains.Annotations;
 
 public class WebSocketClient : MonoBehaviour
 {
@@ -243,10 +242,6 @@ public class WebSocketClient : MonoBehaviour
                 AudioData audioData = JsonUtility.FromJson<AudioData>(jsonData);
                 dataHandler.HandleAudioData(audioData.data, audioData.use);
                 break;
-            case "UIAIMAGE":
-                UIAData uiaData = JsonUtility.FromJson<UIAData>(jsonData);
-                dataHandler.HandleUIAData(uiaData.data, uiaData.use);
-                break;
             // Handle other message types similarly
             default:
                 Debug.LogWarning("Unknown message type: " + messageType);
@@ -416,36 +411,10 @@ public class VegaAudio
 }
 
 [Serializable]
-public class UIAImage
-{
-    public string base_64_image;
-    public string points;
-    public string position;
-    public string rotation;
-
-    public UIAImage(string a, string s, string p, string r)
-    {
-        base_64_image = a;
-        points = s;
-        position = p;
-        rotation = r;
-    }
-}
-
-[Serializable]
 public class AudioData
 {
     public int id;
     public string type;
     public string use;
     public VegaAudio data;
-}
-
-[Serializable]
-public class UIAData
-{
-    public int id;
-    public string type;
-    public string use;
-    public UIAImage data;
 }
