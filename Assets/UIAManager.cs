@@ -5,6 +5,7 @@ using UnityEngine;
 public class UIAManager : MonoBehaviour
 {
     [SerializeField] UIAPanel uiaPanel;
+    [SerializeField] GameObject uiaBackplate;
 
     bool isEgressComplete = false;
     bool isIngressComplete = false;
@@ -71,12 +72,37 @@ public class UIAManager : MonoBehaviour
         if (!isEgressComplete)
         {
             isEgressComplete = true;
+
+            IEnumerator _SetPanel()
+            {
+                yield return new WaitForSeconds(0.1f);
+
+                uiaPanel.SetPanelPosition();
+                uiaPanel.SetText("UIA Egress Complete!", "center");
+
+                yield return new WaitForSeconds(10f);
+
+                uiaPanel.SetPanelPosition();
+                uiaPanel.SetText("Connect UIA and DCU umbilical. Then say \"Start UIA\"", "center");
+            }
+            StartCoroutine(_SetPanel());
         }
         else
         {
             isIngressComplete = true;
+
+            IEnumerator _SetPanel()
+            {
+                yield return new WaitForSeconds(0.1f);
+
+                uiaPanel.SetPanelPosition();
+                uiaPanel.SetText("UIA Ingress Complete!", "center");
+            }
+            StartCoroutine(_SetPanel());
         }
-        sound.Play();
+        sound.Play();        
+
+        
     }
 
 
