@@ -1901,6 +1901,11 @@ Transform:
   - {fileID: 711482418}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &1415306820 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 7048895263553331859, guid: ce33d8e505829464dbd1ebcc8429a7bf, type: 3}
+  m_PrefabInstance: {fileID: 1895588064}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1504546655
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3577,6 +3582,14 @@ PrefabInstance:
       propertyPath: keywords.Array.data[0].response.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 4233821030311069094, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      propertyPath: mainMapCamera
+      value: 
+      objectReference: {fileID: 127778000}
+    - target: {fileID: 4233821030311069094, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      propertyPath: miniMapCamera
+      value: 
+      objectReference: {fileID: 1415306820}
     - target: {fileID: 4838174870524492419, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       propertyPath: keywords.Array.size
       value: 10
