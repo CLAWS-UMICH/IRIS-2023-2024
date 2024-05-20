@@ -7,8 +7,7 @@ public class VitalsSwitcherFinal : MonoBehaviour
     public GameObject screen1;
     public GameObject screen2;
     public GameObject button;
-
-    TextMeshPro buttonText;
+    string buttonText;
 
     void Start()
     {
@@ -18,8 +17,9 @@ public class VitalsSwitcherFinal : MonoBehaviour
         screen2.SetActive(false);
 
         button = GameObject.Find("SwitchVitalsButton");
-        buttonText = button.transform.Find("IconAndText").GetComponent<TextMeshPro>();
-        buttonText.text = "Astronaut 2";
+        buttonText = button.transform.Find("IconAndText").transform.Find("TextMeshPro").GetComponent<TextMeshPro>().text;
+
+        buttonText = "Astronaut 2";
     }
 
     public void AstronautToggle()
@@ -28,7 +28,7 @@ public class VitalsSwitcherFinal : MonoBehaviour
         {
             screen1.SetActive(false);
             screen2.SetActive(true);
-            buttonText.text = "Astronaut 1";
+            buttonText = "Astronaut 1";
 
             // Replace with your actual event publishing logic
             Debug.Log("Switched to Astronaut 1");
@@ -37,7 +37,7 @@ public class VitalsSwitcherFinal : MonoBehaviour
         {
             screen1.SetActive(true);
             screen2.SetActive(false);
-            buttonText.text = "Astronaut 2";
+            buttonText = "Astronaut 2";
 
             // Replace with your actual event publishing logic
             Debug.Log("Switched to Astronaut 2");
