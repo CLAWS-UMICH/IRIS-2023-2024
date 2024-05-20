@@ -3570,6 +3570,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.0023
       objectReference: {fileID: 0}
+    - target: {fileID: 3676654904924812577, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      propertyPath: autoConnectTSS
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3794289906129230345, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       propertyPath: transformOverride
       value: 
@@ -3589,6 +3593,10 @@ PrefabInstance:
     - target: {fileID: 5699065205488624256, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       propertyPath: m_Name
       value: StartGeosamplingModeButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 6063849297249506148, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6242078251086314356, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.size
