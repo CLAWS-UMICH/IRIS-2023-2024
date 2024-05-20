@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 299625590}
   - component: {fileID: 299625589}
   - component: {fileID: 299625588}
-  - component: {fileID: 299625596}
+  - component: {fileID: 299625597}
   m_Layer: 0
   m_Name: bodyBoard
   m_TagString: Untagged
@@ -396,7 +396,7 @@ Transform:
   - {fileID: 318020676}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &299625596
+--- !u!114 &299625597
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -405,12 +405,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 299625587}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d0d01d160e47425cbb3eec4cea9b3aa, type: 3}
+  m_Script: {fileID: 11500000, guid: d0425a85c5d9575409afacffe84503d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  O2_percent: {fileID: 677500290}
-  heartRate: {fileID: 499344358}
-  O2_pressure: {fileID: 318020677}
+  secondsToUpdate: 3
+  fakeGPS:
+    latitude: 0
+    longitude: 0
 --- !u!1 &318020675
 GameObject:
   m_ObjectHideFlags: 0
