@@ -17,17 +17,17 @@ public class RadialProgress : MonoBehaviour
         SR.GetComponent<SpriteRenderer>().material.SetFloat("_Angle", 241f);
     }
 
-    public void UpdatePercent(float currentVal/*VitalsUpdatedEvent e*/)
+    public void UpdatePercent(VitalsUpdatedEvent e)
     {
-        float degrees = (1 - currentVal / 100) * 302;
+        double degrees = (1 - e.vitals.oxy_percentage / 100) * 302;
 
         // Update the material's properties for the circle
-        SR.GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", degrees);
+        SR.GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)degrees);
 
         // Display the percentage as text, if desired
         if (ProgressIndicator != null)
         {
-            ProgressIndicator.text = currentVal + "%"/*e.vitals.oxy_pri_storage.ToString("F0")*/;
+            ProgressIndicator.text = e.vitals.oxy_percentage + "%";
         }
     }
 

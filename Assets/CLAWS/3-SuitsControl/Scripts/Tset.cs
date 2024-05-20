@@ -35,7 +35,7 @@ public class DummyValueTester : MonoBehaviour
         while (O2_currentValue > 0 && hr_currentValue > 0 && pr_currentValue > 0) // Continue updating while the current value is greater than 0
         {
             // Update the circle fill using the RadialProgress script
-            O2_percent.UpdatePercent(O2_currentValue);
+            //O2_percent.UpdatePercent(O2_currentValue);
             heartRate.UpdateHR(hr_currentValue);
             O2_pressure.UpdatePR(pr_currentValue);
 

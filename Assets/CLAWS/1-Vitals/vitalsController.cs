@@ -92,29 +92,29 @@ public class vitalsController : MonoBehaviour
         //I put this creation step in the suit controller dont know if its better,
         //I also put the guage updates there since whats here doesnt really work
         // Astr 1
-        //astr1Board = transform.Find("MainVitalBoard").gameObject;
-        //astr1BodyBoard = astr1Board.transform.Find("BodyBoard").gameObject;
-        //astr1SuitBoard = astr1Board.transform.Find("SuitBoard").gameObject;
-        //astr1BackupBoard = astr1Board.transform.Find("BackupBoard").gameObject;
-        //astr1BarBoard = astr1Board.transform.Find("BarBoard").gameObject;
-        //astr1TimeBoard = astr1Board.transform.Find("RemainingBoard").gameObject;
+        astr1Board = transform.Find("MainVitalBoard").gameObject;
+        astr1BodyBoard = astr1Board.transform.Find("BodyBoard").gameObject;
+        astr1SuitBoard = astr1Board.transform.Find("SuitBoard").gameObject;
+        astr1BackupBoard = astr1Board.transform.Find("BackupBoard").gameObject;
+        astr1BarBoard = astr1Board.transform.Find("BarBoard").gameObject;
+        astr1TimeBoard = astr1Board.transform.Find("RemainingBoard").gameObject;
 
-        //heartRate = astr1BodyBoard.transform.Find("HeartRateRing").Find("HeartRate").GetComponent<TextMeshPro>();
-        //temp = astr1BodyBoard.transform.Find("TempRing").Find("Temp").GetComponent<TextMeshPro>();
-        //oxyCons = astr1BodyBoard.transform.Find("OxyConsRing").GetComponent<TextMeshPro>();
-        //co2Prod = astr1BodyBoard.transform.Find("CO2ProdRing").GetComponent<TextMeshPro>();
-        //priOxy = astr1SuitBoard.transform.Find("PriOxyRing").Find("Percent").GetComponent<TextMeshPro>();
-        //batt = astr1SuitBoard.transform.Find("BattRing").Find("Percent").GetComponent<TextMeshPro>();
-        //suitPresOxy = astr1SuitBoard.transform.Find("SuitPresOxyRing").GetComponent<TextMeshPro>();
-        //suitTotPres = astr1SuitBoard.transform.Find("SuitTotPresRing").GetComponent<TextMeshPro>();
-        //suitPresCO2 = astr1SuitBoard.transform.Find("SuitPresCO2Ring").GetComponent<TextMeshPro>();
-        //secOxyStor = astr1BackupBoard.transform.Find("SecOxyStorRing").Find("Percent").GetComponent<TextMeshPro>();
-        //secOxyPres = astr1BackupBoard.transform.Find("SecOxyPresRing").Find("Percent").GetComponent<TextMeshPro>();
-        //priFan = astr1BarBoard.transform.Find("rpmVal").GetComponent<TextMeshPro>();
-        //coolLiquidPres = astr1BarBoard.transform.Find("liqVal").GetComponent<TextMeshPro>();
-        //coolGasPres = astr1BarBoard.transform.Find("gasVal").GetComponent<TextMeshPro>();
-        //powerTime = astr1TimeBoard.transform.Find("PowerTime").Find("Btry_timeLeft").GetComponent<TextMeshPro>();
-        //oxyTime = astr1TimeBoard.transform.Find("OxyTime").Find("Oxy_timeLeft").GetComponent<TextMeshPro>();
+        heartRate = astr1BodyBoard.transform.Find("HeartRateRing").Find("HeartRate").GetComponent<TextMeshPro>();
+        temp = astr1BodyBoard.transform.Find("TempRing").Find("Temp").GetComponent<TextMeshPro>();
+        oxyCons = astr1BodyBoard.transform.Find("OxyConsRing").GetComponent<TextMeshPro>();
+        co2Prod = astr1BodyBoard.transform.Find("CO2ProdRing").GetComponent<TextMeshPro>();
+        priOxy = astr1SuitBoard.transform.Find("PriOxyRing").Find("Percent").GetComponent<TextMeshPro>();
+        batt = astr1SuitBoard.transform.Find("BattRing").Find("Percent").GetComponent<TextMeshPro>();
+        suitPresOxy = astr1SuitBoard.transform.Find("SuitPresOxyRing").GetComponent<TextMeshPro>();
+        suitTotPres = astr1SuitBoard.transform.Find("SuitTotPresRing").GetComponent<TextMeshPro>();
+        suitPresCO2 = astr1SuitBoard.transform.Find("SuitPresCO2Ring").GetComponent<TextMeshPro>();
+        secOxyStor = astr1BackupBoard.transform.Find("SecOxyStorRing").Find("Percent").GetComponent<TextMeshPro>();
+        secOxyPres = astr1BackupBoard.transform.Find("SecOxyPresRing").Find("Percent").GetComponent<TextMeshPro>();
+        priFan = astr1BarBoard.transform.Find("rpmVal").GetComponent<TextMeshPro>();
+        coolLiquidPres = astr1BarBoard.transform.Find("liqVal").GetComponent<TextMeshPro>();
+        coolGasPres = astr1BarBoard.transform.Find("gasVal").GetComponent<TextMeshPro>();
+        powerTime = astr1TimeBoard.transform.Find("PowerTime").Find("Btry_timeLeft").GetComponent<TextMeshPro>();
+        oxyTime = astr1TimeBoard.transform.Find("OxyTime").Find("Oxy_timeLeft").GetComponent<TextMeshPro>();
 
         //// Astr 2
         //astr2Board = transform.Find("FellowVitalBoard").gameObject;
