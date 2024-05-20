@@ -12,17 +12,27 @@ public class SampleCommandHandler : MonoBehaviour
     GameObject commandScreen;
     [SerializeField] private GameObject command;
 
+    List<string> testString;
+
     int counter = 0;
 
     void Start()
     {
+        Debug.Log("wtfffff");
         commandScreen = ScreenParent.transform.Find("CommandScreen").gameObject;
+        testString.Add("1234");
+        testString.Add("45");
+        testString.Add("678");
+        testString.Add("3789");
+        Debug.Log("sample command script is called");
+        setCommands(testString);
     }
 
     void setCommands(List<string> commands)
     {
         foreach (string c in commands)
         {
+            Debug.Log("command: " + c);
             GameObject textObject = Instantiate(command, commandScreen.transform);
             TMP_Text textComponent = textObject.GetComponentInChildren<TMP_Text>();
             textComponent.text = c;
