@@ -57,6 +57,7 @@ public class VEGAManager : MonoBehaviour
     public FunctionEvent navigationCancelWaypoint = new FunctionEvent();
 
     // Messaging Events
+    public FunctionEvent messagingAstro = new FunctionEvent();
     public FunctionEvent messagingLLMC = new FunctionEvent();
     public FunctionEvent messagingLLMCAstro = new FunctionEvent();
     public FunctionEvent messagingAddEmoji = new FunctionEvent();
@@ -114,11 +115,11 @@ public class VEGAManager : MonoBehaviour
             { Screens.Messaging_Astro_BlankMessage, new List<string> { "LLMC", "LLMC_Astro", "Add_Emoji", "Enter_Message", "Close", "Scroll_Down", "Scroll_Up" } },
             { Screens.Messaging_Astro_FullMessage, new List<string> { "LLMC", "LLMC_Astro", "Add_Emoji", "Send_Message", "Close", "Scroll_Down", "Scroll_Up", "Cancel" } },
             { Screens.Messaging_Astro_Quick, new List<string> { "Like", "Dislike", "One_Hundred", "Danger", "Close" } },
-            { Screens.Messaging_LLMC_BlankMessage, new List<string> { "LLMC", "LLMC_Astro", "Add_Emoji", "Enter_Message", "Close", "Scroll_Down", "Scroll_Up" } },
-            { Screens.Messaging_LLMC_FullMessage, new List<string> { "LLMC", "LLMC_Astro", "Add_Emoji", "Send_Message", "Close", "Scroll_Down", "Scroll_Up", "Cancel" } },
+            { Screens.Messaging_LLMC_BlankMessage, new List<string> { "Astro", "LLMC_Astro", "Add_Emoji", "Enter_Message", "Close", "Scroll_Down", "Scroll_Up" } },
+            { Screens.Messaging_LLMC_FullMessage, new List<string> { "Astro", "LLMC_Astro", "Add_Emoji", "Send_Message", "Close", "Scroll_Down", "Scroll_Up", "Cancel" } },
             { Screens.Messaging_LLMC_Quick, new List<string> { "Like", "Dislike", "One_Hundred", "Danger", "Close" } },
-            { Screens.Messaging_GroupChat_BlankMessage, new List<string> { "LLMC", "LLMC_Astro", "Add_Emoji", "Enter_Message", "Close", "Scroll_Down", "Scroll_Up" } },
-            { Screens.Messaging_GroupChat_FullMessage, new List<string> { "LLMC", "LLMC_Astro", "Add_Emoji", "Send_Message", "Close", "Scroll_Down", "Scroll_Up", "Cancel" } },
+            { Screens.Messaging_GroupChat_BlankMessage, new List<string> { "Astro", "LLMC", "Add_Emoji", "Enter_Message", "Close", "Scroll_Down", "Scroll_Up" } },
+            { Screens.Messaging_GroupChat_FullMessage, new List<string> { "Astro", "LLMC", "Add_Emoji", "Send_Message", "Close", "Scroll_Down", "Scroll_Up", "Cancel" } },
             { Screens.Messaging_GroupChat_Quick, new List<string> { "Like", "Dislike", "One_Hundred", "Danger", "Close" } },
 
             { Screens.Vitals_Main, new List<string> { "Select_Astro", "Close" } },
@@ -169,6 +170,7 @@ public class VEGAManager : MonoBehaviour
             { "Select_Companion", (Navigation_Select_Companion, 0) },
             { "Select_Danger", (Navigation_Select_Danger, 0) },
 
+            { "Astro", (Messaging_Astro, 0) },
             { "LLMC", (Messaging_LLMC, 0) },
             { "LLMC_Astro", (Messaging_LLMC_Astro, 0) },
             { "Add_Emoji", (Messaging_Add_Emoji, 0) },
@@ -404,6 +406,7 @@ public class VEGAManager : MonoBehaviour
     public void Navigation_Select_Danger(List<string> parameters) => InvokeEvent(navigationSelectDanger, "Navigation_Select_Companion", parameters);
 
     // Messaging Methods
+    public void Messaging_Astro(List<string> parameters) => InvokeEvent(messagingAstro, "Messaging_Astro", parameters);
     public void Messaging_LLMC(List<string> parameters) => InvokeEvent(messagingLLMC, "Messaging_LLMC", parameters);
     public void Messaging_LLMC_Astro(List<string> parameters) => InvokeEvent(messagingLLMCAstro, "Messaging_LLMC_Astro", parameters);
     public void Messaging_Add_Emoji(List<string> parameters) => InvokeEvent(messagingAddEmoji, "Messaging_Add_Emoji", parameters);
