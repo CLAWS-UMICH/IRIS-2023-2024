@@ -212,7 +212,7 @@ public class UIAManager : MonoBehaviour
 
                 float percentage = (p1 + p2) * 100 / 2;
 
-                uiaPanel.ProgressBar.Update_Progress_bar(100 - Mathf.RoundToInt(percentage), 100);
+                uiaPanel.ProgressBar.Update_Progress_bar(Mathf.RoundToInt(percentage), 100);
 
                 if (psi1 < 10f && psi2 < 10f)
                 {
@@ -817,7 +817,7 @@ public class UIAManager : MonoBehaviour
 
                 float percentage = (p1 + p2) * 100 / 2;
 
-                uiaPanel.ProgressBar.Update_Progress_bar(100 - Mathf.RoundToInt(percentage), 100);
+                uiaPanel.ProgressBar.Update_Progress_bar(Mathf.RoundToInt(percentage), 100);
 
                 if (psi1 < 10f && psi2 < 10f)
                 {
@@ -879,7 +879,7 @@ public class UIAManager : MonoBehaviour
 
                 if (m1 < 5f && m2 < 5f)
                 {
-                    EgressStep++;
+                    IngressStep++;
                     temp_val1 = 0f;
                     temp_val2 = 0f;
                     sound.Play();
