@@ -13,6 +13,7 @@ public class WaypointFollow : MonoBehaviour
     GameObject title;
     GameObject button;
     GameObject icon;
+    GameObject ring;
 
     float distance;
     [SerializeField] float distanceForTitle = 2.5f;
@@ -29,6 +30,7 @@ public class WaypointFollow : MonoBehaviour
         body = gameObject.transform.Find("Body").gameObject;
         title = body.transform.Find("Title").gameObject;
         icon = body.transform.Find("Quad").gameObject;
+        ring = body.transform.Find("Ring").gameObject;
         button = body.transform.Find("DeleteButton").gameObject;
 
         distance = Vector3.Distance(body.transform.position, player.transform.position);
@@ -42,6 +44,7 @@ public class WaypointFollow : MonoBehaviour
         title.SetActive(false);
         icon.SetActive(false);
         button.SetActive(false);
+        ring.SetActive(false);
 
         StartCoroutine(CheckDistance());
     }
@@ -67,11 +70,13 @@ public class WaypointFollow : MonoBehaviour
                 if (distance < distanceForTitle)
                 {
                     title.SetActive(true);
+                    icon.SetActive(false);
+                    ring.SetActive(true);
                 }
 
                 if (distance < distanceForButton)
                 {
-                    button.SetActive(true);
+                    //button.SetActive(true);
                 }
                 
             }
@@ -80,17 +85,20 @@ public class WaypointFollow : MonoBehaviour
                 isVisible = false;
                 icon.SetActive(false);
                 title.SetActive(false);
-                button.SetActive(false);
+                ring.SetActive(false);
+                //button.SetActive(false);
             }
 
             if (distance >= distanceForTitle)
             {
                 title.SetActive(false);
+                icon.SetActive(true);
+                ring.SetActive(false);
             }
 
             if (distance >= distanceForButton)
             {
-                button.SetActive(false);
+                //button.SetActive(false);
             }
 
             if (!levelHasBeenUpdated && distance < distanceToSetYLvl)

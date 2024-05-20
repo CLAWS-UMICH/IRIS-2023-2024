@@ -31,13 +31,13 @@ public class GPSStartScreenHandler : MonoBehaviour
         Location loc = new Location();
         if (AstronautInstance.User.id == 0)
         {
-            loc.latitude = AstronautInstance.User.imu.eva1.posx;
-            loc.longitude = AstronautInstance.User.imu.eva1.posy;
+            loc.latitude = AstronautInstance.User.imu.imu.eva1.posx;
+            loc.longitude = AstronautInstance.User.imu.imu.eva1.posy;
         } 
         else
         {
-            loc.latitude = AstronautInstance.User.imu.eva2.posx;
-            loc.longitude = AstronautInstance.User.imu.eva2.posy;
+            loc.latitude = AstronautInstance.User.imu.imu.eva2.posx;
+            loc.longitude = AstronautInstance.User.imu.imu.eva2.posy;
         }
 
         resetGPSSpawn.Reset(loc);

@@ -163,12 +163,12 @@ public class UIAManager : MonoBehaviour
                 break;
             case 2:
                 // BATT – UMB
-                if (isEva1 && (AstronautInstance.User.dcu.eva1.batt == false))
+                if (isEva1 && (AstronautInstance.User.dcu.dcu.eva1.batt == false))
                 {
                     EgressStep++;
                     sound.Play();
                 }
-                else if (!isEva1 && (AstronautInstance.User.dcu.eva2.batt == false))
+                else if (!isEva1 && (AstronautInstance.User.dcu.dcu.eva2.batt == false))
                 {
                     EgressStep++;
                     sound.Play();
@@ -225,12 +225,12 @@ public class UIAManager : MonoBehaviour
                 break;
             case 7:
                 // OXY – PRI
-                if (isEva1 && (AstronautInstance.User.dcu.eva1.oxy == true))
+                if (isEva1 && (AstronautInstance.User.dcu.dcu.eva1.oxy == true))
                 {
                     EgressStep++;
                     sound.Play();
                 }
-                else if (!isEva1 && (AstronautInstance.User.dcu.eva2.oxy == true))
+                else if (!isEva1 && (AstronautInstance.User.dcu.dcu.eva2.oxy == true))
                 {
                     EgressStep++;
                     sound.Play();
@@ -282,12 +282,12 @@ public class UIAManager : MonoBehaviour
                 break;
             case 11:
                 // OXY – SEC
-                if (isEva1 && (AstronautInstance.User.dcu.eva1.oxy == false))
+                if (isEva1 && (AstronautInstance.User.dcu.dcu.eva1.oxy == false))
                 {
                     EgressStep++;
                     sound.Play();
                 }
-                else if (!isEva1 && (AstronautInstance.User.dcu.eva2.oxy == false))
+                else if (!isEva1 && (AstronautInstance.User.dcu.dcu.eva2.oxy == false))
                 {
                     EgressStep++;
                     sound.Play();
@@ -339,12 +339,12 @@ public class UIAManager : MonoBehaviour
                 break;
             case 15:
                 // OXY – PRI
-                if (isEva1 && (AstronautInstance.User.dcu.eva1.oxy == true))
+                if (isEva1 && (AstronautInstance.User.dcu.dcu.eva1.oxy == true))
                 {
                     EgressStep++;
                     sound.Play();
                 }
-                else if (!isEva1 && (AstronautInstance.User.dcu.eva2.oxy == true))
+                else if (!isEva1 && (AstronautInstance.User.dcu.dcu.eva2.oxy == true))
                 {
                     EgressStep++;
                     sound.Play();
@@ -352,12 +352,12 @@ public class UIAManager : MonoBehaviour
                 break;
             case 16:
                 // PUMP – OPEN
-                if (isEva1 && (AstronautInstance.User.dcu.eva1.pump == true))
+                if (isEva1 && (AstronautInstance.User.dcu.dcu.eva1.pump == true))
                 {
                     EgressStep++;
                     sound.Play();
                 }
-                else if (!isEva1 && (AstronautInstance.User.dcu.eva2.pump == true))
+                else if (!isEva1 && (AstronautInstance.User.dcu.dcu.eva2.pump == true))
                 {
                     EgressStep++;
                     sound.Play();
@@ -460,12 +460,12 @@ public class UIAManager : MonoBehaviour
                 break;
             case 23:
                 // PUMP – CLOSE
-                if (isEva1 && (AstronautInstance.User.dcu.eva1.pump == false))
+                if (isEva1 && (AstronautInstance.User.dcu.dcu.eva1.pump == false))
                 {
                     EgressStep++;
                     sound.Play();
                 }
-                else if (!isEva1 && (AstronautInstance.User.dcu.eva2.pump == false))
+                else if (!isEva1 && (AstronautInstance.User.dcu.dcu.eva2.pump == false))
                 {
                     EgressStep++;
                     sound.Play();
@@ -498,12 +498,12 @@ public class UIAManager : MonoBehaviour
                 break;
             case 26:
                 // BATT – LOCAL
-                if (isEva1 && (AstronautInstance.User.dcu.eva1.batt == true))
+                if (isEva1 && (AstronautInstance.User.dcu.dcu.eva1.batt == true))
                 {
                     EgressStep++;
                     sound.Play();
                 }
-                else if (!isEva1 && (AstronautInstance.User.dcu.eva2.batt == true))
+                else if (!isEva1 && (AstronautInstance.User.dcu.dcu.eva2.batt == true))
                 {
                     EgressStep++;
                     sound.Play();
@@ -776,12 +776,12 @@ public class UIAManager : MonoBehaviour
                 break;
             case 2:
                 // BATT – UMB
-                if (isEva1 && (AstronautInstance.User.dcu.eva1.batt == false))
+                if (isEva1 && (AstronautInstance.User.dcu.dcu.eva1.batt == false))
                 {
                     IngressStep++;
                     sound.Play();
                 }
-                else if (!isEva1 && (AstronautInstance.User.dcu.eva2.batt == false))
+                else if (!isEva1 && (AstronautInstance.User.dcu.dcu.eva2.batt == false))
                 {
                     IngressStep++;
                     sound.Play();
@@ -830,12 +830,12 @@ public class UIAManager : MonoBehaviour
                 break;
             case 6:
                 // PUMP – OPEN
-                if (isEva1 && (AstronautInstance.User.dcu.eva1.pump == true))
+                if (isEva1 && (AstronautInstance.User.dcu.dcu.eva1.pump == true))
                 {
                     IngressStep++;
                     sound.Play();
                 }
-                else if (!isEva1 && (AstronautInstance.User.dcu.eva2.pump == true))
+                else if (!isEva1 && (AstronautInstance.User.dcu.dcu.eva2.pump == true))
                 {
                     IngressStep++;
                     sound.Play();
