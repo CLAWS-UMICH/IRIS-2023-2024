@@ -100,7 +100,7 @@ public class FakeTSSMessageSender : MonoBehaviour
     {
         while (true)
         {
-            //Debug.Log("Test"); 
+            Debug.Log("Test"); 
             AstronautInstance.User.VitalsData.eva_time = 69;
             yield return new WaitForSeconds(secondsToUpdate); // Wait for 3 seconds
             

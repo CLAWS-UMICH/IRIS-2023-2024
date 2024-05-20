@@ -38,6 +38,11 @@ public class TaskListFullScreen : MonoBehaviour
         FunctionQueue.Enqueue("Render");
     }
 
+    private void OnEnable()
+    {
+        EventBus.Publish<ScreenChangedEvent>(new(Screens.Tasklist));
+    }
+
     void ClearAll()
     {
         ClearList(TaskList_List);
