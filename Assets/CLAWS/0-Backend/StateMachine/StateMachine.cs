@@ -38,6 +38,8 @@ public enum Screens
 
     Screen_Sent,
 
+    UIA,
+
 }
 
 public enum Modes

@@ -35,24 +35,24 @@ public class SampleCommandHandler : MonoBehaviour
         testString2 = new List<string>
         {
             "lets",
-            "fucking",
+            //"fucking",
             "go!!!!"
         };
 
-        Debug.Log("sample command script is called");
+        //Debug.Log("sample command script is called");
         setCommands(testString2);
     }
 
-    void setCommands(List<string> commands)
+    public void setCommands(List<string> commands)
     {
         foreach (string c in commands)
         {
-            Debug.Log(c);
+            //Debug.Log(c);
             commandsText.text += c + "\n";
         }
         Transform quadTransform = backplate.transform.Find("Quad");
         Vector3 currentScale = quadTransform.localScale;
-        currentScale.y = 0.0075f * commands.Count;
+        currentScale.y = 0.0075f * commands.Count * 2;
         quadTransform.localScale = currentScale;
 
         Vector3 currentPosition = backplate.transform.localPosition;

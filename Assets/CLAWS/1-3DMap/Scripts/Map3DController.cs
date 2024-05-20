@@ -34,6 +34,7 @@ public class Map3DController : MonoBehaviour
 
     public void Open3DMap()
     {
+        EventBus.Publish(new ScreenChangedEvent(Screens.Navigation_3D));
         // Calculate the spawn position based on player's position and view direction
         Vector3 spawnPosition = player.transform.position + player.transform.forward * zOffset + player.transform.up * yOffset;
 
@@ -47,6 +48,7 @@ public class Map3DController : MonoBehaviour
 
     public void Close3DMap()
     {
+        EventBus.Publish(new ScreenChangedEvent(Screens.Menu));
         mapParent.SetActive(false);
     }
 

@@ -540,7 +540,19 @@ public class NavScreenHandler : MonoBehaviour
 
     public void openWaypointCreation()
     {
-        CloseNavScreen();
+        EventBus.Publish(new ScreenChangedEvent(Screens.Navigation_CreatingWaypoint));
+        title.text = "Companions";
+        hasLocation = false;
+        currentScreen = ScreenType.Comp;
+        compScreen.SetActive(true);
+        POIScreen.SetActive(false);
+        geoScreen.SetActive(false);
+        stationScreen.SetActive(false);
+        parentScreen.SetActive(false);
+        confirmationScreen.SetActive(false);
+
+        // Update to see ALL icons on map
+        SwitchCameraCull(-1);
         wayCreate.OpenCreateWaypointScreen();
     }
 

@@ -12,6 +12,7 @@ public class HardCodedVoiceCommandsHandler : MonoBehaviour
     GameObject Geo_Parent;
     GameObject Vitals_Parent;
     GameObject ScreenSent_Parent;
+    GameObject UIA_Parent;
 
     // Tasklist
     GameObject Tasklist;
@@ -87,37 +88,38 @@ public class HardCodedVoiceCommandsHandler : MonoBehaviour
 
         commandMap = new Dictionary<Screens, List<string>>
         {
-            { Screens.Menu, new List<string> {  } },
+            { Screens.Menu, new List<string> { "Open Tasks", "Open Navigation", "Open Messaging", "Open Geo", "Open Vitals", "Open UIA" } },
 
-            { Screens.Tasklist, new List<string> {  } },
-            { Screens.Tasklist_SubOpen, new List<string> {  } },
-            { Screens.Tasklist_Emergency, new List<string> {  } },
+            { Screens.Tasklist, new List<string> { "Scroll Down", "Scroll Up", "Close" } },
+            { Screens.Tasklist_SubOpen, new List<string> { "Close" } },
+            { Screens.Tasklist_Emergency, new List<string> { "Scroll Down", "Scroll Up", "Close" } },
 
-            { Screens.Navigation, new List<string> {  } },
-            { Screens.Navigation_SelectStationNav, new List<string> {  } },
-            { Screens.Navigation_SelectPOINav, new List<string> {  } },
-            { Screens.Navigation_SelectGeoNav, new List<string> {  } },
-            { Screens.Navigation_SelectCompNav, new List<string> {  } },
-            { Screens.Navigation_Confirmation, new List<string> {  } },
-            { Screens.Navigation_CreatingWaypoint, new List<string> {  } },
-            { Screens.Navigation_3D, new List<string> {  } },
+            { Screens.Navigation_SelectStationNav, new List<string> { "Select Companions", "Select Interest Points", "Select Sample Zones", "Add New", "Open 3D Map", "Close", "Scroll Down", "Scroll Up", "Select Hotel", "Select India"} },
+            { Screens.Navigation_SelectPOINav, new List<string> { "Select Companions", "Select Stations", "Select Sample Zones", "Add New", "Open 3D Map", "Close", "Scroll Down", "Scroll Up" } },
+            { Screens.Navigation_SelectGeoNav, new List<string> { "Select Companions", "Select Stations", "Select Interest Points", "Add New", "Open 3D Map", "Close", "Scroll Down", "Scroll Up", "Select Alpha", "Select Bravo", "Select Charlie", "Select Delta", "Select Echo", "Select Foxtrot" } },
+            { Screens.Navigation_SelectCompNav, new List<string> { "Select Stations", "Select Interest Points", "Select Sample Zones", "Add New", "Open 3D Map", "Close", "Scroll Down", "Scroll Up", "Select Romeo", "Select X-ray", "Select Yankee" } },
+            { Screens.Navigation_Confirmation, new List<string> { "Navigate", "Cancel", "Close" } },
+            { Screens.Navigation_CreatingWaypoint, new List<string> { "Close" } },
+            { Screens.Navigation_3D, new List<string> { "Close" } },
 
-            { Screens.Messaging_Astro_BlankMessage, new List<string> {  } },
-            { Screens.Messaging_Astro_Quick, new List<string> {  } },
+            { Screens.Messaging_Astro_BlankMessage, new List<string> { "L", "L and A", "Add Emoji", "Enter Message", "Close", "Scroll Down", "Scroll Up" } },
+            { Screens.Messaging_Astro_Quick, new List<string> { "Like", "Dislike", "One Hundred", "Danger", "Close" } },
             { Screens.Messaging_Astro_FullMessage, new List<string> {  } },
             { Screens.Messaging_LLMC_BlankMessage, new List<string> {  } },
-            { Screens.Messaging_LLMC_Quick, new List<string> {  } },
+            { Screens.Messaging_LLMC_Quick, new List<string> { "Like", "Dislike", "One Hundred", "Danger", "Close" } },
             { Screens.Messaging_LLMC_FullMessage, new List<string> {  } },
             { Screens.Messaging_GroupChat_BlankMessage, new List<string> {  } },
-            { Screens.Messaging_GroupChat_Quick, new List<string> {  } },
+            { Screens.Messaging_GroupChat_Quick, new List<string> { "Like", "Dislike", "One Hundred", "Danger", "Close" } },
             { Screens.Messaging_GroupChat_FullMessage, new List<string> {  } },
 
             { Screens.Geo, new List<string> {  } },
 
-            { Screens.Vitals_Main, new List<string> {  } },
-            { Screens.Vitals_Fellow, new List<string> {  } },
+            { Screens.Vitals_Main, new List<string> { "Select Astro", "Close" } },
+            { Screens.Vitals_Fellow, new List<string> { "Select Astro", "Close" } },
 
-            { Screens.Screen_Sent, new List<string> {  } }
+            { Screens.Screen_Sent, new List<string> { "Close" } },
+
+            //{ Screens.UIA, new List<string> { "Configure UIA", "Start UIA", "UIA Next", "UIA Complete", "Show UIA Cubes" } }
         };
     }
 
@@ -230,6 +232,8 @@ public class HardCodedVoiceCommandsHandler : MonoBehaviour
                 ScreenSent_Parent.SetActive(true);
                 break;
         }
+
+        GameObject.Find("SampleCommandScreen").GetComponent<SampleCommandHandler>().setCommands(commandMap[screen]);
     }
 
 
