@@ -59,12 +59,13 @@ public class UIAManager : MonoBehaviour
         if (!isEgressComplete)
         {
             EgressStep++;
+            UpdateEgress(AstronautInstance.User.uia.uia);
         }
         else
         {
             IngressStep++;
+            UpdateIngress(AstronautInstance.User.uia.uia);
         }
-        sound.Play();
     }
 
     public void Voice_UIAComplete()
@@ -113,6 +114,7 @@ public class UIAManager : MonoBehaviour
         {
             EgressStep = 1;
             ShowEgress();
+            sound.Play();
 
             IEnumerator _UpdateEgress()
             {
@@ -120,6 +122,7 @@ public class UIAManager : MonoBehaviour
                 {
                     yield return new WaitForSeconds(0.5f);
                     UpdateEgress(AstronautInstance.User.uia.uia);
+                    ShowEgress();
                 }
                 Debug.Log("UIA Egress Complete");
             }
@@ -129,6 +132,7 @@ public class UIAManager : MonoBehaviour
         {
             IngressStep = 1;
             ShowIngress();
+            sound.Play();
 
             IEnumerator _UpdateIngress()
             {
@@ -136,15 +140,18 @@ public class UIAManager : MonoBehaviour
                 {
                     yield return new WaitForSeconds(0.5f);
                     UpdateIngress(AstronautInstance.User.uia.uia);
+                    ShowIngress();
                 }
                 Debug.Log("UIA Ingress Complete");
             }
             StartCoroutine(_UpdateIngress());
         }
     }
-
+    
     void UpdateEgress(UiDetails data)
     {
+        Debug.Log("updating egress");
+
         // check if we go to the next step
         switch (EgressStep)
         {
