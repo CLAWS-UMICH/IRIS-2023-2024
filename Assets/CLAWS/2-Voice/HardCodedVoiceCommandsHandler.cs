@@ -87,19 +87,19 @@ public class HardCodedVoiceCommandsHandler : MonoBehaviour
 
         commandMap = new Dictionary<Screens, List<string>>
         {
-            { Screens.Menu, new List<string> { "Open Tasks", "Open Navigation", "Open Messaging", "Open Geo", "Open Vitals", "Open UIA" } },
+            { Screens.Menu, new List<string> { "Open Tasks", "Open Navigation", "Open Messaging", "Open Samples", "Open Vitals", "Configure UIA", "Show UIA Cubes" } },
 
-            { Screens.Tasklist, new List<string> { "Scroll Down", "Scroll Up", "Close" } },
-            { Screens.Tasklist_SubOpen, new List<string> { "Close" } },
-            { Screens.Tasklist_Emergency, new List<string> { "Scroll Down", "Scroll Up", "Close" } },
+            { Screens.Tasklist, new List<string> { "Scroll Down", "Scroll Up", "Close Screen" } },
+            { Screens.Tasklist_SubOpen, new List<string> { "Close Screen" } },
+            { Screens.Tasklist_Emergency, new List<string> { "Scroll Down", "Scroll Up", "Close Screen" } },
 
-            { Screens.Navigation_SelectStationNav, new List<string> { "Select Companions", "Select Interest Points", "Select Sample Zones", "Add New", "Open 3D Map", "Close", "Scroll Down", "Scroll Up", "Select Hotel", "Select India"} },
-            { Screens.Navigation_SelectPOINav, new List<string> { "Select Companions", "Select Stations", "Select Sample Zones", "Add New", "Open 3D Map", "Close", "Scroll Down", "Scroll Up" } },
-            { Screens.Navigation_SelectGeoNav, new List<string> { "Select Companions", "Select Stations", "Select Interest Points", "Add New", "Open 3D Map", "Close", "Scroll Down", "Scroll Up", "Select Alpha", "Select Bravo", "Select Charlie", "Select Delta", "Select Echo", "Select Foxtrot" } },
-            { Screens.Navigation_SelectCompNav, new List<string> { "Select Stations", "Select Interest Points", "Select Sample Zones", "Add New", "Open 3D Map", "Close", "Scroll Down", "Scroll Up", "Select Romeo", "Select X-ray", "Select Yankee" } },
-            { Screens.Navigation_Confirmation, new List<string> { "Navigate", "Cancel", "Close" } },
-            { Screens.Navigation_CreatingWaypoint, new List<string> { "Close" } },
-            { Screens.Navigation_3D, new List<string> { "Close" } },
+            { Screens.Navigation_SelectStationNav, new List<string> { "Select Companions", "Select Interest Points", "Select Sample Zones", "Add New", "Open 3D Map", "Close Screen", "Scroll Down", "Scroll Up", "Select Hotel", "Select India"} },
+            { Screens.Navigation_SelectPOINav, new List<string> { "Select Companions", "Select Stations", "Select Sample Zones", "Add New", "Open 3D Map", "Close Screen", "Scroll Down", "Scroll Up" } },
+            { Screens.Navigation_SelectGeoNav, new List<string> { "Select Companions", "Select Stations", "Select Interest Points", "Add New", "Open 3D Map", "Close Screen", "Scroll Down", "Scroll Up", "Select Alpha", "Select Bravo", "Select Charlie", "Select Delta", "Select Echo", "Select Foxtrot" } },
+            { Screens.Navigation_SelectCompNav, new List<string> { "Select Stations", "Select Interest Points", "Select Sample Zones", "Add New", "Open 3D Map", "Close Screen", "Scroll Down", "Scroll Up", "Select Romeo", "Select X-ray", "Select Yankee" } },
+            { Screens.Navigation_Confirmation, new List<string> { "Navigate", "Cancel", "Close Screen" } },
+            { Screens.Navigation_CreatingWaypoint, new List<string> { "Close Screen" } },
+            { Screens.Navigation_3D, new List<string> { "Close Screen" } },
 
             { Screens.Messaging_Astro_BlankMessage, new List<string> {  } },
             { Screens.Messaging_Astro_Quick, new List<string> {  } },
@@ -111,12 +111,13 @@ public class HardCodedVoiceCommandsHandler : MonoBehaviour
             { Screens.Messaging_GroupChat_Quick, new List<string> {  } },
             { Screens.Messaging_GroupChat_FullMessage, new List<string> {  } },
 
-            { Screens.Geo, new List<string> {  } },
+            { Screens.Geo, new List<string> { "Add Sample", "View Samples", "Exit Mode" } }, // "Sample Name", "Take XRF Scan", "Set Shape", "Set Color", "Take Photo", "Enter Voice Notes" 
+            { Screens.Geo_Database, new List<string> { "Start Geosampling Mode", "Close Screen" } },
 
-            { Screens.Vitals_Main, new List<string> { "Select Astro", "Close" } },
-            { Screens.Vitals_Fellow, new List<string> { "Select Astro", "Close" } },
+            { Screens.Vitals_Main, new List<string> { "Select Astro", "Close Screen" } },
+            { Screens.Vitals_Fellow, new List<string> { "Select Astro", "Close Screen" } },
 
-            { Screens.Screen_Sent, new List<string> { "Close" } },
+            { Screens.Screen_Sent, new List<string> { "Close Screen" } },
         };
     }
 

@@ -28,13 +28,18 @@ public class GeosamplingDB_Manager : MonoBehaviour
 
     private void OnEnable()
     {
-        EventBus.Publish<ScreenChangedEvent>(new(Screens.Geo_Database));
+        if (!GeosamplingManager.GeosamplingMode)
+            EventBus.Publish<ScreenChangedEvent>(new(Screens.Geo_Database));
+
         isOpen = true;
         RenderZones();
     }
     private void OnDisable()
     {
         isOpen = false;
+
+        EventBus.Publish<ScreenChangedEvent>(new(Screens.Menu));
+
     }
 
     public static void StartGeosmaplingMode()

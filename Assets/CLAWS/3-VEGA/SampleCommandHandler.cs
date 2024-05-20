@@ -33,12 +33,12 @@ public class SampleCommandHandler : MonoBehaviour
         }
         Transform quadTransform = backplate.transform.Find("Quad");
         Vector3 currentScale = quadTransform.localScale;
-        currentScale.y = 0.0075f * commands.Count;
+        currentScale.y = 0.0095f * commands.Count;
         quadTransform.localScale = currentScale;
 
-        Vector3 currentPosition = backplate.transform.localPosition;
-        currentPosition.y -= currentScale.y / 4;
-        backplate.transform.localPosition = currentPosition;
+        // Vector3 currentPosition = backplate.transform.localPosition;
+        // currentPosition.y = - currentScale.y / 4;
+        // backplate.transform.localPosition = currentPosition;
     }
 
 }
