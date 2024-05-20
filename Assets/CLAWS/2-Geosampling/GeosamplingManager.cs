@@ -69,6 +69,9 @@ public class GeosamplingManager : MonoBehaviour
         GeosamplingMode = true;
         EventBus.Publish<GeosampleModeStartedEvent>(new());
         EventBus.Publish<ScreenChangedEvent>(new(Screens.Geo));
+
+        // show only geo icons
+        Instance.SwitchCameraCull(25);
     }
 
     [ContextMenu("func EndGeosamplingMode")]
@@ -76,6 +79,53 @@ public class GeosamplingManager : MonoBehaviour
     {
         GeosamplingMode = false;
         EventBus.Publish<GeosampleModeEndedEvent>(new());
+
+        // show all icons
+        Instance.SwitchCameraCull(-1);
     }
+
+
+
+    [SerializeField] Camera mainMapCamera;
+    [SerializeField] Camera miniMapCamera;
+
+    public void SwitchCameraCull(int num)
+    {
+        int mainCullingMask = mainMapCamera.cullingMask;
+        int miniCullingMask = miniMapCamera.cullingMask;
+
+        // 23: Station, 24: Nav, 25: Geo, 26: Comp
+        if (num == -1)
+        {
+            for (int i = 23; i < 27; i++)
+            {
+                mainCullingMask |= (1 << i);
+                miniCullingMask |= (1 << i);
+                mainMapCamera.cullingMask = mainCullingMask;
+                miniMapCamera.cullingMask = miniCullingMask;
+            }
+        }
+        else
+        {
+            for (int i = 23; i < 27; i++)
+            {
+                if (num == i)
+                {
+                    mainCullingMask |= (1 << i);
+                    miniCullingMask |= (1 << i);
+                    mainMapCamera.cullingMask = mainCullingMask;
+                    miniMapCamera.cullingMask = miniCullingMask;
+                }
+                else
+                {
+                    mainCullingMask &= ~(1 << i);
+                    miniCullingMask &= ~(1 << i);
+                    mainMapCamera.cullingMask = mainCullingMask;
+                    miniMapCamera.cullingMask = miniCullingMask;
+                }
+            }
+        }
+    }
+
 
 }

@@ -348,7 +348,7 @@ public class SingleGeosampleScreen : MonoBehaviour
         // called after xrf scan
         RockType_tmp.text = name;
 
-        // TODO update Sample.rockType
+        Sample.rock_type = name;
         GeosamplingManager.SendData();
     }
     [SerializeField]
@@ -399,11 +399,9 @@ public class SingleGeosampleScreen : MonoBehaviour
         Sample.color = hex;
         GeosamplingManager.SendData();
     }
-    public void SetPhoto()
+    public void SetPhoto(string jpg)
     {
-        // TODO show photo
-
-        // TODO update Sample.photo
+        Sample.photo_jpg = jpg;
         GeosamplingManager.SendData();
     }
     public void SetNote()
