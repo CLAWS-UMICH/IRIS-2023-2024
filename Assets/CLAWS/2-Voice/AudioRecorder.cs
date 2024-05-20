@@ -68,24 +68,30 @@ public class AudioRecorder : MonoBehaviour
 
     public void StartRecording()
     {
-        InitializeRecorder();
-        Debug.Log("Started Recording...");
-        isRecording = true;
-        waveIn.StartRecording();
-        // Create a new WAV file for recording
-        writer = new WaveFileWriter(destination, waveIn.WaveFormat);
+        if (!isRecording)
+        {
+            InitializeRecorder();
+            Debug.Log("Started Recording...");
+            isRecording = true;
+            waveIn.StartRecording();
+            // Create a new WAV file for recording
+            writer = new WaveFileWriter(destination, waveIn.WaveFormat);
+        }
     }
 
     public void StopRecording()
     {
-        Debug.Log("Stopping Recording");
-        isRecording = false;
-        waveIn.StopRecording();
-        writer.Close();
-        writer.Dispose();
+        if (isRecording)
+        {
+            Debug.Log("Stopping Recording");
+            isRecording = false;
+            waveIn.StopRecording();
+            writer.Close();
+            writer.Dispose();
 
-        // Send recorded audio over websocket
-        SendAudioOverWebsocket();
+            // Send recorded audio over websocket
+            SendAudioOverWebsocket();
+        }
     }
 
     void SendAudioOverWebsocket()

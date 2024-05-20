@@ -754,6 +754,7 @@ public class WebsocketDataHandler : MonoBehaviour
 
             // Convert the vitals data to JSON format and send to WebSocket client
             string jsonData = JsonUtility.ToJson(combinedData);
+            Debug.Log(jsonData);
 
             wsClient.SendJsonData(jsonData);
 
