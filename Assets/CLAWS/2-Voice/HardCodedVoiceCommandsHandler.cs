@@ -44,6 +44,8 @@ public class HardCodedVoiceCommandsHandler : MonoBehaviour
 
     Subscription<ScreenChangedEvent> screenChangedSubscription;
 
+    Dictionary<Screens, List<string>> commandMap;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -64,6 +66,7 @@ public class HardCodedVoiceCommandsHandler : MonoBehaviour
         Navigation_SelectGeoNav = Navigation_Parent.transform.Find("Navigation_SelectGeoNav").gameObject;
         Navigation_SelectCompNav = Navigation_Parent.transform.Find("Navigation_SelectCompNav").gameObject;
         Navigation_Confirmation = Navigation_Parent.transform.Find("Navigation_Confirmation").gameObject;
+        Navigation_CreatingWaypoint = Navigation_Parent.transform.Find("Navigation_CreatingWaypoint").gameObject;
         Navigation_3D = Navigation_Parent.transform.Find("Navigation_3D").gameObject;
 
         Messaging_Astro_BlankMessage = Messaging_Parent.transform.Find("Messaging_Astro_BlankMessage").gameObject;
@@ -81,6 +84,41 @@ public class HardCodedVoiceCommandsHandler : MonoBehaviour
 
         screenChangedSubscription = EventBus.Subscribe<ScreenChangedEvent>(SwitchScreen);
         TurnOffAllScreens();
+
+        commandMap = new Dictionary<Screens, List<string>>
+        {
+            { Screens.Menu, new List<string> {  } },
+
+            { Screens.Tasklist, new List<string> {  } },
+            { Screens.Tasklist_SubOpen, new List<string> {  } },
+            { Screens.Tasklist_Emergency, new List<string> {  } },
+
+            { Screens.Navigation, new List<string> {  } },
+            { Screens.Navigation_SelectStationNav, new List<string> {  } },
+            { Screens.Navigation_SelectPOINav, new List<string> {  } },
+            { Screens.Navigation_SelectGeoNav, new List<string> {  } },
+            { Screens.Navigation_SelectCompNav, new List<string> {  } },
+            { Screens.Navigation_Confirmation, new List<string> {  } },
+            { Screens.Navigation_CreatingWaypoint, new List<string> {  } },
+            { Screens.Navigation_3D, new List<string> {  } },
+
+            { Screens.Messaging_Astro_BlankMessage, new List<string> {  } },
+            { Screens.Messaging_Astro_Quick, new List<string> {  } },
+            { Screens.Messaging_Astro_FullMessage, new List<string> {  } },
+            { Screens.Messaging_LLMC_BlankMessage, new List<string> {  } },
+            { Screens.Messaging_LLMC_Quick, new List<string> {  } },
+            { Screens.Messaging_LLMC_FullMessage, new List<string> {  } },
+            { Screens.Messaging_GroupChat_BlankMessage, new List<string> {  } },
+            { Screens.Messaging_GroupChat_Quick, new List<string> {  } },
+            { Screens.Messaging_GroupChat_FullMessage, new List<string> {  } },
+
+            { Screens.Geo, new List<string> {  } },
+
+            { Screens.Vitals_Main, new List<string> {  } },
+            { Screens.Vitals_Fellow, new List<string> {  } },
+
+            { Screens.Screen_Sent, new List<string> {  } }
+        };
     }
 
     public void TurnOffAllScreens()
@@ -94,6 +132,7 @@ public class HardCodedVoiceCommandsHandler : MonoBehaviour
         Navigation_SelectGeoNav.SetActive(false);
         Navigation_SelectCompNav.SetActive(false);
         Navigation_Confirmation.SetActive(false);
+        Navigation_CreatingWaypoint.SetActive(false);
         Navigation_3D.SetActive(false);
         Messaging_Astro_BlankMessage.SetActive(false);
         Messaging_Astro_Quick.SetActive(false);

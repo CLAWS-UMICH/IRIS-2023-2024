@@ -362,4 +362,21 @@ public class WaypointsController : MonoBehaviour
 
         return result - 1;
     }
+
+    public void UpdateLocationsOfWaypoints()
+    {
+        // Set the positions of the GameObjects based on the corrected locations
+        foreach (var entry in waypointDict)
+        {
+            int key = entry.Key;
+            Waypoint waypoint = entry.Value;
+
+            if (waypointObjDic.TryGetValue(key, out GameObject waypointObj))
+            {
+                // Correct the location using the CorrectLocation method
+                Vector3 correctedPosition = GPSUtils.GPSCoordsToAppPosition(waypoint.location);
+                waypointObj.transform.position = correctedPosition;
+            }
+        }
+    }
 }
