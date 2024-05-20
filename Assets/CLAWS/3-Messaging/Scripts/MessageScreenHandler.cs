@@ -63,6 +63,20 @@ public class MessageReceiveHandler : MonoBehaviour
         AstroScreen.SetActive(true);
         emojiScreen.SetActive(false);
 
+        // Update chat names
+        GameObject astroLabel = parent.transform.Find("AstroButton").Find("Button").Find("IconAndText").Find("TextMeshPro").gameObject;
+        GameObject groupLabel = parent.transform.Find("GroupChatButton").Find("Button").Find("IconAndText").Find("TextMeshPro").gameObject;
+        if (AstronautInstance.User.id == 0)
+        {
+            astroLabel.GetComponent<TMP_Text>().text = "Astronaut 1";
+            groupLabel.GetComponent<TMP_Text>().text = "LMCC & Astronaut 1";
+        }
+        else if (AstronautInstance.User.id == 1)
+        {
+            astroLabel.GetComponent<TMP_Text>().text = "Astronaut 2";
+            groupLabel.GetComponent<TMP_Text>().text = "LMCC & Astronaut 2";
+        }
+
         StartCoroutine(GenerateAstroBox());
         StartCoroutine(GenerateLMCCBox());
         StartCoroutine(GenerateGroupChatBox());

@@ -578,6 +578,198 @@ MonoBehaviour:
           m_CallState: 2
   persistentKeywords: 0
   speechConfirmationTooltipPrefab: {fileID: 0}
+--- !u!1 &313458603
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 313458604}
+  - component: {fileID: 313458605}
+  m_Layer: 0
+  m_Name: Menu
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &313458604
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 313458603}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 681879907}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &313458605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 313458603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45b3eff181cc4244a8a14234096e62fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isFocusRequired: 0
+  keywords:
+  - keyword: Connect
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 584618916}
+          m_TargetAssemblyTypeName: ConnectToWebScreenHandler, Assembly-CSharp
+          m_MethodName: OpenChoiceScreen
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - keyword: Hey Vega
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1971854421}
+          m_TargetAssemblyTypeName: AudioRecorder, Assembly-CSharp
+          m_MethodName: StartRecording
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - keyword: Reset Spawn
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 504321028}
+          m_TargetAssemblyTypeName: GPSStartScreenHandler, Assembly-CSharp
+          m_MethodName: OpenOptionScreen
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  persistentKeywords: 0
+  speechConfirmationTooltipPrefab: {fileID: 8046114618238072051, guid: 271778f6c957b524981067a81d238394, type: 3}
+--- !u!1 &385318764
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 385318765}
+  - component: {fileID: 385318766}
+  m_Layer: 0
+  m_Name: Navigation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &385318765
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 385318764}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 681879907}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &385318766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 385318764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45b3eff181cc4244a8a14234096e62fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isFocusRequired: 0
+  keywords:
+  - keyword: Connect
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 584618916}
+          m_TargetAssemblyTypeName: ConnectToWebScreenHandler, Assembly-CSharp
+          m_MethodName: OpenChoiceScreen
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - keyword: Hey Vega
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1971854421}
+          m_TargetAssemblyTypeName: AudioRecorder, Assembly-CSharp
+          m_MethodName: StartRecording
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - keyword: Reset Spawn
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 504321028}
+          m_TargetAssemblyTypeName: GPSStartScreenHandler, Assembly-CSharp
+          m_MethodName: OpenOptionScreen
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  persistentKeywords: 0
+  speechConfirmationTooltipPrefab: {fileID: 8046114618238072051, guid: 271778f6c957b524981067a81d238394, type: 3}
 --- !u!1 &405464337
 GameObject:
   m_ObjectHideFlags: 0
@@ -751,6 +943,102 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd7adaa3431fefe4286aec1e33e6df33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &459045689
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 459045690}
+  - component: {fileID: 459045691}
+  m_Layer: 0
+  m_Name: ScreenSent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &459045690
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 459045689}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 681879907}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &459045691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 459045689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45b3eff181cc4244a8a14234096e62fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isFocusRequired: 0
+  keywords:
+  - keyword: Connect
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 584618916}
+          m_TargetAssemblyTypeName: ConnectToWebScreenHandler, Assembly-CSharp
+          m_MethodName: OpenChoiceScreen
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - keyword: Hey Vega
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1971854421}
+          m_TargetAssemblyTypeName: AudioRecorder, Assembly-CSharp
+          m_MethodName: StartRecording
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - keyword: Reset Spawn
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 504321028}
+          m_TargetAssemblyTypeName: GPSStartScreenHandler, Assembly-CSharp
+          m_MethodName: OpenOptionScreen
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  persistentKeywords: 0
+  speechConfirmationTooltipPrefab: {fileID: 8046114618238072051, guid: 271778f6c957b524981067a81d238394, type: 3}
 --- !u!1 &493531718
 GameObject:
   m_ObjectHideFlags: 0
@@ -803,6 +1091,124 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding: {x: -8, y: -5, z: -8, w: -5}
   m_Softness: {x: 0, y: 0}
+--- !u!114 &504321028 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1259148399844205670, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+  m_PrefabInstance: {fileID: 3794289907722291898}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45058b67c9b9ace409e62a6f1fbdcfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &542375652
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 542375653}
+  - component: {fileID: 542375654}
+  m_Layer: 0
+  m_Name: Geo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &542375653
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 542375652}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 681879907}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &542375654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 542375652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45b3eff181cc4244a8a14234096e62fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isFocusRequired: 0
+  keywords:
+  - keyword: Connect
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 584618916}
+          m_TargetAssemblyTypeName: ConnectToWebScreenHandler, Assembly-CSharp
+          m_MethodName: OpenChoiceScreen
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - keyword: Hey Vega
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1971854421}
+          m_TargetAssemblyTypeName: AudioRecorder, Assembly-CSharp
+          m_MethodName: StartRecording
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - keyword: Reset Spawn
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 504321028}
+          m_TargetAssemblyTypeName: GPSStartScreenHandler, Assembly-CSharp
+          m_MethodName: OpenOptionScreen
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  persistentKeywords: 0
+  speechConfirmationTooltipPrefab: {fileID: 8046114618238072051, guid: 271778f6c957b524981067a81d238394, type: 3}
+--- !u!114 &584618916 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3794289906951229049, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+  m_PrefabInstance: {fileID: 3794289907722291898}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 714cfb21b13e0e54dbb3025675422f2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &601407870
 GameObject:
   m_ObjectHideFlags: 0
@@ -838,6 +1244,11 @@ Transform:
   - {fileID: 1597732533}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &681879907 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2975349671288955307, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+  m_PrefabInstance: {fileID: 3794289907722291898}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &694318115
 GameObject:
   m_ObjectHideFlags: 0
@@ -953,6 +1364,102 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2598466316619249899, guid: 3786716c22f13d948818947b80fa3637, type: 3}
   m_PrefabInstance: {fileID: 711482417}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &758480951
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 758480952}
+  - component: {fileID: 758480953}
+  m_Layer: 0
+  m_Name: Tasklist
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &758480952
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 758480951}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 681879907}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &758480953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 758480951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45b3eff181cc4244a8a14234096e62fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isFocusRequired: 0
+  keywords:
+  - keyword: Connect
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 584618916}
+          m_TargetAssemblyTypeName: ConnectToWebScreenHandler, Assembly-CSharp
+          m_MethodName: OpenChoiceScreen
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - keyword: Hey Vega
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1971854421}
+          m_TargetAssemblyTypeName: AudioRecorder, Assembly-CSharp
+          m_MethodName: StartRecording
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - keyword: Reset Spawn
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 504321028}
+          m_TargetAssemblyTypeName: GPSStartScreenHandler, Assembly-CSharp
+          m_MethodName: OpenOptionScreen
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  persistentKeywords: 0
+  speechConfirmationTooltipPrefab: {fileID: 8046114618238072051, guid: 271778f6c957b524981067a81d238394, type: 3}
 --- !u!1 &770566799 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5760123452329378114, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
@@ -2723,6 +3230,102 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1839343234}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1854555191
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1854555192}
+  - component: {fileID: 1854555193}
+  m_Layer: 0
+  m_Name: Messaging
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1854555192
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1854555191}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 681879907}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1854555193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1854555191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45b3eff181cc4244a8a14234096e62fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isFocusRequired: 0
+  keywords:
+  - keyword: Connect
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 584618916}
+          m_TargetAssemblyTypeName: ConnectToWebScreenHandler, Assembly-CSharp
+          m_MethodName: OpenChoiceScreen
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - keyword: Hey Vega
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1971854421}
+          m_TargetAssemblyTypeName: AudioRecorder, Assembly-CSharp
+          m_MethodName: StartRecording
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - keyword: Reset Spawn
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 504321028}
+          m_TargetAssemblyTypeName: GPSStartScreenHandler, Assembly-CSharp
+          m_MethodName: OpenOptionScreen
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  persistentKeywords: 0
+  speechConfirmationTooltipPrefab: {fileID: 8046114618238072051, guid: 271778f6c957b524981067a81d238394, type: 3}
 --- !u!1001 &1895588064
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2792,6 +3395,113 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce33d8e505829464dbd1ebcc8429a7bf, type: 3}
+--- !u!1 &1939414033
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1939414034}
+  - component: {fileID: 1939414035}
+  m_Layer: 0
+  m_Name: Vitals
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1939414034
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939414033}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 681879907}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1939414035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939414033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45b3eff181cc4244a8a14234096e62fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isFocusRequired: 0
+  keywords:
+  - keyword: Connect
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 584618916}
+          m_TargetAssemblyTypeName: ConnectToWebScreenHandler, Assembly-CSharp
+          m_MethodName: OpenChoiceScreen
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - keyword: Hey Vega
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1971854421}
+          m_TargetAssemblyTypeName: AudioRecorder, Assembly-CSharp
+          m_MethodName: StartRecording
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - keyword: Reset Spawn
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 504321028}
+          m_TargetAssemblyTypeName: GPSStartScreenHandler, Assembly-CSharp
+          m_MethodName: OpenOptionScreen
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  persistentKeywords: 0
+  speechConfirmationTooltipPrefab: {fileID: 8046114618238072051, guid: 271778f6c957b524981067a81d238394, type: 3}
+--- !u!114 &1971854421 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5594370075045820561, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+  m_PrefabInstance: {fileID: 3794289907722291898}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ae7ab7eb835a074abbef506551c8510, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3794289907722291898
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2860,6 +3570,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.0023
       objectReference: {fileID: 0}
+    - target: {fileID: 3676654904924812577, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      propertyPath: autoConnectTSS
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3794289906129230345, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       propertyPath: transformOverride
       value: 
@@ -2880,6 +3594,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StartGeosamplingModeButton
       objectReference: {fileID: 0}
+    - target: {fileID: 6063849297249506148, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6242078251086314356, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 3
@@ -2899,6 +3617,10 @@ PrefabInstance:
     - target: {fileID: 6723316148351603420, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6792915319302084211, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7186240509934428557, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -2952,7 +3674,28 @@ PrefabInstance:
     - {fileID: 5883208720321334997, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
     - {fileID: 6746010356810722953, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 2975349671288955307, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 313458604}
+    - targetCorrespondingSourceObject: {fileID: 2975349671288955307, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 758480952}
+    - targetCorrespondingSourceObject: {fileID: 2975349671288955307, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 385318765}
+    - targetCorrespondingSourceObject: {fileID: 2975349671288955307, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1854555192}
+    - targetCorrespondingSourceObject: {fileID: 2975349671288955307, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 542375653}
+    - targetCorrespondingSourceObject: {fileID: 2975349671288955307, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1939414034}
+    - targetCorrespondingSourceObject: {fileID: 2975349671288955307, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 459045690}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1806715730342361902, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       insertIndex: -1
@@ -3051,6 +3794,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
     - targetCorrespondingSourceObject: {fileID: 1457827553564122018, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 7590784776551378670, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}

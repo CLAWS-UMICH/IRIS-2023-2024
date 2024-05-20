@@ -5,6 +5,7 @@ using UnityEngine;
 public class UIAManager : MonoBehaviour
 {
     [SerializeField] UIAPanel uiaPanel;
+    [SerializeField] GameObject uiaBackplate;
 
     bool isEgressComplete = false;
     bool isIngressComplete = false;
@@ -58,12 +59,13 @@ public class UIAManager : MonoBehaviour
         if (!isEgressComplete)
         {
             EgressStep++;
+            UpdateEgress(AstronautInstance.User.uia.uia);
         }
         else
         {
             IngressStep++;
+            UpdateIngress(AstronautInstance.User.uia.uia);
         }
-        sound.Play();
     }
 
     public void Voice_UIAComplete()
@@ -71,12 +73,37 @@ public class UIAManager : MonoBehaviour
         if (!isEgressComplete)
         {
             isEgressComplete = true;
+
+            IEnumerator _SetPanel()
+            {
+                yield return new WaitForSeconds(0.1f);
+
+                uiaPanel.SetPanelPosition();
+                uiaPanel.SetText("UIA Egress Complete!", "center");
+
+                yield return new WaitForSeconds(10f);
+
+                uiaPanel.SetPanelPosition();
+                uiaPanel.SetText("Connect UIA and DCU umbilical. Then say \"Start UIA\"", "center");
+            }
+            StartCoroutine(_SetPanel());
         }
         else
         {
             isIngressComplete = true;
+
+            IEnumerator _SetPanel()
+            {
+                yield return new WaitForSeconds(0.1f);
+
+                uiaPanel.SetPanelPosition();
+                uiaPanel.SetText("UIA Ingress Complete!", "center");
+            }
+            StartCoroutine(_SetPanel());
         }
-        sound.Play();
+        sound.Play();        
+
+        
     }
 
 
@@ -87,6 +114,7 @@ public class UIAManager : MonoBehaviour
         {
             EgressStep = 1;
             ShowEgress();
+            sound.Play();
 
             IEnumerator _UpdateEgress()
             {
@@ -94,6 +122,7 @@ public class UIAManager : MonoBehaviour
                 {
                     yield return new WaitForSeconds(0.5f);
                     UpdateEgress(AstronautInstance.User.uia.uia);
+                    ShowEgress();
                 }
                 Debug.Log("UIA Egress Complete");
             }
@@ -103,6 +132,7 @@ public class UIAManager : MonoBehaviour
         {
             IngressStep = 1;
             ShowIngress();
+            sound.Play();
 
             IEnumerator _UpdateIngress()
             {
@@ -110,15 +140,18 @@ public class UIAManager : MonoBehaviour
                 {
                     yield return new WaitForSeconds(0.5f);
                     UpdateIngress(AstronautInstance.User.uia.uia);
+                    ShowIngress();
                 }
                 Debug.Log("UIA Ingress Complete");
             }
             StartCoroutine(_UpdateIngress());
         }
     }
-
+    
     void UpdateEgress(UiDetails data)
     {
+        Debug.Log("updating egress");
+
         // check if we go to the next step
         switch (EgressStep)
         {
@@ -137,12 +170,12 @@ public class UIAManager : MonoBehaviour
                 break;
             case 2:
                 // BATT – UMB
-                if (isEva1 && (AstronautInstance.User.dcu.eva1.batt == false))
+                if (isEva1 && (AstronautInstance.User.dcu.dcu.eva1.batt == false))
                 {
                     EgressStep++;
                     sound.Play();
                 }
-                else if (!isEva1 && (AstronautInstance.User.dcu.eva2.batt == false))
+                else if (!isEva1 && (AstronautInstance.User.dcu.dcu.eva2.batt == false))
                 {
                     EgressStep++;
                     sound.Play();
@@ -179,7 +212,7 @@ public class UIAManager : MonoBehaviour
 
                 float percentage = (p1 + p2) * 100 / 2;
 
-                uiaPanel.ProgressBar.Update_Progress_bar(100 - Mathf.RoundToInt(percentage), 100);
+                uiaPanel.ProgressBar.Update_Progress_bar(Mathf.RoundToInt(percentage), 100);
 
                 if (psi1 < 10f && psi2 < 10f)
                 {
@@ -199,12 +232,12 @@ public class UIAManager : MonoBehaviour
                 break;
             case 7:
                 // OXY – PRI
-                if (isEva1 && (AstronautInstance.User.dcu.eva1.oxy == true))
+                if (isEva1 && (AstronautInstance.User.dcu.dcu.eva1.oxy == true))
                 {
                     EgressStep++;
                     sound.Play();
                 }
-                else if (!isEva1 && (AstronautInstance.User.dcu.eva2.oxy == true))
+                else if (!isEva1 && (AstronautInstance.User.dcu.dcu.eva2.oxy == true))
                 {
                     EgressStep++;
                     sound.Play();
@@ -256,12 +289,12 @@ public class UIAManager : MonoBehaviour
                 break;
             case 11:
                 // OXY – SEC
-                if (isEva1 && (AstronautInstance.User.dcu.eva1.oxy == false))
+                if (isEva1 && (AstronautInstance.User.dcu.dcu.eva1.oxy == false))
                 {
                     EgressStep++;
                     sound.Play();
                 }
-                else if (!isEva1 && (AstronautInstance.User.dcu.eva2.oxy == false))
+                else if (!isEva1 && (AstronautInstance.User.dcu.dcu.eva2.oxy == false))
                 {
                     EgressStep++;
                     sound.Play();
@@ -313,12 +346,12 @@ public class UIAManager : MonoBehaviour
                 break;
             case 15:
                 // OXY – PRI
-                if (isEva1 && (AstronautInstance.User.dcu.eva1.oxy == true))
+                if (isEva1 && (AstronautInstance.User.dcu.dcu.eva1.oxy == true))
                 {
                     EgressStep++;
                     sound.Play();
                 }
-                else if (!isEva1 && (AstronautInstance.User.dcu.eva2.oxy == true))
+                else if (!isEva1 && (AstronautInstance.User.dcu.dcu.eva2.oxy == true))
                 {
                     EgressStep++;
                     sound.Play();
@@ -326,12 +359,12 @@ public class UIAManager : MonoBehaviour
                 break;
             case 16:
                 // PUMP – OPEN
-                if (isEva1 && (AstronautInstance.User.dcu.eva1.pump == true))
+                if (isEva1 && (AstronautInstance.User.dcu.dcu.eva1.pump == true))
                 {
                     EgressStep++;
                     sound.Play();
                 }
-                else if (!isEva1 && (AstronautInstance.User.dcu.eva2.pump == true))
+                else if (!isEva1 && (AstronautInstance.User.dcu.dcu.eva2.pump == true))
                 {
                     EgressStep++;
                     sound.Play();
@@ -434,12 +467,12 @@ public class UIAManager : MonoBehaviour
                 break;
             case 23:
                 // PUMP – CLOSE
-                if (isEva1 && (AstronautInstance.User.dcu.eva1.pump == false))
+                if (isEva1 && (AstronautInstance.User.dcu.dcu.eva1.pump == false))
                 {
                     EgressStep++;
                     sound.Play();
                 }
-                else if (!isEva1 && (AstronautInstance.User.dcu.eva2.pump == false))
+                else if (!isEva1 && (AstronautInstance.User.dcu.dcu.eva2.pump == false))
                 {
                     EgressStep++;
                     sound.Play();
@@ -472,12 +505,12 @@ public class UIAManager : MonoBehaviour
                 break;
             case 26:
                 // BATT – LOCAL
-                if (isEva1 && (AstronautInstance.User.dcu.eva1.batt == true))
+                if (isEva1 && (AstronautInstance.User.dcu.dcu.eva1.batt == true))
                 {
                     EgressStep++;
                     sound.Play();
                 }
-                else if (!isEva1 && (AstronautInstance.User.dcu.eva2.batt == true))
+                else if (!isEva1 && (AstronautInstance.User.dcu.dcu.eva2.batt == true))
                 {
                     EgressStep++;
                     sound.Play();
@@ -750,12 +783,12 @@ public class UIAManager : MonoBehaviour
                 break;
             case 2:
                 // BATT – UMB
-                if (isEva1 && (AstronautInstance.User.dcu.eva1.batt == false))
+                if (isEva1 && (AstronautInstance.User.dcu.dcu.eva1.batt == false))
                 {
                     IngressStep++;
                     sound.Play();
                 }
-                else if (!isEva1 && (AstronautInstance.User.dcu.eva2.batt == false))
+                else if (!isEva1 && (AstronautInstance.User.dcu.dcu.eva2.batt == false))
                 {
                     IngressStep++;
                     sound.Play();
@@ -784,7 +817,7 @@ public class UIAManager : MonoBehaviour
 
                 float percentage = (p1 + p2) * 100 / 2;
 
-                uiaPanel.ProgressBar.Update_Progress_bar(100 - Mathf.RoundToInt(percentage), 100);
+                uiaPanel.ProgressBar.Update_Progress_bar(Mathf.RoundToInt(percentage), 100);
 
                 if (psi1 < 10f && psi2 < 10f)
                 {
@@ -804,12 +837,12 @@ public class UIAManager : MonoBehaviour
                 break;
             case 6:
                 // PUMP – OPEN
-                if (isEva1 && (AstronautInstance.User.dcu.eva1.pump == true))
+                if (isEva1 && (AstronautInstance.User.dcu.dcu.eva1.pump == true))
                 {
                     IngressStep++;
                     sound.Play();
                 }
-                else if (!isEva1 && (AstronautInstance.User.dcu.eva2.pump == true))
+                else if (!isEva1 && (AstronautInstance.User.dcu.dcu.eva2.pump == true))
                 {
                     IngressStep++;
                     sound.Play();
@@ -846,7 +879,7 @@ public class UIAManager : MonoBehaviour
 
                 if (m1 < 5f && m2 < 5f)
                 {
-                    EgressStep++;
+                    IngressStep++;
                     temp_val1 = 0f;
                     temp_val2 = 0f;
                     sound.Play();

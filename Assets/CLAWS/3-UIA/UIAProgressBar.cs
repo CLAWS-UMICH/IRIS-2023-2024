@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class UIAProgressBar : MonoBehaviour
 {
-    private GameObject pbar;
+    public GameObject pbar;
     public float progress;
     public bool isSubtask = true;
 
     void Start()
     {
-        pbar = transform.Find("pb_background").transform.Find("pb_bar").gameObject;
         pbar.transform.localScale = new Vector3(0, 1, 1);
     }
 
