@@ -479,12 +479,24 @@ public class CommDetails
 [System.Serializable]
 public class DCU
 {
+    public DCUData dcu;
+}
+
+[System.Serializable]
+public class DCUData
+{
     public EvaDetails eva1;
     public EvaDetails eva2;
 }
 
 [System.Serializable]
 public class IMU
+{
+    public IMUEVAs imu;
+}
+
+[System.Serializable]
+public class IMUEVAs
 {
     public IMUData eva1;
     public IMUData eva2;

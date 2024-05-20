@@ -187,11 +187,11 @@ public class TSScConnection : MonoBehaviour
 
                         if (AstronautInstance.User.id == 0)
                         {
-                            EventBus.Publish(new DCUChanged(AstronautInstance.User.dcu.eva1));
+                            EventBus.Publish(new DCUChanged(AstronautInstance.User.dcu.dcu.eva1));
                         }
                         else
                         {
-                            EventBus.Publish(new DCUChanged(AstronautInstance.User.dcu.eva2));
+                            EventBus.Publish(new DCUChanged(AstronautInstance.User.dcu.dcu.eva2));
                         }
                     }
                     break;
@@ -425,14 +425,14 @@ public class TSScConnection : MonoBehaviour
 
                         AstronautInstance.User.imu = JsonUtility.FromJson<IMU>(this.IMUJsonString);
 
-                        /*if (AstronautInstance.User.id == 0)
+                        if (AstronautInstance.User.id == 0)
                         {
-                            EventBus.Publish(new IMUChanged(AstronautInstance.User.imu.eva1));
+                            EventBus.Publish(new IMUChanged(AstronautInstance.User.imu.imu.eva1));
                         }
                         else
                         {
-                            EventBus.Publish(new IMUChanged(AstronautInstance.User.imu.eva2));
-                        }*/
+                            EventBus.Publish(new IMUChanged(AstronautInstance.User.imu.imu.eva2));
+                        }
                     }
                     break;
             }
