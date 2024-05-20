@@ -54,6 +54,18 @@ public class UIAManager : MonoBehaviour
         });
     }
 
+    public void Voice_UIASpawnCubes()
+    {
+        Vector3 center = Camera.main.transform.position + Camera.main.transform.forward * 0.4f;
+        Vector3 right = Camera.main.transform.right * 0.1f;
+        Vector3 up = Camera.main.transform.up * 0.1f;
+
+        uiaPanel.Cubes[0].position = center - right + up;
+        uiaPanel.Cubes[1].position = center + right + up;
+        uiaPanel.Cubes[2].position = center + right - up;
+        uiaPanel.Cubes[3].position = center - right - up;
+    }
+
     public void Voice_UIANext()
     {
         if (!isEgressComplete)
