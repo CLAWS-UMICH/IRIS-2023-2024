@@ -88,7 +88,7 @@ public class MenuState : MonoBehaviour
     }
     public void ClickVitals()
     {
-        transform.parent.Find("Vitals").GetComponent<VitalsSwitcher>().OpenVitals();
+        transform.parent.Find("Vitals").GetComponent<VitalsSwitcherFinal>().AstronautToggle();
         ClickIRISClose();
     }
 

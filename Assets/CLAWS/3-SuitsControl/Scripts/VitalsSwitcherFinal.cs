@@ -8,13 +8,17 @@ public class VitalsSwitcherFinal : MonoBehaviour
     public GameObject screen2;
     public GameObject button;
     string buttonText;
+    bool on;
 
     void Start()
     {
-        suitsControl = GameObject.Find("SuitsControl");
+        suitsControl = GameObject.Find("Vitals");
         screen1 = suitsControl.transform.Find("SuitsControlScreen1").gameObject;
         screen2 = suitsControl.transform.Find("SuitsControlScreen2").gameObject;
         screen2.SetActive(false);
+        screen1.SetActive(false);
+        button.SetActive(false);
+        on = true;
 
         button = GameObject.Find("SwitchVitalsButton");
         buttonText = button.transform.Find("IconAndText").transform.Find("TextMeshPro").GetComponent<TextMeshPro>().text;
@@ -24,7 +28,7 @@ public class VitalsSwitcherFinal : MonoBehaviour
 
     public void AstronautToggle()
     {
-        if (screen1.activeSelf)
+        if (on)
         {
             screen1.SetActive(false);
             screen2.SetActive(true);
@@ -32,6 +36,7 @@ public class VitalsSwitcherFinal : MonoBehaviour
 
             // Replace with your actual event publishing logic
             Debug.Log("Switched to Astronaut 1");
+            on = !on;
         }
         else
         {
@@ -41,6 +46,16 @@ public class VitalsSwitcherFinal : MonoBehaviour
 
             // Replace with your actual event publishing logic
             Debug.Log("Switched to Astronaut 2");
+            on = !on;
         }
+    }
+
+    public void Close()
+    {
+        screen2.SetActive(false);
+        screen1.SetActive(false);
+        button.SetActive(false);
+        on = true;
+        buttonText = "Astronaut 2";
     }
 }
