@@ -12,7 +12,6 @@ public class HardCodedVoiceCommandsHandler : MonoBehaviour
     GameObject Geo_Parent;
     GameObject Vitals_Parent;
     GameObject ScreenSent_Parent;
-    GameObject UIA_Parent;
 
     // Tasklist
     GameObject Tasklist;
@@ -102,14 +101,14 @@ public class HardCodedVoiceCommandsHandler : MonoBehaviour
             { Screens.Navigation_CreatingWaypoint, new List<string> { "Close" } },
             { Screens.Navigation_3D, new List<string> { "Close" } },
 
-            { Screens.Messaging_Astro_BlankMessage, new List<string> { "L", "L and A", "Add Emoji", "Enter Message", "Close", "Scroll Down", "Scroll Up" } },
-            { Screens.Messaging_Astro_Quick, new List<string> { "Like", "Dislike", "One Hundred", "Danger", "Close" } },
+            { Screens.Messaging_Astro_BlankMessage, new List<string> {  } },
+            { Screens.Messaging_Astro_Quick, new List<string> {  } },
             { Screens.Messaging_Astro_FullMessage, new List<string> {  } },
             { Screens.Messaging_LLMC_BlankMessage, new List<string> {  } },
-            { Screens.Messaging_LLMC_Quick, new List<string> { "Like", "Dislike", "One Hundred", "Danger", "Close" } },
+            { Screens.Messaging_LLMC_Quick, new List<string> {  } },
             { Screens.Messaging_LLMC_FullMessage, new List<string> {  } },
             { Screens.Messaging_GroupChat_BlankMessage, new List<string> {  } },
-            { Screens.Messaging_GroupChat_Quick, new List<string> { "Like", "Dislike", "One Hundred", "Danger", "Close" } },
+            { Screens.Messaging_GroupChat_Quick, new List<string> {  } },
             { Screens.Messaging_GroupChat_FullMessage, new List<string> {  } },
 
             { Screens.Geo, new List<string> {  } },
@@ -118,8 +117,6 @@ public class HardCodedVoiceCommandsHandler : MonoBehaviour
             { Screens.Vitals_Fellow, new List<string> { "Select Astro", "Close" } },
 
             { Screens.Screen_Sent, new List<string> { "Close" } },
-
-            //{ Screens.UIA, new List<string> { "Configure UIA", "Start UIA", "UIA Next", "UIA Complete", "Show UIA Cubes" } }
         };
     }
 
@@ -233,8 +230,10 @@ public class HardCodedVoiceCommandsHandler : MonoBehaviour
                 break;
         }
 
+
         GameObject.Find("SampleCommandScreen").GetComponent<SampleCommandHandler>().setCommands(commandMap[screen]);
     }
+
 
 
 }
