@@ -68,6 +68,7 @@ public class GeosamplingManager : MonoBehaviour
     {
         GeosamplingMode = true;
         EventBus.Publish<GeosampleModeStartedEvent>(new());
+        EventBus.Publish<ScreenChangedEvent>(new(Screens.Geo));
     }
 
     [ContextMenu("func EndGeosamplingMode")]

@@ -28,6 +28,7 @@ public class GeosamplingDB_Manager : MonoBehaviour
 
     private void OnEnable()
     {
+        EventBus.Publish<ScreenChangedEvent>(new(Screens.Geo_Database));
         isOpen = true;
         RenderZones();
     }

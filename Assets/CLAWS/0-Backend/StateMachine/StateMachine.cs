@@ -32,6 +32,7 @@ public enum Screens
     Messaging_GroupChat_FullMessage,
 
     Geo,
+    Geo_Database,
 
     Vitals_Main,
     Vitals_Fellow,
