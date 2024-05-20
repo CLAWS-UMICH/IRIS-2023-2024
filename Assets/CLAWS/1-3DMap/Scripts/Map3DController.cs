@@ -9,12 +9,8 @@ public class Map3DController : MonoBehaviour
     GameObject map;
     static GameObject waypoints;
     GameObject breadcrumbs;
-    GameObject bigMap;
 
     [SerializeField] GameObject wayPrefab;
-
-    static Vector3 bigMapScale;
-    static Vector3 smallMapScale;
 
     [SerializeField] float yOffset = -0.1f;
     [SerializeField] float zOffset = 0.1f;
@@ -27,16 +23,12 @@ public class Map3DController : MonoBehaviour
         map = mapParent.transform.Find("Map_3D").gameObject;
         waypoints = mapParent.transform.Find("WaypointParent_3D").gameObject;
         breadcrumbs = mapParent.transform.Find("BreadParent_3D").gameObject;
-        bigMap = GameObject.Find("Big").gameObject;
 
         map.SetActive(true);
         waypoints.SetActive(true);
         breadcrumbs.SetActive(true);
 
         Close3DMap();
-
-        bigMapScale = bigMap.transform.localScale;
-        smallMapScale = map.transform.localScale;
 
     }
 
@@ -61,10 +53,10 @@ public class Map3DController : MonoBehaviour
     public static Vector3 TranslatePosition(Vector3 originalPos)
     {
         // Calculate the conversion factors for each axis
-        float xConversionFactor = smallMapScale.x / (bigMapScale.x * 30);
-        //float yConversionFactor = smallMapScale.y / bigMapScale.y;
-        float zConversionFactor = smallMapScale.y / (bigMapScale.y * 30);
+        float xConversionFactor = 0.0001258214f;
 
+        //float yConversionFactor = smallMapScale.y / bigMapScale.y;
+        float zConversionFactor = 0.0001258214f;
         // Apply the conversion factors to translate the position to new pos
         Vector3 newPos = new Vector3(
             originalPos.x * xConversionFactor,
