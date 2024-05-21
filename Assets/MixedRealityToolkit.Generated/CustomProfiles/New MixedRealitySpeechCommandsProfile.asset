@@ -94,7 +94,7 @@ MonoBehaviour:
       description: None
       axisConstraint: 0
   - localizationKey: 
-    keyword: COR Sync
+    keyword: Screen Sync
     keyCode: 35
     action:
       id: 0
@@ -375,6 +375,20 @@ MonoBehaviour:
       axisConstraint: 0
   - localizationKey: 
     keyword: Start Geosampling Mode
+    keyCode: 0
+    action:
+      id: 0
+      description: None
+      axisConstraint: 0
+  - localizationKey: 
+    keyword: Screen Fix
+    keyCode: 0
+    action:
+      id: 0
+      description: None
+      axisConstraint: 0
+  - localizationKey: 
+    keyword: Screen Follow
     keyCode: 0
     action:
       id: 0

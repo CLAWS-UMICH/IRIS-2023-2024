@@ -21,6 +21,8 @@ public class UIAPanel : MonoBehaviour
     Vector3 lowerpos = new Vector3(0, -0.1706f, -0.62f);
 
     public List<UIA_Button> Buttons;
+    public GameObject Backplate;
+
 
     public void FixTextBounds()
     {
@@ -39,6 +41,8 @@ public class UIAPanel : MonoBehaviour
         extents_y = spriteRenderer.bounds.extents.y * 2;
         CenterTMP.rectTransform.anchoredPosition3D = centerpos;
         LowerTMP.rectTransform.anchoredPosition3D = lowerpos;
+
+        Backplate.SetActive(false);
     }
 
     // 1 2
@@ -106,6 +110,8 @@ public class UIAPanel : MonoBehaviour
             Positions[2],
             Positions[3]
         );
+
+        Backplate.SetActive(true);
     }
 
     /// <summary>
@@ -140,18 +146,28 @@ public class UIAPanel : MonoBehaviour
         }
     }
 
+    int curr_button_num = -1;
+    bool curr_direction = false;
+
     public void SetButton(int num, bool up)
     {
-        HideAllButtons();
+        if (num != curr_button_num || curr_direction != up)
+        {
+            curr_button_num = num;
+            curr_direction = up;
 
-        // show the correct button
-        if (up)
-        {
-            Buttons[num].ShowButton_Up();
-        }
-        else
-        {
-            Buttons[num].ShowButton_Down();
+            HideAllButtons();
+
+            // show the correct button
+            if (up)
+            {
+                Buttons[num].ShowButton_Up();
+            }
+            else
+            {
+                Buttons[num].ShowButton_Down();
+            }
+
         }
     }
 }
