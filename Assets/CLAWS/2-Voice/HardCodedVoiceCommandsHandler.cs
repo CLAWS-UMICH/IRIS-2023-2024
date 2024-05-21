@@ -114,6 +114,8 @@ public class HardCodedVoiceCommandsHandler : MonoBehaviour
             { Screens.Geo, new List<string> { "Add Sample", "View Samples", "Exit Mode" } }, // "Sample Name", "Take XRF Scan", "Set Shape", "Set Color", "Take Photo", "Enter Voice Notes" 
             { Screens.Geo_Database, new List<string> { "Start Geosampling Mode", "Close Screen" } },
 
+            { Screens.UIA, new List<string> { "UIA Next", "UIA Complete", "Start UIA", "Show UIA Cubes", "Configure UIA" } },
+
             { Screens.Vitals_Main, new List<string> { "Select Astro", "Close Screen" } },
             { Screens.Vitals_Fellow, new List<string> { "Select Astro", "Close Screen" } },
 
