@@ -268,10 +268,10 @@ public class TSScConnection : MonoBehaviour
                         AstronautInstance.User.spec = JsonUtility.FromJson<SPEC>(this.SPECJsonString);
                         if (AstronautInstance.User.id == 0)
                         {
-                            EventBus.Publish<XRFScanEvent>(new XRFScanEvent(AstronautInstance.User.spec.eva1.data));
+                            EventBus.Publish<XRFScanEvent>(new XRFScanEvent(AstronautInstance.User.spec.spec.eva1.data));
                         } else
                         {
-                            EventBus.Publish<XRFScanEvent>(new XRFScanEvent(AstronautInstance.User.spec.eva2.data));
+                            EventBus.Publish<XRFScanEvent>(new XRFScanEvent(AstronautInstance.User.spec.spec.eva2.data));
                         }
                             
                     }
