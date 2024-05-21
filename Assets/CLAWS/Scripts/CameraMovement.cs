@@ -12,21 +12,29 @@ public class CameraMovement : MonoBehaviour
     float rotation = 0f;
     float offset = 0f;
     public float maxViewDistance;
+    public bool DCUMode;
+    bool follow = true;
 
     private UdpClient serverSocket;
     void Start()
     {
-        try
+        if (DCUMode) {
+            EventBus.Subscribe<IMUChanged>(DCUUpdate);
+	    }
+        else
         {
-            // Create a UDP socket
-            serverSocket = new UdpClient(10001);
-            Debug.Log("UDP socket created, waiting for messages...");
-            // Start listening in a separate thread
-            StartListening();
-        }
-        catch (Exception e)
-        {
-            Debug.LogError("Error creating UDP socket: " + e.Message);
+            try
+            {
+                // Create a UDP socket
+                serverSocket = new UdpClient(10001);
+                Debug.Log("UDP socket created, waiting for messages...");
+                // Start listening in a separate thread
+                StartListening();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("Error creating UDP socket: " + e.Message);
+            }
         }
     }
     private void StartListening()
@@ -79,18 +87,41 @@ public class CameraMovement : MonoBehaviour
         Debug.Log("Cor Sync");
     }
 
+    public void DCUUpdate(IMUChanged e) 
+    {
+        heading = (float)e.data.heading;
+        currentRotation = heading + offset;
+    }
+
+    [ContextMenu("Cor Fix")]
+    public void CorFix()
+    {
+        follow = false;
+    }
+
+    [ContextMenu("Cor Follow")]
+    public void CorFollow()
+    {
+        follow = true;
+    }
+
+
     // Update is called once per frame
     void Update()
     {
-        if (Math.Abs(rotation - currentRotation) > maxViewDistance)
-        {
-            rotation = currentRotation;
-        }
-        gameObject.transform.position = playerCam.transform.position;
-        gameObject.transform.eulerAngles = new Vector3(
-            gameObject.transform.eulerAngles.x,
-            rotation,
-            gameObject.transform.eulerAngles.z
-        );
+        if (follow) 
+	    { 
+			if (Math.Abs(rotation - currentRotation) > maxViewDistance)
+			{
+			    rotation = currentRotation;
+			}
+			gameObject.transform.position = playerCam.transform.position;
+			gameObject.transform.eulerAngles = new Vector3(
+			    gameObject.transform.eulerAngles.x,
+			    rotation,
+			    gameObject.transform.eulerAngles.z
+			);
+	
+	    }
     }
 }

@@ -909,7 +909,8 @@ MonoBehaviour:
   playerCam: {fileID: 127777994}
   currentRotation: 0
   heading: 0
-  maxViewDistance: 15
+  maxViewDistance: 30
+  DCUMode: 1
 --- !u!114 &169661754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -931,6 +932,38 @@ MonoBehaviour:
         - m_Target: {fileID: 169661753}
           m_TargetAssemblyTypeName: CameraMovement, Assembly-CSharp
           m_MethodName: CorSync
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - keyword: COR Follow
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 169661753}
+          m_TargetAssemblyTypeName: CameraMovement, Assembly-CSharp
+          m_MethodName: CorFollow
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - keyword: COR Fix
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 169661753}
+          m_TargetAssemblyTypeName: CameraMovement, Assembly-CSharp
+          m_MethodName: CorFix
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -5312,6 +5345,14 @@ PrefabInstance:
     - target: {fileID: 3599603308197120446, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       propertyPath: m_LocalPosition.z
       value: -0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 3676654904924812577, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      propertyPath: tssUrl
+      value: 172.16.183.165
+      objectReference: {fileID: 0}
+    - target: {fileID: 3676654904924812577, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      propertyPath: autoConnectTSS
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3744001175567940179, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       propertyPath: m_LocalPosition.z
