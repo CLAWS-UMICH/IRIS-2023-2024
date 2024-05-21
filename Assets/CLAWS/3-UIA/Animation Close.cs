@@ -8,21 +8,12 @@ public class AnimationClose: MonoBehaviour
     public GameObject middle;
     public GameObject bottom;
 
-    //private void onEnable()
-    //{
-    //    top.SetActive(false);
-    //    middle.SetActive(false);
-    //    bottom.SetActive(true);
-
-    //    StartCoroutine(Animate());
-    //}
-
-    //For testing purposes
-    private void Start()
+    private void OnEnable()
     {
         top.SetActive(false);
         middle.SetActive(false);
         bottom.SetActive(true);
+
         StartCoroutine(Animate());
     }
 

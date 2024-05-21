@@ -5,7 +5,5 @@ using TMPro;
 
 public class ScreenBackplate : MonoBehaviour
 {
-
-    public TextMeshPro UIA_msg;
-
+    
 }
