@@ -666,4 +666,15 @@ public class IMUChanged
     }
 }
 
+public class FellowIMUChanged
+{
+    public IMUData data { get; private set; }
+
+    public FellowIMUChanged(IMUData d)
+    {
+        data = d;
+    }
+}
+
+
 

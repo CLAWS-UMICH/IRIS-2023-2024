@@ -428,10 +428,12 @@ public class TSScConnection : MonoBehaviour
                         if (AstronautInstance.User.id == 0)
                         {
                             EventBus.Publish(new IMUChanged(AstronautInstance.User.imu.imu.eva1));
+                            EventBus.Publish(new FellowIMUChanged(AstronautInstance.User.imu.imu.eva2));
                         }
                         else
                         {
                             EventBus.Publish(new IMUChanged(AstronautInstance.User.imu.imu.eva2));
+                            EventBus.Publish(new FellowIMUChanged(AstronautInstance.User.imu.imu.eva1));
                         }
                     }
                     break;

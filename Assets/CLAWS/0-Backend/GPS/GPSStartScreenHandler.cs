@@ -31,13 +31,15 @@ public class GPSStartScreenHandler : MonoBehaviour
         Location loc = new Location();
         if (AstronautInstance.User.id == 0)
         {
-            loc.latitude = AstronautInstance.User.imu.imu.eva1.posx;
-            loc.longitude = AstronautInstance.User.imu.imu.eva1.posy;
+            var latLong = CoordinateConverter.ToLatLon(AstronautInstance.User.imu.imu.eva1.posx, AstronautInstance.User.imu.imu.eva1.posy, 15, 'R', northern: null, strict: true);
+            loc.latitude = latLong.latitude;
+            loc.longitude = latLong.longitude;
         } 
         else
         {
-            loc.latitude = AstronautInstance.User.imu.imu.eva2.posx;
-            loc.longitude = AstronautInstance.User.imu.imu.eva2.posy;
+            var latLong = CoordinateConverter.ToLatLon(AstronautInstance.User.imu.imu.eva2.posx, AstronautInstance.User.imu.imu.eva2.posy, 15, 'R', northern: null, strict: true);
+            loc.latitude = latLong.latitude;
+            loc.longitude = latLong.longitude;
         }
 
         resetGPSSpawn.Reset(loc);
@@ -45,7 +47,7 @@ public class GPSStartScreenHandler : MonoBehaviour
 
     public void TruckLocation()
     {
-        Location loc = new Location(29.56459834, -95.08144150); // Location of norht of the truck
+        Location loc = new Location(29.56459834, -95.08144150); // Location of north of the truck
 
         resetGPSSpawn.Reset(loc);
     }
