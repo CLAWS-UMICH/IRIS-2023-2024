@@ -24,6 +24,8 @@ public class WaypointsController : MonoBehaviour
     private Subscription<WaypointsEditedEvent> waypointsEditedEvent; 
     private Subscription<WaypointToDelete> waypointToDeleteEvent;
     private Subscription<WaypointToAdd> waypointToAdd;
+    private Subscription<FellowIMUChanged> imuChangedEvent;
+    private Subscription<RoverChanged> roverChangedEvent;
 
     private Dictionary<int, Waypoint> waypointDict = new Dictionary<int, Waypoint>();
     private Dictionary<int, GameObject> waypointObjDic = new Dictionary<int, GameObject>();
@@ -59,9 +61,9 @@ public class WaypointsController : MonoBehaviour
         _station_letter = stationPrefab.transform.Find("Body").Find("Quad").gameObject.transform.Find("Text").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
         _station_minimap_letter = stationPrefab.transform.Find("MiniMap").Find("Letter").gameObject.GetComponent<TextMeshPro>();
 
-        _comp_title = stationPrefab.transform.Find("Body").Find("Title").gameObject.transform.Find("IconAndText").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
-        _comp_letter = stationPrefab.transform.Find("Body").Find("Quad").gameObject.transform.Find("Text").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
-        _comp_minimap_letter = stationPrefab.transform.Find("MiniMap").Find("Letter").gameObject.GetComponent<TextMeshPro>();
+        _comp_title = companionPrefab.transform.Find("Body").Find("Title").gameObject.transform.Find("IconAndText").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
+        _comp_letter = companionPrefab.transform.Find("Body").Find("Quad").gameObject.transform.Find("Text").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
+        _comp_minimap_letter = companionPrefab.transform.Find("MiniMap").Find("Letter").gameObject.GetComponent<TextMeshPro>();
 
         // 3D Map Waypoints
         _danger_title_3D = dangerPrefab_3D.transform.Find("Body").Find("Title").gameObject.transform.Find("IconAndText").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
@@ -76,8 +78,8 @@ public class WaypointsController : MonoBehaviour
         _station_title_3D = stationPrefab_3D.transform.Find("Body").Find("Title").gameObject.transform.Find("IconAndText").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
         _station_letter_3D = stationPrefab_3D.transform.Find("Body").Find("Quad").gameObject.transform.Find("Text").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
 
-        _comp_title_3D = stationPrefab_3D.transform.Find("Body").Find("Title").gameObject.transform.Find("IconAndText").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
-        _comp_letter_3D = stationPrefab_3D.transform.Find("Body").Find("Quad").gameObject.transform.Find("Text").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
+        _comp_title_3D = companionPrefab_3D.transform.Find("Body").Find("Title").gameObject.transform.Find("IconAndText").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
+        _comp_letter_3D = companionPrefab_3D.transform.Find("Body").Find("Quad").gameObject.transform.Find("Text").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>();
 
 
         waypointsAddedEvent = EventBus.Subscribe<WaypointsAddedEvent>(onWaypointsAdded);
@@ -85,6 +87,8 @@ public class WaypointsController : MonoBehaviour
         waypointsEditedEvent = EventBus.Subscribe<WaypointsEditedEvent>(onWaypointsEdited);
         waypointToDeleteEvent = EventBus.Subscribe<WaypointToDelete>(onWaypointToDelete);
         waypointToAdd = EventBus.Subscribe<WaypointToAdd>(onWaypointToAdd);
+        imuChangedEvent = EventBus.Subscribe<FellowIMUChanged>(onIMUChanged);
+        roverChangedEvent = EventBus.Subscribe<RoverChanged>(OnRoverChanged);
 
         screenHandler = transform.parent.Find("NavController").gameObject.GetComponent<NavScreenHandler>();
     }
@@ -96,6 +100,12 @@ public class WaypointsController : MonoBehaviour
         {
             waypointDict[waypoint.waypoint_id] = waypoint;
             AstronautInstance.User.WaypointData.AllWaypoints.Add(waypoint);
+
+            if ((AstronautInstance.User.id == 0 && waypoint.waypoint_id == 23) || (AstronautInstance.User.id == 1 && waypoint.waypoint_id == 24))
+            {
+                continue;
+            } 
+
             SpawnWaypoint(waypoint, waypoint.waypoint_id);
 
             GameObject button = screenHandler.AddButton(waypoint); //Set the function to add button with screen handler
@@ -379,4 +389,35 @@ public class WaypointsController : MonoBehaviour
             }
         }
     }
+
+    public void onIMUChanged(FellowIMUChanged e)
+    {
+        int numToUpdate;
+        if (AstronautInstance.User.id == 0)
+        {
+            numToUpdate = 24;
+        } else
+        {
+            numToUpdate = 23;
+        }
+
+        if (waypointObjDic.ContainsKey(numToUpdate))
+        {
+            var latLong = CoordinateConverter.ToLatLon(e.data.posx, e.data.posy, 15, 'R', northern: null, strict: true);
+            waypointObjDic[numToUpdate].transform.position = GPSUtils.GPSCoordsToAppPosition(new Location(latLong.latitude, latLong.longitude));
+        }
+    }
+
+    public void OnRoverChanged(RoverChanged e)
+    {
+        int numToUpdate = 17;
+
+        if (waypointObjDic.ContainsKey(numToUpdate))
+        {
+            var latLong = CoordinateConverter.ToLatLon(e.data.posx, e.data.posy, 15, 'R', northern: null, strict: true);
+            waypointObjDic[numToUpdate].transform.position = GPSUtils.GPSCoordsToAppPosition(new Location(latLong.latitude, latLong.longitude));
+        }
+    }
+
+
 }

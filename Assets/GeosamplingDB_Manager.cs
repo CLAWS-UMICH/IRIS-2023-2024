@@ -31,13 +31,16 @@ public class GeosamplingDB_Manager : MonoBehaviour
     {
         isOpen = false;
 
-        EventBus.Publish<ScreenChangedEvent>(new(Screens.Menu));
-
+        if (!GeosamplingManager.GeosamplingMode)
+        {
+            EventBus.Publish<ScreenChangedEvent>(new(Screens.Menu));
+        }
     }
 
     public static void StartGeosmaplingMode()
     {
         GeosamplingManager.StartGeosamplingMode();
+        EventBus.Publish<ScreenChangedEvent>(new(Screens.Geo));
     }
 
     public static void OpenScreen()

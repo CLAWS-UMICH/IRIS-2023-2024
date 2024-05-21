@@ -495,6 +495,11 @@ public class WebsocketDataHandler : MonoBehaviour
                         if (!currentTask.Equals(newTask))
                         {
                             editedTasks.Add(newTask);
+
+                            if (newTask.isEmergency)
+                            {
+                                EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.TaskList_EmergencyTask, "Emergency Task Updated", newTask.title));
+                            }
                         }
                         break;
                     }
@@ -522,6 +527,15 @@ public class WebsocketDataHandler : MonoBehaviour
                 if (isNew)
                 {
                     newAddedTasks.Add(newTask);
+
+                    if (!newTask.isEmergency)
+                    {
+                        EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.TaskList_NewTask, "New Task Added", newTask.title));
+                    }
+                    else
+                    {
+                        EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.TaskList_EmergencyTask, "New Emergency Task", newTask.title));
+                    }
                 }
             }
 

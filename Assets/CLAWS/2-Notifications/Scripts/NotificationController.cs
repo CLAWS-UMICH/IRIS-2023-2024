@@ -13,7 +13,10 @@ public enum AlertEnum
     Vital_CO2,
     Vital_Temp,
     Vital_Pressure,
-    Vital_Fan
+    Vital_Fan, 
+    TaskList_NewTask, 
+    TaskList_EmergencyTask,
+    Geo_InterestingSample
 }
 
 public class NotificationController : MonoBehaviour
@@ -114,6 +117,24 @@ public class NotificationController : MonoBehaviour
                 icon.transform.Find("Vital_Fan").gameObject.SetActive(true);
                 pre.transform.Find("Warning").gameObject.SetActive(true);
                 pre.transform.Find("Quad").gameObject.SetActive(false);
+                break;
+
+            case AlertEnum.TaskList_NewTask:
+                icon.transform.Find("Task").gameObject.SetActive(true);
+                pre.transform.Find("Warning").gameObject.SetActive(false);
+                pre.transform.Find("Quad").gameObject.SetActive(true);
+                break;
+
+            case AlertEnum.TaskList_EmergencyTask:
+                icon.transform.Find("Task").gameObject.SetActive(true);
+                pre.transform.Find("Warning").gameObject.SetActive(false);
+                pre.transform.Find("Quad").gameObject.SetActive(true);
+                break;
+
+            case AlertEnum.Geo_InterestingSample:
+                icon.transform.Find("Sample").gameObject.SetActive(true);
+                pre.transform.Find("Warning").gameObject.SetActive(false);
+                pre.transform.Find("Quad").gameObject.SetActive(true);
                 break;
 
             default:

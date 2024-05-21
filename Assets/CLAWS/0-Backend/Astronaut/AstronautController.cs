@@ -128,6 +128,12 @@ public class Geosample
 [System.Serializable]
 public class SPEC
 {
+    public SpecEVAs spec;
+}
+
+[System.Serializable]
+public class SpecEVAs
+{
     public EvaData eva1;
     public EvaData eva2;
 }
