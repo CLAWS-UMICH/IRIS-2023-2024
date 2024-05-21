@@ -66,21 +66,15 @@ public class GeosamplingManager : MonoBehaviour
     [ContextMenu("func StartGeosamplingMode")]
     public static void StartGeosamplingMode()
     {
-        GeosamplingDB_Manager.CloseScreen();
-
         GeosamplingMode = true;
         EventBus.Publish<GeosampleModeStartedEvent>(new());
-
-        IEnumerator _sendEvents()
-        {
-            yield return new WaitForSeconds(0.2f);
-            EventBus.Publish<ScreenChangedEvent>(new(Screens.Geo));
-            EventBus.Publish<ModeChangedEvent>(new(Modes.Sampling));
-        }
-        Instance.StartCoroutine(_sendEvents());
+        EventBus.Publish<ScreenChangedEvent>(new(Screens.Geo));
+        EventBus.Publish<ModeChangedEvent>(new(Modes.Sampling));
 
         // show only geo icons
         Instance.SwitchCameraCull(25);
+
+        GeosamplingDB_Manager.CloseScreen();
     }
 
     [ContextMenu("func EndGeosamplingMode")]
@@ -88,6 +82,7 @@ public class GeosamplingManager : MonoBehaviour
     {
         GeosamplingMode = false;
         EventBus.Publish<GeosampleModeEndedEvent>(new());
+        EventBus.Publish<ScreenChangedEvent>(new(Screens.Menu));
 
         // show all icons
         Instance.SwitchCameraCull(-1);
@@ -102,7 +97,6 @@ public class GeosamplingManager : MonoBehaviour
     {
         int mainCullingMask = mainMapCamera.cullingMask;
         int miniCullingMask = miniMapCamera.cullingMask;
-
         // 23: Station, 24: Nav, 25: Geo, 26: Comp
         if (num == -1)
         {

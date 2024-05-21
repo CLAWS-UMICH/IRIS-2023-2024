@@ -27,6 +27,7 @@ public class SingleGeosampleScreen : MonoBehaviour
     public List<TextMeshPro> XRFList = new List<TextMeshPro>();
     public GameObject XRFCollider;
     public GameObject XRFBackPlate;
+    public TextMeshPro Description;
     public bool XRFScanned;
 
     private void Start()
@@ -79,15 +80,26 @@ public class SingleGeosampleScreen : MonoBehaviour
         }
 
         EventBus.Publish<GeosampleCreatedEvent>(new());
+
+        EventBus.Subscribe<GeosamplesEditedEvent>(e =>
+        {
+            foreach (var sample in e.EditedGeosamples)
+            {
+                if (sample.geosample_id == Sample.geosample_id)
+                {
+                    Load(sample);
+                }
+            }
+        });
     }
     public void Load(Geosample Sample_f)
     {
         Sample = Sample_f;
-        // Set all relevant data 
 
         CurrentScreen = GeoSampleScreens.None;
         SetZone(((char)('A' + (char)(Sample.zone_id++ % 27))).ToString());
         SetSampleName("Sample " + Sample.geosample_id);
+        SetDescription(Sample.description);
         SetStar();
         SetZoneId();
     }
@@ -303,7 +315,7 @@ public class SingleGeosampleScreen : MonoBehaviour
     {
         Name_tmp.text = name;
 
-        // TODO update Sample.name
+        // Sample = name;
         GeosamplingManager.SendData();
     }
     public void SetID()
@@ -402,6 +414,13 @@ public class SingleGeosampleScreen : MonoBehaviour
     public void SetPhoto(string jpg)
     {
         Sample.photo_jpg = jpg;
+        GeosamplingManager.SendData();
+    }
+    public void SetDescription(string desc)
+    {
+        Sample.description = desc;
+
+        Description.text = desc;
         GeosamplingManager.SendData();
     }
     public void SetNote()
