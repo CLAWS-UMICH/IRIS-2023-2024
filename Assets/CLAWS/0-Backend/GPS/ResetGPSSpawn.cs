@@ -11,11 +11,11 @@ public class ResetGPSSpawn : MonoBehaviour
         player = GameObject.Find("Main Camera").gameObject;
     }
 
-    public void Reset(Location loc)
+    public void Reset(Location loc, Vector3 pos)
     {
-        player.transform.position = new Vector3(0f, 0f, 0f);
+        player.transform.position = pos;
         GPSUtils.ChangeOriginGPSCoords(loc);
-        transform.parent.transform.Find("AllScreens").Find("Navigation").Find("WaypointController").GetComponent<WaypointsController>().UpdateLocationsOfWaypoints();
+        //transform.parent.transform.Find("AllScreens").Find("Navigation").Find("WaypointController").GetComponent<WaypointsController>().UpdateLocationsOfWaypoints();
     }
 
 }

@@ -42,13 +42,16 @@ public class GPSStartScreenHandler : MonoBehaviour
             loc.longitude = latLong.longitude;
         }
 
-        resetGPSSpawn.Reset(loc);
+        Location loc1 = new Location(29.56459834, -95.08144150);
+
+        resetGPSSpawn.Reset(loc1, GPSUtils.GPSCoordsToAppPosition(loc));
+
     }
 
     public void TruckLocation()
     {
         Location loc = new Location(29.56459834, -95.08144150); // Location of north of the truck
 
-        resetGPSSpawn.Reset(loc);
+        resetGPSSpawn.Reset(loc, new Vector3(0f, 0f, 0f));
     }
 }
