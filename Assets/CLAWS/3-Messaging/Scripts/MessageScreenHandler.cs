@@ -86,6 +86,12 @@ public class MessageReceiveHandler : MonoBehaviour
     void appendList(MessagesAddedEvent e)
     {
         allMessage = e.NewAddedMessages;
+
+        foreach (Message m in allMessage)
+        {
+            Debug.Log(m);
+        }
+
         foreach (Message m in allMessage)
         {
             if (m.sent_to == -2 && m.from != AstronautInstance.User.id)
@@ -105,8 +111,6 @@ public class MessageReceiveHandler : MonoBehaviour
 
     public void sendMessage()
     {
-        Debug.Log(message);
-
         if (AstroScreen.activeSelf)
         {
             groupChat = fa.astronaut_id;
@@ -123,7 +127,7 @@ public class MessageReceiveHandler : MonoBehaviour
         if (!string.Equals(message.text, ""))
         {
             Message m = new Message(groupChat, message.text, AstronautInstance.User.id);
-
+            Debug.Log("sent to: " + m.sent_to + " from: " + m.from);
             // Currently in group chat
             if (groupChat == -2)
             {
