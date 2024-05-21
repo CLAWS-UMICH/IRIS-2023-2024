@@ -1,13 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Properties;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
-using Unity.VisualScripting;
-using System.IO;
-using System;
 
 public class GeosamplingDB_Manager : MonoBehaviour
 {
@@ -28,8 +22,7 @@ public class GeosamplingDB_Manager : MonoBehaviour
 
     private void OnEnable()
     {
-        if (!GeosamplingManager.GeosamplingMode)
-            EventBus.Publish<ScreenChangedEvent>(new(Screens.Geo_Database));
+        EventBus.Publish<ScreenChangedEvent>(new(Screens.Geo_Database));
 
         isOpen = true;
         RenderZones();

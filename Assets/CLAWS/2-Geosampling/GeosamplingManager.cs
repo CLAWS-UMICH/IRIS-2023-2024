@@ -66,9 +66,18 @@ public class GeosamplingManager : MonoBehaviour
     [ContextMenu("func StartGeosamplingMode")]
     public static void StartGeosamplingMode()
     {
+        GeosamplingDB_Manager.CloseScreen();
+
         GeosamplingMode = true;
         EventBus.Publish<GeosampleModeStartedEvent>(new());
-        EventBus.Publish<ScreenChangedEvent>(new(Screens.Geo));
+
+        IEnumerator _sendEvents()
+        {
+            yield return new WaitForSeconds(0.2f);
+            EventBus.Publish<ScreenChangedEvent>(new(Screens.Geo));
+            EventBus.Publish<ModeChangedEvent>(new(Modes.Sampling));
+        }
+        Instance.StartCoroutine(_sendEvents());
 
         // show only geo icons
         Instance.SwitchCameraCull(25);
