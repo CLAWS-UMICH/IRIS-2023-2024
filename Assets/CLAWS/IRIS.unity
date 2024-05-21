@@ -925,7 +925,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFocusRequired: 0
   keywords:
-  - keyword: COR Sync
+  - keyword: Screen Sync
     response:
       m_PersistentCalls:
         m_Calls:
@@ -941,7 +941,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - keyword: COR Follow
+  - keyword: Screen Follow
     response:
       m_PersistentCalls:
         m_Calls:
@@ -957,7 +957,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - keyword: COR Fix
+  - keyword: Screen Fix
     response:
       m_PersistentCalls:
         m_Calls:
@@ -974,7 +974,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   persistentKeywords: 0
-  speechConfirmationTooltipPrefab: {fileID: 0}
+  speechConfirmationTooltipPrefab: {fileID: 8046114618238072051, guid: 271778f6c957b524981067a81d238394, type: 3}
 --- !u!21 &316715868
 Material:
   serializedVersion: 8
@@ -5570,6 +5570,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.02
       objectReference: {fileID: 0}
+    - target: {fileID: 7067115177835226453, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      propertyPath: speechConfirmationTooltipPrefab
+      value: 
+      objectReference: {fileID: 8046114618238072051, guid: 271778f6c957b524981067a81d238394, type: 3}
     - target: {fileID: 7153102751515351046, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.06
