@@ -170,7 +170,7 @@ public class SuitsControlController : MonoBehaviour
 
         heartRate.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.heart_rate / 160) * 302));
         heartRate.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.heart_rate.ToString("F0");
-        Debug.Log(heartRate.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.GetFloat("_Arc1"));
+        //Debug.Log(heartRate.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.GetFloat("_Arc1"));
 
         oxyCons.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.oxy_consumption / 0.15) * 302));
         oxyCons.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.oxy_consumption.ToString("F1");

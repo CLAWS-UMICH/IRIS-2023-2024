@@ -8,27 +8,30 @@ public class MainConnections : MonoBehaviour
     [SerializeField] bool autoConnectWebSocket = false;
     [SerializeField] string tssUrl;
     [SerializeField] bool autoConnectTSS = false;
-    [SerializeField] int id;
+    [SerializeField] int AstronautNum;
 
     private bool websocketConnected;
     private bool TSSConnected;
 
+    int astroId;
+
     // Start is called before the first frame update
     void Start()
     {
+        astroId = AstronautNum - 1;
         websocketConnected = false;
         TSSConnected = false;
 
         if (autoConnectTSS)
         {
             ConnectTSS(tssUrl);
-            AstronautInstance.User.id = id;
         }
 
         if (autoConnectWebSocket)
         {
-            StartCoroutine(_ConnectWebSocket(webSocketUrl, "", "Brian2", 1, id - 1));
+            StartCoroutine(_ConnectWebSocket(webSocketUrl, "", "Brian2", 1, astroId));
         }
+        AstronautInstance.User.id = astroId;
     }
 
     private bool ConnectWebsocket(string connectionString, string color, string name, int num, int _id)

@@ -8,7 +8,7 @@ public class VitalsSwitcherFinal : MonoBehaviour
     public GameObject screen2;
     public GameObject button;
     string buttonText;
-    bool on;
+    bool main;
 
     void Start()
     {
@@ -18,44 +18,64 @@ public class VitalsSwitcherFinal : MonoBehaviour
         screen2.SetActive(false);
         screen1.SetActive(false);
         button.SetActive(false);
-        on = true;
 
-        button = GameObject.Find("SwitchVitalsButton");
+        main = true;
+
+        button = GameObject.Find("SwitchVitalsButton").gameObject;
         buttonText = button.transform.Find("IconAndText").transform.Find("TextMeshPro").GetComponent<TextMeshPro>().text;
-
-        buttonText = "Astronaut 2";
     }
 
     public void AstronautToggle()
     {
-        if (on)
+        if (main)
         {
-            screen1.SetActive(false);
-            screen2.SetActive(true);
-            buttonText = "Astronaut 1";
+            // Opened Main vtials
+            if (AstronautInstance.User.id == 0)
+            {
+                screen2.SetActive(false);
+                screen1.SetActive(true);
+                buttonText = "Astronaut 2";
+            } else
+            {
+                screen1.SetActive(false);
+                screen2.SetActive(true);
+                buttonText = "Astronaut 1";
+            }
 
-            // Replace with your actual event publishing logic
-            Debug.Log("Switched to Astronaut 1");
-            on = !on;
+
+            EventBus.Publish<ScreenChangedEvent>(new ScreenChangedEvent(Screens.Vitals_Main));
+
+            main = false;
         }
         else
         {
-            screen1.SetActive(true);
-            screen2.SetActive(false);
-            buttonText = "Astronaut 2";
+            // Opened fellow vitals
+            if (AstronautInstance.User.id == 0)
+            {
+                screen1.SetActive(false);
+                screen2.SetActive(true);
+                buttonText = "Astronaut 1";
+            }
+            else
+            {
+                screen2.SetActive(false);
+                screen1.SetActive(true);
+                buttonText = "Astronaut 2";
+            }
 
-            // Replace with your actual event publishing logic
-            Debug.Log("Switched to Astronaut 2");
-            on = !on;
+            EventBus.Publish<ScreenChangedEvent>(new ScreenChangedEvent(Screens.Vitals_Fellow));
+
+            main = true;
         }
+        button.SetActive(true);
     }
 
     public void Close()
     {
+        EventBus.Publish<ScreenChangedEvent>(new ScreenChangedEvent(Screens.Menu));
         screen2.SetActive(false);
         screen1.SetActive(false);
         button.SetActive(false);
-        on = true;
-        buttonText = "Astronaut 2";
+        main = true;
     }
 }
