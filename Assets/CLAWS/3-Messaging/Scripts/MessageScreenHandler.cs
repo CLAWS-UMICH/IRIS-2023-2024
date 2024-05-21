@@ -6,6 +6,7 @@ using TMPro;
 
 public class MessageReceiveHandler : MonoBehaviour
 {
+    // 22 characters per line
 
     GameObject parent;
     GameObject chatScreen;
@@ -68,13 +69,13 @@ public class MessageReceiveHandler : MonoBehaviour
         GameObject groupLabel = parent.transform.Find("GroupChatButton").Find("Button").Find("IconAndText").Find("TextMeshPro").gameObject;
         if (AstronautInstance.User.id == 0)
         {
-            astroLabel.GetComponent<TMP_Text>().text = "Astronaut 1";
-            groupLabel.GetComponent<TMP_Text>().text = "LMCC & Astronaut 1";
+            astroLabel.GetComponent<TMP_Text>().text = "Astronaut 2";
+            groupLabel.GetComponent<TMP_Text>().text = "LMCC \n & \n Astronaut 2";
         }
         else if (AstronautInstance.User.id == 1)
         {
-            astroLabel.GetComponent<TMP_Text>().text = "Astronaut 2";
-            groupLabel.GetComponent<TMP_Text>().text = "LMCC & Astronaut 2";
+            astroLabel.GetComponent<TMP_Text>().text = "Astronaut 1";
+            groupLabel.GetComponent<TMP_Text>().text = "LMCC \n & \n Astronaut 1";
         }
 
         StartCoroutine(GenerateAstroBox());
@@ -105,7 +106,19 @@ public class MessageReceiveHandler : MonoBehaviour
     public void sendMessage()
     {
         Debug.Log(message);
-        groupChat = 0;         // temporary set groupchat to -2 for testing
+
+        if (AstroScreen.activeSelf)
+        {
+            groupChat = fa.astronaut_id;
+        }
+        else if (LMCCScreen.activeSelf)
+        {
+            groupChat = -1;
+        }
+        else if (GroupChatScreen.activeSelf)
+        {
+            groupChat = -2;
+        }
         // Exit if message field is empty
         if (!string.Equals(message.text, ""))
         {
@@ -150,14 +163,16 @@ public class MessageReceiveHandler : MonoBehaviour
             box.transform.position = newPosition;
             if (chat[i].from == AstronautInstance.User.id)
             {
+                Debug.Log("chat from: " + chat[i].from);
                 Vector3 chatPosition = box.transform.position;
-                chatPosition.x += 0.07f;
+                chatPosition.x += 0.03f;
                 box.transform.position = chatPosition;
             }
             else
             {
+                Debug.Log("chat from: " + chat[i].from);
                 Vector3 chatPosition = box.transform.position;
-                chatPosition.x -= 0.07f;
+                chatPosition.x -= 0.03f;
                 box.transform.position = chatPosition;
             }
         }
