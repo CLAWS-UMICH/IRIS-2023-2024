@@ -31,6 +31,9 @@ public class UIAManager : MonoBehaviour
         }
 
         StartCoroutine(_SetPanel());
+
+        EventBus.Publish<ScreenChangedEvent>(new(Screens.UIA));
+        EventBus.Publish<ModeChangedEvent>(new(Modes.Egress));
     }
 
     private void Start()
@@ -113,9 +116,10 @@ public class UIAManager : MonoBehaviour
             }
             StartCoroutine(_SetPanel());
         }
-        sound.Play();        
+        sound.Play();
 
-        
+        EventBus.Publish<ScreenChangedEvent>(new(Screens.Menu));
+        EventBus.Publish<ModeChangedEvent>(new(Modes.Normal));
     }
 
 
@@ -158,6 +162,8 @@ public class UIAManager : MonoBehaviour
             }
             StartCoroutine(_UpdateIngress());
         }
+
+        EventBus.Publish<ScreenChangedEvent>(new(Screens.UIA));
     }
     
     void UpdateEgress(UiDetails data)
