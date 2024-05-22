@@ -676,5 +676,13 @@ public class FellowIMUChanged
     }
 }
 
+public class StartTranscription
+{
+    public StartTranscription()
+    {
+
+    }
+}
+
 
 

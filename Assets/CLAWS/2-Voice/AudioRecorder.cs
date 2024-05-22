@@ -37,12 +37,19 @@ public class AudioRecorder : MonoBehaviour
     HardCodedVoiceCommandsHandler h;
 
 
+
     void Start()
     {
+        EventBus.Subscribe<StartTranscription>(OnTranscription);
         wdh = GameObject.Find("Controller").transform.GetComponent<WebsocketDataHandler>();
         s = transform.GetComponent<VEGAScreenHandler>();
         h = GameObject.Find("HardcodedVoiceManager").GetComponent<HardCodedVoiceCommandsHandler>();
         InitializeRecorder();
+    }
+
+    private void OnTranscription(StartTranscription e)
+    {
+        TranscribeRecord();
     }
 
     private void InitializeRecorder()

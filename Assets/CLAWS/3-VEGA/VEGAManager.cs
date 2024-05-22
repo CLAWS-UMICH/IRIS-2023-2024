@@ -192,6 +192,7 @@ public class VEGAManager : MonoBehaviour
         // Check if the command matches any associated command for the current screen or mode
         if (screenAssociatedCommands.ContainsKey(currentScreen) && screenAssociatedCommands[currentScreen].Contains(c.command_name))
         {
+           
             ExecuteCommand(c.command_name, c.arguments);
         }
         else if (modeAssociatedCommands.ContainsKey(currentMode) && modeAssociatedCommands[currentMode].Contains(c.command_name))
