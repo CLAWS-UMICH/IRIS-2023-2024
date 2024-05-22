@@ -9430,11 +9430,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3676654904924812577, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       propertyPath: tssUrl
-      value: 172.16.183.161
+      value: 127.0.0.1
       objectReference: {fileID: 0}
     - target: {fileID: 3676654904924812577, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       propertyPath: webSocketUrl
-      value: ws://172.16.183.161:8000/hololens
+      value: ws://172.16.183.168:8000/hololens
       objectReference: {fileID: 0}
     - target: {fileID: 3676654904924812577, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       propertyPath: autoConnectTSS
@@ -10836,6 +10836,18 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 1696529402}
+    - target: {fileID: 8392748188091053409, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8392748188091053409, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8392748188091053409, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8417291851438541221, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       propertyPath: m_LocalPosition.z
       value: -0.10299995
@@ -10992,6 +11004,7 @@ PrefabInstance:
     - {fileID: 9012761550747913102, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
     - {fileID: 879547063894381945, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
     - {fileID: 1017491175037625312, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
+    - {fileID: 6405163465306231479, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6350878117852611565, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       insertIndex: -1
@@ -11607,12 +11620,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
     - targetCorrespondingSourceObject: {fileID: 8938991734096244584, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 7171890721518179312, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 6359473648951693482, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
     - targetCorrespondingSourceObject: {fileID: 4775983407497679623, guid: 2ca249c494ce96848bcaf02117b2a8da, type: 3}
