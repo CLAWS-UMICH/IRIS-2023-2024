@@ -87,7 +87,7 @@ public class HardCodedVoiceCommandsHandler : MonoBehaviour
 
         commandMap = new Dictionary<Screens, List<string>>
         {
-            { Screens.Menu, new List<string> { "Open Tasks", "Open Navigation", "Open Messaging", "Open Samples", "Open Vitals", "Configure UIA", "Show UIA Cubes", "Screen Fix", "Screen Follow", "Screen Sync" } },
+            { Screens.Menu, new List<string> { "Open Tasks", "Open Navigation", "Open Messaging", "Open Samples", "Open Vitals", "Place UIA Panel", "Configure UIA", "Show UIA Cubes", "Screen Fix", "Screen Follow", "Screen Sync" } },
 
             { Screens.Tasklist, new List<string> { "Scroll Down", "Scroll Up", "Close Screen" } },
             { Screens.Tasklist_SubOpen, new List<string> { "Close Screen" } },
