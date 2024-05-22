@@ -420,3 +420,31 @@ public class AudioData
     public string use;
     public VegaAudio data;
 }
+
+
+[Serializable]
+public class UIAData
+{
+    public int id;
+    public string type;
+    public string use;
+    public UIAImage data;
+}
+
+[Serializable]
+public class UIAImage
+{
+    public string base_64_image;
+    public string points;
+    public string position;
+    public string rotation;
+
+    public UIAImage(string a, string s, string p, string r)
+    {
+        base_64_image = a;
+        points = s;
+        position = p;
+        rotation = r;
+    }
+
+}

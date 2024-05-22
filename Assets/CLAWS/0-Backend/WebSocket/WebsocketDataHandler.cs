@@ -784,6 +784,41 @@ public class WebsocketDataHandler : MonoBehaviour
 
     }
 
+    public void HandleUIAData(UIAImage _data, string use)
+    {
+
+        if (use == "GET")
+        {
+            if (debugMode) Debug.Log("(PUT) WebsocketDataHandler.cs: Sending UIA");
+
+            // Create a new CombinedData instance
+            UIAData combinedData = new UIAData
+            {
+                id = AstronautInstance.User.id,
+                type = "UIAIMAGE",
+                use = "PUT",
+                data = _data
+            };
+
+            // Convert the vitals data to JSON format and send to WebSocket client
+            string jsonData = JsonUtility.ToJson(combinedData);
+            Debug.Log(jsonData);
+
+            wsClient.SendJsonData(jsonData);
+
+        }
+        else if (use == "PUT")
+        {
+            // EventBus.Publish(new SpeechToText(_data.points));
+            GameObject.Find("UIA").GetComponent<imageCapture>().processUIAwebsocket(_data.position, _data.rotation, _data.points);
+        }
+        else
+        {
+            Debug.Log("Invalid use case from server");
+        }
+
+    }
+
     // Public functions for to call to send data
     public void SendInitialData(string color, string name, int _id)
     {
@@ -856,4 +891,8 @@ public class WebsocketDataHandler : MonoBehaviour
         HandleAudioData(data, "GET");
     }
 
+    public void SendUIA(UIAImage data)
+    {
+        HandleUIAData(data, "GET");
+    }
 }

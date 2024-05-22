@@ -1,9 +1,3 @@
-using UnityEngine;
-
-public class imageCapture : MonoBehaviour
-{
-}
-/*
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -16,12 +10,9 @@ using TMPro;
 public class imageCapture : MonoBehaviour
 {
     PhotoCapture photoCaptureObject = null;
-    Texture2D targetTexture = null;
-    WebSocket ws;
+    public Texture2D targetTexture = null;
 
-    string IPString = "100.64.2.37:5001";
-    string webSocketUrl = "ws://";
-    string lastConnected = "ws://";
+    WebsocketDataHandler wdh;
 
     public Camera tempCamera;
 
@@ -37,13 +28,13 @@ public class imageCapture : MonoBehaviour
     // public GameObject viewportcube;
     // public GameObject UIA_backplate;
 
-    public GameObject ToolTipAnchor;
-    public GameObject ToolTipPivot;
-    public TMP_Text ToolTipLabel;
+    /*   public GameObject ToolTipAnchor;
+       public GameObject ToolTipPivot;
+       public TMP_Text ToolTipLabel;
 
-    public GameObject TestLineAnchor;
-    public GameObject TestLinePivot;
-    bool showline = false;
+       public GameObject TestLineAnchor;
+       public GameObject TestLinePivot;*/
+    /*bool showline = false;*/
 
     Queue<RayCastAction> queued_actions = new Queue<RayCastAction>();
 
@@ -57,44 +48,21 @@ public class imageCapture : MonoBehaviour
         public string description;
     }
 
-    public void ToggleLine()
-    {
-        if (showline)
-            showline = false;
-        else
-            showline = true;
-    }
-
+    /*  public void ToggleLine()
+      {
+          if (showline)
+              showline = false;
+          else
+              showline = true;
+      }
+  */
     public void Start()
     {
+        // wdh = GameObject.Find("Controller").transform.GetComponent<WebsocketDataHandler>();       
+
         // Create a temporary camera object
         tempCamera.fieldOfView = Camera.main.fieldOfView;
         tempCamera.aspect = Camera.main.aspect;
-
-        // Load saved url value if it exists:
-        string loadedVal = LoadStringValue();
-        if (loadedVal != "")
-            webSocketUrl = loadedVal;
-
-        Debug.Log(loadedVal);
-        Debug.Log(webSocketUrl);
-
-        // Some formatting
-        webSocketUrl = webSocketUrl + IPString;
-        lastConnected = webSocketUrl;
-
-        // ip_textbox.SetText(webSocketUrl);
-        // raycast_textbox.SetText("Waiting for raycast");
-
-        // Start WS connection
-        Debug.Log("Connecting Websocket...");
-        ws = new WebSocket(webSocketUrl);
-        ws.OnMessage += OnWebSocketMessage;
-        ws.Connect();
-        if (ws == null || !ws.IsAlive)
-            Debug.Log("Failed to connect websocket");
-        else
-            lastConnected = webSocketUrl;
 
         Debug.Log("Starting camera...");
         StartPhotoCapture();
@@ -102,15 +70,15 @@ public class imageCapture : MonoBehaviour
         // If the photo capture object cannot be loaded, a random image is loaded and sent instead for testing sake
         if (photoCaptureObject == null)
         {
-            Debug.Log("Unable to access camera, loading in example texture instead...");
-            string filename = "captured_image.jpg";
+            /*string filename = "uia_test.jpg";
             string filePath = Path.Combine(Application.persistentDataPath, filename);
             byte[] imageData = File.ReadAllBytes(filePath);
+            Debug.Log("Unable to access camera, loading in example texture instead...");
             // Create a new texture to hold the loaded image
             targetTexture = new Texture2D(3904, 2196);
             // Load the image data into the texture
             targetTexture.LoadImage(imageData);
-            Debug.Log("Loaded example texture");
+            Debug.Log("Loaded example texture");*/
         }
         else
         {
@@ -134,7 +102,7 @@ public class imageCapture : MonoBehaviour
             }
             else if (action.type == "geosample_place_label")
             {
-                PlaceLabel(action);
+                /*PlaceLabel(action);*/
             }
             else if (action.type == "calibration_place_sphere")
             {
@@ -146,6 +114,8 @@ public class imageCapture : MonoBehaviour
 
     Vector3 performRaycast(float x, float y)
     {
+        //tempCamera = Camera.main;
+
         // Define the hit object and the screen point (derived from viewport x,y coordinates) which we will use to perform a raycast
         RaycastHit hit;
         Vector3 point = tempCamera.ScreenToWorldPoint(new Vector3(x, y, tempCamera.nearClipPlane));
@@ -188,24 +158,6 @@ public class imageCapture : MonoBehaviour
             sphere4.transform.position = hits[3];
 
             GetComponent<UIAManager>().SetUIAPanel();
-            
-            Vector3 diag1 = hits[0] - hits[3];
-            Vector3 diag2 = hits[1] - hits[2];
-            Vector3 normal = Vector3.Cross(diag1, diag2);
-            
-            // Creates a rotation quaternion based on the normal vector created by a cross product of the
-            // two vectors formed by the four corners of the rectangle. Orients the UIA panel according to
-            // whatever surface was hit.
-            Quaternion targetRotation = Quaternion.LookRotation(normal, Vector3.up);
-
-            // TODO: I don't think this works very well
-            Vector3 scale = new Vector3(hits[2].x - hits[0].x, hits[0].y - hits[1].y, 0.1f);
-
-            // Set the rotation of the plane to the target rotation
-            UIA_backplate.transform.localScale = scale;
-            UIA_backplate.transform.rotation = targetRotation;
-
-            // raycast_textbox.text = "Placed UIA panel";
         }
         else
         {
@@ -213,28 +165,28 @@ public class imageCapture : MonoBehaviour
         }
     }
 
-    void PlaceLabel(RayCastAction action)
-    {
-        Vector3 hit = performRaycast(action.keypoints[0].x, action.keypoints[0].y);
-        Debug.Log(hit);
-        if (hit != Vector3.zero)
+    /*    void PlaceLabel(RayCastAction action)
         {
-            ToolTipAnchor.transform.position = hit;
-            ToolTipLabel.text = action.description;
-            ToolTipPivot.transform.position = hit + Vector3.up;
-            // raycast_textbox.text = "Placed tooltip";
-
-            if (showline)
+            Vector3 hit = performRaycast(action.keypoints[0].x, action.keypoints[0].y);
+            Debug.Log(hit);
+            if (hit != Vector3.zero)
             {
-                TestLineAnchor.transform.position = hit;
-                TestLinePivot.transform.position = tempCamera.transform.position;
+                ToolTipAnchor.transform.position = hit;
+                ToolTipLabel.text = action.description;
+                ToolTipPivot.transform.position = hit + Vector3.up;
+                // raycast_textbox.text = "Placed tooltip";
+
+                if (showline)
+                {
+                    TestLineAnchor.transform.position = hit;
+                    TestLinePivot.transform.position = tempCamera.transform.position;
+                }
             }
-        }
-        else
-        {
-            // raycast_textbox.text = "Failed to place tooltip";
-        }
-    }
+            else
+            {
+                // raycast_textbox.text = "Failed to place tooltip";
+            }
+        }*/
 
     void PlaceSphere(RayCastAction action)
     {
@@ -251,36 +203,35 @@ public class imageCapture : MonoBehaviour
     }
 
 
-    public void HandleJsonMessage(string jsonData)
-    {
-        if (jsonData.StartsWith("UIA"))
+    /*    public void HandleJsonMessage(string jsonData)
         {
-            Debug.Log("Starting UIA Task");
-            processUIAwebsocket(jsonData);
-        }
-        else if (jsonData.StartsWith("geosample"))
-        {
-            Debug.Log("Starting Geosample thing");
-            processGeosampleWebsocket(jsonData);
-        }
-        else if (jsonData.StartsWith("calibrate"))
-        {
-            Debug.Log("Starting Calibration");
-            processCalibration(jsonData);
-        }
-        else
-        {
-            Debug.Log("Unrecognized command");
-        }
-    }
+            if (jsonData.StartsWith("UIA"))
+            {
+                Debug.Log("Starting UIA Task");
+                processUIAwebsocket(jsonData);
+            }
+            else if (jsonData.StartsWith("geosample"))
+            {
+                Debug.Log("Starting Geosample thing");
+                processGeosampleWebsocket(jsonData);
+            }
+            else if (jsonData.StartsWith("calibrate"))
+            {
+                Debug.Log("Starting Calibration");
+                processCalibration(jsonData);
+            }
+            else
+            {
+                Debug.Log("Unrecognized command");
+            }
+        }*/
 
-    private void processUIAwebsocket(string message)
+    public void processUIAwebsocket(string position, string rotation, string points)
     {
-        // UIA:x,y,z:a,b,c,d:x,y$x,y$x,y$x,y
-        string[] components = message.Split(":");
-        Vector3 head_pos = parseVector(components[1]);
-        Quaternion head_rot = parseQuaternion(components[2]);
-        Vector3[] corners = parse_points(components[3]);
+        // UIA:x,y,z:a,b,c,d:x,y$x,y$x,y$x,y        
+        Vector3 head_pos = parseVector(position);
+        Quaternion head_rot = parseQuaternion(rotation);
+        Vector3[] corners = parse_points(points);
         queued_actions.Enqueue(new RayCastAction
         {
             action = "rectangle",
@@ -327,36 +278,19 @@ public class imageCapture : MonoBehaviour
         });
     }
 
-    private void OnWebSocketMessage(object sender, MessageEventArgs e)
-    {
-        if (e.Data != null)
-        {
-            //Debug.Log("Got message " + e.Data);
-            String message = e.Data;
-            HandleJsonMessage(message);
-        }
-        else
-        {
-            Debug.Log("Empty response");
-        }
-    }
 
     void SendTextureWS(string type)
     {
-        // Restart socket if needed
-        if (ws == null || !ws.IsAlive || !webSocketUrl.Equals(lastConnected))
-        {
-            Debug.Log("Restarting websocket...");
-            ws = new WebSocket(webSocketUrl);
-            ws.OnMessage += OnWebSocketMessage;
-            ws.Connect();
-            lastConnected = webSocketUrl;
-        }
-
         Debug.Log("Sending Image");
-        string head_pos = type + ":" + Camera.main.transform.position.ToString() + ":" + Camera.main.transform.forward.ToString() + ":" + Camera.main.transform.rotation.ToString();
-        string resp = head_pos + "}$#EndHeadCoord" + Convert.ToBase64String(targetTexture.EncodeToJPG());
-        ws.Send(resp);
+        /*string head_pos = type + ":" + Camera.main.transform.position.ToString() + ":" + Camera.main.transform.forward.ToString() + ":" + Camera.main.transform.rotation.ToString();
+        string resp = head_pos + "}$#EndHeadCoord" + Convert.ToBase64String(targetTexture.EncodeToJPG());*/
+        if (type == "UIA")
+        {
+            UIAImage uiaImage = new UIAImage(Convert.ToBase64String(targetTexture.EncodeToJPG()), "", Camera.main.transform.position.ToString(), Camera.main.transform.rotation.ToString());
+            wdh = GameObject.Find("Controller").transform.GetComponent<WebsocketDataHandler>();
+            Debug.Log(wdh);
+            wdh.SendUIA(uiaImage);
+        }
     }
 
     public void SnapPhoto(string type)
@@ -371,6 +305,12 @@ public class imageCapture : MonoBehaviour
             Debug.Log("Taking a picture");
             photoCaptureObject.TakePhotoAsync((result, frame) => OnCapturedPhotoToWebSocket(result, frame, type));
         }
+    }
+
+    [ContextMenu("func snapphoto")]
+    public void UIATest()
+    {
+        SnapPhoto("UIA");
     }
 
     void StartPhotoCapture()
@@ -408,10 +348,7 @@ public class imageCapture : MonoBehaviour
 
     public void SendJsonData(string jsonData)
     {
-        if (ws != null && ws.IsAlive)
-        {
-            ws.Send(jsonData);
-        }
+        Debug.Log("SendJsonData");
     }
 
     void OnPhotoModeStarted(PhotoCapture.PhotoCaptureResult result)
@@ -444,49 +381,6 @@ public class imageCapture : MonoBehaviour
         // Release the PhotoCapture object
         photoCaptureObject.Dispose();
         photoCaptureObject = null;
-    }
-
-    public void TypingLol(int val)
-    {
-        IPString += val.ToString();
-        setURL();
-    }
-
-    public void TypingStrLol(string val)
-    {
-        IPString += val;
-        setURL();
-    }
-
-    public void TypingTruncate()
-    {
-        IPString = IPString.Remove(IPString.Length - 1, 1);
-        setURL();
-    }
-
-    public void TypingTruncateAll()
-    {
-        IPString = "";
-        setURL();
-    }
-
-    void setURL()
-    {
-        webSocketUrl = "ws://" + IPString;
-        // ip_textbox.SetText(webSocketUrl);
-        SaveStringValue(webSocketUrl);
-    }
-
-    public void SaveStringValue(string value)
-    {
-        PlayerPrefs.SetString(webSocketUrl, value);
-        PlayerPrefs.Save();
-    }
-
-    // Function to load the string value
-    public string LoadStringValue()
-    {
-        return PlayerPrefs.GetString(webSocketUrl, "");
     }
 
     public static Vector3 CalculateAverage(Vector3[] vectorArray)
@@ -560,4 +454,4 @@ public class imageCapture : MonoBehaviour
         return corners;
     }
 }
-*/
+
