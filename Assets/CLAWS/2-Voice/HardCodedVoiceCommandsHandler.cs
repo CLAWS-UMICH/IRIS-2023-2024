@@ -111,7 +111,7 @@ public class HardCodedVoiceCommandsHandler : MonoBehaviour
             { Screens.Messaging_GroupChat_Quick, new List<string> {  } },
             { Screens.Messaging_GroupChat_FullMessage, new List<string> {  } },
 
-            { Screens.Geo, new List<string> { "Add Sample", "View Samples", "Exit Mode" } }, // "Sample Name", "Take XRF Scan", "Set Shape", "Set Color", "Take Photo", "Enter Voice Notes" 
+            { Screens.Geo, new List<string> { "Add Sample", "View Samples", "Exit Mode", "Identify Potential Samples" } }, // "Sample Name", "Take XRF Scan", "Set Shape", "Set Color", "Take Photo", "Enter Voice Notes" 
             { Screens.Geo_Database, new List<string> { "Start Geosampling Mode", "Close Screen" } },
 
             { Screens.UIA, new List<string> { "UIA Next", "UIA Complete", "Start UIA", "Show UIA Cubes", "Configure UIA" } },
