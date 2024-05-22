@@ -3,25 +3,23 @@ using TMPro;
 
 public class VitalsSwitcherFinal : MonoBehaviour
 {
-    public GameObject suitsControl;
-    public GameObject screen1;
-    public GameObject screen2;
-    public GameObject button;
+    private GameObject screen1;
+    private GameObject screen2;
+    private GameObject button;
     string buttonText;
     bool main;
 
     void Start()
     {
-        suitsControl = GameObject.Find("Vitals");
-        screen1 = suitsControl.transform.Find("SuitsControlScreen1").gameObject;
-        screen2 = suitsControl.transform.Find("SuitsControlScreen2").gameObject;
+        screen1 = transform.Find("SuitsControlScreen1").gameObject;
+        screen2 = transform.Find("SuitsControlScreen2").gameObject;
+        button = transform.Find("SwitchVitalsButton").gameObject;
         screen2.SetActive(false);
         screen1.SetActive(false);
         button.SetActive(false);
 
         main = true;
 
-        button = GameObject.Find("SwitchVitalsButton").gameObject;
         buttonText = button.transform.Find("IconAndText").transform.Find("TextMeshPro").GetComponent<TextMeshPro>().text;
     }
 
