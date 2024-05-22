@@ -105,6 +105,8 @@ public class WebsocketDataHandler : MonoBehaviour
                 data = AstronautInstance.User.MessagingData
             };
 
+            Debug.Log("It went into Messaging GET");
+
             // Convert the combined data to JSON format and send to WebSocket client
             string jsonData = JsonUtility.ToJson(combinedData);
 
@@ -113,6 +115,8 @@ public class WebsocketDataHandler : MonoBehaviour
         else if (use == "PUT")
         {
             if (debugMode) Debug.Log("(PUT) WebsocketDataHandler.cs: Updating MESSAGING data");
+
+            Debug.Log("It went into Messaging PUTs");
 
             // Get the current list of messages from the instance
             List<Message> currentMessages = AstronautInstance.User.MessagingData.AllMessages;

@@ -30,6 +30,7 @@ public class MessageReceiveHandler : MonoBehaviour
     List<Message> AstroChat;
     List<Message> LMCCChat;
     List<Message> GroupChat;
+    List<GameObject> boxes;
 
     private int astroCounter = 0;
     private int LMCCCounter = 0;
@@ -83,22 +84,25 @@ public class MessageReceiveHandler : MonoBehaviour
         StartCoroutine(GenerateGroupChatBox());
     }
 
+    //private void OnDestroy()
+    //{
+    //    foreach (GameObject b in boxes)
+    //    {
+    //        Destroy(b);
+    //    }
+    //}
+
     void appendList(MessagesAddedEvent e)
     {
         allMessage = e.NewAddedMessages;
 
-        foreach (Message m in allMessage)
-        {
-            Debug.Log(m);
-        }
-
-        foreach (Message m in allMessage)
-        {
+       foreach (Message m in allMessage)
+       {
             if (m.sent_to == -2 && m.from != AstronautInstance.User.id)
             {
                 GroupChat.Add(m);
             }
-            else if (m.from == -1 && m.sent_to == AstronautInstance.User.id)
+            else if (m.from == -1)// && m.sent_to == AstronautInstance.User.id)
             {
                 LMCCChat.Add(m);
             }
@@ -138,6 +142,7 @@ public class MessageReceiveHandler : MonoBehaviour
             // Currently in LMCC chat
             else if (groupChat == -1)
             {
+                Debug.Log("message sent to socket");
                 AstronautInstance.User.MessagingData.AllMessages.Add(m);
                 websocket.SendMessageData();
                 LMCCChat.Add(m);
@@ -162,29 +167,79 @@ public class MessageReceiveHandler : MonoBehaviour
         {
             GameObject box = Instantiate(textBox, screen.transform);
             TMP_Text textComponent = box.GetComponentInChildren<TMP_Text>();
-            textComponent.text = chat[i].message; Vector3 newPosition = box.transform.position;
-            newPosition.y -= 0.02f * i + 0.05f;
+            textComponent.text = chat[i].message;
+
+            Debug.Log("text box created");
+
+            (string formattedText, int newLineCount) = InsertNewLines(chat[i].message, 20);
+            textComponent.text = formattedText;
+
+            GameObject boxBackplate = box.transform.Find("TitleBar").gameObject.transform.Find("BackPlate").gameObject;
+            Vector3 newScale = boxBackplate.transform.localScale;
+            Debug.Log("box backplate scale: " + newScale);
+            newScale.y = newLineCount * 0.35f + 0.05f;
+            Debug.Log("new box backplate scale: " + newScale + " new line count: " + newLineCount);
+            boxBackplate.transform.localScale = newScale;
+
+            Vector3 newPosition = box.transform.position;
+            if (newLineCount == 1 || chat.Count == 1)
+            {
+                newPosition.y -= 0.02f * i + 0.05f;
+            }
+            else
+            {
+                newPosition.y -= 0.02f * i + 0.05f + (0.01f * newLineCount / 2);
+            }
+
+            //newPosition.y -= 0.02f * i + 0.05f;
+
             box.transform.position = newPosition;
             if (chat[i].from == AstronautInstance.User.id)
             {
-                Debug.Log("chat from: " + chat[i].from);
+                Debug.Log("chat from: " + chat[i].from + " chat im sending to: " + chat[i].sent_to);
                 Vector3 chatPosition = box.transform.position;
                 chatPosition.x += 0.03f;
                 box.transform.position = chatPosition;
             }
             else
             {
-                Debug.Log("chat from: " + chat[i].from);
+                Debug.Log("chat from: " + chat[i].from + " chat they are sending to: " + chat[i].sent_to);
                 Vector3 chatPosition = box.transform.position;
-                chatPosition.x -= 0.03f;
+                chatPosition.x -= 0.0f;
                 box.transform.position = chatPosition;
             }
         }
     }
 
+    (string, int) InsertNewLines(string text, int maxLineLength)
+    {
+        if (string.IsNullOrEmpty(text))
+        {
+            return (text, 0);
+        }
+
+        List<string> lines = new List<string>();
+        int newLineCount = 1;
+
+        for (int i = 0; i < text.Length; i += maxLineLength)
+        {
+            if (i + maxLineLength < text.Length)
+            {
+                lines.Add(text.Substring(i, maxLineLength));
+                newLineCount++;
+            }
+            else
+            {
+                lines.Add(text.Substring(i));
+            }
+        }
+
+        return (string.Join("\n", lines), newLineCount);
+    }
+
     IEnumerator GenerateAstroBox()
     {
-        Debug.Log(astroCounter);
+        //Debug.Log(astroCounter);
         while (true)
         {
             if (astroCounter < AstroChat.Count())
