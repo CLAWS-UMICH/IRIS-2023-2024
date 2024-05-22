@@ -114,7 +114,6 @@ public class Geosample
         Geosample otherGeo = (Geosample)obj;
         return geosample_id == otherGeo.geosample_id &&
                zone_id == otherGeo.zone_id &&
-               eva_data.Equals(otherGeo.eva_data) &&
                time == otherGeo.time &&
                color == otherGeo.color &&
                shape == otherGeo.shape &&
@@ -122,6 +121,11 @@ public class Geosample
                location.Equals(otherGeo.location) &&
                author == otherGeo.author && 
                photo_jpg == otherGeo.photo_jpg;
+    }
+
+    public override string ToString()
+    {
+        return "Geosample " + geosample_id + ", shape " + shape;
     }
 }
 

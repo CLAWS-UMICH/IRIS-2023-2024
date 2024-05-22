@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using System.Threading;
 
 /*
 Name: Brian Schneider
@@ -266,6 +267,11 @@ public class WebsocketDataHandler : MonoBehaviour
 
             //go through all zones, check samples exist for each
 
+            foreach (Geosample sample in newGeosamples)
+            {
+                Debug.Log(sample.ToString());
+            }
+
             foreach (GeosampleZone currentZone in currentGeosampleZones)
             {
                 bool sampleFound = false;
@@ -279,11 +285,20 @@ public class WebsocketDataHandler : MonoBehaviour
             foreach (Geosample currentSample in currentGeosamples)
             {
                 bool sampleFound = false;
+                if (currentSample == null)
+                {
+                    Debug.Log("bleh");
+                }
 
                 foreach (Geosample newSample in newGeosamples)
                 {
                     if (currentSample.geosample_id == newSample.geosample_id)
                     {
+                        if (currentSample == null)
+                        {
+                            Debug.Log("blah " + currentSample.ToString() + " / " + newSample.ToString());
+                        }
+
                         sampleFound = true;
                         if (!currentSample.Equals(newSample))
                         {
@@ -322,16 +337,19 @@ public class WebsocketDataHandler : MonoBehaviour
             if (deletedGeosamples.Count > 0)
             {
                 EventBus.Publish(new GeosamplesDeletedEvent(deletedGeosamples));
+                Debug.Log("deleted: " + deletedGeosamples.Count.ToString());
             }
 
             if (editedGeosamples.Count > 0)
             {
                 EventBus.Publish(new GeosamplesEditedEvent(editedGeosamples));
+                Debug.Log("edited: " + editedGeosamples.Count.ToString());
             }
 
             if (newAddedGeosamples.Count > 0)
             {
                 EventBus.Publish(new GeosamplesAddedEvent(newAddedGeosamples));
+                Debug.Log("new: " + newAddedGeosamples.Count.ToString());
             }
 
             if (deletedGeosampleZones.Count > 0)

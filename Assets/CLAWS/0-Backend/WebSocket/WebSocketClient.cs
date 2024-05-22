@@ -178,6 +178,9 @@ public class WebSocketClient : MonoBehaviour
         string messageUse = jsonMessage.use;
         int messageID = jsonMessage.id;
 
+        Debug.Log(jsonMessage.type);
+        Debug.Log(jsonMessage.use);
+
         // Ignore connection that is not initial or does not match astronaut's ID or not -1
         if (messageType != "INITIAL" && messageID != AstronautInstance.User.id && messageID != -1)
         {

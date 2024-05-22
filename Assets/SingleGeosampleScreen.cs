@@ -465,9 +465,11 @@ public class SingleGeosampleScreen : MonoBehaviour
                 shape = GeosamplingShape.Shape.Irregular;
                 break;
             default:
+                Debug.Log("no shape?");
                 break;
         }
 
+        Debug.Log("setting shape to " + shape.ToString());
         Shape_visual.SetShape(shape);
 
         GeosamplingManager.SendData();
