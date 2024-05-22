@@ -84,6 +84,8 @@ public class imageCapture : MonoBehaviour
         {
             Debug.Log("Started camera");
         }
+
+        queued_actions.Clear();
     }
 
     void Update()
@@ -311,6 +313,12 @@ public class imageCapture : MonoBehaviour
         }
     }
 
+    public void PatrickSnapPhoto()
+    {
+
+    }
+
+
     [ContextMenu("func snapphoto uia")]
     public void UIATest()
     {
@@ -323,7 +331,7 @@ public class imageCapture : MonoBehaviour
         SnapPhoto("geosample");
     }
 
-    void StartPhotoCapture()
+    public void StartPhotoCapture()
     {
         PhotoCapture.CreateAsync(false, OnPhotoCaptureCreated);
     }

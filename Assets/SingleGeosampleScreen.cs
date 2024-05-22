@@ -103,6 +103,7 @@ public class SingleGeosampleScreen : MonoBehaviour
         SetSampleName("Sample " + Sample.geosample_id);
         SetDescription(Sample.description);
         SetStar();
+        StarredIcon.SetActive(Sample_f.starred);
         SetZoneId();
         SetColor(Sample_f.color);
         SetShape(Sample_f.shape);
@@ -202,8 +203,9 @@ public class SingleGeosampleScreen : MonoBehaviour
         EventBus.Publish<PlayAudio>(new PlayAudio("XRF_Scan"));
         WaitingXRF.SetActive(false);
         XRFReadings.SetActive(true);
-  
-        
+
+        Sample.eva_data.data = e.data;
+        GeosamplingManager.SendData();
     }
 
     public void OnShapeButtonPressed()
@@ -367,7 +369,10 @@ public class SingleGeosampleScreen : MonoBehaviour
         var zone = GeosamplingZone.FindZone(letter[0]);
         if (zone != null)
         {
-            zone.ZoneGeosamplesIds.Add(Sample.geosample_id);
+            if (!zone.ZoneGeosamplesIds.Contains(Sample.geosample_id))
+            {
+                zone.ZoneGeosamplesIds.Add(Sample.geosample_id);
+            }
         }
 
         SetZoneId();
