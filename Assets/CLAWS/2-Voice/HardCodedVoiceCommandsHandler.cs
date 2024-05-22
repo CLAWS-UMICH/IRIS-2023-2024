@@ -82,12 +82,12 @@ public class HardCodedVoiceCommandsHandler : MonoBehaviour
         Vitals_Main = Vitals_Parent.transform.Find("Vitals_Main").gameObject;
         Vitals_Fellow = Vitals_Parent.transform.Find("Vitals_Fellow").gameObject;
 
-        screenChangedSubscription = EventBus.Subscribe<ScreenChangedEvent>(SwitchScreen);
+        screenChangedSubscription = EventBus.Subscribe<ScreenChangedEvent>(OnSwitchScreen);
         TurnOffAllScreens();
 
         commandMap = new Dictionary<Screens, List<string>>
         {
-            { Screens.Menu, new List<string> { "Open Tasks", "Open Navigation", "Open Messaging", "Open Samples", "Open Vitals", "Configure UIA", "Show UIA Cubes", "Screen Fix", "Screen Follow", "Screen Sync" } },
+            { Screens.Menu, new List<string> { "Open Tasks", "Open Navigation", "Open Messaging", "Open Samples", "Open Vitals", "Place UIA Panel", "Configure UIA", "Show UIA Cubes", "Screen Fix", "Screen Follow", "Screen Sync" } },
 
             { Screens.Tasklist, new List<string> { "Scroll Down", "Scroll Up", "Close Screen" } },
             { Screens.Tasklist_SubOpen, new List<string> { "Close Screen" } },
@@ -149,12 +149,16 @@ public class HardCodedVoiceCommandsHandler : MonoBehaviour
         Vitals_Fellow.SetActive(false);
     }
 
-    public void SwitchScreen(ScreenChangedEvent e)
+    public void OnSwitchScreen(ScreenChangedEvent e)
+    {
+        SwitchScreen(e.Screen);
+    }
+
+    public void SwitchScreen(Screens s)
     {
         TurnOffAllScreens();
-        Screens screen = e.Screen;
 
-        switch (screen)
+        switch (s)
         {
             case Screens.Menu:
                 Menu_Parent.SetActive(true);
@@ -234,7 +238,12 @@ public class HardCodedVoiceCommandsHandler : MonoBehaviour
         }
 
 
-        GameObject.Find("SampleCommandScreen").GetComponent<SampleCommandHandler>().setCommands(commandMap[screen]);
+        GameObject.Find("SampleCommandScreen").GetComponent<SampleCommandHandler>().setCommands(commandMap[s]);
+    }
+
+    public void PlayMusic()
+    {
+        EventBus.Publish<PlayAudio>(new PlayAudio("Rickroll"));
     }
 
 

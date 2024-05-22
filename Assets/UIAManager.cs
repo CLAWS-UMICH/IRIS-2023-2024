@@ -57,6 +57,11 @@ public class UIAManager : MonoBehaviour
         });
     }
 
+    public void Voice_PlaceUIAPanel()
+    {
+        GetComponent<imageCapture>().SnapPhoto("UIA");
+    }
+
     public void Voice_UIASpawnCubes()
     {
         Vector3 center = Camera.main.transform.position + Camera.main.transform.forward * 0.4f;

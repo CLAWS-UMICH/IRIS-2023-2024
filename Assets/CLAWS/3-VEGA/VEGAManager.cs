@@ -145,6 +145,7 @@ public class VEGAManager : MonoBehaviour
             { "Select_Station", (Select_Station, 0) },
             { "Select_Interest", (Select_Interest, 0) },
             { "Select_Geo", (Select_Geo, 0) },
+            { "Complete", (Complete, 1) },
 
             { "Open_Tasks", (Menu_Open_Tasks, 0) },
             { "Open_Navigation", (Menu_Open_Navigation, 0) },
@@ -152,11 +153,9 @@ public class VEGAManager : MonoBehaviour
             { "Open_Geo", (Menu_Open_Geo, 0) },
             { "Open_Vitals", (Menu_Open_Vitals, 0) },
             { "Open_UIA", (Menu_Open_UIA, 0) },
-            { "Complete", (Menu_Complete, 0) },
             { "Check", (Menu_Check, 0) },
             { "Open_Sub_Details", (Menu_Open_Sub_Details, 1) },
 
-            { "Complete", (Tasklist_Complete, 1) },
             { "Open_Details", (Tasklist_Open_Details, 1) },
             { "Close_Details", (Tasklist_Close_Details, 1) },
 
@@ -193,6 +192,7 @@ public class VEGAManager : MonoBehaviour
         // Check if the command matches any associated command for the current screen or mode
         if (screenAssociatedCommands.ContainsKey(currentScreen) && screenAssociatedCommands[currentScreen].Contains(c.command_name))
         {
+           
             ExecuteCommand(c.command_name, c.arguments);
         }
         else if (modeAssociatedCommands.ContainsKey(currentMode) && modeAssociatedCommands[currentMode].Contains(c.command_name))
@@ -370,6 +370,22 @@ public class VEGAManager : MonoBehaviour
         else if (currentScreen == Screens.Navigation_CreatingWaypoint)
         {
             InvokeEvent(navigationSelectGeoWAY, "Select_Geo", parameters);
+        }
+        else
+        {
+            Debug.Log("Unable to match voice command 'Select_Geo' with current screen");
+        }
+    }
+
+    private void Complete(List<string> parameters)
+    {
+        if (currentScreen == Screens.Menu)
+        {
+            InvokeEvent(menuComplete, "Complete", parameters);
+        }
+        else if (currentScreen == Screens.Tasklist || currentScreen == Screens.Tasklist_Emergency)
+        {
+            InvokeEvent(tasklistComplete, "Complete", parameters);
         }
         else
         {

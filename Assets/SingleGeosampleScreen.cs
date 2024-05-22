@@ -28,6 +28,7 @@ public class SingleGeosampleScreen : MonoBehaviour
     public GameObject XRFCollider;
     public GameObject XRFBackPlate;
     public TextMeshPro Description;
+    public GameObject VegaHighlight;
     public bool XRFScanned;
 
     private void Start()
@@ -88,6 +89,7 @@ public class SingleGeosampleScreen : MonoBehaviour
                 if (sample.geosample_id == Sample.geosample_id)
                 {
                     Load(sample);
+                    Debug.Log("updating a geosample");
                 }
             }
         });
@@ -102,6 +104,10 @@ public class SingleGeosampleScreen : MonoBehaviour
         SetDescription(Sample.description);
         SetStar();
         SetZoneId();
+        SetColor(Sample_f.color);
+        SetShape(Sample_f.shape);
+
+        Debug.Log("geosample loaded");
     }
 
     [ContextMenu("func FakeXRFScanned()")]
@@ -193,6 +199,7 @@ public class SingleGeosampleScreen : MonoBehaviour
 
         // Show Readings
         XRFScanned = true;
+        EventBus.Publish<PlayAudio>(new PlayAudio("XRF_Scan"));
         WaitingXRF.SetActive(false);
         XRFReadings.SetActive(true);
   
@@ -240,6 +247,7 @@ public class SingleGeosampleScreen : MonoBehaviour
             PhotoScreen.SetActive(false);
         }
     }
+
     public void OnVEGAButtonPressed()
     {
         if (CurrentScreen != GeoSampleScreens.VoiceNotes)
@@ -254,6 +262,30 @@ public class SingleGeosampleScreen : MonoBehaviour
             CloseCurrentScreen();
         }
     }
+
+    Subscription<SpeechToText> _TranscriptionSubscription;
+
+    public void OnStartTranscription()
+    {
+        if (_TranscriptionSubscription == null)
+        {
+            _TranscriptionSubscription = EventBus.Subscribe<SpeechToText>(OnTranscriptionFinished);
+        }
+
+        EventBus.Publish<StartTranscription>(new());
+        VegaHighlight.SetActive(true);
+        Debug.Log("starting geo transcription");
+    }
+    public void OnTranscriptionFinished(SpeechToText e)
+    {
+        Debug.Log("received transcription for geo: " + e.text);
+        SetDescription(e.text);
+        VegaHighlight.SetActive(false);
+
+        EventBus.Unsubscribe(_TranscriptionSubscription);
+        _TranscriptionSubscription = null;
+    }
+
     public void CloseCurrentScreen()
     {
         switch (CurrentScreen)
@@ -315,7 +347,6 @@ public class SingleGeosampleScreen : MonoBehaviour
     {
         Name_tmp.text = name;
 
-        // Sample = name;
         GeosamplingManager.SendData();
     }
     public void SetID()
@@ -359,7 +390,6 @@ public class SingleGeosampleScreen : MonoBehaviour
         // automatic assignment
         // called after xrf scan
         RockType_tmp.text = name;
-
         Sample.rock_type = name;
         GeosamplingManager.SendData();
     }
@@ -405,6 +435,44 @@ public class SingleGeosampleScreen : MonoBehaviour
         GeosamplingManager.SendData();
         CloseCurrentScreen();
     }
+    public void SetShape(string shape_in)
+    {
+        GeosamplingShape.Shape shape = GeosamplingShape.Shape.None;
+        switch (shape_in)
+        {
+            case "Polygon":
+                shape = GeosamplingShape.Shape.Polygon;
+                break;
+            case "Cube":
+                shape = GeosamplingShape.Shape.Cube;
+                break;
+            case "Cylinder":
+                shape = GeosamplingShape.Shape.Cylinder;
+                break;
+            case "Cone":
+                shape = GeosamplingShape.Shape.Cone;
+                break;
+            case "Sphere":
+                shape = GeosamplingShape.Shape.Sphere;
+                break;
+            case "Crystalline":
+                shape = GeosamplingShape.Shape.Crystalline;
+                break;
+            case "Ellipsoid":
+                shape = GeosamplingShape.Shape.Ellipsoid;
+                break;
+            case "Irregular":
+                shape = GeosamplingShape.Shape.Irregular;
+                break;
+            default:
+                break;
+        }
+
+        Shape_visual.SetShape(shape);
+
+        GeosamplingManager.SendData();
+        CloseCurrentScreen();
+    }
     public void SetColor(string hex)
     {
         Color_visual.SetColor(hex);
@@ -418,8 +486,8 @@ public class SingleGeosampleScreen : MonoBehaviour
     }
     public void SetDescription(string desc)
     {
+        desc = desc.Trim();
         Sample.description = desc;
-
         Description.text = desc;
         GeosamplingManager.SendData();
     }

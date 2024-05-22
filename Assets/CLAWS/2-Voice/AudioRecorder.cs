@@ -25,16 +25,31 @@ public class AudioRecorder : MonoBehaviour
     [SerializeField] float silenceDuration = 3f;
     [SerializeField] float durationLeft = 3f;
 
+    bool useModel;
+
 
     private string destination = "Assets/CLAWS/Audio/recorded_audio.wav";
 
     WebsocketDataHandler wdh;
 
+    VEGAScreenHandler s;
+
+    HardCodedVoiceCommandsHandler h;
+
+
 
     void Start()
     {
+        EventBus.Subscribe<StartTranscription>(OnTranscription);
         wdh = GameObject.Find("Controller").transform.GetComponent<WebsocketDataHandler>();
+        s = transform.GetComponent<VEGAScreenHandler>();
+        h = GameObject.Find("HardcodedVoiceManager").GetComponent<HardCodedVoiceCommandsHandler>();
         InitializeRecorder();
+    }
+
+    private void OnTranscription(StartTranscription e)
+    {
+        TranscribeRecord();
     }
 
     private void InitializeRecorder()
@@ -66,16 +81,33 @@ public class AudioRecorder : MonoBehaviour
         }
     }
 
+    public void VEGARecord()
+    {
+        useModel = true;
+        StartRecording();
+    }
+
+    public void TranscribeRecord()
+    {
+        useModel = false;
+        StartRecording();
+    }
+
     public void StartRecording()
     {
         if (!isRecording)
         {
+            h.TurnOffAllScreens();
+            s.onVoice();
             InitializeRecorder();
             Debug.Log("Started Recording...");
             isRecording = true;
             waveIn.StartRecording();
             // Create a new WAV file for recording
             writer = new WaveFileWriter(destination, waveIn.WaveFormat);
+
+            
+
         }
     }
 
@@ -83,6 +115,7 @@ public class AudioRecorder : MonoBehaviour
     {
         if (isRecording)
         {
+            s.onStartVegaCommand();
             Debug.Log("Stopping Recording");
             isRecording = false;
             waveIn.StopRecording();
@@ -91,6 +124,8 @@ public class AudioRecorder : MonoBehaviour
 
             // Send recorded audio over websocket
             SendAudioOverWebsocket();
+
+            h.SwitchScreen(StateMachine.CurrScreen);
         }
     }
 
@@ -104,7 +139,12 @@ public class AudioRecorder : MonoBehaviour
             // Encode the audio bytes as Base64 string
             string base64Audio = Convert.ToBase64String(audioBytes);
 
-            VegaAudio va = new VegaAudio(base64Audio, "");
+            VegaAudio va = new VegaAudio(base64Audio, "", false);
+
+            if (useModel)
+            {
+                va.classify = true;
+            }
 
             wdh.SendAudio(va);
 

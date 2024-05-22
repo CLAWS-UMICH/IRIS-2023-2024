@@ -242,6 +242,14 @@ public class WebSocketClient : MonoBehaviour
                 AudioData audioData = JsonUtility.FromJson<AudioData>(jsonData);
                 dataHandler.HandleAudioData(audioData.data, audioData.use);
                 break;
+            case "AUDIO_PROCESSED":
+                AudioData audioData1 = JsonUtility.FromJson<AudioData>(jsonData);
+                dataHandler.HandleOrocessedAudioData(audioData1.data, audioData1.use);
+                break;
+            case "UIAIMAGE_PROCESSED":
+                UIAData uiaData= JsonUtility.FromJson<UIAData>(jsonData);
+                dataHandler.HandleUIAData(uiaData.data, uiaData.use);
+                break;
             // Handle other message types similarly
             default:
                 Debug.LogWarning("Unknown message type: " + messageType);
@@ -402,11 +410,13 @@ public class VegaAudio
 {
     public string base_64_audio;
     public string text_from_VEGA;
+    public bool classify;
 
-    public VegaAudio(string a, string s)
+    public VegaAudio(string a, string s, bool c)
     {
         base_64_audio = a;
         text_from_VEGA = s;
+        classify = c;
     }
 }
 
@@ -417,4 +427,66 @@ public class AudioData
     public string type;
     public string use;
     public VegaAudio data;
+}
+
+
+[Serializable]
+public class UIAData
+{
+    public int id;
+    public string type;
+    public string use;
+    public UIAImage data;
+}
+
+[Serializable]
+public class UIAImage
+{
+    public string base_64_image;
+    public string[] points;
+    public string position;
+    public string rotation;
+
+    public UIAImage(string a, string[] s, string p, string r)
+    {
+        base_64_image = a;
+        points = s;
+        position = p;
+        rotation = r;
+    }
+
+}
+
+[Serializable]
+public class GeosampleImage
+{
+    public string base_64_image;
+    public string[] points;
+    public string position;
+    public string rotation;
+    public string color;
+    public string description;
+    public string shape;
+    public string roughness;
+
+    public GeosampleImage(string a, string[] s, string p, string r, string color_in, string description_in, string shape_in, string roughness_in)
+    {
+        base_64_image = a;
+        points = s;
+        position = p;
+        rotation = r;
+        color = color_in;
+        description = description_in;
+        shape = shape_in;
+        roughness = roughness_in;
+    }
+}
+
+[Serializable]
+public class GeosampleData
+{
+    public int id;
+    public string type;
+    public string use;
+    public GeosampleImage data;
 }

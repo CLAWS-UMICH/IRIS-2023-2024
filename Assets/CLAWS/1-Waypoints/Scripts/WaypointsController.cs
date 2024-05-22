@@ -122,6 +122,10 @@ public class WaypointsController : MonoBehaviour
         List<Waypoint> deletedWaypoints = e.DeletedWaypoints;
         foreach(Waypoint waypoint in deletedWaypoints)
         {
+            if ((AstronautInstance.User.id == 0 && waypoint.waypoint_id == 23) || (AstronautInstance.User.id == 1 && waypoint.waypoint_id == 24))
+            {
+                continue;
+            }
             if (waypointDict.ContainsKey(waypoint.waypoint_id))
             {
                 waypointDict.Remove(waypoint.waypoint_id);
@@ -176,6 +180,10 @@ public class WaypointsController : MonoBehaviour
         List<Waypoint> editedWaypoints = e.EditedWaypoints;
         foreach(Waypoint waypoint in editedWaypoints)
         {
+            if ((AstronautInstance.User.id == 0 && waypoint.waypoint_id == 23) || (AstronautInstance.User.id == 1 && waypoint.waypoint_id == 24))
+            {
+                continue;
+            }
             if (waypointDict.ContainsKey(waypoint.waypoint_id))
             {
                 waypointDict[waypoint.waypoint_id].location = waypoint.location;
@@ -230,6 +238,7 @@ public class WaypointsController : MonoBehaviour
                 break;
 
             case 1: // poi
+                Debug.Log(waypoint);
                 _nav_letter.text = waypoint.waypoint_letter.ToString();
                 _nav_title.text = waypoint.description.ToString();
                 _nav_minimap_letter.text = waypoint.waypoint_letter.ToString();
