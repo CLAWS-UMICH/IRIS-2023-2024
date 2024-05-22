@@ -80,6 +80,7 @@ public class MenuState : MonoBehaviour
     }
     public void ClickMessages()
     {
+        transform.parent.Find("Messaging").Find("MessageController").GetComponent<MessageReceiveHandler>().Open();
         ClickIRISClose();
     }
     public void ClickSamples()

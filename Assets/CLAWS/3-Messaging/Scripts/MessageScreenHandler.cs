@@ -8,7 +8,6 @@ public class MessageReceiveHandler : MonoBehaviour
 {
     // 22 characters per line
 
-    GameObject parent;
     GameObject chatScreen;
     GameObject AstroScreen;
     GameObject LMCCScreen;
@@ -32,6 +31,8 @@ public class MessageReceiveHandler : MonoBehaviour
     List<Message> GroupChat;
     List<GameObject> boxes;
 
+    GameObject messScreen;
+
     private int astroCounter = 0;
     private int LMCCCounter = 0;
     private int groupChatCounter = 0;
@@ -40,14 +41,14 @@ public class MessageReceiveHandler : MonoBehaviour
 
     void Start()
     {
-        parent = transform.parent.Find("MessagingScreen").gameObject;
-        AstroScreen = parent.transform.Find("AstroScroll").gameObject;
-        LMCCScreen = parent.transform.Find("LMCCScroll").gameObject;
-        GroupChatScreen = parent.transform.Find("GroupChatScroll").gameObject;
+        messScreen = transform.parent.Find("MessagingScreen").gameObject;
+        AstroScreen = messScreen.transform.Find("AstroScroll").gameObject;
+        LMCCScreen = messScreen.transform.Find("LMCCScroll").gameObject;
+        GroupChatScreen = messScreen.transform.Find("GroupChatScroll").gameObject;
 
         emojiScreen = emojiParent.transform.Find("emojiScreen").gameObject;
 
-        GameObject textFieldObject = parent.transform.Find("TextField").gameObject;
+        GameObject textFieldObject = messScreen.transform.Find("TextField").gameObject;
         message = textFieldObject.transform.Find("InputField (TMP)").GetComponent<TMP_InputField>();
 
         msgList = new Messaging();
@@ -58,7 +59,7 @@ public class MessageReceiveHandler : MonoBehaviour
 
         fa = AstronautInstance.User.FellowAstronautsData;
 
-        websocket = transform.parent.parent.parent.Find("Controller").GetComponent<WebsocketDataHandler>();
+        websocket = GameObject.Find("Controller").GetComponent<WebsocketDataHandler>();
 
         EventBus.Subscribe<MessagesAddedEvent>(appendList);
 
@@ -66,8 +67,8 @@ public class MessageReceiveHandler : MonoBehaviour
         emojiScreen.SetActive(false);
 
         // Update chat names
-        GameObject astroLabel = parent.transform.Find("AstroButton").Find("Button").Find("IconAndText").Find("TextMeshPro").gameObject;
-        GameObject groupLabel = parent.transform.Find("GroupChatButton").Find("Button").Find("IconAndText").Find("TextMeshPro").gameObject;
+        GameObject astroLabel = messScreen.transform.Find("AstroButton").Find("Button").Find("IconAndText").Find("TextMeshPro").gameObject;
+        GameObject groupLabel = messScreen.transform.Find("GroupChatButton").Find("Button").Find("IconAndText").Find("TextMeshPro").gameObject;
         if (AstronautInstance.User.id == 0)
         {
             astroLabel.GetComponent<TMP_Text>().text = "Astronaut 2";
@@ -82,6 +83,24 @@ public class MessageReceiveHandler : MonoBehaviour
         StartCoroutine(GenerateAstroBox());
         StartCoroutine(GenerateLMCCBox());
         StartCoroutine(GenerateGroupChatBox());
+
+        Close();
+    }
+
+    public void Close()
+    {
+        AstroScreen.SetActive(true);
+        emojiScreen.SetActive(false);
+        messScreen.SetActive(false);
+        EventBus.Publish<ScreenChangedEvent>(new(Screens.Menu));
+    }
+
+    public void Open()
+    {
+        AstroScreen.SetActive(true);
+        emojiScreen.SetActive(false);
+        messScreen.SetActive(true);
+        EventBus.Publish<ScreenChangedEvent>(new(Screens.Messaging_Astro_BlankMessage));
     }
 
     //private void OnDestroy()
