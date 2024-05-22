@@ -684,5 +684,14 @@ public class StartTranscription
     }
 }
 
+public class PlayAudio
+{
+    public string audioName;
+
+    public PlayAudio(string name)
+    {
+        audioName = name;
+    }
+}
 
 
