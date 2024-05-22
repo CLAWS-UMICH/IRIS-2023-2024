@@ -22,7 +22,7 @@ public class ARWebController : MonoBehaviour
         buttonDict[2] = MainMenuParent.transform.Find("MessagesButton").gameObject;
         buttonDict[3] = MainMenuParent.transform.Find("SamplesButton").gameObject;
         buttonDict[4] = MainMenuParent.transform.Find("VitalsButton").gameObject;
-        buttonDict[5] = MainMenuParent.transform.Find("ModesButton").gameObject;
+        //buttonDict[5] = MainMenuParent.transform.Find("ModesButton").gameObject;
         currentActiveButton = -1;
         newHighlightEvent = EventBus.Subscribe<LLMCHighlight>(onNewHighlight);
         //StartCoroutine(_testHighlight(0));

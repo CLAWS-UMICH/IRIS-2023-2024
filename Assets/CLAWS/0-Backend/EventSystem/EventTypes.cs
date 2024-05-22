@@ -486,15 +486,11 @@ public class NewPicEvent
 {
     public string image { get; private set; }
     public string title { get; private set; }
-    public int height { get; private set; }
-    public int width { get; private set; }
 
-    public NewPicEvent(string pic, string _title, int _h, int _w)
+    public NewPicEvent(string pic, string _title)
     {
         image = pic;
         title = _title;
-        height = _h;
-        width = _h;
     }
 }
 

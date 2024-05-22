@@ -235,8 +235,8 @@ public class WebSocketClient : MonoBehaviour
                 dataHandler.HandleNavData(navData.location, navData.use);
                 break;
             case "PICTURE":
-                PictureData picData = JsonUtility.FromJson<PictureData>(jsonData);
-                dataHandler.HandlePicData(picData.binary_img, picData.title, picData.height, picData.width, picData.use);
+                PicturesData picData = JsonUtility.FromJson<PicturesData>(jsonData);
+                dataHandler.HandlePicData(picData.data.binary_img, picData.data.title, picData.use);
                 break;
             case "HIGHLIGHT":
                 HighlightData highData = JsonUtility.FromJson<HighlightData>(jsonData);
@@ -386,15 +386,19 @@ public class NavigationData
 }
 
 [Serializable]
-public class PictureData
+public class PicturesData
 {
     public int id;
     public string type;
     public string use;
+    public PictureData data;
+}
+
+[Serializable]
+public class PictureData
+{
     public string binary_img;
     public string title;
-    public int height;
-    public int width;
 }
 
 [Serializable]
