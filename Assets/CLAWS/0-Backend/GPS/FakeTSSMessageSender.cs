@@ -14,7 +14,7 @@ public class FakeTSSMessageSender : MonoBehaviour
         GameObject mainCameraHolder = GameObject.Find("MixedRealityPlayspace");
         mainCamera = mainCameraHolder.transform.Find("Main Camera").gameObject;
         Fake_SetGPS();
-        Fake_Vitals();
+        //Fake_Vitals();
         StartCoroutine(AddFake());
         //StartCoroutine(WebConnect());
     }
