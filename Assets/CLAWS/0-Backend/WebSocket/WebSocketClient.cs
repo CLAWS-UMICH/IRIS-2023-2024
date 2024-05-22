@@ -242,6 +242,10 @@ public class WebSocketClient : MonoBehaviour
                 AudioData audioData = JsonUtility.FromJson<AudioData>(jsonData);
                 dataHandler.HandleAudioData(audioData.data, audioData.use);
                 break;
+            case "AUDIO_PROCESSED":
+                AudioData audioData1 = JsonUtility.FromJson<AudioData>(jsonData);
+                dataHandler.HandleOrocessedAudioData(audioData1.data, audioData1.use);
+                break;
             // Handle other message types similarly
             default:
                 Debug.LogWarning("Unknown message type: " + messageType);
