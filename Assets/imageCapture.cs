@@ -102,7 +102,7 @@ public class imageCapture : MonoBehaviour
             }
             else if (action.type == "geosample_place_label")
             {
-                /*PlaceLabel(action);*/
+                PlaceGeosampleLabel(action);
             }
             else if (action.type == "calibration_place_sphere")
             {
@@ -166,28 +166,19 @@ public class imageCapture : MonoBehaviour
         }
     }
 
-    /*    void PlaceLabel(RayCastAction action)
+    void PlaceGeosampleLabel(RayCastAction action)
         {
             Vector3 hit = performRaycast(action.keypoints[0].x, action.keypoints[0].y);
             Debug.Log(hit);
             if (hit != Vector3.zero)
             {
-                ToolTipAnchor.transform.position = hit;
-                ToolTipLabel.text = action.description;
-                ToolTipPivot.transform.position = hit + Vector3.up;
-                // raycast_textbox.text = "Placed tooltip";
-
-                if (showline)
-                {
-                    TestLineAnchor.transform.position = hit;
-                    TestLinePivot.transform.position = tempCamera.transform.position;
-                }
+                // Create geosample
             }
             else
             {
-                // raycast_textbox.text = "Failed to place tooltip";
+                Debug.Log("Failed to place tooltip");
             }
-        }*/
+        }
 
     void PlaceSphere(RayCastAction action)
     {
@@ -233,10 +224,6 @@ public class imageCapture : MonoBehaviour
         Vector3 head_pos = parseVector(position);
         Quaternion head_rot = parseQuaternion(rotation);
         Vector3[] corners = parse_points(points);
-        Debug.Log(points);
-        Debug.Log(head_pos);
-        Debug.Log(head_rot);
-        Debug.Log(corners[0]);
         queued_actions.Enqueue(new RayCastAction
         {
             action = "rectangle",
@@ -248,13 +235,12 @@ public class imageCapture : MonoBehaviour
         });
     }
 
-    /*private void processGeosampleWebsocket(string message)
+    public void processGeosampleWebsocket(string position, string rotation, string[] points, string description, string color, string roughness, string shape)
     {
-        // geosample:x,y,z:a,b,c,d:x,y
-        string[] components = message.Split(":");
-        Vector3 head_pos = parseVector(components[1]);
-        Quaternion head_rot = parseQuaternion(components[2]);
-        Vector3[] point = parse_points(components[3]);
+        // geosample:x,y,z:a,b,c,d:x,y        
+        Vector3 head_pos = parseVector(position);
+        Quaternion head_rot = parseQuaternion(rotation);
+        Vector3[] point = parse_points(points);
         queued_actions.Enqueue(new RayCastAction
         {
             action = "points_label",
@@ -262,9 +248,10 @@ public class imageCapture : MonoBehaviour
             position = head_pos,
             rotation = head_rot,
             keypoints = point,
-            description = components[4]
+            description = description
         });
-    }*/
+    }
+
     /*private void processCalibration(string message)
     {
         // calibration:x,y,z:a,b,c,d:x,y
@@ -293,9 +280,15 @@ public class imageCapture : MonoBehaviour
         {
             string[] points = { };
             UIAImage uiaImage = new UIAImage(Convert.ToBase64String(targetTexture.EncodeToJPG()), points, Camera.main.transform.position.ToString(), Camera.main.transform.rotation.ToString());
-            wdh = GameObject.Find("Controller").transform.GetComponent<WebsocketDataHandler>();
-            Debug.Log(wdh);
+            wdh = GameObject.Find("Controller").transform.GetComponent<WebsocketDataHandler>();            
             wdh.SendUIA(uiaImage);
+        }
+        else if (type == "geosample")
+        {
+            string[] points = { };
+            GeosampleImage geosampleImage = new GeosampleImage(Convert.ToBase64String(targetTexture.EncodeToJPG()), points, Camera.main.transform.position.ToString(), Camera.main.transform.rotation.ToString(), "", "", "", "");
+            wdh = GameObject.Find("Controller").transform.GetComponent<WebsocketDataHandler>();            
+            wdh.SendGeosample(geosampleImage);
         }
     }
 
@@ -313,10 +306,16 @@ public class imageCapture : MonoBehaviour
         }
     }
 
-    [ContextMenu("func snapphoto")]
+    [ContextMenu("func snapphoto uia")]
     public void UIATest()
     {
         SnapPhoto("UIA");
+    }
+
+    [ContextMenu("func snapphoto geosample")]
+    public void GeosampleTest()
+    {
+        SnapPhoto("geosample");
     }
 
     void StartPhotoCapture()
