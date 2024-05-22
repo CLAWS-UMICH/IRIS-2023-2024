@@ -4,6 +4,7 @@ using UnityEngine;
 using WebSocketSharp;
 using System;
 using PimDeWitte.UnityMainThreadDispatcher;
+using GeographicLib;
 
 public class WebSocketClient : MonoBehaviour
 {
@@ -252,6 +253,10 @@ public class WebSocketClient : MonoBehaviour
             case "UIAIMAGE_PROCESSED":
                 UIAData uiaData= JsonUtility.FromJson<UIAData>(jsonData);
                 dataHandler.HandleUIAData(uiaData.data, uiaData.use);
+                break;
+            case "GEOSAMPLEIMAGE_PROCESSED":
+                GeosampleData _geoData = JsonUtility.FromJson<GeosampleData>(jsonData);
+                dataHandler.HandleGeosampleData(_geoData.data, _geoData.use);
                 break;
             // Handle other message types similarly
             default:

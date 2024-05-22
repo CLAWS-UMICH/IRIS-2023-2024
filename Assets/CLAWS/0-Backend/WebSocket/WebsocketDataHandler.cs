@@ -897,6 +897,7 @@ public class WebsocketDataHandler : MonoBehaviour
         else if (use == "PUT")
         {
             // EventBus.Publish(new SpeechToText(_data.points));            
+            Debug.Log("nathan hi");
             GameObject.Find("UIA").GetComponent<imageCapture>().processGeosampleWebsocket(_data.position, _data.rotation, _data.points, _data.description, _data.color, _data.roughness, _data.shape);
         }
         else

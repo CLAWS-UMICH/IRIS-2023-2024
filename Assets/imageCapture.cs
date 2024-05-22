@@ -1,11 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using System.IO;
 using UnityEngine.Windows.WebCam;
 using System;
-using WebSocketSharp;
-using TMPro;
+using Microsoft.MixedReality.Toolkit.UI;
 
 public class imageCapture : MonoBehaviour
 {
@@ -24,6 +22,8 @@ public class imageCapture : MonoBehaviour
     public GameObject sphere2;
     public GameObject sphere3;
     public GameObject sphere4;
+
+    public GameObject PotentialGeosamplePrefab;
 
     // public GameObject viewportcube;
     // public GameObject UIA_backplate;
@@ -173,6 +173,9 @@ public class imageCapture : MonoBehaviour
             if (hit != Vector3.zero)
             {
                 // Create geosample
+                // Instantiate(PotentialGeosamplePrefab, hit, Quaternion.identity).transform.Find("GeosampleTooltip").GetComponent<ToolTip>().ToolTipText = action.description;
+                Instantiate(PotentialGeosamplePrefab, hit, Quaternion.identity).GetComponent<ToolTipSpawner>().toolTipText = action.description;
+                Debug.Log(action.description);
             }
             else
             {
@@ -237,6 +240,8 @@ public class imageCapture : MonoBehaviour
 
     public void processGeosampleWebsocket(string position, string rotation, string[] points, string description, string color, string roughness, string shape)
     {
+        Debug.Log("received geosample websocket");
+
         // geosample:x,y,z:a,b,c,d:x,y        
         Vector3 head_pos = parseVector(position);
         Quaternion head_rot = parseQuaternion(rotation);
