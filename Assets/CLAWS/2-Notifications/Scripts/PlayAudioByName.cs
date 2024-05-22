@@ -19,6 +19,7 @@ public class PlayAudioByName : MonoBehaviour
 
     public void onAudioPlayed(PlayAudio e)
     {
+        Debug.Log("audio played");
         PlayAudio(e.audioName);
     }
 
