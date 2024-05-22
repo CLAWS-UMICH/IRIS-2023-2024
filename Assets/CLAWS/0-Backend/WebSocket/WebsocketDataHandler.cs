@@ -703,13 +703,12 @@ public class WebsocketDataHandler : MonoBehaviour
         }
     }
 
-    public void HandlePicData(string pic, string title, int height, int width, string use)
+    public void HandlePicData(string pic, string title, string use)
     {
         if (use == "PUT")
         {
             if (debugMode) Debug.Log("(PUT) WebsocketDataHandler.cs: Updating PICTURE data");
-
-            EventBus.Publish(new NewPicEvent(pic, title, height, width));
+            EventBus.Publish(new NewPicEvent(pic, title));
 
         }
         else

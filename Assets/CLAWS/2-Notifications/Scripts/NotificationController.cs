@@ -14,9 +14,18 @@ public enum AlertEnum
     Vital_Temp,
     Vital_Pressure,
     Vital_Fan, 
+
     TaskList_NewTask, 
     TaskList_EmergencyTask,
-    Geo_InterestingSample
+
+    Geo_InterestingSample,
+
+    NewMessage,
+    NewStation,
+    NewSample,
+    NewInterest,
+    NewDanger,
+    ArrivedEnd,
 }
 
 public class NotificationController : MonoBehaviour
@@ -133,6 +142,42 @@ public class NotificationController : MonoBehaviour
 
             case AlertEnum.Geo_InterestingSample:
                 icon.transform.Find("Sample").gameObject.SetActive(true);
+                pre.transform.Find("Warning").gameObject.SetActive(false);
+                pre.transform.Find("Quad").gameObject.SetActive(true);
+                break;
+
+            case AlertEnum.NewMessage:
+                icon.transform.Find("Message").gameObject.SetActive(true);
+                pre.transform.Find("Warning").gameObject.SetActive(false);
+                pre.transform.Find("Quad").gameObject.SetActive(true);
+                break;
+
+            case AlertEnum.NewStation:
+                icon.transform.Find("Station").gameObject.SetActive(true);
+                pre.transform.Find("Warning").gameObject.SetActive(false);
+                pre.transform.Find("Quad").gameObject.SetActive(true);
+                break;
+
+            case AlertEnum.NewSample:
+                icon.transform.Find("Geo").gameObject.SetActive(true);
+                pre.transform.Find("Warning").gameObject.SetActive(false);
+                pre.transform.Find("Quad").gameObject.SetActive(true);
+                break;
+
+            case AlertEnum.NewInterest:
+                icon.transform.Find("Interest").gameObject.SetActive(true);
+                pre.transform.Find("Warning").gameObject.SetActive(false);
+                pre.transform.Find("Quad").gameObject.SetActive(true);
+                break;
+
+            case AlertEnum.NewDanger:
+                icon.transform.Find("Danger").gameObject.SetActive(true);
+                pre.transform.Find("Warning").gameObject.SetActive(false);
+                pre.transform.Find("Quad").gameObject.SetActive(true);
+                break;
+
+            case AlertEnum.ArrivedEnd:
+                icon.transform.Find("Arrived").gameObject.SetActive(true);
                 pre.transform.Find("Warning").gameObject.SetActive(false);
                 pre.transform.Find("Quad").gameObject.SetActive(true);
                 break;
