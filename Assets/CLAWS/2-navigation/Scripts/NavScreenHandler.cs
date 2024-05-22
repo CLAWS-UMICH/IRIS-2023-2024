@@ -424,7 +424,7 @@ public class NavScreenHandler : MonoBehaviour
         {
             EventBus.Publish(new ScreenChangedEvent(Screens.Navigation_Confirmation));
             EventBus.Publish(new StartPathfinding(loc));
-            EventBus.Publish<PlayAudio>(new PlayAudio("Nav_Begin"));
+            
             destinationVector = GPSUtils.GPSCoordsToAppPosition(loc);
   
             hasLocation = false;
@@ -445,6 +445,7 @@ public class NavScreenHandler : MonoBehaviour
 
     public void ConfirmPathFind()
     {
+        EventBus.Publish<PlayAudio>(new PlayAudio("Nav_Begin"));
         NavScreenMode();
         CloseNavScreen();
         AstronautInstance.User.currently_navigating = true;

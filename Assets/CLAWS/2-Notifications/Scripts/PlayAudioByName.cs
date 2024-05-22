@@ -11,15 +11,12 @@ public class PlayAudioByName : MonoBehaviour
     {
         audioSource = gameObject.AddComponent<AudioSource>();
         EventBus.Subscribe<PlayAudio>(onAudioPlayed);
-
-/*      EventBus.Publish<PlayAudio>(new PlayAudio("XRF_Scan"));*/    
     }
 
 
 
     public void onAudioPlayed(PlayAudio e)
     {
-        Debug.Log("audio played");
         PlayAudio(e.audioName);
     }
 
