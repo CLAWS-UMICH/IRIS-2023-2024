@@ -54,6 +54,9 @@ public class Screenshot : MonoBehaviour
             {
                 // Take a picture
                 photoCaptureObject.TakePhotoAsync(PhotoToMemory);
+
+                // Play the 'picture clicked' sound effect
+                EventBus.Publish<PlayAudio>(new PlayAudio("Take_Picture"));
             });
         });
     }

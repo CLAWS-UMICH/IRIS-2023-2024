@@ -199,6 +199,7 @@ public class SingleGeosampleScreen : MonoBehaviour
 
         // Show Readings
         XRFScanned = true;
+        EventBus.Publish<PlayAudio>(new PlayAudio("XRF_Scan"));
         WaitingXRF.SetActive(false);
         XRFReadings.SetActive(true);
   
