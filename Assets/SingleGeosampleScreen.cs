@@ -444,8 +444,8 @@ public class SingleGeosampleScreen : MonoBehaviour
     }
     public void SetDescription(string desc)
     {
+        desc = desc.Trim();
         Sample.description = desc;
-
         Description.text = desc;
         GeosamplingManager.SendData();
     }
