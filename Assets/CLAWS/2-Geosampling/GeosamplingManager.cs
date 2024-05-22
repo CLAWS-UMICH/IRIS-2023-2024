@@ -61,6 +61,19 @@ public class GeosamplingManager : MonoBehaviour
     }
 
 
+    public static void SendData(Geosample Sample)
+    {
+        for (int i = 0; i < AstronautInstance.User.GeosampleData.AllGeosamples.Count; i++)
+        {
+            if (AstronautInstance.User.GeosampleData.AllGeosamples[i].geosample_id == Sample.geosample_id)
+            {
+                AstronautInstance.User.GeosampleData.AllGeosamples[i] = Sample;
+            }
+        }
+        GameObject.Find("Controller").GetComponent<WebsocketDataHandler>().SendGeosampleData();
+        EventBus.Publish<GeosampleSentEvent>(new());
+    }
+
     public static void SendData()
     {
         GameObject.Find("Controller").GetComponent<WebsocketDataHandler>().SendGeosampleData();

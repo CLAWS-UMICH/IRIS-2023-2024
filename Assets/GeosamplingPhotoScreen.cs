@@ -52,7 +52,7 @@ public class GeosamplingPhotoScreen : MonoBehaviour
         {
             Geosample.SetPhoto(s);
             Geosample.Sample.photo_jpg = s;
-            GeosamplingManager.SendData();
+            GeosamplingManager.SendData(Geosample.Sample);
         }
         else
         {

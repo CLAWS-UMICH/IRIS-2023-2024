@@ -99,8 +99,8 @@ public class SingleGeosampleScreen : MonoBehaviour
         Sample = Sample_f;
 
         CurrentScreen = GeoSampleScreens.None;
-        SetZone(((char)('A' + (char)(Sample.zone_id++ % 27))).ToString());
-        SetSampleName("Sample " + Sample.geosample_id);
+        // SetZone(((char)('A' + (char)(Sample.zone_id++ % 27))).ToString());
+        // SetSampleName("Sample " + Sample.geosample_id);
         SetDescription(Sample.description);
         SetStar();
         StarredIcon.SetActive(Sample_f.starred);
@@ -205,7 +205,7 @@ public class SingleGeosampleScreen : MonoBehaviour
         XRFReadings.SetActive(true);
 
         Sample.eva_data.data = e.data;
-        GeosamplingManager.SendData();
+        GeosamplingManager.SendData(Sample);
     }
 
     public void OnShapeButtonPressed()
@@ -349,7 +349,7 @@ public class SingleGeosampleScreen : MonoBehaviour
     {
         Name_tmp.text = name;
 
-        GeosamplingManager.SendData();
+        GeosamplingManager.SendData(Sample);
     }
     public void SetID()
     {
@@ -376,7 +376,7 @@ public class SingleGeosampleScreen : MonoBehaviour
         }
 
         SetZoneId();
-        GeosamplingManager.SendData();
+        GeosamplingManager.SendData(Sample);
     }
     public void SetCoordinates()
     {
@@ -396,7 +396,7 @@ public class SingleGeosampleScreen : MonoBehaviour
         // called after xrf scan
         RockType_tmp.text = name;
         Sample.rock_type = name;
-        GeosamplingManager.SendData();
+        GeosamplingManager.SendData(Sample);
     }
     [SerializeField]
     public void SetShape(GeosamplingShape shape_in)
@@ -437,7 +437,7 @@ public class SingleGeosampleScreen : MonoBehaviour
                 break;
         }
 
-        GeosamplingManager.SendData();
+        GeosamplingManager.SendData(Sample);
         CloseCurrentScreen();
     }
     public void SetShape(string shape_in)
@@ -477,33 +477,33 @@ public class SingleGeosampleScreen : MonoBehaviour
         Debug.Log("setting shape to " + shape.ToString());
         Shape_visual.SetShape(shape);
 
-        GeosamplingManager.SendData();
+        GeosamplingManager.SendData(Sample);
         CloseCurrentScreen();
     }
     public void SetColor(string hex)
     {
         Color_visual.SetColor(hex);
         Sample.color = hex;
-        GeosamplingManager.SendData();
+        GeosamplingManager.SendData(Sample);
     }
     public void SetPhoto(string jpg)
     {
         Sample.photo_jpg = jpg;
-        GeosamplingManager.SendData();
+        GeosamplingManager.SendData(Sample);
     }
     public void SetDescription(string desc)
     {
         desc = desc.Trim();
         Sample.description = desc;
         Description.text = desc;
-        GeosamplingManager.SendData();
+        GeosamplingManager.SendData(Sample);
     }
     public void SetNote()
     {
         // TODO update tmp
 
         // TODO update Sample.note
-        GeosamplingManager.SendData();
+        GeosamplingManager.SendData(Sample);
     }
     public void SetStar()
     {

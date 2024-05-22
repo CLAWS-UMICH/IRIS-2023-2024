@@ -69,7 +69,7 @@ public class GeosamplingZone : MonoBehaviour
 
         AstronautInstance.User.GeosampleZonesData.AllGeosampleZones.Add(Zone);
 
-        GeosamplingManager.SendData();  
+        GeosamplingManager.SendData();
         StartCoroutine(TrackUserLocation());
     }
 
