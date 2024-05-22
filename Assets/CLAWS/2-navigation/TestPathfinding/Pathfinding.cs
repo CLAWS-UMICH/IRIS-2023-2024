@@ -144,6 +144,7 @@ public class Pathfinding : MonoBehaviour {
         {
             // Destroy the child object
             Destroy(empty.transform.GetChild(i).gameObject);
+            EventBus.Publish<PlayAudio>(new PlayAudio("Breadcrumb_Collision"));
         }
         AstronautInstance.User.BreadCrumbData.AllCrumbs.Clear();
         indexToBreadCrumb.Clear();
@@ -256,6 +257,7 @@ public class Pathfinding : MonoBehaviour {
             {
                 keysToRemove.Add(entry.Key);
                 Destroy(entry.Value);
+                EventBus.Publish<PlayAudio>(new PlayAudio("Breadcrumb_Collision"));
             }
         }
 

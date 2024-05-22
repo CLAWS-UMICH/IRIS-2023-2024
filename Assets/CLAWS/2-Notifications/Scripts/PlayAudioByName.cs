@@ -10,6 +10,16 @@ public class PlayAudioByName : MonoBehaviour
     void Start()
     {
         audioSource = gameObject.AddComponent<AudioSource>();
+        EventBus.Subscribe<PlayAudio>(onAudioPlayed);
+
+/*      EventBus.Publish<PlayAudio>(new PlayAudio("XRF_Scan"));*/    
+    }
+
+
+
+    public void onAudioPlayed(PlayAudio e)
+    {
+        PlayAudio(e.audioName);
     }
 
     // Method to play an audio file by name

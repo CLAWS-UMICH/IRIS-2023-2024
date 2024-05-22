@@ -166,6 +166,7 @@ public class TaskInstance : MonoBehaviour
             EventBus.Publish<SubtaskFinishedEvent>(new SubtaskFinishedEvent(Subtask));
         }
 
+        EventBus.Publish<PlayAudio>(new PlayAudio("Task_Complete"));
         GameObject.Find("Controller").GetComponent<WebsocketDataHandler>().SendTasklistData();
         GameObject.Find("Prefab_FullTaskListScreen").GetComponent<TaskListBackend>().SetCurrentTask<bool>(true);
     }
