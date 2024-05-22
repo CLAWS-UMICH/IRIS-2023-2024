@@ -32,7 +32,7 @@ public class NotificationController : MonoBehaviour
         scroll = transform.Find("Scroll").GetComponent<NewScroll>();
         alertEvent = EventBus.Subscribe<CreateAlert>(Alert);
 
-        StartCoroutine(_Test());
+        //StartCoroutine(_Test());
     }
 
     IEnumerator _Test()
