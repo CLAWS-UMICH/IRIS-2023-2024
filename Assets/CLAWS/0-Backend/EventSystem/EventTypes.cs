@@ -134,6 +134,7 @@ public class GeosamplesDeletedEvent
 
     public GeosamplesDeletedEvent(List<Geosample> deletedGeosamples)
     {
+        Debug.Log("Geosample deleted event");
         DeletedGeosamples = deletedGeosamples;
     }
 }
@@ -144,6 +145,7 @@ public class GeosamplesEditedEvent
 
     public GeosamplesEditedEvent(List<Geosample> editedGeosamples)
     {
+        Debug.Log("Geosample edited event");
         EditedGeosamples = editedGeosamples;
     }
 }
@@ -154,6 +156,7 @@ public class GeosamplesAddedEvent
 
     public GeosamplesAddedEvent(List<Geosample> newAddedGeosamples)
     {
+        Debug.Log("Geosample added event");
         NewAddedGeosamples = newAddedGeosamples;
     }
 }

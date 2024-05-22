@@ -12,6 +12,16 @@ public class GeosamplingManager : MonoBehaviour
             Instance = this;
         }
     }
+    private void Start()
+    {
+        EventBus.Subscribe<GeosamplesAddedEvent>(e =>
+        {
+            foreach (Geosample g in e.NewAddedGeosamples)
+            {
+                CreateLoadedGeosample(g);
+            }
+        });
+    }
 
 
     public static bool GeosamplingMode = false;
@@ -39,6 +49,15 @@ public class GeosamplingManager : MonoBehaviour
         SingleGeosampleScreen _screen = _geosample.transform.Find("Prefab_SingleGeosampleScreen").GetComponent<SingleGeosampleScreen>();
 
         _screen.Init();
+    }
+    public static void CreateLoadedGeosample(Geosample sample)
+    {
+        Vector3 _spawn = GPSUtils.GPSCoordsToAppPosition(sample.location);
+        _spawn = new Vector3(_spawn.x, Camera.main.transform.position.y - 0.2f, _spawn.z);
+        GameObject _geosample = Instantiate(Instance.SingleGeosamplePrefab, _spawn, Quaternion.identity);
+        SingleGeosampleScreen _screen = _geosample.transform.Find("Prefab_SingleGeosampleScreen").GetComponent<SingleGeosampleScreen>();
+
+        _screen.Load(sample);
     }
 
 
