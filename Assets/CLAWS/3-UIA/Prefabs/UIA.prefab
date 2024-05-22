@@ -108,7 +108,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7484994653094562893}
   - component: {fileID: 5673963989267921449}
-  - component: {fileID: 6340013967000824714}
   m_Layer: 0
   m_Name: TempCamera
   m_TagString: Untagged
@@ -182,14 +181,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &6340013967000824714
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1405643044199894261}
-  m_Enabled: 1
 --- !u!1 &1729390219448371612
 GameObject:
   m_ObjectHideFlags: 0

@@ -768,7 +768,6 @@ public class WebsocketDataHandler : MonoBehaviour
 
             // Convert the vitals data to JSON format and send to WebSocket client
             string jsonData = JsonUtility.ToJson(combinedData);
-            Debug.Log(jsonData);
 
             wsClient.SendJsonData(jsonData);
 
@@ -784,6 +783,39 @@ public class WebsocketDataHandler : MonoBehaviour
 
     }
 
+    public void HandleOrocessedAudioData(VegaAudio _data, string use)
+    {
+
+        if (use == "GET")
+        {
+            if (debugMode) Debug.Log("(PUT) WebsocketDataHandler.cs: Sending Audio");
+
+            // Create a new CombinedData instance
+            AudioData combinedData = new AudioData
+            {
+                id = AstronautInstance.User.id,
+                type = "AUDIO",
+                use = "PUT",
+                data = _data
+            };
+
+            // Convert the vitals data to JSON format and send to WebSocket client
+            string jsonData = JsonUtility.ToJson(combinedData);
+
+            wsClient.SendJsonData(jsonData);
+
+        }
+        else if (use == "PUT")
+        {
+            EventBus.Publish(new SpeechToText(_data.text_from_VEGA));
+            //EventBus.Publish(new VEGACommand(_data.));
+        }
+        else
+        {
+            Debug.Log("Invalid use case from server");
+        }
+
+    }
     public void HandleUIAData(UIAImage _data, string use)
     {
 
@@ -816,6 +848,7 @@ public class WebsocketDataHandler : MonoBehaviour
         {
             Debug.Log("Invalid use case from server");
         }
+
 
     }
 
