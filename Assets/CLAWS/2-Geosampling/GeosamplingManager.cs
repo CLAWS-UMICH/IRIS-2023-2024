@@ -114,16 +114,13 @@ public class GeosamplingManager : MonoBehaviour
 
     public void SwitchCameraCull(int num)
     {
-        int mainCullingMask = mainMapCamera.cullingMask;
         int miniCullingMask = miniMapCamera.cullingMask;
         // 23: Station, 24: Nav, 25: Geo, 26: Comp
         if (num == -1)
         {
             for (int i = 23; i < 27; i++)
             {
-                mainCullingMask |= (1 << i);
                 miniCullingMask |= (1 << i);
-                mainMapCamera.cullingMask = mainCullingMask;
                 miniMapCamera.cullingMask = miniCullingMask;
             }
         }
@@ -133,16 +130,12 @@ public class GeosamplingManager : MonoBehaviour
             {
                 if (num == i)
                 {
-                    mainCullingMask |= (1 << i);
                     miniCullingMask |= (1 << i);
-                    mainMapCamera.cullingMask = mainCullingMask;
                     miniMapCamera.cullingMask = miniCullingMask;
                 }
                 else
                 {
-                    mainCullingMask &= ~(1 << i);
                     miniCullingMask &= ~(1 << i);
-                    mainMapCamera.cullingMask = mainCullingMask;
                     miniMapCamera.cullingMask = miniCullingMask;
                 }
             }
