@@ -246,6 +246,10 @@ public class WebSocketClient : MonoBehaviour
                 AudioData audioData1 = JsonUtility.FromJson<AudioData>(jsonData);
                 dataHandler.HandleOrocessedAudioData(audioData1.data, audioData1.use);
                 break;
+            case "UIAIMAGE_PROCESSED":
+                UIAData uiaData= JsonUtility.FromJson<UIAData>(jsonData);
+                dataHandler.HandleUIAData(uiaData.data, uiaData.use);
+                break;
             // Handle other message types similarly
             default:
                 Debug.LogWarning("Unknown message type: " + messageType);
@@ -439,11 +443,11 @@ public class UIAData
 public class UIAImage
 {
     public string base_64_image;
-    public string points;
+    public string[] points;
     public string position;
     public string rotation;
 
-    public UIAImage(string a, string s, string p, string r)
+    public UIAImage(string a, string[] s, string p, string r)
     {
         base_64_image = a;
         points = s;
