@@ -28,6 +28,7 @@ public class SingleGeosampleScreen : MonoBehaviour
     public GameObject XRFCollider;
     public GameObject XRFBackPlate;
     public TextMeshPro Description;
+    public GameObject VegaHighlight;
     public bool XRFScanned;
 
     private void Start()
@@ -240,6 +241,7 @@ public class SingleGeosampleScreen : MonoBehaviour
             PhotoScreen.SetActive(false);
         }
     }
+
     public void OnVEGAButtonPressed()
     {
         if (CurrentScreen != GeoSampleScreens.VoiceNotes)
@@ -254,6 +256,30 @@ public class SingleGeosampleScreen : MonoBehaviour
             CloseCurrentScreen();
         }
     }
+
+    Subscription<SpeechToText> _TranscriptionSubscription;
+
+    public void OnStartTranscription()
+    {
+        if (_TranscriptionSubscription == null)
+        {
+            _TranscriptionSubscription = EventBus.Subscribe<SpeechToText>(OnTranscriptionFinished);
+        }
+
+        EventBus.Publish<StartTranscription>(new());
+        VegaHighlight.SetActive(true);
+        Debug.Log("starting geo transcription");
+    }
+    public void OnTranscriptionFinished(SpeechToText e)
+    {
+        Debug.Log("received transcription for geo: " + e.text);
+        SetDescription(e.text);
+        VegaHighlight.SetActive(false);
+
+        EventBus.Unsubscribe(_TranscriptionSubscription);
+        _TranscriptionSubscription = null;
+    }
+
     public void CloseCurrentScreen()
     {
         switch (CurrentScreen)
