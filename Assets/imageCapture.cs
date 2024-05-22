@@ -64,27 +64,6 @@ public class imageCapture : MonoBehaviour
         tempCamera.fieldOfView = Camera.main.fieldOfView;
         tempCamera.aspect = Camera.main.aspect;
 
-        Debug.Log("Starting camera...");
-        StartPhotoCapture();
-
-        // If the photo capture object cannot be loaded, a random image is loaded and sent instead for testing sake
-        if (photoCaptureObject == null)
-        {
-            /*string filename = "uia_test.jpg";
-            string filePath = Path.Combine(Application.persistentDataPath, filename);
-            byte[] imageData = File.ReadAllBytes(filePath);
-            Debug.Log("Unable to access camera, loading in example texture instead...");
-            // Create a new texture to hold the loaded image
-            targetTexture = new Texture2D(3904, 2196);
-            // Load the image data into the texture
-            targetTexture.LoadImage(imageData);
-            Debug.Log("Loaded example texture");*/
-        }
-        else
-        {
-            Debug.Log("Started camera");
-        }
-
         queued_actions.Clear();
     }
 
@@ -301,23 +280,8 @@ public class imageCapture : MonoBehaviour
 
     public void SnapPhoto(string type)
     {
-        if (photoCaptureObject == null)
-        {
-            Debug.Log("Not taking a picture cuz camera is not initialized, using default pic");
-            SendTextureWS(type);
-        }
-        else
-        {
-            Debug.Log("Taking a picture");
-            photoCaptureObject.TakePhotoAsync((result, frame) => OnCapturedPhotoToWebSocket(result, frame, type));
-        }
+        StartPhotoCapture(type);
     }
-
-    public void PatrickSnapPhoto()
-    {
-
-    }
-
 
     [ContextMenu("func snapphoto uia")]
     public void UIATest()
@@ -331,17 +295,21 @@ public class imageCapture : MonoBehaviour
         SnapPhoto("geosample");
     }
 
-    public void StartPhotoCapture()
+    public void StartPhotoCapture(string type)
     {
-        PhotoCapture.CreateAsync(false, OnPhotoCaptureCreated);
+        PhotoCapture.CreateAsync(false, (PhotoCapture c) => OnPhotoCaptureCreated(c, type));
+
     }
     public void StopCamera()
     {
         Debug.Log("Stopping camera");
         photoCaptureObject.StopPhotoModeAsync(OnPhotoModeStopped);
     }
-    void OnPhotoCaptureCreated(PhotoCapture captureObject)
+
+    string globaltype = "";
+    void OnPhotoCaptureCreated(PhotoCapture captureObject, string type)
     {
+        globaltype = type;
         try
         {
             photoCaptureObject = captureObject;
@@ -371,6 +339,17 @@ public class imageCapture : MonoBehaviour
 
     void OnPhotoModeStarted(PhotoCapture.PhotoCaptureResult result)
     {
+        if (photoCaptureObject == null)
+        {
+            Debug.Log("Not taking a picture cuz camera is not initialized, using default pic");
+            SendTextureWS(globaltype);
+        }
+        else
+        {
+            Debug.Log("Taking a picture");
+            photoCaptureObject.TakePhotoAsync((result, frame) => OnCapturedPhotoToWebSocket(result, frame, globaltype));
+        }
+
         if (result.success)
         {
             Debug.Log("Successfully Initialized Camera");
@@ -383,6 +362,7 @@ public class imageCapture : MonoBehaviour
 
     void OnCapturedPhotoToWebSocket(PhotoCapture.PhotoCaptureResult result, PhotoCaptureFrame photoCaptureFrame, string type)
     {
+        StopCamera();
         if (result.success)
         {
             photoCaptureFrame.UploadImageDataToTexture(targetTexture);

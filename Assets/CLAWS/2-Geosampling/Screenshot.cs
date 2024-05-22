@@ -4,8 +4,6 @@ using UnityEngine;
 using System.IO;
 using System.Linq;
 using System;
-using Unity.VisualScripting;
-
 
 #if !UNITY_WEBGL
 using UnityEngine.Windows.WebCam;
@@ -39,38 +37,28 @@ public class Screenshot : MonoBehaviour
         Renderer r = confirmationQuad.GetComponent<Renderer>();
         r.material = defaultConfirmMaterial;
 
-        GameObject.Find("UIA").GetComponent<imageCapture>().StopCamera();
-
-        IEnumerator ASDHASUDHUSA()
+        // create photocapture object
+        PhotoCapture.CreateAsync(false, delegate (PhotoCapture captureObject)
         {
-            yield return new WaitForSeconds(0.5f);
-
-            // create photocapture object
-            PhotoCapture.CreateAsync(false, delegate (PhotoCapture captureObject)
+            photoCaptureObject = captureObject;
+            CameraParameters cameraParameters = new CameraParameters
             {
-                photoCaptureObject = captureObject;
-                CameraParameters cameraParameters = new CameraParameters
-                {
-                    hologramOpacity = 0.0f,
-                    cameraResolutionWidth = cameraResolution.width,
-                    cameraResolutionHeight = cameraResolution.height,
-                    pixelFormat = CapturePixelFormat.BGRA32
-                };
+                hologramOpacity = 0.0f,
+                cameraResolutionWidth = cameraResolution.width,
+                cameraResolutionHeight = cameraResolution.height,
+                pixelFormat = CapturePixelFormat.BGRA32
+            };
 
-                // activate camera
-                photoCaptureObject.StartPhotoModeAsync(cameraParameters, delegate (PhotoCapture.PhotoCaptureResult result)
-                {
-                    // Take a picture
-                    photoCaptureObject.TakePhotoAsync(PhotoToMemory);
+            // activate camera
+            photoCaptureObject.StartPhotoModeAsync(cameraParameters, delegate (PhotoCapture.PhotoCaptureResult result)
+            {
+                // Take a picture
+                photoCaptureObject.TakePhotoAsync(PhotoToMemory);
 
-                    // Play the 'picture clicked' sound effect
-                    EventBus.Publish<PlayAudio>(new PlayAudio("Take_Picture"));
-                });
+                // Play the 'picture clicked' sound effect
+                EventBus.Publish<PlayAudio>(new PlayAudio("Take_Picture"));
             });
-
-            GameObject.Find("UIA").GetComponent<imageCapture>().StartPhotoCapture();
-        }
-
+        });
     }
 
     void PhotoToMemory(PhotoCapture.PhotoCaptureResult result, PhotoCaptureFrame photoCaptureFrame)
