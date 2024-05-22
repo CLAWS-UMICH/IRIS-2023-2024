@@ -102,7 +102,7 @@ public class imageCapture : MonoBehaviour
             }
             else if (action.type == "geosample_place_label")
             {
-                /*PlaceLabel(action);*/
+                PlaceGeosampleLabel(action);
             }
             else if (action.type == "calibration_place_sphere")
             {
@@ -152,6 +152,7 @@ public class imageCapture : MonoBehaviour
             // UIA_backplate.transform.position = COM;
 
             // Random ballz to show where the raycasts hit
+            Debug.Log(hits[0]);
             sphere1.transform.position = hits[0];
             sphere2.transform.position = hits[1];
             sphere3.transform.position = hits[2];
@@ -165,28 +166,19 @@ public class imageCapture : MonoBehaviour
         }
     }
 
-    /*    void PlaceLabel(RayCastAction action)
+    void PlaceGeosampleLabel(RayCastAction action)
         {
             Vector3 hit = performRaycast(action.keypoints[0].x, action.keypoints[0].y);
             Debug.Log(hit);
             if (hit != Vector3.zero)
             {
-                ToolTipAnchor.transform.position = hit;
-                ToolTipLabel.text = action.description;
-                ToolTipPivot.transform.position = hit + Vector3.up;
-                // raycast_textbox.text = "Placed tooltip";
-
-                if (showline)
-                {
-                    TestLineAnchor.transform.position = hit;
-                    TestLinePivot.transform.position = tempCamera.transform.position;
-                }
+                // Create geosample
             }
             else
             {
-                // raycast_textbox.text = "Failed to place tooltip";
+                Debug.Log("Failed to place tooltip");
             }
-        }*/
+        }
 
     void PlaceSphere(RayCastAction action)
     {
@@ -226,7 +218,7 @@ public class imageCapture : MonoBehaviour
             }
         }*/
 
-    public void processUIAwebsocket(string position, string rotation, string points)
+    public void processUIAwebsocket(string position, string rotation, string[] points)
     {
         // UIA:x,y,z:a,b,c,d:x,y$x,y$x,y$x,y        
         Vector3 head_pos = parseVector(position);
@@ -243,13 +235,12 @@ public class imageCapture : MonoBehaviour
         });
     }
 
-    private void processGeosampleWebsocket(string message)
+    public void processGeosampleWebsocket(string position, string rotation, string[] points, string description, string color, string roughness, string shape)
     {
-        // geosample:x,y,z:a,b,c,d:x,y
-        string[] components = message.Split(":");
-        Vector3 head_pos = parseVector(components[1]);
-        Quaternion head_rot = parseQuaternion(components[2]);
-        Vector3[] point = parse_points(components[3]);
+        // geosample:x,y,z:a,b,c,d:x,y        
+        Vector3 head_pos = parseVector(position);
+        Quaternion head_rot = parseQuaternion(rotation);
+        Vector3[] point = parse_points(points);
         queued_actions.Enqueue(new RayCastAction
         {
             action = "points_label",
@@ -257,10 +248,11 @@ public class imageCapture : MonoBehaviour
             position = head_pos,
             rotation = head_rot,
             keypoints = point,
-            description = components[4]
+            description = description
         });
     }
-    private void processCalibration(string message)
+
+    /*private void processCalibration(string message)
     {
         // calibration:x,y,z:a,b,c,d:x,y
         string[] components = message.Split(":");
@@ -276,7 +268,7 @@ public class imageCapture : MonoBehaviour
             keypoints = point,
             description = "ballz"
         });
-    }
+    }*/
 
 
     void SendTextureWS(string type)
@@ -286,10 +278,17 @@ public class imageCapture : MonoBehaviour
         string resp = head_pos + "}$#EndHeadCoord" + Convert.ToBase64String(targetTexture.EncodeToJPG());*/
         if (type == "UIA")
         {
-            UIAImage uiaImage = new UIAImage(Convert.ToBase64String(targetTexture.EncodeToJPG()), "", Camera.main.transform.position.ToString(), Camera.main.transform.rotation.ToString());
-            wdh = GameObject.Find("Controller").transform.GetComponent<WebsocketDataHandler>();
-            Debug.Log(wdh);
+            string[] points = { };
+            UIAImage uiaImage = new UIAImage(Convert.ToBase64String(targetTexture.EncodeToJPG()), points, Camera.main.transform.position.ToString(), Camera.main.transform.rotation.ToString());
+            wdh = GameObject.Find("Controller").transform.GetComponent<WebsocketDataHandler>();            
             wdh.SendUIA(uiaImage);
+        }
+        else if (type == "geosample")
+        {
+            string[] points = { };
+            GeosampleImage geosampleImage = new GeosampleImage(Convert.ToBase64String(targetTexture.EncodeToJPG()), points, Camera.main.transform.position.ToString(), Camera.main.transform.rotation.ToString(), "", "", "", "");
+            wdh = GameObject.Find("Controller").transform.GetComponent<WebsocketDataHandler>();            
+            wdh.SendGeosample(geosampleImage);
         }
     }
 
@@ -307,10 +306,16 @@ public class imageCapture : MonoBehaviour
         }
     }
 
-    [ContextMenu("func snapphoto")]
+    [ContextMenu("func snapphoto uia")]
     public void UIATest()
     {
         SnapPhoto("UIA");
+    }
+
+    [ContextMenu("func snapphoto geosample")]
+    public void GeosampleTest()
+    {
+        SnapPhoto("geosample");
     }
 
     void StartPhotoCapture()
@@ -436,16 +441,17 @@ public class imageCapture : MonoBehaviour
         return qua;
     }
 
-    Vector3[] parse_points(string input)
+    Vector3[] parse_points(string[] input)
     {
         // Debug.Log("Parsing Rectangle");
-        string[] cornerString = input.Split("$");
+        Debug.Log(input);
+
         Vector3[] corners = new Vector3[4];
-        for (int i = 0; i < cornerString.Length; i++)
+        for (int i = 0; i < input.Length; i++)
         {
-            if (cornerString[i].Length > 0)
+            if (input[i].Length > 0)
             {
-                string[] components = cornerString[i].Split(",");
+                string[] components = input[i].Split(",");
                 float x = float.Parse(components[0]);
                 float y = float.Parse(components[1]);
                 corners[i] = new Vector3(x, y, 0);

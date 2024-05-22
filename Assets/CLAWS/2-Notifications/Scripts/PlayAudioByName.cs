@@ -11,8 +11,6 @@ public class PlayAudioByName : MonoBehaviour
     {
         audioSource = gameObject.AddComponent<AudioSource>();
         EventBus.Subscribe<PlayAudio>(onAudioPlayed);
-
-/*      EventBus.Publish<PlayAudio>(new PlayAudio("XRF_Scan"));*/    
     }
 
 

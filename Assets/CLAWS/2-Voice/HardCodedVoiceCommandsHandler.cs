@@ -241,6 +241,11 @@ public class HardCodedVoiceCommandsHandler : MonoBehaviour
         GameObject.Find("SampleCommandScreen").GetComponent<SampleCommandHandler>().setCommands(commandMap[s]);
     }
 
+    public void PlayMusic()
+    {
+        EventBus.Publish<PlayAudio>(new PlayAudio("Rickroll"));
+    }
+
 
 
 }

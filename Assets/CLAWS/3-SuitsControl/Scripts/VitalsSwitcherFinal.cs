@@ -6,7 +6,8 @@ public class VitalsSwitcherFinal : MonoBehaviour
     private GameObject screen1;
     private GameObject screen2;
     private GameObject button;
-    string buttonText;
+    TextMeshPro buttonNumber;
+    TextMeshPro buttonAstro;
     bool main;
 
     void Start()
@@ -20,7 +21,8 @@ public class VitalsSwitcherFinal : MonoBehaviour
 
         main = true;
 
-        buttonText = button.transform.Find("IconAndText").transform.Find("TextMeshPro").GetComponent<TextMeshPro>().text;
+        buttonNumber = button.transform.Find("Number").GetComponent<TextMeshPro>();
+        buttonAstro = button.transform.Find("Astronaut").GetComponent<TextMeshPro>();
     }
 
     public void AstronautToggle()
@@ -32,12 +34,15 @@ public class VitalsSwitcherFinal : MonoBehaviour
             {
                 screen2.SetActive(false);
                 screen1.SetActive(true);
-                buttonText = "Astronaut 2";
-            } else
+                buttonNumber.text = "2";
+                buttonAstro.text = "Astronaut 2";
+            } 
+            else
             {
                 screen1.SetActive(false);
                 screen2.SetActive(true);
-                buttonText = "Astronaut 1";
+                buttonNumber.text = "1";
+                buttonAstro.text = "Astronaut 1";
             }
 
 
@@ -52,13 +57,15 @@ public class VitalsSwitcherFinal : MonoBehaviour
             {
                 screen1.SetActive(false);
                 screen2.SetActive(true);
-                buttonText = "Astronaut 1";
+                buttonNumber.text = "1";
+                buttonAstro.text = "Astronaut 1";
             }
             else
             {
                 screen2.SetActive(false);
                 screen1.SetActive(true);
-                buttonText = "Astronaut 2";
+                buttonNumber.text = "2";
+                buttonAstro.text = "Astronaut 2";
             }
 
             EventBus.Publish<ScreenChangedEvent>(new ScreenChangedEvent(Screens.Vitals_Fellow));
