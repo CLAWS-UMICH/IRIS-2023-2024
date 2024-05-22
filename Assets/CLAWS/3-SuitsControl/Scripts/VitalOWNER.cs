@@ -399,11 +399,6 @@ public class SuitsControlController : MonoBehaviour
     {
         // Error Scenarios DCU
 
-        if (e.vitals.heart_rate > HEART_RATE_MAX)
-        {
-            EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Heart, "Heart Rate High", $"{e.vitals.heart_rate} BPM, slow down"));
-        }
-
         // suit pressure oxygen
         if (e.vitals.suit_pressure_oxy > SUIT_PRES_OXY_MAX)
         {
@@ -459,31 +454,87 @@ public class SuitsControlController : MonoBehaviour
         // Temperature
         if (e.vitals.temperature > TEMP_MAX)
         {
-            EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Temp, "Temperature High", $"{e.vitals.helmet_pressure_co2.ToString()} ?F. Slow Down"));
+            EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Temp, "Temperature High", $"{e.vitals.helmet_pressure_co2.ToString()} F. Slow Down"));
+            temp.transform.Find("RingFull").GetComponent<SpriteRenderer>().color = Color.red;
+        }
+        else if (e.vitals.temperature < TEMP_MIN)
+        {
+            EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Temp, "Temperature High", $"{e.vitals.helmet_pressure_co2.ToString()} F"));
+            temp.transform.Find("RingFull").GetComponent<SpriteRenderer>().color = Color.red;
+        }
+        else
+        {
+            temp.transform.Find("RingFull").GetComponent<SpriteRenderer>().color = Color.white;
         }
 
         // Battery
         if (e.vitals.batt_time_left < BATT_TIME_MIN)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Battery, "Switch BATT to LOCAL", $"Battery Low: {e.vitals.batt_percentage.ToString()}%"));
+            batt.transform.Find("RingFull").GetComponent<SpriteRenderer>().color = Color.red;
+        }
+        else
+        {
+            batt.transform.Find("RingFull").GetComponent<SpriteRenderer>().color = Color.white;
         }
 
         ///////////////
 
         // Regular Notifs
 
+        if (e.vitals.heart_rate > HEART_RATE_MAX)
+        {
+            EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Heart, "Heart Rate High", $"{e.vitals.heart_rate} BPM, slow down"));
+            heartRate.transform.Find("RingFull").GetComponent<SpriteRenderer>().color = Color.red;
+        }
+        else if (e.vitals.heart_rate < HEART_RATE_MIN) 
+        {
+            EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Heart, "Heart Rate Low", $"{e.vitals.heart_rate} BPM"));
+            heartRate.transform.Find("RingFull").GetComponent<SpriteRenderer>().color = Color.red;
+        }
+        else
+        {
+            heartRate.transform.Find("RingFull").GetComponent<SpriteRenderer>().color = Color.white;
+        }
+
         if (e.vitals.oxy_consumption > OXY_CONSUM_MAX)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_O2, "O2 Consumption High", $"{e.vitals.oxy_consumption.ToString()} PSI/m"));
+            oxyCons.transform.Find("RingFull").GetComponent<SpriteRenderer>().color = Color.red;
         }
+        else if (e.vitals.oxy_consumption < OXY_CONSUM_MIN)
+        {
+            EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_O2, "O2 Consumption Low", $"{e.vitals.oxy_consumption.ToString()} PSI/m"));
+            oxyCons.transform.Find("RingFull").GetComponent<SpriteRenderer>().color = Color.red;
+        }
+        else
+        {
+            oxyCons.transform.Find("RingFull").GetComponent<SpriteRenderer>().color = Color.white;
+        }
+
+
         if (e.vitals.oxy_pri_storage < OXY_STOR_MIN)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_O2, "O2 Pri Storage Low", $"{e.vitals.oxy_pri_storage.ToString()}%"));
+            priOxyStor.transform.Find("RingFull").GetComponent<SpriteRenderer>().color = Color.red;
         }
+        else
+        {
+            priOxyStor.transform.Find("RingFull").GetComponent<SpriteRenderer>().color = Color.white;
+        }
+
         if (e.vitals.oxy_sec_storage < OXY_STOR_MIN)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_O2, "O2 Sec Storage Low", $"{e.vitals.oxy_sec_storage.ToString()}%"));
+            secOxyStor.transform.Find("RingFull").GetComponent<SpriteRenderer>().color = Color.red;
         }
+        else
+        {
+            secOxyStor.transform.Find("RingFull").GetComponent<SpriteRenderer>().color = Color.white;
+        }
+
+
+
         if (e.vitals.coolant_m < COOL_STOR_MIN)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Coolant, "Coolant Low", $"{e.vitals.coolant_m.ToString()}%"));
@@ -496,10 +547,24 @@ public class SuitsControlController : MonoBehaviour
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Scrubber, "Scrubber B High", $"{e.vitals.scrubber_b_co2_storage.ToString()}%"));
         }
+
+
         if (e.vitals.co2_production > CO2_PROD_MAX)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_CO2, "CO2 Production High", $"{e.vitals.co2_production.ToString()} PSI/m"));
+            co2Prod.transform.Find("RingFull").GetComponent<SpriteRenderer>().color = Color.red;
         }
+        else if (e.vitals.co2_production < CO2_PROD_MIN)
+        {
+            EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_CO2, "CO2 Production Low", $"{e.vitals.co2_production.ToString()} PSI/m"));
+            co2Prod.transform.Find("RingFull").GetComponent<SpriteRenderer>().color = Color.red;
+        }
+        else
+        {
+            co2Prod.transform.Find("RingFull").GetComponent<SpriteRenderer>().color = Color.white;
+        }
+
+
         if (e.vitals.suit_pressure_other > SUIT_PRES_OTHER_MAX)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Pressure, "Other Suit Pressure High", $"{e.vitals.suit_pressure_other.ToString()} PSI"));
