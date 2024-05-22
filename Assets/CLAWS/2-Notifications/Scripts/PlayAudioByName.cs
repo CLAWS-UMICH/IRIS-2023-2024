@@ -10,6 +10,14 @@ public class PlayAudioByName : MonoBehaviour
     void Start()
     {
         audioSource = gameObject.AddComponent<AudioSource>();
+        EventBus.Subscribe<PlayAudio>(onAudioPlayed);
+    }
+
+
+
+    public void onAudioPlayed(PlayAudio e)
+    {
+        PlayAudio(e.audioName);
     }
 
     // Method to play an audio file by name

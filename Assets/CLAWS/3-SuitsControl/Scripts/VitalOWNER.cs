@@ -398,34 +398,41 @@ public class SuitsControlController : MonoBehaviour
     private void checkVitals(VitalsUpdatedEvent e)
     {
         // Error Scenarios DCU
-
+        bool is_emergency = false;
         // suit pressure oxygen
         if (e.vitals.suit_pressure_oxy > SUIT_PRES_OXY_MAX)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_O2, "Switch OXY to SEC", $"O2 Suit Pressure High: {e.vitals.suit_pressure_oxy} PSI"));
+            is_emergency = true;
         }
         if (e.vitals.suit_pressure_oxy < SUIT_PRES_OXY_MIN)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_O2, "Switch OXY to SEC", $"O2 Suit Pressure Low: {e.vitals.suit_pressure_oxy} PSI"));
+            is_emergency = true;
+
         }
         if (e.vitals.oxy_pri_storage < OXY_STOR_MIN)
         {
             string desc = $"Primary Oxygen Low: {e.vitals.oxy_percentage.ToString()}%";
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_O2, "Switch OXY to SEC", desc));
+            is_emergency = true;
         }
 
         // scrubbers
         if (e.vitals.scrubber_a_co2_storage > SCRUBBER_CO2_STOR_MAX)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Scrubber, "Switch CO2 to B", $"Scrubber A High: {e.vitals.scrubber_a_co2_storage.ToString()}%"));
+            is_emergency = true;
         }
         if (e.vitals.scrubber_b_co2_storage > SCRUBBER_CO2_STOR_MAX)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Scrubber, "Switch CO2 to A", $"Scrubber B High: {e.vitals.scrubber_b_co2_storage.ToString()}%"));
+            is_emergency = true;
         }
         if (e.vitals.suit_pressure_co2 > SUIT_PRES_CO2_MAX)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_CO2, "Switch CO2 to B", $"CO2 Suit Pressure High: {e.vitals.suit_pressure_co2.ToString()} PSI"));
+            is_emergency = true;
         }
 
 
@@ -433,22 +440,27 @@ public class SuitsControlController : MonoBehaviour
         if (e.vitals.fan_pri_rpm < FAN_SPEED_MIN)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Fan, "Switch FAN to SEC", $"Fan Speed Low: {e.vitals.fan_pri_rpm.ToString()} RPM"));
+            is_emergency = true;
         }
         if (e.vitals.fan_pri_rpm > FAN_SPEED_MAX)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Fan, "Switch FAN to SEC", $"Fan Speed High: {e.vitals.fan_pri_rpm.ToString()} RPM"));
+            is_emergency = true;
         }
         if (e.vitals.fan_sec_rpm < FAN_SPEED_MIN)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Fan, "Switch FAN to PRI", $"Fan Speed Low: {e.vitals.fan_sec_rpm.ToString()} RPM"));
+            is_emergency = true;
         }
         if (e.vitals.fan_sec_rpm > FAN_SPEED_MAX)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Fan, "Switch FAN to PRI", $"Fan Speed High: {e.vitals.fan_sec_rpm.ToString()} RPM"));
+            is_emergency = true;
         }
         if (e.vitals.helmet_pressure_co2 > HELMET_PRES_CO2_MAX)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Fan, "Switch FAN to SEC", $"Helmet CO2 Pressure High: {e.vitals.helmet_pressure_co2.ToString()} PSI"));
+            is_emergency = true;
         }
 
         // Temperature
@@ -456,11 +468,13 @@ public class SuitsControlController : MonoBehaviour
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Temp, "Temperature High", $"{e.vitals.helmet_pressure_co2.ToString()} F. Slow Down"));
             temp.transform.Find("RingFull").GetComponent<SpriteRenderer>().color = Color.red;
+            is_emergency = true;
         }
         else if (e.vitals.temperature < TEMP_MIN)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Temp, "Temperature High", $"{e.vitals.helmet_pressure_co2.ToString()} F"));
             temp.transform.Find("RingFull").GetComponent<SpriteRenderer>().color = Color.red;
+            is_emergency = true;
         }
         else
         {
@@ -472,6 +486,7 @@ public class SuitsControlController : MonoBehaviour
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Battery, "Switch BATT to LOCAL", $"Battery Low: {e.vitals.batt_percentage.ToString()}%"));
             batt.transform.Find("RingFull").GetComponent<SpriteRenderer>().color = Color.red;
+            is_emergency = true;
         }
         else
         {
@@ -486,11 +501,13 @@ public class SuitsControlController : MonoBehaviour
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Heart, "Heart Rate High", $"{e.vitals.heart_rate} BPM, slow down"));
             heartRate.transform.Find("RingFull").GetComponent<SpriteRenderer>().color = Color.red;
+            is_emergency = true;
         }
         else if (e.vitals.heart_rate < HEART_RATE_MIN) 
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Heart, "Heart Rate Low", $"{e.vitals.heart_rate} BPM"));
             heartRate.transform.Find("RingFull").GetComponent<SpriteRenderer>().color = Color.red;
+            is_emergency = true;
         }
         else
         {
@@ -501,11 +518,13 @@ public class SuitsControlController : MonoBehaviour
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_O2, "O2 Consumption High", $"{e.vitals.oxy_consumption.ToString()} PSI/m"));
             oxyCons.transform.Find("RingFull").GetComponent<SpriteRenderer>().color = Color.red;
+            is_emergency = true;
         }
         else if (e.vitals.oxy_consumption < OXY_CONSUM_MIN)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_O2, "O2 Consumption Low", $"{e.vitals.oxy_consumption.ToString()} PSI/m"));
             oxyCons.transform.Find("RingFull").GetComponent<SpriteRenderer>().color = Color.red;
+            is_emergency = true;
         }
         else
         {
@@ -517,6 +536,7 @@ public class SuitsControlController : MonoBehaviour
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_O2, "O2 Pri Storage Low", $"{e.vitals.oxy_pri_storage.ToString()}%"));
             priOxyStor.transform.Find("RingFull").GetComponent<SpriteRenderer>().color = Color.red;
+            is_emergency = true;
         }
         else
         {
@@ -527,6 +547,7 @@ public class SuitsControlController : MonoBehaviour
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_O2, "O2 Sec Storage Low", $"{e.vitals.oxy_sec_storage.ToString()}%"));
             secOxyStor.transform.Find("RingFull").GetComponent<SpriteRenderer>().color = Color.red;
+            is_emergency = true;
         }
         else
         {
@@ -538,14 +559,17 @@ public class SuitsControlController : MonoBehaviour
         if (e.vitals.coolant_m < COOL_STOR_MIN)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Coolant, "Coolant Low", $"{e.vitals.coolant_m.ToString()}%"));
+            is_emergency = true;
         }
         if (e.vitals.scrubber_a_co2_storage > SCRUBBER_CO2_STOR_MAX)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Scrubber, "Scrubber A High", $"{e.vitals.scrubber_a_co2_storage.ToString()}%"));
+            is_emergency = true;
         }
         if (e.vitals.scrubber_b_co2_storage > SCRUBBER_CO2_STOR_MAX)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Scrubber, "Scrubber B High", $"{e.vitals.scrubber_b_co2_storage.ToString()}%"));
+            is_emergency = true;
         }
 
 
@@ -553,11 +577,13 @@ public class SuitsControlController : MonoBehaviour
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_CO2, "CO2 Production High", $"{e.vitals.co2_production.ToString()} PSI/m"));
             co2Prod.transform.Find("RingFull").GetComponent<SpriteRenderer>().color = Color.red;
+            is_emergency = true;
         }
         else if (e.vitals.co2_production < CO2_PROD_MIN)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_CO2, "CO2 Production Low", $"{e.vitals.co2_production.ToString()} PSI/m"));
             co2Prod.transform.Find("RingFull").GetComponent<SpriteRenderer>().color = Color.red;
+            is_emergency = true;
         }
         else
         {
@@ -568,75 +594,97 @@ public class SuitsControlController : MonoBehaviour
         if (e.vitals.suit_pressure_other > SUIT_PRES_OTHER_MAX)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Pressure, "Other Suit Pressure High", $"{e.vitals.suit_pressure_other.ToString()} PSI"));
+            is_emergency = true;
         }
         if (e.vitals.suit_pressure_total > SUIT_PRES_TOTAL_MAX)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Pressure, "Total Suit Pressure High", $"{e.vitals.suit_pressure_total.ToString()} PSI"));
+            is_emergency=true;
         }
         if (e.vitals.suit_pressure_total < SUIT_PRES_TOTAL_MIN)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Pressure, "Total Suit Pressure Low", $"{e.vitals.suit_pressure_total.ToString()} PSI"));
+            is_emergency=true;
         }
         if (e.vitals.oxy_pri_pressure > OXY_PRES_MAX)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Pressure, "O2 Pri Pressure High", $"{e.vitals.oxy_pri_pressure.ToString()} PSI"));
+            is_emergency=true;
         }
         if (e.vitals.oxy_pri_pressure < OXY_PRES_MIN)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Pressure, "O2 Pri Pressure Low", $"{e.vitals.oxy_pri_pressure.ToString()} PSI"));
+            is_emergency=true;
         }
         if (e.vitals.oxy_sec_pressure > OXY_PRES_MAX)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Pressure, "O2 Sec Pressure High", $"{e.vitals.oxy_sec_pressure.ToString()} PSI"));
+            is_emergency=true;
         }
         if (e.vitals.oxy_pri_pressure < OXY_PRES_MIN)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Pressure, "O2 Sec Pressure Low", $"{e.vitals.oxy_sec_pressure.ToString()} PSI"));
+            is_emergency=true;
         }
         if (e.vitals.suit_pressure_oxy > SUIT_PRES_OXY_MAX)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Pressure, "O2 Suit Pressure High", $"{e.vitals.suit_pressure_oxy.ToString()} PSI"));
+            is_emergency=true;
         }
         if (e.vitals.suit_pressure_oxy < SUIT_PRES_OXY_MIN)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Pressure, "O2 Suit Pressure Low", $"{e.vitals.suit_pressure_oxy.ToString()} PSI"));
+            is_emergency = true;
         }
         if (e.vitals.suit_pressure_co2 > SUIT_PRES_CO2_MAX)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Pressure, "CO2 Suit Pressure High", $"{e.vitals.suit_pressure_co2.ToString()} PSI"));
+            is_emergency=true;
         }
         if (e.vitals.helmet_pressure_co2 > HELMET_PRES_CO2_MAX)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Pressure, "Helmet CO2 Pressure High", $"{e.vitals.helmet_pressure_co2.ToString()} PSI"));
+            is_emergency=true;
         }
         if (e.vitals.coolant_liquid_pressure > COOL_LIQ_MAX)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Pressure, "Coolant Liquid Pressure High", $"{e.vitals.coolant_liquid_pressure.ToString()} PSI"));
+            is_emergency=true;
         }
         if (e.vitals.coolant_liquid_pressure < COOL_LIQ_MIN)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Pressure, "Coolant Liquid Pressure Low", $"{e.vitals.coolant_liquid_pressure.ToString()} PSI"));
+            is_emergency=true;
         }
         if (e.vitals.coolant_gas_pressure > COOL_GAS_MAX)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Pressure, "Coolant Gas Pressure High", $"{e.vitals.coolant_gas_pressure.ToString()} PSI"));
+            is_emergency=true;
         }
 
         if (e.vitals.fan_pri_rpm > FAN_SPEED_MAX)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Fan, "Fan Pri Speed High", $"{e.vitals.fan_pri_rpm.ToString()} PSI"));
+            is_emergency=true;
         }
         if (e.vitals.fan_pri_rpm < FAN_SPEED_MIN)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Fan, "Fan Pri Speed Low", $"{e.vitals.fan_pri_rpm.ToString()} PSI"));
+            is_emergency=true;
         }
         if (e.vitals.fan_sec_rpm > FAN_SPEED_MAX)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Fan, "Fan Sec Speed High", $"{e.vitals.fan_sec_rpm.ToString()} PSI"));
+            is_emergency=true;
         }
         if (e.vitals.fan_sec_rpm < FAN_SPEED_MIN)
         {
             EventBus.Publish<CreateAlert>(new CreateAlert(AlertEnum.Vital_Fan, "Fan Sec Speed Low", $"{e.vitals.fan_sec_rpm.ToString()} PSI"));
+            is_emergency=true;
+        }
+        if(is_emergency)
+        {
+            EventBus.Publish<PlayAudio>(new PlayAudio("Emergency_Notification_Received"));
         }
     }
 

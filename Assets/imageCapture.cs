@@ -152,6 +152,7 @@ public class imageCapture : MonoBehaviour
             // UIA_backplate.transform.position = COM;
 
             // Random ballz to show where the raycasts hit
+            Debug.Log(hits[0]);
             sphere1.transform.position = hits[0];
             sphere2.transform.position = hits[1];
             sphere3.transform.position = hits[2];
@@ -226,12 +227,16 @@ public class imageCapture : MonoBehaviour
             }
         }*/
 
-    public void processUIAwebsocket(string position, string rotation, string points)
+    public void processUIAwebsocket(string position, string rotation, string[] points)
     {
         // UIA:x,y,z:a,b,c,d:x,y$x,y$x,y$x,y        
         Vector3 head_pos = parseVector(position);
         Quaternion head_rot = parseQuaternion(rotation);
         Vector3[] corners = parse_points(points);
+        Debug.Log(points);
+        Debug.Log(head_pos);
+        Debug.Log(head_rot);
+        Debug.Log(corners[0]);
         queued_actions.Enqueue(new RayCastAction
         {
             action = "rectangle",
@@ -243,7 +248,7 @@ public class imageCapture : MonoBehaviour
         });
     }
 
-    private void processGeosampleWebsocket(string message)
+    /*private void processGeosampleWebsocket(string message)
     {
         // geosample:x,y,z:a,b,c,d:x,y
         string[] components = message.Split(":");
@@ -259,8 +264,8 @@ public class imageCapture : MonoBehaviour
             keypoints = point,
             description = components[4]
         });
-    }
-    private void processCalibration(string message)
+    }*/
+    /*private void processCalibration(string message)
     {
         // calibration:x,y,z:a,b,c,d:x,y
         string[] components = message.Split(":");
@@ -276,7 +281,7 @@ public class imageCapture : MonoBehaviour
             keypoints = point,
             description = "ballz"
         });
-    }
+    }*/
 
 
     void SendTextureWS(string type)
@@ -286,7 +291,8 @@ public class imageCapture : MonoBehaviour
         string resp = head_pos + "}$#EndHeadCoord" + Convert.ToBase64String(targetTexture.EncodeToJPG());*/
         if (type == "UIA")
         {
-            UIAImage uiaImage = new UIAImage(Convert.ToBase64String(targetTexture.EncodeToJPG()), "", Camera.main.transform.position.ToString(), Camera.main.transform.rotation.ToString());
+            string[] points = { };
+            UIAImage uiaImage = new UIAImage(Convert.ToBase64String(targetTexture.EncodeToJPG()), points, Camera.main.transform.position.ToString(), Camera.main.transform.rotation.ToString());
             wdh = GameObject.Find("Controller").transform.GetComponent<WebsocketDataHandler>();
             Debug.Log(wdh);
             wdh.SendUIA(uiaImage);
@@ -436,16 +442,17 @@ public class imageCapture : MonoBehaviour
         return qua;
     }
 
-    Vector3[] parse_points(string input)
+    Vector3[] parse_points(string[] input)
     {
         // Debug.Log("Parsing Rectangle");
-        string[] cornerString = input.Split("$");
+        Debug.Log(input);
+
         Vector3[] corners = new Vector3[4];
-        for (int i = 0; i < cornerString.Length; i++)
+        for (int i = 0; i < input.Length; i++)
         {
-            if (cornerString[i].Length > 0)
+            if (input[i].Length > 0)
             {
-                string[] components = cornerString[i].Split(",");
+                string[] components = input[i].Split(",");
                 float x = float.Parse(components[0]);
                 float y = float.Parse(components[1]);
                 corners[i] = new Vector3(x, y, 0);
