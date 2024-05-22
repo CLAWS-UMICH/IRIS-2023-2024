@@ -402,11 +402,13 @@ public class VegaAudio
 {
     public string base_64_audio;
     public string text_from_VEGA;
+    public bool classify;
 
-    public VegaAudio(string a, string s)
+    public VegaAudio(string a, string s, bool c)
     {
         base_64_audio = a;
         text_from_VEGA = s;
+        classify = c;
     }
 }
 
